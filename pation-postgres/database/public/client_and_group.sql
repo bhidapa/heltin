@@ -49,6 +49,7 @@ create type public.client_relation_type as enum (
   'COUPLE'
 );
 
+-- relation between to clients (parent of related child)
 create table public.client_relation (
   client_id         uuid references public.client(id) on delete cascade,
   "type"            public.client_relation_type not null,
@@ -57,18 +58,17 @@ create table public.client_relation (
 
 ----
 
-create table public.client_mental_health_professional (
+-- groups multiple clients
+create table public.group (
   id uuid primary key default uuid_generate_v4(),
 
-  client_id                     uuid not null references public.client(id),
-  mental_health_professional_id uuid not null references public.mental_health_professional(id),
-  unique(client_id, mental_health_professional_id),
-
-  "primary" boolean not null,
+  "number" integer not null,
 
   created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  updated_at updated_timestamptz not null  
 );
 
--- only one primary mental health professional
-create unique index client_mental_health_professional_primary on public.client_mental_health_professional (client_id) where ("primary");
+create table public.group_client (
+  group_id  uuid not null references public.group(id) on delete cascade,
+  client_id uuid not null references public.client(id) on delete cascade
+);
