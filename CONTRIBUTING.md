@@ -1,4 +1,4 @@
-# Contributing to `pation`
+# Contributing to `heltin`
 
 - [Report Issues](#issues)
 - [Commit Message Guidelines](#commit)
