@@ -53,6 +53,8 @@ create table public.case_study_session (
 
   description text,
 
+  score integer check(score >= 1 and score <= 5),
+
   -- todo: add more columns
 
   created_at created_timestamptz not null,
