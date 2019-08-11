@@ -33,7 +33,7 @@ create unique index case_study_mental_health_professional_primary on public.case
 
 ----
 
-create table public.session (
+create table public.case_study_session (
   id uuid primary key default uuid_generate_v4(),
 
   case_study_id uuid not null references public.case_study(id) on delete cascade,
