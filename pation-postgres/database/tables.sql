@@ -6,3 +6,5 @@
 
 \ir public/client_and_group.sql
 \ir public/case_study.sql
+
+\ir public/anamnesis.sql
