@@ -9,3 +9,4 @@
 
 \ir public/anamnesis.sql
 \ir public/multidisciplinary_diagnostic.sql
+\ir public/multidisciplinary_therapy.sql
