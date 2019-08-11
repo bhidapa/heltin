@@ -1,7 +1,9 @@
 create table public.anamnesis (
   id uuid primary key default uuid_generate_v4(),
 
-  client_id uuid not null references public.client(id) on delete cascade,
+  client_id uuid references public.client(id) on delete cascade,
+  group_id  uuid references public.group(id) on delete cascade,
+  check ((client_id is null) <> (group_id is null)), -- only one can be set. one must be set
 
   description text,
 
