@@ -8,3 +8,4 @@
 \ir public/case_study.sql
 
 \ir public/anamnesis.sql
+\ir public/multidisciplinary_diagnostic.sql
