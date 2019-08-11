@@ -42,22 +42,6 @@ create table public.client (
 
 ----
 
-create type public.client_relation_type as enum (
-  'PARENT',
-  'SIBLING',
-  'FAMILY',
-  'COUPLE'
-);
-
--- relation between to clients (parent of related child)
-create table public.client_relation (
-  client_id         uuid references public.client(id) on delete cascade,
-  "type"            public.client_relation_type not null,
-  related_client_id uuid references public.client(id) on delete cascade
-);
-
-----
-
 -- groups multiple clients
 create table public.group (
   id uuid primary key default uuid_generate_v4(),
