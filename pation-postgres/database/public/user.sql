@@ -36,7 +36,13 @@ grant select, update on table public.assistant to viewer;
 create type public.mental_health_professional_type as enum (
   'PSYCHOTHERAPIST',
   'PSYCHOLOGIST',
-  'PSYCHIATRIST'
+  'PSYCHIATRIST',
+  'NEUROLOGIST',
+  'PEDIATRIST',
+  'SOCIAL_WORKER',
+  'PEDAGOGUE',
+  'DEFECTOLOGIST',
+  'PHONETICIAN'
 );
 
 create table public.mental_health_professional (
