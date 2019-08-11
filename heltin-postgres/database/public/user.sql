@@ -42,7 +42,8 @@ create type public.mental_health_professional_type as enum (
   'SOCIAL_WORKER',
   'PEDAGOGUE',
   'DEFECTOLOGIST',
-  'PHONETICIAN'
+  'PHONETICIAN',
+  'OTHER'
 );
 
 create table public.mental_health_professional (
