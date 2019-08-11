@@ -15,7 +15,7 @@ create table public.case_study (
 
 create table public.case_study_relation (
   case_study_id uuid references public.case_study(id) on delete restrict,
-  related_case_study_id uuid references public.case_study(id) on delete restrict
+  related_case_study_id uuid references public.case_study(id) on delete restrict,
 
   description text, -- why is it related?
 
