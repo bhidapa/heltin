@@ -1,4 +1,4 @@
-create table public.anamnesis (
+create table public.case_study (
   id uuid primary key default uuid_generate_v4(),
 
   client_id uuid references public.client(id) on delete cascade,
@@ -18,7 +18,7 @@ create table public.anamnesis (
 create table public.session (
   id uuid primary key default uuid_generate_v4(),
 
-  anamnesis_id uuid not null references public.anamnesis(id) on delete cascade,
+  case_study_id uuid not null references public.anamnesis(id) on delete cascade,
 
   started_at timestamptz not null,
   ended_at   timestamptz not null,
@@ -44,7 +44,7 @@ create type public.conclusion_type as enum (
 create table public.conclusion (
   id uuid primary key default uuid_generate_v4(),
 
-  anamnesis_id uuid not null references public.anamnesis(id) on delete cascade,
+  case_study_id uuid not null references public.anamnesis(id) on delete cascade,
 
   description text,
 

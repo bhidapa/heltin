@@ -6,4 +6,4 @@
 
 \ir public/client.sql
 \ir public/group.sql
-\ir public/case.sql
+\ir public/case_study.sql
