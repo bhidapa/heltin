@@ -1,0 +1,20 @@
+version: "3"
+volumes:
+  postgres-data:
+    driver: "local"
+networks:
+  private:
+    driver: "bridge"
+  public:
+    driver: "bridge"
+services:
+  postgres:
+    image: bhidapa/heltin-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=d25e34e1c4a24e4e953b325e581cab60
+      - POSTGRES_DB=heltin
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - private
