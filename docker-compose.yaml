@@ -10,11 +10,28 @@ networks:
 services:
   postgres:
     image: bhidapa/heltin-postgres
+    networks:
+      - private
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=d25e34e1c4a24e4e953b325e581cab60
       - POSTGRES_DB=heltin
     volumes:
       - postgres-data:/var/lib/postgresql/data
+  graphql:
+    image: bhidapa/heltin-graphql
     networks:
       - private
+      - public
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=d25e34e1c4a24e4e953b325e581cab60
+      - POSTGRES_DB=heltin
+      - POSTGRES_SCHEMAS=public
+      - GRAPHQL_ROUTE=/graphql
+      - GRAPHIQL_ROUTE=/graphiql
+      - PORT=5000
+    depends_on:
+      - postgres

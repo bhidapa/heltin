@@ -4,3 +4,9 @@ services:
     build: ./heltin-postgres
     ports:
       - 5432:5432
+  graphql:
+    build: ./heltin-graphql
+    environment:
+      - WATCH=true
+    ports:
+      - 5000:5000
