@@ -48,6 +48,8 @@ create table public.case_study_session (
 
   case_study_id uuid not null references public.case_study(id) on delete cascade,
 
+  "external" boolean not null,
+
   started_at timestamptz not null,
   ended_at   timestamptz not null,
 
