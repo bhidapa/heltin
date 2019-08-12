@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./build",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "strictNullChecks": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "esnext",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  }
+}
