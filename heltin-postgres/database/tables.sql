@@ -7,6 +7,6 @@
 \ir public/client_and_group.sql
 \ir public/case_study.sql
 
-\ir public/anamnesis.sql
+\ir public/case_history.sql
 \ir public/multidisciplinary_diagnostic.sql
 \ir public/multidisciplinary_therapy.sql

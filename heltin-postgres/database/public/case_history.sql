@@ -1,11 +1,11 @@
-create type public.anamnesis_accompanied_by_type as enum (
+create type public.case_history_accompanied_by_type as enum (
   'NONE',
   'FATHER',
   'MOTHER',
   'FAMILY'
 );
 
-create type public.anamnesis_lives_with_type as enum (
+create type public.case_history_lives_with_type as enum (
   'ALONE',
   'FATHER',
   'MOTHER',
@@ -25,13 +25,13 @@ create type public.anamnesis_lives_with_type as enum (
   'FOSTER_HOUSE'
 );
 
-create type public.anamnesis_divorced_parents_type as enum (
+create type public.case_history_divorced_parents_type as enum (
   'IN_PROCESS',
   'YES',
   'NO'
 );
 
-create type public.anamnesis_divorce_outcome_type as enum (
+create type public.case_history_divorce_outcome_type as enum (
   'HIGH_CONFLICT',
   'MEDIUM_CONFLICT',
   'LOW_CONFLICT',
@@ -39,7 +39,7 @@ create type public.anamnesis_divorce_outcome_type as enum (
   'UNKNOWN'
 );
 
-create type public.anamnesis_deceased_type as enum (
+create type public.case_history_deceased_type as enum (
   'FATHER',
   'MOTHER',
   'SISTER',
@@ -52,14 +52,14 @@ create type public.anamnesis_deceased_type as enum (
   'FOSTER_FATHER'
 );
 
-create type public.anamnesis_reason_of_multiple_adoptions_type as enum (
+create type public.case_history_reason_of_multiple_adoptions_type as enum (
   'ABUSE',
   'NEGLECTION',
   'LOSS_OF_FOSTER_PARENT',
   'OTHER'
 );
 
-create type public.anamnesis_arrival_reason_type as enum (
+create type public.case_history_arrival_reason_type as enum (
   'EMOTIONAL_PROBLEMS',
   'BEHAVIORAL_PROBLEMS',
   'ANXIETY',
@@ -92,7 +92,7 @@ create type public.anamnesis_arrival_reason_type as enum (
   'OTHER'
 );
 
-create type public.anamnesis_referral_type as enum (
+create type public.case_history_referral_type as enum (
   'SELF',
   'KINDERGARTEN',
   'SCHOOL',
@@ -106,7 +106,7 @@ create type public.anamnesis_referral_type as enum (
   'OTHER'
 );
 
-create type public.anamnesis_abuse_type as enum (
+create type public.case_history_abuse_type as enum (
   'SEXUAL_ABUSE',
   'PHYSICAL_ABUSE',
   'EMOTIONAL_ABUSE',
@@ -118,13 +118,13 @@ create type public.anamnesis_abuse_type as enum (
   'OTHER'
 );
 
-create type public.anamnesis_reported_abuse_type as enum (
+create type public.case_history_reported_abuse_type as enum (
   'SOCIAL_WORK_CENTER',
   'COURT', -- sud
   'NOT_REPORTED'
 );
 
-create type public.anamnesis_individual_type as enum (
+create type public.case_history_individual_type as enum (
   'FATHER',
   'MOTHER',
   'GRANDFATHER',
@@ -144,40 +144,40 @@ create type public.anamnesis_individual_type as enum (
   'LOVER'
 );
 
-create type public.anamnesis_parents_in_jail_type as enum (
+create type public.case_history_parents_in_jail_type as enum (
   'FATHER',
   'MOTHER',
   'FATHER_AND_MOTHER'
 );
 
-create table public.anamnesis (
+create table public.case_history (
   id uuid primary key default uuid_generate_v4(),
 
   case_study_id         uuid not null references public.case_study(id) on delete cascade,
   case_study_session_id uuid references public.case_study_session(id) on delete cascade,
 
-  accompanied_by public.anamnesis_accompanied_by_type,
+  accompanied_by public.case_history_accompanied_by_type,
 
-  lives_with public.anamnesis_lives_with_type[],
+  lives_with public.case_history_lives_with_type[],
 
-  divorced_parents public.anamnesis_divorced_parents_type,
-  divorce_outcome public.anamnesis_divorce_outcome_type,
+  divorced_parents public.case_history_divorced_parents_type,
+  divorce_outcome public.case_history_divorce_outcome_type,
 
-  deceased public.anamnesis_deceased_type,
+  deceased public.case_history_deceased_type,
 
   adoption_age float8,
 
   number_of_adoptions integer,
-  reason_of_multiple_adoptions public.anamnesis_reason_of_multiple_adoptions_type[],
+  reason_of_multiple_adoptions public.case_history_reason_of_multiple_adoptions_type[],
 
-  arrival_reason public.anamnesis_arrival_reason_type[],
+  arrival_reason public.case_history_arrival_reason_type[],
 
   earlier_professional_help public.mental_health_professional_type[],
 
   earlier_medical_reports boolean,
 
   referral_diagnosis text,
-  referral public.anamnesis_referral_type[],
+  referral public.case_history_referral_type[],
   involved_referral boolean,
 
   previous_treatment text,
@@ -190,21 +190,21 @@ create table public.anamnesis (
 
   diagnosed_intelectual_development_problems boolean,
 
-  further_abuses public.anamnesis_abuse_type[],
-  reported_further_abuses public.anamnesis_reported_abuse_type,
+  further_abuses public.case_history_abuse_type[],
+  reported_further_abuses public.case_history_reported_abuse_type,
 
-  loss_of_close_individual public.anamnesis_individual_type[],
+  loss_of_close_individual public.case_history_individual_type[],
   age_during_loss_of_close_individual float8,
 
   family_heredity text,
 
   ptsp text,
 
-  parents_in_jail public.anamnesis_parents_in_jail_type,
+  parents_in_jail public.case_history_parents_in_jail_type,
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
 
-comment on column public.anamnesis.accompanied_by is 'With whom was the patient accopanied by.';
-comment on column public.anamnesis.lives_with is 'With whom does the patient live with.';
+comment on column public.case_history.accompanied_by is 'With whom was the patient accopanied by.';
+comment on column public.case_history.lives_with is 'With whom does the patient live with.';
