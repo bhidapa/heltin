@@ -1,9 +1,7 @@
-/build
-/node_modules
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-npm-debug.log*
+**/*~
+**/*.log
 **/.DS_Store
+**/Thumbs.db
+**/node_modules
+**/build
 .vscode
