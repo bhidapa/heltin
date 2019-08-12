@@ -65,11 +65,11 @@ create table public.case_study_session (
 
 ----
 
-create type public.conclusion_type as enum (
-  'ZAVRSETAK_TRETMANA',
-  'ODUSTAJANJE_OD_STRANE_KLIJENTA',
-  'ODUSTAJANJE_OD_STRANE_RODITELJA',
-  'PREPORUKA_ZA_DALJE'
+create type public.case_study_conclusion_type as enum (
+  'TREATMENT_COMPLETION',
+  'CANCELLATION_BY_CLIENT',
+  'CANCELLATION_BY_PARENT',
+  'FURTHER_REFERRAL'
 );
 
 -- presence of conclusion locks all entries referencing the case study
@@ -78,9 +78,9 @@ create table public.case_study_conclusion (
 
   case_study_id uuid not null references public.case_study(id) on delete cascade,
 
-  description text,
+  "type" public.case_study_conclusion_type not null,
 
-  -- todo: add more columns
+  description text,
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
