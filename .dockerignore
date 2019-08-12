@@ -1,0 +1,14 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/heltin-graphql/**
+!/heltin-postgres/**
+
+# Ignore unnecessary files inside allowed directories
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.db
+**/node_modules
+**/build
