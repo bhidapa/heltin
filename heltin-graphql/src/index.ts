@@ -9,11 +9,12 @@ const pgPassword = process.env.POSTGRES_PASSWORD;
 const pgPort = process.env.POSTGRES_PORT;
 const pgDb = process.env.POSTGRES_DB;
 const pgSchemas = (process.env.POSTGRES_SCHEMAS || "").split(",");
-const watch = (function() {
-  return ["t", "true", "1", "yes"].some(flag => process.env.WATCH === flag);
-})();
+const watch = isTrue(process.env.WATCH);
 const graphqlRoute = process.env.GRAPHQL_ROUTE;
 const graphiqlRoute = process.env.GRAPHIQL_ROUTE;
+const jwtPgTypeIdentifier = process.env.JWT_POSTGRES_TYPE_IDENTIFIER;
+const jwtSecret = process.env.JWT_SECRET;
+const noAuth = isTrue(process.env.NO_AUTH);
 const port = process.env.PORT;
 
 start();
@@ -33,6 +34,9 @@ function start() {
         watch,
         graphqlRoute,
         graphiqlRoute,
+        jwtPgTypeIdentifier,
+        jwtSecret: jwtSecret ? "<omitted>" : undefined,
+        noAuth,
         port
       },
       undefined,
@@ -62,9 +66,15 @@ function start() {
           appendPlugins: [PgNonNullRelationsPlugin, PgIdToRowIdInflectorPlugin],
           graphqlRoute,
           graphiql: !!graphiqlRoute,
-          graphiqlRoute
+          graphiqlRoute,
+          jwtPgTypeIdentifier,
+          jwtSecret
         }
       )
     )
     .listen(port);
+}
+
+function isTrue(str: string | undefined): boolean {
+  return ["t", "true", "1", "yes"].some(flag => str === flag);
 }

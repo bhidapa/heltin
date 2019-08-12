@@ -30,6 +30,7 @@ services:
       - POSTGRES_SCHEMAS=public
       - GRAPHQL_ROUTE=/graphql
       - GRAPHIQL_ROUTE=/graphiql
+      - JWT_POSTGRES_TYPE_IDENTIFIER=private.jwt_token
       - PORT=5000
     depends_on:
       - postgres
