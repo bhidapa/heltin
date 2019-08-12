@@ -3,4 +3,4 @@ services:
   postgres:
     build: ./heltin-postgres
     ports:
-      - 5432:5324
+      - 5432:5432
