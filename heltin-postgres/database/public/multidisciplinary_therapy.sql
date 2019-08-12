@@ -39,6 +39,8 @@ create table public.multidisciplinary_therapy (
 
   multidisciplinary_diagnostic_id uuid references public.multidisciplinary_diagnostic(id) on delete restrict,
 
+  "type" public.multidisciplinary_therapy_type not null,
+
   "external" boolean not null,
 
   description text,

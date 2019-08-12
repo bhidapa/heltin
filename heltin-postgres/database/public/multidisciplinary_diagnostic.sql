@@ -31,7 +31,7 @@ create type public.multidisciplinary_diagnostic_report_type as enum (
   'T_O_V_A'
 );
 
-create table public.multidisciplinary_diagnostic_report_issued_to_type as enum (
+create type public.multidisciplinary_diagnostic_report_issued_to_type as enum (
   'CLIENT',
   'PARENT',
   'KINDERGARTEN',
