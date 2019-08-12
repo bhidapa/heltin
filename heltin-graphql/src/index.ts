@@ -26,7 +26,7 @@ function start() {
       {
         pgHost,
         pgUser,
-        pgPassword: "<omitted>",
+        pgPassword: pgPassword ? "<omitted>" : undefined,
         pgPort,
         pgDb,
         pgSchemas,
@@ -44,7 +44,9 @@ function start() {
   http
     .createServer(
       postgraphile(
-        `postgres://${pgUser}:${pgPassword}@${pgHost}:${pgPort}/${pgDb}`,
+        `postgres://${pgUser}${
+          pgPassword ? `:${pgPassword}` : ""
+        }@${pgHost}:${pgPort}/${pgDb}`,
         pgSchemas,
         {
           classicIds: true,
