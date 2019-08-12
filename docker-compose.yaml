@@ -35,3 +35,4 @@ services:
       - PORT=5000
     depends_on:
       - postgres
+    restart: always
