@@ -7,7 +7,19 @@ create table public.user (
   updated_at updated_timestamptz not null
 );
 
-grant select, update on table public.user to viewer;
+grant all on table public.user to viewer;
+
+----
+
+create or replace function public.user_is_admin(
+  "user" public.user
+) returns boolean as
+$$
+  select admin from private.user as private_user where private_user.id = "user".id
+$$
+language sql stable;
+
+comment on function public.user_is_admin is '@notNull';
 
 ----
 

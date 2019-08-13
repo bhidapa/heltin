@@ -10,24 +10,26 @@ grant select on table public.user to anonymous;
 ----
 
 create or replace function public.register(
-  email      text,
-  first_name text,
-  last_name  text,
-  password   text
+  email    text,
+  password text
 ) returns private.jwt_token as
 $$
 declare
-  tokenduration   interval := '7 days';
-  new_user_id uuid;
+  tokenduration interval := '7 days';
+  new_user_id   uuid;
 begin
+  if not exists (select 1 from public.viewer() where public.user_is_admin(viewer)) then
+    raise exception 'Unauthorized!';
+  end if;
+
   -- create user
   with new_private_user as (
     insert into private.user (password)
       values (crypt(register.password, gen_salt('bf')))
     returning id
   )
-  insert into public.user (id, email, first_name, last_name)
-    values ((select id from new_private_user), register.email, register.first_name, register.last_name)
+  insert into public.user (id, email)
+    values ((select id from new_private_user), register.email)
   returning id into new_user_id;
 
   -- make token
@@ -45,7 +47,7 @@ $$
 language plpgsql volatile
 security definer;
 
-comment on function public.register is 'Creates a new `user`.';
+comment on function public.register is 'Creates a new `User`.';
 
 ----
 
@@ -85,14 +87,3 @@ language plpgsql volatile strict
 security definer;
 
 comment on function public.authenticate is 'Authenticates a `User`.';
-
-----
-
-create or replace function public.viewer() returns public.user as
-$$
-  select * from public.user where (id::text = current_setting('jwt.claims.sub', true))
-$$
-language sql stable
-cost 10000; -- so that the planner calls the function as little as possible
-
-comment on function public.viewer is 'Currently authenticated `user`.';
