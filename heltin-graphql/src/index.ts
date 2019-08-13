@@ -68,7 +68,8 @@ function start() {
           graphiql: !!graphiqlRoute,
           graphiqlRoute,
           jwtPgTypeIdentifier,
-          jwtSecret
+          jwtSecret,
+          pgDefaultRole: noAuth ? "viewer" : "anonymous"
         }
       )
     )
