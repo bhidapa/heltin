@@ -65,12 +65,12 @@ begin
       (
         'viewer',
         extract(epoch from (now() + tokenduration)),
-        new_public_user.id
+        public_user.id
       )
-    from public.user as new_public_user
-      inner join private.user as private_user on (private_user.id = new_public_user.id)
+    from public.user as public_user
+      inner join private.user as private_user on (private_user.id = public_user.id)
     where (
-      new_public_user.email = authenticate.email
+      public_user.email = authenticate.email
     ) and (
       private_user.password = crypt(authenticate.password, private_user.password)
     )
