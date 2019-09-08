@@ -65,8 +65,9 @@ function start() {
           },
           appendPlugins: [PgNonNullRelationsPlugin, PgIdToRowIdInflectorPlugin],
           graphqlRoute,
-          graphiql: !!graphiqlRoute,
           graphiqlRoute,
+          graphiql: !!graphiqlRoute,
+          enhanceGraphiql: true,
           jwtPgTypeIdentifier,
           jwtSecret,
           pgDefaultRole: noAuth ? "viewer" : "anonymous"
