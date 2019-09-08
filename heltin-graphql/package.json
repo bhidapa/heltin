@@ -13,6 +13,6 @@
     "postgraphile": "^4.4.3"
   },
   "devDependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.2"
   }
 }
