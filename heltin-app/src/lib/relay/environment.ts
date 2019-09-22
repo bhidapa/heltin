@@ -7,6 +7,7 @@
  */
 
 import { Network, Environment, RecordSource, Store } from 'relay-runtime';
+import { auth } from 'lib/auth';
 
 // A collection of records keyed by their data ID, used both to represent the cache and updates to it.
 const recordSource = new RecordSource();
@@ -21,11 +22,11 @@ const network = Network.create(async (operation, variables) => {
     'Content-Type': 'application/json',
   });
 
-  // TODO-db-190919 implement authorization
   // get token and set header if the token exists
-  // if (token) {
-  //   headers.set('Authorization', `Bearer ${token}`);
-  // }
+  const { token } = auth.state;
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
 
   // Fetch function for handling GraphQL requests.
   const response = await fetch(
