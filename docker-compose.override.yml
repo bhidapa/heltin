@@ -4,6 +4,8 @@ services:
     build: ./heltin-postgres
     ports:
       - ${POSTGRES_PORT}:5432
+    volumes:
+      - ./heltin-postgres:/docker-entrypoint-initdb.d
   graphql:
     build: ./heltin-graphql
     environment:
