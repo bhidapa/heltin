@@ -9,6 +9,15 @@ create table public.user (
 
 grant all on table public.user to viewer;
 
+-- here we grant select to the anonymous user. we do so
+-- that we can use the graphql query `{ viewer { id } }`
+-- and its result `viewer: { 'someid'} OR viewer: null`
+-- to indicate whether the user is logged in or not
+-- without the grant the query would raise an exception.
+-- take a look at: `policies/user.sql` to see how we
+-- hide the table rows to prevent data leakage
+grant select on table public.user to anonymous;
+
 ----
 
 create or replace function public.user_is_admin(

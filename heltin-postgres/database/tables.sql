@@ -1,9 +1,13 @@
 -- ordered import
 
+\ir private/jwt.sql
+
 \ir private/user.sql
-\ir private/auth.sql
 \ir public/user.sql
+
+\ir private/auth.sql
 \ir public/auth.sql
+
 \ir public/viewer.sql
 
 \ir public/client_and_group.sql

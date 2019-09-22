@@ -13,6 +13,8 @@ create table public.case_study (
   updated_at updated_timestamptz not null
 );
 
+grant all on public.case_study to viewer;
+
 create table public.case_study_relation (
   case_study_id uuid references public.case_study(id) on delete restrict,
   related_case_study_id uuid references public.case_study(id) on delete restrict,
