@@ -3,11 +3,11 @@ services:
   postgres:
     build: ./heltin-postgres
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:5432
   graphql:
     build: ./heltin-graphql
     environment:
       - JWT_SECRET=a347988782164b20856e28aa2e4d63b2
       - WATCH=true
     ports:
-      - 5000:5000
+      - ${GRAPHQL_PORT}:${GRAPHQL_PORT}

@@ -13,8 +13,8 @@ services:
     networks:
       - private
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=heltin
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres-data:/var/lib/postgresql/data
   graphql:
@@ -25,13 +25,13 @@ services:
     environment:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=heltin
-      - POSTGRES_SCHEMAS=public
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_SCHEMAS=${POSTGRES_SCHEMAS}
       - GRAPHQL_ROUTE=/graphql
       - GRAPHIQL_ROUTE=/graphiql
-      - JWT_POSTGRES_TYPE_IDENTIFIER=private.jwt_token
-      - PORT=5000
+      - JWT_POSTGRES_TYPE_IDENTIFIER=${JWT_POSTGRES_TYPE_IDENTIFIER}
+      - PORT=${GRAPHQL_PORT}
     depends_on:
       - postgres
-    restart: always
+    restart: unless-stopped
