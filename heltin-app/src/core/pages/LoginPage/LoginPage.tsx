@@ -7,8 +7,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-export const LOGIN_PAGE_ROUTE = '/login';
-
 // plumbs
 import { login } from 'lib/auth';
 

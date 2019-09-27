@@ -12,5 +12,6 @@ module.exports = {
     JwtToken: 'String',
     UUID: 'String',
     BigInt: 'Int',
+    EmailAddress: 'String',
   },
 };

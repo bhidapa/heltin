@@ -18,15 +18,35 @@ import { auth, deriveIsLoggedIn } from 'lib/auth';
 import { Flex } from '@domonda/ui/Flex';
 
 // pages
+import { LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE } from 'lib/routes';
 const LazyFourOhFourPage = createLazy(() => import('../pages/FourOhFourPage/default'));
-import { LOGIN_PAGE_ROUTE } from '../pages/LoginPage';
 const LazyLoginPage = createLazy(() => import('../pages/LoginPage/default'));
+const LazyLogoutPage = createLazy(() => import('../pages/LogoutPage/default'));
 
 // parts
 import { AppBar } from '../AppBar';
 
 // decorate
 import { decorate, Decorate } from './decorate';
+
+const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
+  const { isLoggedIn } = props;
+  if (!isLoggedIn) {
+    return (
+      <>
+        <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
+        <Redirect path="*" to={LOGIN_PAGE_ROUTE} />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
+      <Route path="*" component={LazyFourOhFourPage} />
+    </>
+  );
+});
 
 const Root: React.FC<Decorate> = (props) => {
   const { classes } = props;
@@ -53,13 +73,7 @@ const Root: React.FC<Decorate> = (props) => {
                   strict
                   render={({ location }) => <Redirect to={location.pathname.replace(/\/+$/, '')} />}
                 />
-                {!isLoggedIn && (
-                  <>
-                    <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
-                    <Redirect path="*" to={LOGIN_PAGE_ROUTE} />
-                  </>
-                )}
-                <Route path="*" component={LazyFourOhFourPage} />
+                <RootRoutes isLoggedIn={isLoggedIn} />
               </Switch>
             </Flex>
           )}

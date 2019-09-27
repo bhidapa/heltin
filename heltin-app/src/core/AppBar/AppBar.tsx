@@ -10,6 +10,9 @@ import React from 'react';
 import { Flex } from '@domonda/ui/Flex';
 import { Text } from '@domonda/ui/Text';
 
+// parts
+import { AppBarActions } from './AppBarActions';
+
 // decorate
 import { decorate, Decorate } from './decorate';
 
@@ -27,7 +30,7 @@ const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
       </Flex>
       <Flex item flex={1} />
       <Flex item>
-        <Text color="textSecondary">John Doe</Text>
+        <AppBarActions />
       </Flex>
     </Flex>
   );
