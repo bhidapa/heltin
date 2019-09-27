@@ -29,6 +29,7 @@ import { AppBar } from '../AppBar';
 // decorate
 import { decorate, Decorate } from './decorate';
 
+// eslint-disable-next-line react/display-name
 const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
   const { isLoggedIn } = props;
   if (!isLoggedIn) {
