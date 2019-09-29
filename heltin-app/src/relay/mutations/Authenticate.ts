@@ -5,12 +5,12 @@
  */
 
 import { graphql, commitMutation } from 'react-relay';
-import { environment } from 'lib/relay/environment';
+import { environment } from 'relay/environment';
 import {
   AuthenticateMutation,
   AuthenticateMutationVariables,
   AuthenticateMutationResponse,
-} from 'lib/relay/artifacts/AuthenticateMutation.graphql';
+} from 'relay/artifacts/AuthenticateMutation.graphql';
 
 const mutation = graphql`
   mutation AuthenticateMutation($input: AuthenticateInput!) {

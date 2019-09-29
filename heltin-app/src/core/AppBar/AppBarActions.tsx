@@ -11,8 +11,8 @@ import { Redirect } from 'react-router-dom';
 
 // relay
 import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'lib/relay/environment';
-import { AppBarActionsQuery } from 'lib/relay/artifacts/AppBarActionsQuery.graphql';
+import { environment } from 'relay/environment';
+import { AppBarActionsQuery } from 'relay/artifacts/AppBarActionsQuery.graphql';
 
 // icons
 import { PowerIcon } from 'lib/icons';

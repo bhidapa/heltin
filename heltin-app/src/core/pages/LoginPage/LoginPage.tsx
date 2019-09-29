@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import { login } from 'lib/auth';
 
 // relay
-import { authenticateMutation } from 'lib/relay/mutations/Authenticate';
+import { authenticateMutation } from 'relay/mutations/Authenticate';
 
 // ui
 import { Flex, Button, TextField, ErrInline } from '@domonda/ui';
