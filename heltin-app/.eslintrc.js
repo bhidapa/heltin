@@ -3,13 +3,14 @@ module.exports = {
   parserOptions: {
     warnOnUnsupportedTypeScriptVersion: false,
   },
+  plugins: ['prettier', '@typescript-eslint', 'react', 'react-hooks', 'relay'],
   extends: [
     'eslint:recommended',
     'plugin:prettier/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
+    'plugin:relay/recommended',
   ],
-  plugins: ['prettier', '@typescript-eslint', 'react'],
   settings: {
     react: {
       version: 'detect',
@@ -23,7 +24,7 @@ module.exports = {
   },
   rules: {
     indent: 'off',
-    'no-console': 'off',
+    'no-console': 'error',
 
     'prettier/prettier': 'error',
 
@@ -51,5 +52,10 @@ module.exports = {
 
     'react/no-unescaped-entities': 'off',
     'react/prop-types': 'off',
+    'react/no-array-index-key': 'error',
+
+    'react-hooks/rules-of-hooks': 'error',
+
+    'relay/unused-fields': 'off',
   },
 };

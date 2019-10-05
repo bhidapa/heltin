@@ -30,8 +30,9 @@ export const IntlProvider: React.FC<IntlProviderProps> = ({
       ba: Object.keys(messages).reduce((acc, curr) => {
         const baMessage = messages[curr].ba;
         if (!baMessage && locale === 'ba') {
+          // eslint-disable-next-line no-console
           console.warn(
-            `intl: key "${curr}" does not have a "de" message, using "en" message sa fallback`,
+            `intl: key "${curr}" does not have a "ba" message, using "en" message sa fallback`,
           );
         }
         return {
