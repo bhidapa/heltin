@@ -7,11 +7,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-// plumbs
-import { login } from 'lib/auth';
-
 // relay
 import { authenticateMutation } from 'relay/mutations/Authenticate';
+import { handleJwtToken } from 'relay/client/session';
 
 // ui
 import { Flex, Button, TextField, ErrInline } from '@domonda/ui';
@@ -29,7 +27,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
       <Flex container justify="center" align="center">
         <Flex item>
           <Form<{ email: string | null; password: string | null }>
-            defaultValues={{ email: null, password: null }}
+            defaultValues={{ email: 'john@doe.com', password: 'password' }}
             onSubmit={async ({ email, password }) => {
               const {
                 authenticate: { jwtToken },
@@ -44,7 +42,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
                 throw new Error('Malformed authenticate response.');
               }
 
-              login(jwtToken);
+              handleJwtToken(jwtToken);
             }}
           >
             <Flex container direction="column" spacing={1}>
@@ -68,7 +66,9 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
               <Flex item>
                 <FormSubmitErrorState>
                   {(error, { resetSubmitError }) =>
-                    error && <ErrInline error={error} onClose={resetSubmitError} />
+                    error && (
+                      <ErrInline error={error} onClose={resetSubmitError} disableCloseAutoFocus />
+                    )
                   }
                 </FormSubmitErrorState>
               </Flex>

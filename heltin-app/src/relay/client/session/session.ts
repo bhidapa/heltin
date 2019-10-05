@@ -61,12 +61,12 @@ export function lookupSession(): Session | null {
 
 export function setSession(session: Session | null) {
   commitLocalUpdate(environment, (store) => {
-    let record = store.get(dataID);
-    if (!record) {
-      record = store.create(dataID, __typename);
-    }
-
     if (session) {
+      let record = store.get(dataID);
+      if (!record) {
+        record = store.create(dataID, __typename);
+      }
+
       populateRecordValues(record, session);
       store.getRoot().setLinkedRecord(record, fieldKey);
     } else {

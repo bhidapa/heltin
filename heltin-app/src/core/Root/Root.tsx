@@ -10,9 +10,11 @@ import { createLazy } from 'lib/lazy';
 import { RestoreScroll } from 'lib/RestoreScroll';
 import { Helmet } from 'react-helmet';
 
-// plumbs
-import { useMappedPlumbState } from '@domonda/react-plumb';
-import { auth, deriveIsLoggedIn } from 'lib/auth';
+// relay
+import { graphql, useLocalQuery } from 'relay/hooks';
+import { environment } from 'relay/environment';
+import { checkIsAuthorized } from 'relay/client/session';
+import { RootSessionQuery } from 'relay/artifacts/RootSessionQuery.graphql';
 
 // ui
 import { Flex } from '@domonda/ui/Flex';
@@ -30,9 +32,9 @@ import { AppBar } from '../AppBar';
 import { decorate, Decorate } from './decorate';
 
 // eslint-disable-next-line react/display-name
-const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
-  const { isLoggedIn } = props;
-  if (!isLoggedIn) {
+const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
+  const { isAuthorized } = props;
+  if (!isAuthorized) {
     return (
       <Switch>
         <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
@@ -52,13 +54,27 @@ const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props
 const Root: React.FC<Decorate> = (props) => {
   const { classes } = props;
 
-  const [isLoggedIn] = useMappedPlumbState({ plumb: auth, mapper: deriveIsLoggedIn });
+  const { session } = useLocalQuery<RootSessionQuery>({
+    environment,
+    query: graphql`
+      query RootSessionQuery {
+        __typename
+        session {
+          token
+          expiresAt
+        }
+      }
+    `,
+    variables: {},
+  });
+
+  const isAuthorized = (session && checkIsAuthorized(session)) || false;
 
   return (
     <>
       <Helmet titleTemplate="%s | heltin" />
       <Flex container direction="column">
-        {isLoggedIn && (
+        {isAuthorized && (
           <Flex item container align="stretch" className={classes.header} component="header">
             <AppBar />
           </Flex>
@@ -74,7 +90,7 @@ const Root: React.FC<Decorate> = (props) => {
                   strict
                   render={({ location }) => <Redirect to={location.pathname.replace(/\/+$/, '')} />}
                 />
-                <RootRoutes isLoggedIn={isLoggedIn} />
+                <RootRoutes isAuthorized={isAuthorized} />
               </Switch>
             </Flex>
           )}

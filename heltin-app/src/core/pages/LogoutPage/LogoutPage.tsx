@@ -7,7 +7,7 @@
 import React, { useEffect } from 'react';
 
 // auth
-import { logout } from 'lib/auth';
+import { setSession } from 'relay/client/session';
 
 // ui
 import { Flex } from '@domonda/ui/Flex';
@@ -16,7 +16,7 @@ import { Text } from '@domonda/ui/Text';
 export type LogoutPageProps = {};
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
-  useEffect(() => logout(), []);
+  useEffect(() => setSession(null), []);
   return (
     <Flex container justify="center" align="center">
       <Flex item>
