@@ -20,3 +20,7 @@ export const environment = new Environment({
   store,
   network,
 });
+
+// Initialization of client side states.
+import { init as sessionInit } from './client/session';
+sessionInit(environment);
