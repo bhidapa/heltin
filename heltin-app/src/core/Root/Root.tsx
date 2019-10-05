@@ -34,18 +34,18 @@ const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props
   const { isLoggedIn } = props;
   if (!isLoggedIn) {
     return (
-      <>
+      <Switch>
         <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
         <Redirect path="*" to={LOGIN_PAGE_ROUTE} />
-      </>
+      </Switch>
     );
   }
 
   return (
-    <>
+    <Switch>
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
       <Route path="*" component={LazyFourOhFourPage} />
-    </>
+    </Switch>
   );
 });
 
