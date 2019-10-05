@@ -27,7 +27,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
       <Flex container justify="center" align="center">
         <Flex item>
           <Form<{ email: string | null; password: string | null }>
-            defaultValues={{ email: 'john@doe.com', password: 'password' }}
+            defaultValues={{ email: null, password: null }}
             onSubmit={async ({ email, password }) => {
               const {
                 authenticate: { jwtToken },
