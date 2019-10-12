@@ -11,6 +11,7 @@
 \ir public/viewer.sql
 
 \ir public/client_and_group.sql
+\ir public/filter_clients.sql
 \ir public/case_study.sql
 
 \ir public/case_history.sql

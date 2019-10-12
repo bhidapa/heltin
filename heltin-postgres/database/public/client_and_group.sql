@@ -42,6 +42,18 @@ create table public.client (
 
 grant all on public.client to viewer;
 
+create index client_fulltext_idx on public.client using gin(
+  to_tsvector('english',
+    "number" || ' ' ||
+    first_name || ' ' ||
+    last_name || ' ' ||
+    telephone || ' ' ||
+    coalesce(email, '') || ' ' ||
+    city || ' ' ||
+    address
+  )
+);
+
 ----
 
 -- groups multiple clients
