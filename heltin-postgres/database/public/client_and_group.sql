@@ -40,6 +40,8 @@ create table public.client (
   updated_at updated_timestamptz not null
 );
 
+grant all on public.client to viewer;
+
 ----
 
 -- groups multiple clients
@@ -52,10 +54,14 @@ create table public.group (
   updated_at updated_timestamptz not null  
 );
 
+grant all on public.group to viewer;
+
 create table public.group_client (
   group_id  uuid not null references public.group(id) on delete cascade,
   client_id uuid not null references public.client(id) on delete cascade
 );
+
+grant all on public.group_client to viewer;
 
 ----
 
