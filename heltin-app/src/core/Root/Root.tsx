@@ -20,10 +20,11 @@ import { RootSessionQuery } from 'relay/artifacts/RootSessionQuery.graphql';
 import { Flex } from '@domonda/ui/Flex';
 
 // pages
-import { LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE } from 'lib/routes';
+import { LOGIN_PAGE_ROUTE, LOGOUT_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
 const LazyFourOhFourPage = createLazy(() => import('../pages/FourOhFourPage/default'));
 const LazyLoginPage = createLazy(() => import('../pages/LoginPage/default'));
 const LazyLogoutPage = createLazy(() => import('../pages/LogoutPage/default'));
+const LazyClientsPage = createLazy(() => import('../pages/ClientsPage/default'));
 
 // parts
 import { AppBar } from '../AppBar';
@@ -46,6 +47,7 @@ const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(pro
   return (
     <Switch>
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
+      <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
       <Route path="*" component={LazyFourOhFourPage} />
     </Switch>
   );
