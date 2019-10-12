@@ -7,6 +7,8 @@
 import jwtDecode from 'jwt-decode';
 import { setSession } from './session';
 import { session } from 'lib/storage';
+import { history } from 'lib/history';
+import { DEFAULT_ROUTE } from 'lib/routes';
 
 export interface DecodedJWTToken {
   iss: 'postgraphile';
@@ -27,6 +29,7 @@ export function handleJwtToken(jwtToken: string) {
     token: jwtToken,
     expiresAt: exp * 1000, // convert seconds to miliseconds
   });
+  history.push(DEFAULT_ROUTE);
 }
 
 export function logout() {
