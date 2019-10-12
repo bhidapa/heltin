@@ -24,7 +24,7 @@ const styles = createStyles(({ spacing, typography, palette, transition }) => ({
     },
   },
   active: {
-    color: palette.primary,
+    color: palette.secondary,
     borderBottom: '3px solid currentColor',
   },
 }));
