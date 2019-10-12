@@ -56,3 +56,97 @@ create table public.group_client (
   group_id  uuid not null references public.group(id) on delete cascade,
   client_id uuid not null references public.client(id) on delete cascade
 );
+
+----
+
+create function public.create_client(
+  first_name    text,
+  last_name     text,
+  date_of_birth date,
+  telephone     text,
+  gender        public.gender,
+  city          text,
+  address       text,
+  sent_by       public.client_sent_by,
+  "number"      integer = null,
+  email         email_address = null,
+  discrete      boolean = null -- not seen by public.assistant
+) returns public.client as
+$$
+  insert into public.client (
+    first_name,
+    last_name,
+    date_of_birth,
+    telephone,
+    gender,
+    city,
+    address,
+    sent_by,
+    "number",
+    email,
+    discrete,
+    created_by
+  ) values (
+    create_client.first_name,
+    create_client.last_name,
+    create_client.date_of_birth,
+    create_client.telephone,
+    create_client.gender,
+    create_client.city,
+    create_client.address,
+    create_client.sent_by,
+    create_client."number",
+    create_client.email,
+    coalesce(create_client.discrete, false),
+    (select id from public.viewer())
+  )
+  returning *
+$$
+language sql volatile;
+
+----
+
+create function public.update_client(
+  id            uuid,
+  first_name    text,
+  last_name     text,
+  date_of_birth date,
+  telephone     text,
+  gender        public.gender,
+  city          text,
+  address       text,
+  sent_by       public.client_sent_by,
+  "number"      integer = null,
+  email         email_address = null,
+  discrete      boolean = null -- not seen by public.assistant
+) returns public.client as
+$$
+  update public.client
+    set
+      first_name=update_client.first_name,
+      last_name=update_client.last_name,
+      date_of_birth=update_client.date_of_birth,
+      telephone=update_client.telephone,
+      gender=update_client.gender,
+      city=update_client.city,
+      address=update_client.address,
+      sent_by=update_client.sent_by,
+      "number"=update_client."number",
+      email=update_client.email,
+      discrete=update_client.discrete,
+      updated_at=now()
+  where id = update_client.id
+  returning *
+$$
+language sql volatile;
+
+----
+
+create function public.delete_client(
+  id uuid
+) returns public.client as
+$$
+  delete from public.client
+  returning *
+$$
+language sql volatile;
