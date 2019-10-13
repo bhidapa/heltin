@@ -168,3 +168,15 @@ $$
   returning *
 $$
 language sql volatile;
+
+----
+
+create function public.client_full_name(
+  client public.client
+) returns text as
+$$
+  select client.first_name || ' ' || client.last_name
+$$
+language sql immutable;
+
+comment on function public.client_full_name is '@notNull';
