@@ -11,6 +11,7 @@ import { Route, Switch, RouteComponentProps } from 'react-router-dom';
 import { Box } from '@domonda/ui';
 
 // parts
+import { ClientsDetailPage } from './ClientsDetailPage';
 import { ClientsOverviewPage } from './ClientsOverviewPage';
 
 export type ClientsPageProps = RouteComponentProps;
@@ -20,6 +21,7 @@ const ClientsPage: React.FC<ClientsPageProps> = (props) => {
   return (
     <Box padding={5}>
       <Switch>
+        <Route path={`${match.path}/:rowId`} component={ClientsDetailPage} />
         <Route path={match.path} component={ClientsOverviewPage} />
       </Switch>
     </Box>
