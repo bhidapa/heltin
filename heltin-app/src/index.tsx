@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 
 // router
 import { Router } from 'react-router-dom';
+import { QueryParamsProvider } from '@domonda/query-params';
 import { history } from 'lib/history';
 
 // polyfills
@@ -28,12 +29,14 @@ import { Root } from 'core/Root';
 
 ReactDOM.render(
   <Router history={history}>
-    <IntlProvider defaultLocale="en" messages={messages}>
-      <ThemeProvider theme={theme}>
-        <Baseline />
-        <Root />
-      </ThemeProvider>
-    </IntlProvider>
+    <QueryParamsProvider history={history}>
+      <IntlProvider defaultLocale="en" messages={messages}>
+        <ThemeProvider theme={theme}>
+          <Baseline />
+          <Root />
+        </ThemeProvider>
+      </IntlProvider>
+    </QueryParamsProvider>
   </Router>,
   document.getElementById('root'),
 );
