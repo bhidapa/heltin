@@ -6971,18 +6971,6 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "CENTAR_ZA_MENTALNO_ZDRAVLJE"
-            },
-            {
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "CENTAR_ZA_SOCIJALNI_RAD"
-            },
-            {
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
               "name": "CLINIC"
             },
             {
@@ -6995,7 +6983,19 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "PEDIJATAR"
+              "name": "KINDERGARTEN"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "MENTAL_HEALTH_CENTER"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "PEDIATRICIAN"
             },
             {
               "deprecationReason": null,
@@ -7007,19 +7007,13 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "PO_PREPORUCI_DRUGOGA"
+              "name": "PSYCHIATRIST"
             },
             {
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "PSIHIJATAR"
-            },
-            {
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "SAMO_INICIJATIVNO"
+              "name": "REFERAL"
             },
             {
               "deprecationReason": null,
@@ -7031,7 +7025,13 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "VRTIC"
+              "name": "SELF_INITIATIVE"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "SOCIAL_WORK_CENTER"
             }
           ],
           "fields": null,
@@ -7504,9 +7504,13 @@
               "description": null,
               "name": "number",
               "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
               }
             },
             {
@@ -14793,9 +14797,13 @@
               "description": null,
               "name": "number",
               "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
               }
             },
             {

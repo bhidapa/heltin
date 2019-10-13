@@ -1,15 +1,15 @@
 create type public.client_sent_by as enum (
   'SCHOOL',
-  'VRTIC',
-  'CENTAR_ZA_SOCIJALNI_RAD',
+  'KINDERGARTEN',
+  'SOCIAL_WORK_CENTER',
   'CLINIC',
-  'SAMO_INICIJATIVNO',
+  'SELF_INITIATIVE',
   'POLICE',
-  'COURT', -- sud
-  'CENTAR_ZA_MENTALNO_ZDRAVLJE',
-  'PO_PREPORUCI_DRUGOGA',
-  'PEDIJATAR',
-  'PSIHIJATAR'
+  'COURT',
+  'MENTAL_HEALTH_CENTER',
+  'REFERAL',
+  'PEDIATRICIAN',
+  'PSYCHIATRIST'
 );
 
 create table public.client (
@@ -78,6 +78,7 @@ grant all on public.group_client to viewer;
 ----
 
 create function public.create_client(
+  "number"      integer,
   first_name    text,
   last_name     text,
   date_of_birth date,
@@ -86,12 +87,12 @@ create function public.create_client(
   city          text,
   address       text,
   sent_by       public.client_sent_by,
-  "number"      integer = null,
   email         email_address = null,
   discrete      boolean = null -- not seen by public.assistant
 ) returns public.client as
 $$
   insert into public.client (
+    "number",
     first_name,
     last_name,
     date_of_birth,
@@ -100,11 +101,11 @@ $$
     city,
     address,
     sent_by,
-    "number",
     email,
     discrete,
     created_by
   ) values (
+    create_client."number",
     create_client.first_name,
     create_client.last_name,
     create_client.date_of_birth,
@@ -113,7 +114,6 @@ $$
     create_client.city,
     create_client.address,
     create_client.sent_by,
-    create_client."number",
     create_client.email,
     coalesce(create_client.discrete, false),
     (select id from public.viewer())
@@ -126,6 +126,7 @@ language sql volatile;
 
 create function public.update_client(
   id            uuid,
+  "number"      integer,
   first_name    text,
   last_name     text,
   date_of_birth date,
@@ -134,13 +135,13 @@ create function public.update_client(
   city          text,
   address       text,
   sent_by       public.client_sent_by,
-  "number"      integer = null,
   email         email_address = null,
   discrete      boolean = null -- not seen by public.assistant
 ) returns public.client as
 $$
   update public.client
     set
+      "number"=update_client."number",
       first_name=update_client.first_name,
       last_name=update_client.last_name,
       date_of_birth=update_client.date_of_birth,
@@ -149,7 +150,6 @@ $$
       city=update_client.city,
       address=update_client.address,
       sent_by=update_client.sent_by,
-      "number"=update_client."number",
       email=update_client.email,
       discrete=update_client.discrete,
       updated_at=now()
