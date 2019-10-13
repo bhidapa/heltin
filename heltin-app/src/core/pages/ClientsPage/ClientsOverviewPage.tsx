@@ -19,10 +19,12 @@ import { Flex, Err, Loading, Text, Button } from '@domonda/ui';
 // modules
 import { useClientsQueryParams } from 'modules/Clients/clientsQueryParams';
 import { ClientsTable } from 'modules/Clients/ClientsTable';
+import { makeLink } from 'lib/makeLink';
 
 export type ClientsOverviewPageProps = RouteComponentProps;
 
-const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = () => {
+const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
+  const { match } = props;
   const [params] = useClientsQueryParams({ once: true });
 
   return (
@@ -34,7 +36,11 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = () => {
             <Text variant="headline">Clients</Text>
           </Flex>
           <Flex item>
-            <Button disabled variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              component={makeLink({ to: match.url + '/create' })}
+            >
               Create
             </Button>
           </Flex>
