@@ -7,7 +7,7 @@ export type AuthenticateInput = {
     readonly password: string;
 };
 export type AuthenticateMutationVariables = {
-    readonly input: AuthenticateInput;
+    input: AuthenticateInput;
 };
 export type AuthenticateMutationResponse = {
     readonly authenticate: {
