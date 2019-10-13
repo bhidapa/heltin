@@ -33,4 +33,4 @@ $$
 language plpgsql volatile strict
 security definer;
 
-comment on function public.authenticate is 'Authenticates a `User`.';
+comment on function public.authenticate is E'@notNull\nAuthenticates a `User`.';

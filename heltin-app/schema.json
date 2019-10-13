@@ -11751,9 +11751,13 @@
               "isDeprecated": false,
               "name": "authenticate",
               "type": {
-                "kind": "OBJECT",
-                "name": "AuthenticatePayload",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AuthenticatePayload",
+                  "ofType": null
+                }
               }
             },
             {
