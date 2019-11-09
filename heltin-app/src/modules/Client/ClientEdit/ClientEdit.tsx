@@ -75,7 +75,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
 
   return (
     <Flex container direction="column" spacing="small">
-      <Flex item container spacing="tiny" justify="space-between" align="center">
+      <Flex item container spacing="tiny" align="center">
         <Flex item>
           <Text size="large" weight="medium">
             {client.fullName}
@@ -83,6 +83,9 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
           <Text size="medium" color="primary">
             {client.number}
           </Text>
+        </Flex>
+        <Flex item flex={1}>
+          <div />
         </Flex>
         <Flex item>
           <ResolveOnTrigger

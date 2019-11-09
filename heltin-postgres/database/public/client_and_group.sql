@@ -56,6 +56,19 @@ create index client_fulltext_idx on public.client using gin(
 
 ----
 
+create or replace function public.next_available_client_number()
+returns integer as
+$$
+  select "number" + 1 from public.client
+  order by "number" desc
+  limit 1
+$$
+language sql stable security definer; -- security definer to consider clients to which the might not have access to
+
+comment on function public.next_available_client_number is E'@notNull\nNext auto-generated available `Client` number.';
+
+----
+
 -- groups multiple clients
 create table public.group (
   id uuid primary key default uuid_generate_v4(),

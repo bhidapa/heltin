@@ -14505,6 +14505,22 @@
               }
             },
             {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Next auto-generated available `Client` number.",
+              "isDeprecated": false,
+              "name": "nextAvailableClientNumber",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              }
+            },
+            {
               "args": [
                 {
                   "defaultValue": null,
