@@ -30,7 +30,7 @@ import { Root } from 'core/Root';
 ReactDOM.render(
   <Router history={history}>
     <QueryParamsProvider history={history}>
-      <IntlProvider defaultLocale="en" messages={messages}>
+      <IntlProvider defaultLocale="hr" messages={messages}>
         <ThemeProvider theme={theme}>
           <Baseline />
           <Root />

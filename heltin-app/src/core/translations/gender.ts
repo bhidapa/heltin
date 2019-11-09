@@ -4,14 +4,14 @@ import { Gender } from 'modules/Gender';
 export const messages: Messages = {
   GENDER: {
     en: 'Gender',
-    ba: 'Spol',
+    hr: 'Spol',
   },
   [Gender.Male]: {
     en: 'Male',
-    ba: 'Muško',
+    hr: 'Muško',
   },
   [Gender.Female]: {
     en: 'Female',
-    ba: 'Žensko',
+    hr: 'Žensko',
   },
 };

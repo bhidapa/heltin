@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // ui
 import { Flex, Input } from '@domonda/ui';
@@ -26,9 +27,13 @@ export const ClientsTableFilter: React.FC<ClientsTableFilterProps> = () => {
         <Form autoSubmit defaultValues={params} onSubmit={setParams}>
           <Flex container direction="column" spacing="tiny">
             <Flex item>
-              <FormInputField path="searchText">
-                {({ inputProps }) => <Input {...inputProps} autoFocus placeholder="Search" />}
-              </FormInputField>
+              <FormattedMessage id="SEARCH">
+                {(msg: string) => (
+                  <FormInputField path="searchText">
+                    {({ inputProps }) => <Input {...inputProps} autoFocus placeholder={msg} />}
+                  </FormInputField>
+                )}
+              </FormattedMessage>
             </Flex>
           </Flex>
         </Form>

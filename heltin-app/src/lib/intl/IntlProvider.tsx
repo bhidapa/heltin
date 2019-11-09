@@ -27,12 +27,12 @@ export const IntlProvider: React.FC<IntlProviderProps> = ({
   const mappedMessages = useMemo(
     () => ({
       en: Object.keys(messages).reduce((acc, curr) => ({ ...acc, [curr]: messages[curr].en }), {}),
-      ba: Object.keys(messages).reduce((acc, curr) => {
-        const baMessage = messages[curr].ba;
-        if (!baMessage && locale === 'ba') {
+      hr: Object.keys(messages).reduce((acc, curr) => {
+        const baMessage = messages[curr].hr;
+        if (!baMessage && locale === 'hr') {
           // eslint-disable-next-line no-console
           console.warn(
-            `intl: key "${curr}" does not have a "ba" message, using "en" message sa fallback`,
+            `intl: key "${curr}" does not have a "hr" message, using "en" message sa fallback`,
           );
         }
         return {
@@ -57,7 +57,7 @@ export const IntlProvider: React.FC<IntlProviderProps> = ({
 
   return (
     <LocaleContext.Provider value={localeContextValue}>
-      <ReactIntlProvider locale={locale} messages={mappedMessages[locale]}>
+      <ReactIntlProvider locale="hr" messages={mappedMessages[locale]}>
         {children}
       </ReactIntlProvider>
     </LocaleContext.Provider>

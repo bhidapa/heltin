@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { FormattedMessage } from 'react-intl';
 
 // ui
 import { Flex } from '@domonda/ui/Flex';
@@ -30,7 +31,9 @@ const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
       </Flex>
       <Flex item flex={1} container alignSelf="stretch" spacing="tiny">
         <Flex item>
-          <AppBarLink to={CLIENTS_PAGE_ROUTE}>Clients</AppBarLink>
+          <AppBarLink to={CLIENTS_PAGE_ROUTE}>
+            <FormattedMessage id="CLIENTS" />
+          </AppBarLink>
         </Flex>
       </Flex>
       <Flex item>

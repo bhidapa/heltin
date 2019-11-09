@@ -7,6 +7,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
 
 // relay
 import { graphql, QueryRenderer } from 'react-relay';
@@ -29,17 +30,17 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
 
   return (
     <>
-      <Helmet title="Clients" />
+      <FormattedMessage id="CLIENTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
             <Text size="large" weight="medium">
-              Clients
+              <FormattedMessage id="CLIENTS" />
             </Text>
           </Flex>
           <Flex item>
             <Button variant="primary" component={makeLink({ to: match.url + '/create' })}>
-              Create
+              <FormattedMessage id="CREATE" />
             </Button>
           </Flex>
         </Flex>

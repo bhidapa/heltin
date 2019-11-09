@@ -7,12 +7,13 @@
 import React, { useCallback } from 'react';
 import { history } from 'lib/history';
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { FormattedMessage } from 'react-intl';
 
 // relay
 import { createClientMutation, CreateClientMutation } from 'relay/mutations/CreateClient';
 import { graphql, QueryRenderer } from 'react-relay';
 import { environment } from 'relay/environment';
-import {ClientCreateQuery } from 'relay/artifacts/ClientCreateQuery.graphql';
+import { ClientCreateQuery } from 'relay/artifacts/ClientCreateQuery.graphql';
 
 // ui
 import { Flex, Text, Button, Input, Select, Alert, Err, Loading } from '@domonda/ui';
@@ -75,7 +76,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
     <Flex container direction="column" spacing="small">
       <Flex item>
         <Text size="large" weight="medium">
-          Create client
+          <FormattedMessage id="CREATE_CLIENT" />
         </Text>
       </Flex>
       <Flex item>
@@ -127,13 +128,19 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                         includeThousandsSeparator={false}
                         required
                       >
-                        {({ inputProps }) => <Input {...inputProps} autoFocus label="Number" />}
+                        {({ inputProps }) => (
+                          <Input
+                            {...inputProps}
+                            autoFocus
+                            label={<FormattedMessage id="NUMBER" />}
+                          />
+                        )}
                       </FormNumberField>
                     </Flex>
                     <Flex item minWidth={212} maxWidth={212}>
                       <FormSelectField path="sentBy" required>
                         {({ selectProps }) => (
-                          <Select {...selectProps} label="Sent by">
+                          <Select {...selectProps} label={<FormattedMessage id="SENT_BY" />}>
                             <ClientSentBySelectOptions disableEmptyOption />
                           </Select>
                         )}
@@ -143,18 +150,22 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                   <Flex item container spacing="tiny">
                     <Flex item flex={1}>
                       <FormInputField path="firstName" required>
-                        {({ inputProps }) => <Input {...inputProps} label="First name" />}
+                        {({ inputProps }) => (
+                          <Input {...inputProps} label={<FormattedMessage id="NAME" />} />
+                        )}
                       </FormInputField>
                     </Flex>
                     <Flex item flex={1}>
                       <FormInputField path="lastName" required>
-                        {({ inputProps }) => <Input {...inputProps} label="Last name" />}
+                        {({ inputProps }) => (
+                          <Input {...inputProps} label={<FormattedMessage id="SURNAME" />} />
+                        )}
                       </FormInputField>
                     </Flex>
                     <Flex item minWidth={112} maxWidth={112}>
                       <FormSelectField path="gender" required>
                         {({ selectProps }) => (
-                          <Select {...selectProps} label="Gender">
+                          <Select {...selectProps} label={<FormattedMessage id="GENDER" />}>
                             <GenderSelectOptions disableEmptyOption />
                           </Select>
                         )}
@@ -163,14 +174,18 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                     <Flex item minWidth={128} maxWidth={128}>
                       <FormDateField path="dateOfBirth" required>
                         {({ DateInput }) => (
-                          <DateInput customInput={<Input label="Date of birth" />} />
+                          <DateInput
+                            customInput={<Input label={<FormattedMessage id="DATE_OF_BIRTH" />} />}
+                          />
                         )}
                       </FormDateField>
                     </Flex>
                     <Flex item container spacing="tiny">
                       <Flex item flex={1}>
                         <FormInputField path="telephone" required>
-                          {({ inputProps }) => <Input {...inputProps} label="Telephone" />}
+                          {({ inputProps }) => (
+                            <Input {...inputProps} label={<FormattedMessage id="TELEPHONE" />} />
+                          )}
                         </FormInputField>
                       </Flex>
                       <Flex item flex={1}>
@@ -184,12 +199,16 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                     <Flex item container spacing="tiny">
                       <Flex item flex={1}>
                         <FormInputField path="address" required>
-                          {({ inputProps }) => <Input {...inputProps} label="Address" />}
+                          {({ inputProps }) => (
+                            <Input {...inputProps} label={<FormattedMessage id="ADDRESS" />} />
+                          )}
                         </FormInputField>
                       </Flex>
                       <Flex item flex={0.6}>
                         <FormInputField path="city" required>
-                          {({ inputProps }) => <Input {...inputProps} label="City" />}
+                          {({ inputProps }) => (
+                            <Input {...inputProps} label={<FormattedMessage id="CITY" />} />
+                          )}
                         </FormInputField>
                       </Flex>
                     </Flex>
@@ -199,7 +218,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                       <FormLockedState>
                         {(locked) => (
                           <Button type="submit" disabled={locked} variant="primary">
-                            Create
+                            <FormattedMessage id="CREATE" />
                           </Button>
                         )}
                       </FormLockedState>

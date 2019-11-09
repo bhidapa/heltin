@@ -7,6 +7,7 @@
 import React, { useCallback } from 'react';
 import { history } from 'lib/history';
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { FormattedMessage } from 'react-intl';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
@@ -99,7 +100,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
                 <Alert message={error} onClose={clearError} />
               ) : (
                 <Button variant="primary" color="danger" disabled={loading} onClick={trigger}>
-                  Delete
+                  <FormattedMessage id="DELETE" />
                 </Button>
               )
             }
@@ -124,13 +125,15 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
                   includeThousandsSeparator={false}
                   required
                 >
-                  {({ inputProps }) => <Input {...inputProps} autoFocus label="Number" />}
+                  {({ inputProps }) => (
+                    <Input {...inputProps} autoFocus label={<FormattedMessage id="NUMBER" />} />
+                  )}
                 </FormNumberField>
               </Flex>
               <Flex item minWidth={212} maxWidth={212}>
                 <FormSelectField path="sentBy" required>
                   {({ selectProps }) => (
-                    <Select {...selectProps} label="Sent by">
+                    <Select {...selectProps} label={<FormattedMessage id="SENT_BY" />}>
                       <ClientSentBySelectOptions disableEmptyOption />
                     </Select>
                   )}
@@ -140,18 +143,22 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
             <Flex item container spacing="tiny">
               <Flex item flex={1}>
                 <FormInputField path="firstName" required>
-                  {({ inputProps }) => <Input {...inputProps} label="First name" />}
+                  {({ inputProps }) => (
+                    <Input {...inputProps} label={<FormattedMessage id="NAME" />} />
+                  )}
                 </FormInputField>
               </Flex>
               <Flex item flex={1}>
                 <FormInputField path="lastName" required>
-                  {({ inputProps }) => <Input {...inputProps} label="Last name" />}
+                  {({ inputProps }) => (
+                    <Input {...inputProps} label={<FormattedMessage id="SURNAME" />} />
+                  )}
                 </FormInputField>
               </Flex>
               <Flex item minWidth={112} maxWidth={112}>
                 <FormSelectField path="gender" required>
                   {({ selectProps }) => (
-                    <Select {...selectProps} label="Gender">
+                    <Select {...selectProps} label={<FormattedMessage id="GENDER" />}>
                       <GenderSelectOptions disableEmptyOption />
                     </Select>
                   )}
@@ -159,13 +166,19 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
               </Flex>
               <Flex item minWidth={128} maxWidth={128}>
                 <FormDateField path="dateOfBirth" required>
-                  {({ DateInput }) => <DateInput customInput={<Input label="Date of birth" />} />}
+                  {({ DateInput }) => (
+                    <DateInput
+                      customInput={<Input label={<FormattedMessage id="DATE_OF_BIRTH" />} />}
+                    />
+                  )}
                 </FormDateField>
               </Flex>
               <Flex item container spacing="tiny">
                 <Flex item flex={1}>
                   <FormInputField path="telephone" required>
-                    {({ inputProps }) => <Input {...inputProps} label="Telephone" />}
+                    {({ inputProps }) => (
+                      <Input {...inputProps} label={<FormattedMessage id="TELEPHONE" />} />
+                    )}
                   </FormInputField>
                 </Flex>
                 <Flex item flex={1}>
@@ -177,12 +190,16 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
               <Flex item container spacing="tiny">
                 <Flex item flex={1}>
                   <FormInputField path="address" required>
-                    {({ inputProps }) => <Input {...inputProps} label="Address" />}
+                    {({ inputProps }) => (
+                      <Input {...inputProps} label={<FormattedMessage id="ADDRESS" />} />
+                    )}
                   </FormInputField>
                 </Flex>
                 <Flex item flex={0.6}>
                   <FormInputField path="city" required>
-                    {({ inputProps }) => <Input {...inputProps} label="City" />}
+                    {({ inputProps }) => (
+                      <Input {...inputProps} label={<FormattedMessage id="CITY" />} />
+                    )}
                   </FormInputField>
                 </Flex>
               </Flex>
@@ -191,7 +208,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
               <Flex item>
                 <Flex item>
                   <Button component={makeLink({ to: CLIENTS_PAGE_ROUTE + '/create' })}>
-                    Create new
+                    <FormattedMessage id="CREATE_NEW" />
                   </Button>
                 </Flex>
               </Flex>
@@ -199,7 +216,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
                 <FormLockedState>
                   {(locked) => (
                     <Button type="submit" disabled={locked} variant="primary">
-                      Save
+                      <FormattedMessage id="SAVE" />
                     </Button>
                   )}
                 </FormLockedState>

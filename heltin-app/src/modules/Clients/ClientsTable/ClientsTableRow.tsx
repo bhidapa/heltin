@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
@@ -18,7 +19,7 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
     {
       width: 124,
       flexGrow: 1,
-      HeaderCell: 'Number',
+      HeaderCell: <FormattedMessage id="NUMBER" />,
       ItemCell: function ItemCell({ item }) {
         return <span>{item.number}</span>;
       },
@@ -26,7 +27,7 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
     {
       width: 256,
       flexGrow: 1,
-      HeaderCell: 'First name',
+      HeaderCell: <FormattedMessage id="NAME" />,
       ItemCell: function ItemCell({ item }) {
         return <span>{item.firstName}</span>;
       },
@@ -34,7 +35,7 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
     {
       width: 256,
       flexGrow: 1,
-      HeaderCell: 'Last name',
+      HeaderCell: <FormattedMessage id="SURNAME" />,
       ItemCell: function ItemCell({ item }) {
         return <span>{item.lastName}</span>;
       },

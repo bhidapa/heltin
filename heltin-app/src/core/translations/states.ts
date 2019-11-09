@@ -3,10 +3,10 @@ import { Messages } from 'lib/intl/messages';
 export const messages: Messages = {
   SAVING: {
     en: 'Saving',
-    ba: 'Snimanje',
+    hr: 'Snimanje',
   },
   LOADING: {
     en: 'Loading',
-    ba: 'Učitavanje',
+    hr: 'Učitavanje',
   },
 };

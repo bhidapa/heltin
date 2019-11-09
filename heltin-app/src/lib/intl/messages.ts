@@ -6,7 +6,7 @@
 
 export interface Message {
   en: string;
-  ba?: string;
+  hr?: string;
 }
 
 export interface Messages {

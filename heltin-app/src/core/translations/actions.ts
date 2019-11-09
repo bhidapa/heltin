@@ -3,10 +3,26 @@ import { Messages } from 'lib/intl/messages';
 export const messages: Messages = {
   SAVE: {
     en: 'Save',
-    ba: 'Snimi',
+    hr: 'Snimi',
   },
   TRY_AGAIN: {
     en: 'Try again',
-    ba: 'Pokušaj ponovo',
+    hr: 'Pokušaj ponovo',
+  },
+  CREATE: {
+    en: 'Create',
+    hr: 'Kreiraj',
+  },
+  CREATE_NEW: {
+    en: 'Create new',
+    hr: 'Kreiraj novi',
+  },
+  DELETE: {
+    en: 'Delete',
+    hr: 'Izbriši',
+  },
+  SEARCH: {
+    en: 'Search',
+    hr: 'Pretraži',
   },
 };

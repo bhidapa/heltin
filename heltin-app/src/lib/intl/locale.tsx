@@ -21,7 +21,7 @@ export function storeLocale(locale: Locale | null) {
   }
 }
 
-export type Locale = 'en' | 'ba';
+export type Locale = 'en' | 'hr';
 
 export interface LocaleContextValue {
   locale: Locale;
