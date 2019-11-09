@@ -89,19 +89,17 @@ async function fetchQuery(
 
     if (response.status < 200 || response.status >= 300) {
       let message = '';
+      const text = await response.text();
       try {
         // unmarshal data
-        const data = await response.json();
-    
+        const data = JSON.parse(text);
         // check for errors
         if (data.errors) {
           const messages: string[] = data.errors.map(({ message }: { message: string }) => message);
           message = messages.join(', ');
         }
-      } catch (err) {
-        message = await response.text();
-      }
-      throw new Error(message);
+      } catch (err) {}
+      throw new Error(message || text);
     }
 
     // unmarshal data
