@@ -1,4 +1,4 @@
 FROM postgres:11
 
-COPY ./init.sh /docker-entrypoint-initdb.d
-COPY ./database /docker-entrypoint-initdb.d/database
+COPY ./heltin-postgres/init.sh /docker-entrypoint-initdb.d
+COPY ./heltin-postgres/database /docker-entrypoint-initdb.d/database

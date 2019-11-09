@@ -1,9 +1,9 @@
 FROM node:12-alpine
 
-COPY ./tsconfig.json /heltin-graphql/
-COPY ./package-lock.json /heltin-graphql/
-COPY ./package.json /heltin-graphql/
-COPY ./src /heltin-graphql/
+COPY ./heltin-graphql/tsconfig.json /heltin-graphql/
+COPY ./heltin-graphql/package-lock.json /heltin-graphql/
+COPY ./heltin-graphql/package.json /heltin-graphql/
+COPY ./heltin-graphql/src /heltin-graphql/
 
 WORKDIR /heltin-graphql/
 
