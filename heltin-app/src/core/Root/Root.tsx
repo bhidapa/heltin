@@ -80,25 +80,29 @@ const Root: React.FC<Decorate> = (props) => {
       <ErrBoundry>
         <Flex container direction="column">
           {isAuthorized && (
-            <Flex item container align="stretch" className={classes.header} component="header">
-              <AppBar />
-            </Flex>
+            <div className={classes.header}>
+              <Flex container className={classes.content}>
+                <AppBar />
+              </Flex>
+            </div>
           )}
           <RestoreScroll>
             {(ref) => (
-              <Flex ref={ref} item container flex={1} className={classes.content} component="main">
-                <Switch>
-                  {/* Removes trailing slashes */}
-                  <Route
-                    path="/:url*(/+)"
-                    exact
-                    strict
-                    render={({ location }) => (
-                      <Redirect to={location.pathname.replace(/\/+$/, '')} />
-                    )}
-                  />
-                  <RootRoutes isAuthorized={isAuthorized} />
-                </Switch>
+              <Flex ref={ref} item container flex={1} className={classes.main} component="main">
+                <div className={classes.content}>
+                  <Switch>
+                    {/* Removes trailing slashes */}
+                    <Route
+                      path="/:url*(/+)"
+                      exact
+                      strict
+                      render={({ location }) => (
+                        <Redirect to={location.pathname.replace(/\/+$/, '')} />
+                      )}
+                    />
+                    <RootRoutes isAuthorized={isAuthorized} />
+                  </Switch>
+                </div>
               </Flex>
             )}
           </RestoreScroll>

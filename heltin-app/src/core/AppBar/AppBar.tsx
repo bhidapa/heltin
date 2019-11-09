@@ -24,7 +24,7 @@ const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
   const { classes } = props;
 
   return (
-    <Flex container spacing="small" align="center" className={classes.root}>
+    <Flex container spacing="small" align="center">
       <Flex item>
         <img src={BHIDAPALogo} alt="BHIDAPA" className={classes.logo} />
       </Flex>

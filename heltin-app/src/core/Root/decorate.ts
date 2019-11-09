@@ -1,6 +1,6 @@
 import { createStyles, withStyles, WithStyles } from '@domonda/ui/styles';
 
-const styles = createStyles(({ palette }) => ({
+const styles = createStyles(({ palette, spacing }) => ({
   '@global': {
     body: {
       overflow: 'hidden',
@@ -18,13 +18,25 @@ const styles = createStyles(({ palette }) => ({
     backgroundColor: palette.white,
     borderBottom: `2px solid ${palette.border}`,
   },
-  content: {
+  main: {
     zIndex: 0,
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
     willChange: 'scroll-position',
-    transform: 'translateZ(0)',
     backfaceVisibility: 'hidden',
+    '& > $content': {
+      paddingTop: spacing('large'),
+      paddingBottom: spacing('large'),
+    },
+  },
+  content: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flex: 1,
+    margin: '0 auto',
+    maxWidth: 1024,
+    paddingLeft: spacing('small'),
+    paddingRight: spacing('small'),
   },
 }));
 
