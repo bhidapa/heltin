@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 volumes:
   postgres-data:
     driver: "local"
@@ -17,6 +17,14 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1",
+      ]
+      timeout: 3s
+      interval: 6s
+      retries: 3
   graphql:
     image: bhidapa/heltin-graphql
     networks:
@@ -33,5 +41,6 @@ services:
       - JWT_POSTGRES_TYPE_IDENTIFIER=${JWT_POSTGRES_TYPE_IDENTIFIER}
       - PORT=${GRAPHQL_PORT}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     restart: unless-stopped
