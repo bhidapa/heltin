@@ -9,6 +9,7 @@
 **/*~
 **/*.log
 **/.DS_Store
+**/Dockerfile
 **/Thumbs.db
 **/node_modules
 **/build

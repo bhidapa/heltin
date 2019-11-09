@@ -1,13 +1,17 @@
 version: "3"
 services:
   postgres:
-    build: ./heltin-postgres
+    build:
+      context: .
+      dockerfile: ./heltin-postgres/Dockerfile
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
       - ./heltin-postgres:/docker-entrypoint-initdb.d
   graphql:
-    build: ./heltin-graphql
+    build:
+      context: .
+      dockerfile: ./heltin-graphql/Dockerfile
     environment:
       - JWT_SECRET=a347988782164b20856e28aa2e4d63b2
       - WATCH=true
