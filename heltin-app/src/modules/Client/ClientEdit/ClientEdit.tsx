@@ -31,6 +31,7 @@ import {
 import { ClientSentBySelectOptions } from '../ClientSentBySelectOptions';
 import { GenderSelectOptions } from '../../GenderSelectOptions';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
+import { makeLink } from 'lib/makeLink';
 
 export interface ClientEditProps {
   client: ClientEdit_client;
@@ -186,7 +187,14 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
                 </Flex>
               </Flex>
             </Flex>
-            <Flex item container justify="flex-end">
+            <Flex item container justify="flex-end" spacing="tiny">
+              <Flex item>
+                <Flex item>
+                  <Button component={makeLink({ to: CLIENTS_PAGE_ROUTE + '/create' })}>
+                    Create new
+                  </Button>
+                </Flex>
+              </Flex>
               <Flex item>
                 <FormLockedState>
                   {(locked) => (
