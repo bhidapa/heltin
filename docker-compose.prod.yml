@@ -1,0 +1,9 @@
+version: "2.4"
+services:
+  graphql:
+    environment:
+      - JWT_SECRET=46c4b67fb54e4e93bede8825af036b64
+      - WATCH=true
+  app:
+    ports:
+      - 80:80
