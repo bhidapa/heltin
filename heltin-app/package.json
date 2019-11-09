@@ -21,7 +21,7 @@
     "relay:compile": "relay-compiler",
     "relay:start": "npm run relay:compile -- --watch",
     "build:dll": "webpack --config webpack.dll.config.js --hide-modules --display-chunks --color --progress",
-    "build": "npm run relay:compile && webpack -p --config webpack.prod.config.js --display-optimization-bailout --profile",
+    "build": "npm run relay:compile && webpack -p --config webpack.prod.config.js --display-optimization-bailout --profile --progress",
     "start:hot": "webpack-dev-server --config webpack.dev.config.js --progress",
     "start": "npm run build:dll && npm run start:hot"
   },

@@ -17,3 +17,9 @@ services:
       - WATCH=true
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
+  app:
+    build:
+      context: .
+      dockerfile: ./heltin-app/Dockerfile
+    ports:
+      - 6002:80
