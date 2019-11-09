@@ -46,7 +46,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
               handleJwtToken(jwtToken);
             }}
           >
-            <Flex container direction="column" spacing="tiny">
+            <Flex container direction="column" spacing="tiny" style={{ width: 256 }}>
               <Flex item style={{ textAlign: 'center' }}>
                 <img src={BHIDAPALogo} alt="BHIDAPA" />
               </Flex>
@@ -70,9 +70,6 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
                 </FormSubmitErrorState>
               </Flex>
               <Flex item container justify="flex-end" align="center" spacing="tiny">
-                <Flex item>
-                  <Button variant="text">Forgot password?</Button>
-                </Flex>
                 <Flex item>
                   <Button type="submit" variant="primary">
                     Login
