@@ -1,6 +1,6 @@
 import { createStyles, withStyles, WithStyles } from '@domonda/ui/styles';
 
-const styles = createStyles(({ palette, shadows, spacing }) => ({
+const styles = createStyles(({ palette }) => ({
   '@global': {
     body: {
       overflow: 'hidden',
@@ -14,10 +14,9 @@ const styles = createStyles(({ palette, shadows, spacing }) => ({
     },
   },
   header: {
-    height: spacing(6),
     zIndex: 1,
-    backgroundColor: palette.surface,
-    boxShadow: shadows[4],
+    backgroundColor: palette.white,
+    borderBottom: `2px solid ${palette.border}`,
   },
   content: {
     zIndex: 0,

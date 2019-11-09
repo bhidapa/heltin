@@ -20,7 +20,7 @@ export type ClientsPageProps = RouteComponentProps;
 const ClientsPage: React.FC<ClientsPageProps> = (props) => {
   const { match } = props;
   return (
-    <Box padding={5}>
+    <Box padding="large">
       <Switch>
         <Route path={`${match.path}/create`} component={ClientsCreatePage} />
         <Route path={`${match.path}/:rowId`} component={ClientsDetailPage} />

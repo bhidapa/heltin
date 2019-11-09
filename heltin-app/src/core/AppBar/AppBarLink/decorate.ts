@@ -1,16 +1,15 @@
 import { createStyles, withStyles, WithStyles } from '@domonda/ui/styles';
 
-const styles = createStyles(({ spacing, typography, palette, transition }) => ({
+const styles = createStyles(({ spacing, palette, transition }) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
     height: '100%',
     '&:not(:last-child)': {
-      marginRight: spacing(1),
+      marginRight: spacing('tiny'),
     },
-    fontFamily: typography.fonts.header,
     textDecoration: 'none',
-    padding: spacing(0, 1),
+    padding: spacing('none', 'tiny'),
     color: palette.secondary,
     transition: transition.create(['background-color']),
     '&:hover': {

@@ -20,7 +20,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
   return (
     <Flex container justify="center" align="center">
       <Flex item>
-        <Text color="primary" variant="title">
+        <Text size="medium" weight="medium">
           Logging out...
         </Text>
       </Flex>

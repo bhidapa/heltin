@@ -30,17 +30,15 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
   return (
     <>
       <Helmet title="Clients" />
-      <Flex container spacing={2} direction="column">
-        <Flex item container spacing={1} align="center">
+      <Flex container spacing="small" direction="column">
+        <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
-            <Text variant="headline">Clients</Text>
+            <Text size="large" weight="medium">
+              Clients
+            </Text>
           </Flex>
           <Flex item>
-            <Button
-              variant="contained"
-              color="primary"
-              component={makeLink({ to: match.url + '/create' })}
-            >
+            <Button variant="primary" component={makeLink({ to: match.url + '/create' })}>
               Create
             </Button>
           </Flex>

@@ -3,8 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
-declare const _ClientEdit_client$ref: unique symbol;
-export type ClientEdit_client$ref = typeof _ClientEdit_client$ref;
+import { FragmentRefs } from "relay-runtime";
 export type ClientEdit_client = {
     readonly rowId: string;
     readonly fullName: string;
@@ -19,7 +18,12 @@ export type ClientEdit_client = {
     readonly sentBy: ClientSentBy;
     readonly email: string | null;
     readonly discrete: boolean;
-    readonly " $refType": ClientEdit_client$ref;
+    readonly " $refType": "ClientEdit_client";
+};
+export type ClientEdit_client$data = ClientEdit_client;
+export type ClientEdit_client$key = {
+    readonly " $data"?: ClientEdit_client$data;
+    readonly " $fragmentRefs": FragmentRefs<"ClientEdit_client">;
 };
 
 

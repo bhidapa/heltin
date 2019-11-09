@@ -36,7 +36,7 @@ const ClientsTable: React.FC<ClientsTableProps & WithRelayPaginationProp> = (pro
   const [loadMore, loading, error] = useValueForPagination(params, relay);
 
   return (
-    <Flex container direction="column" spacing={1}>
+    <Flex container direction="column" spacing="tiny">
       <Flex item>
         <ClientsTableFilter />
       </Flex>

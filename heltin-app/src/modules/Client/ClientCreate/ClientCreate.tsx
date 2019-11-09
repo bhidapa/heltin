@@ -12,7 +12,7 @@ import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
 import { createClientMutation, CreateClientMutation } from 'relay/mutations/CreateClient';
 
 // ui
-import { Flex, Text, Button, TextField, Select, ErrInline } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select, Alert } from '@domonda/ui';
 
 // form
 import {
@@ -69,9 +69,11 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
   );
 
   return (
-    <Flex container direction="column" spacing={2}>
+    <Flex container direction="column" spacing="small">
       <Flex item>
-        <Text variant="headline">Create client</Text>
+        <Text size="large" weight="medium">
+          Create client
+        </Text>
       </Flex>
       <Flex item>
         <Form
@@ -90,17 +92,15 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
           }}
           onSubmit={submit}
         >
-          <Flex container spacing={1} direction="column">
+          <Flex container spacing="tiny" direction="column">
             <Flex item>
               <FormSubmitErrorState>
                 {(error, { resetSubmitError }) =>
-                  error && (
-                    <ErrInline error={error} onClose={resetSubmitError} disableCloseAutoFocus />
-                  )
+                  error && <Alert message={error} onClose={resetSubmitError} />
                 }
               </FormSubmitErrorState>
             </Flex>
-            <Flex item container spacing={1}>
+            <Flex item container spacing="tiny">
               <Flex item flex={1}>
                 <FormNumberField
                   path="number"
@@ -108,7 +108,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                   includeThousandsSeparator={false}
                   required
                 >
-                  {({ inputProps }) => <TextField {...inputProps} autoFocus label="Number" />}
+                  {({ inputProps }) => <Input {...inputProps} autoFocus label="Number" />}
                 </FormNumberField>
               </Flex>
               <Flex item minWidth={212} maxWidth={212}>
@@ -121,15 +121,15 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                 </FormSelectField>
               </Flex>
             </Flex>
-            <Flex item container spacing={1}>
+            <Flex item container spacing="tiny">
               <Flex item flex={1}>
                 <FormInputField path="firstName" required>
-                  {({ inputProps }) => <TextField {...inputProps} label="First name" />}
+                  {({ inputProps }) => <Input {...inputProps} label="First name" />}
                 </FormInputField>
               </Flex>
               <Flex item flex={1}>
                 <FormInputField path="lastName" required>
-                  {({ inputProps }) => <TextField {...inputProps} label="Last name" />}
+                  {({ inputProps }) => <Input {...inputProps} label="Last name" />}
                 </FormInputField>
               </Flex>
               <Flex item minWidth={112} maxWidth={112}>
@@ -143,32 +143,30 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
               </Flex>
               <Flex item minWidth={128} maxWidth={128}>
                 <FormDateField path="dateOfBirth" required>
-                  {({ DateInput }) => (
-                    <DateInput customInput={<TextField label="Date of birth" />} />
-                  )}
+                  {({ DateInput }) => <DateInput customInput={<Input label="Date of birth" />} />}
                 </FormDateField>
               </Flex>
-              <Flex item container spacing={1}>
+              <Flex item container spacing="tiny">
                 <Flex item flex={1}>
                   <FormInputField path="telephone" required>
-                    {({ inputProps }) => <TextField {...inputProps} label="Telephone" />}
+                    {({ inputProps }) => <Input {...inputProps} label="Telephone" />}
                   </FormInputField>
                 </Flex>
                 <Flex item flex={1}>
                   <FormInputField path="email">
-                    {({ inputProps }) => <TextField {...inputProps} type="email" label="E-Mail" />}
+                    {({ inputProps }) => <Input {...inputProps} type="email" label="E-Mail" />}
                   </FormInputField>
                 </Flex>
               </Flex>
-              <Flex item container spacing={1}>
+              <Flex item container spacing="tiny">
                 <Flex item flex={1}>
                   <FormInputField path="address" required>
-                    {({ inputProps }) => <TextField {...inputProps} label="Address" />}
+                    {({ inputProps }) => <Input {...inputProps} label="Address" />}
                   </FormInputField>
                 </Flex>
                 <Flex item flex={0.6}>
                   <FormInputField path="city" required>
-                    {({ inputProps }) => <TextField {...inputProps} label="City" />}
+                    {({ inputProps }) => <Input {...inputProps} label="City" />}
                   </FormInputField>
                 </Flex>
               </Flex>
@@ -177,7 +175,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
               <Flex item>
                 <FormLockedState>
                   {(locked) => (
-                    <Button type="submit" disabled={locked} variant="contained" color="primary">
+                    <Button type="submit" disabled={locked} variant="primary">
                       Create
                     </Button>
                   )}

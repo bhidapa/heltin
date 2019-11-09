@@ -7,7 +7,7 @@
 import React from 'react';
 
 // ui
-import { Flex, TextField } from '@domonda/ui';
+import { Flex, Input } from '@domonda/ui';
 
 // form
 import { Form, FormInputField } from '@domonda/react-form';
@@ -21,13 +21,13 @@ export const ClientsTableFilter: React.FC<ClientsTableFilterProps> = () => {
   const [params, setParams] = useClientsQueryParams();
 
   return (
-    <Flex container direction="column" spacing={1}>
+    <Flex container direction="column" spacing="tiny">
       <Flex item>
         <Form autoSubmit defaultValues={params} onSubmit={setParams}>
-          <Flex container direction="column" spacing={1}>
+          <Flex container direction="column" spacing="tiny">
             <Flex item>
               <FormInputField path="searchText">
-                {({ inputProps }) => <TextField {...inputProps} autoFocus label="Search" />}
+                {({ inputProps }) => <Input {...inputProps} autoFocus placeholder="Search" />}
               </FormInputField>
             </Flex>
           </Flex>

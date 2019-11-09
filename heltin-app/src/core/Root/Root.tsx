@@ -31,6 +31,7 @@ import { AppBar } from '../AppBar';
 
 // decorate
 import { decorate, Decorate } from './decorate';
+import { ErrBoundry } from '@domonda/ui';
 
 // eslint-disable-next-line react/display-name
 const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
@@ -76,29 +77,33 @@ const Root: React.FC<Decorate> = (props) => {
   return (
     <>
       <Helmet titleTemplate="%s | heltin" />
-      <Flex container direction="column">
-        {isAuthorized && (
-          <Flex item container align="stretch" className={classes.header} component="header">
-            <AppBar />
-          </Flex>
-        )}
-        <RestoreScroll>
-          {(ref) => (
-            <Flex ref={ref} item container flex={1} className={classes.content} component="main">
-              <Switch>
-                {/* Removes trailing slashes */}
-                <Route
-                  path="/:url*(/+)"
-                  exact
-                  strict
-                  render={({ location }) => <Redirect to={location.pathname.replace(/\/+$/, '')} />}
-                />
-                <RootRoutes isAuthorized={isAuthorized} />
-              </Switch>
+      <ErrBoundry>
+        <Flex container direction="column">
+          {isAuthorized && (
+            <Flex item container align="stretch" className={classes.header} component="header">
+              <AppBar />
             </Flex>
           )}
-        </RestoreScroll>
-      </Flex>
+          <RestoreScroll>
+            {(ref) => (
+              <Flex ref={ref} item container flex={1} className={classes.content} component="main">
+                <Switch>
+                  {/* Removes trailing slashes */}
+                  <Route
+                    path="/:url*(/+)"
+                    exact
+                    strict
+                    render={({ location }) => (
+                      <Redirect to={location.pathname.replace(/\/+$/, '')} />
+                    )}
+                  />
+                  <RootRoutes isAuthorized={isAuthorized} />
+                </Switch>
+              </Flex>
+            )}
+          </RestoreScroll>
+        </Flex>
+      </ErrBoundry>
     </>
   );
 };

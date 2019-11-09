@@ -15,10 +15,10 @@ import { environment } from 'relay/environment';
 import { AppBarActionsQuery } from 'relay/artifacts/AppBarActionsQuery.graphql';
 
 // icons
-import { PowerIcon } from 'lib/icons';
+import { SignOutAltIcon } from 'lib/icons';
 
 // ui
-import { Loading, Err, Flex, Text, IconButton } from '@domonda/ui';
+import { Loading, Err, Flex, Text, Button } from '@domonda/ui';
 
 export type AppBarActionsProps = {};
 
@@ -46,14 +46,14 @@ export const AppBarActions: React.FC<AppBarActionsProps> = () => {
           return <Redirect to={LOGOUT_PAGE_ROUTE} />;
         }
         return (
-          <Flex container spacing={1} align="center">
+          <Flex container spacing="tiny">
             <Flex item>
-              <Text color="textSecondary">{props.viewer.email}</Text>
+              <Text>{props.viewer.email}</Text>
             </Flex>
             <Flex item>
-              <IconButton color="primary" component={makeLink({ to: LOGOUT_PAGE_ROUTE })}>
-                <PowerIcon />
-              </IconButton>
+              <Button variant="text" component={makeLink({ to: LOGOUT_PAGE_ROUTE })}>
+                <SignOutAltIcon />
+              </Button>
             </Flex>
           </Flex>
         );

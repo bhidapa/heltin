@@ -1,12 +1,16 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-declare const _session$ref: unique symbol;
-export type session$ref = typeof _session$ref;
+import { FragmentRefs } from "relay-runtime";
 export type session = {
     readonly token: string;
     readonly expiresAt: number;
-    readonly " $refType": session$ref;
+    readonly " $refType": "session";
+};
+export type session$data = session;
+export type session$key = {
+    readonly " $data"?: session$data;
+    readonly " $fragmentRefs": FragmentRefs<"session">;
 };
 
 

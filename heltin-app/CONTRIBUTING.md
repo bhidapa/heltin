@@ -130,7 +130,7 @@ import { Flex } from '@domonda/ui';
 
 function Parent() {
   return (
-    <Flex container spacing={1}>
+    <Flex container spacing="tiny">
       <Child />
     </Flex>
   );
@@ -156,7 +156,7 @@ import { Flex } from '@domonda/ui';
 
 function Parent() {
   return (
-    <Flex container spacing={1}>
+    <Flex container spacing="tiny">
       <Flex item>
         <Child />
       </Flex>
@@ -166,7 +166,7 @@ function Parent() {
 
 function Child() {
   return (
-    <Flex container spacing={1}>
+    <Flex container spacing="tiny">
       <Flex item>Left</Flex>
       <Flex item>Right</Flex>
     </Flex>

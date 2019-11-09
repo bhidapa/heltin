@@ -1,20 +1,23 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-import { ClientsTableRow_item$ref } from "./ClientsTableRow_item.graphql";
-declare const _ClientsTable_clientsQuery$ref: unique symbol;
-export type ClientsTable_clientsQuery$ref = typeof _ClientsTable_clientsQuery$ref;
+import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_clientsQuery = {
     readonly filterClients: {
         readonly totalCount: number;
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly rowId: string;
-                readonly " $fragmentRefs": ClientsTableRow_item$ref;
+                readonly " $fragmentRefs": FragmentRefs<"ClientsTableRow_item">;
             };
         }>;
     };
-    readonly " $refType": ClientsTable_clientsQuery$ref;
+    readonly " $refType": "ClientsTable_clientsQuery";
+};
+export type ClientsTable_clientsQuery$data = ClientsTable_clientsQuery;
+export type ClientsTable_clientsQuery$key = {
+    readonly " $data"?: ClientsTable_clientsQuery$data;
+    readonly " $fragmentRefs": FragmentRefs<"ClientsTable_clientsQuery">;
 };
 
 

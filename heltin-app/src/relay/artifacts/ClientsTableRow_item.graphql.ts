@@ -1,13 +1,17 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-declare const _ClientsTableRow_item$ref: unique symbol;
-export type ClientsTableRow_item$ref = typeof _ClientsTableRow_item$ref;
+import { FragmentRefs } from "relay-runtime";
 export type ClientsTableRow_item = {
     readonly number: number;
     readonly firstName: string;
     readonly lastName: string;
-    readonly " $refType": ClientsTableRow_item$ref;
+    readonly " $refType": "ClientsTableRow_item";
+};
+export type ClientsTableRow_item$data = ClientsTableRow_item;
+export type ClientsTableRow_item$key = {
+    readonly " $data"?: ClientsTableRow_item$data;
+    readonly " $fragmentRefs": FragmentRefs<"ClientsTableRow_item">;
 };
 
 

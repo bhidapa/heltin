@@ -1,14 +1,14 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-import { ClientEdit_client$ref } from "./ClientEdit_client.graphql";
+import { FragmentRefs } from "relay-runtime";
 export type ClientsDetailPageQueryVariables = {
     rowId: string;
 };
 export type ClientsDetailPageQueryResponse = {
     readonly client: {
         readonly fullName: string;
-        readonly " $fragmentRefs": ClientEdit_client$ref;
+        readonly " $fragmentRefs": FragmentRefs<"ClientEdit_client">;
     } | null;
 };
 export type ClientsDetailPageQuery = {

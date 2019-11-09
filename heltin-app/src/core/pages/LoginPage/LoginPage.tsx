@@ -4,15 +4,15 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 // relay
 import { authenticateMutation } from 'relay/mutations/Authenticate';
-import { handleJwtToken } from 'relay/client/session';
+import { handleJwtToken, setSession } from 'relay/client/session';
 
 // ui
-import { Flex, Button, TextField, ErrInline } from '@domonda/ui';
+import { Flex, Button, Input, Alert } from '@domonda/ui';
 import { Form, FormInputField, FormSubmitErrorState } from '@domonda/react-form';
 
 // assets
@@ -21,6 +21,7 @@ import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
 export type LoginPageProps = {};
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
+  useEffect(() => setSession(null), []);
   return (
     <>
       <Helmet title="Login" />
@@ -45,44 +46,38 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
               handleJwtToken(jwtToken);
             }}
           >
-            <Flex container direction="column" spacing={1}>
+            <Flex container direction="column" spacing="tiny">
               <Flex item style={{ textAlign: 'center' }}>
                 <img src={BHIDAPALogo} alt="BHIDAPA" />
               </Flex>
               <Flex item>
                 <FormInputField path="email" required>
                   {({ inputProps }) => (
-                    <TextField {...inputProps} label="E-Mail" type="email" autoFocus />
+                    <Input {...inputProps} label="E-Mail" type="email" autoFocus />
                   )}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormInputField path="password" required>
-                  {({ inputProps }) => (
-                    <TextField {...inputProps} label="Password" type="password" />
-                  )}
+                  {({ inputProps }) => <Input {...inputProps} label="Password" type="password" />}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormSubmitErrorState>
                   {(error, { resetSubmitError }) =>
-                    error && (
-                      <ErrInline error={error} onClose={resetSubmitError} disableCloseAutoFocus />
-                    )
+                    error && <Alert message={error} onClose={resetSubmitError} />
                   }
                 </FormSubmitErrorState>
               </Flex>
-            </Flex>
-            <Flex item container justify="flex-end" align="center" spacing={1}>
-              <Flex item>
-                <Button variant="text" size="sm">
-                  Forgot password?
-                </Button>
-              </Flex>
-              <Flex item>
-                <Button type="submit" variant="contained" color="primary">
-                  Login
-                </Button>
+              <Flex item container justify="flex-end" align="center" spacing="tiny">
+                <Flex item>
+                  <Button variant="text">Forgot password?</Button>
+                </Flex>
+                <Flex item>
+                  <Button type="submit" variant="primary">
+                    Login
+                  </Button>
+                </Flex>
               </Flex>
             </Flex>
           </Form>

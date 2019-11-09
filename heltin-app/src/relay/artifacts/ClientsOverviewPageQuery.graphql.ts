@@ -1,14 +1,14 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-import { ClientsTable_clientsQuery$ref } from "./ClientsTable_clientsQuery.graphql";
+import { FragmentRefs } from "relay-runtime";
 export type ClientsOverviewPageQueryVariables = {
     count: number;
     cursor?: unknown | null;
     searchText?: string | null;
 };
 export type ClientsOverviewPageQueryResponse = {
-    readonly " $fragmentRefs": ClientsTable_clientsQuery$ref;
+    readonly " $fragmentRefs": FragmentRefs<"ClientsTable_clientsQuery">;
 };
 export type ClientsOverviewPageQuery = {
     readonly response: ClientsOverviewPageQueryResponse;
@@ -24,6 +24,12 @@ query ClientsOverviewPageQuery(
   $searchText: String
 ) {
   ...ClientsTable_clientsQuery_4CrFSY
+}
+
+fragment ClientsTableRow_item on Client {
+  number
+  firstName
+  lastName
 }
 
 fragment ClientsTable_clientsQuery_4CrFSY on Query {
@@ -43,12 +49,6 @@ fragment ClientsTable_clientsQuery_4CrFSY on Query {
       hasNextPage
     }
   }
-}
-
-fragment ClientsTableRow_item on Client {
-  number
-  firstName
-  lastName
 }
 */
 
@@ -255,7 +255,7 @@ return {
     "operationKind": "query",
     "name": "ClientsOverviewPageQuery",
     "id": null,
-    "text": "query ClientsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  number\n  firstName\n  lastName\n}\n",
+    "text": "query ClientsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  number\n  firstName\n  lastName\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
