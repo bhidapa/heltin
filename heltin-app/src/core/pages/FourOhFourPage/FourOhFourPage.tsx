@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // ui
 import { Flex, FlexProps } from '@domonda/ui/Flex';
@@ -14,9 +15,11 @@ export const FourOhFourPage: React.FC<FlexProps> = () => (
   <Flex container align="center" justify="center">
     <Flex item style={{ textAlign: 'center' }}>
       <Text size="medium" weight="medium">
-        Oh no!
+        <FormattedMessage id="OOPS" />
       </Text>
-      <Text color="gray30">Requested page not found</Text>
+      <Text color="gray30">
+        <FormattedMessage id="PAGE_NOT_FOUND" />
+      </Text>
     </Flex>
   </Flex>
 );

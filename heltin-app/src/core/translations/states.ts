@@ -9,4 +9,12 @@ export const messages: Messages = {
     en: 'Loading',
     hr: 'Učitavanje',
   },
+  OOPS: {
+    en: 'Oops!',
+    hr: 'Ups!',
+  },
+  PAGE_NOT_FOUND: {
+    en: 'Requested page not found',
+    hr: 'Tražena stranica nije pronađena',
+  },
 };
