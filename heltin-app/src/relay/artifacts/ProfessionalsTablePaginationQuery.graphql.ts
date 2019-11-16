@@ -28,6 +28,7 @@ query ProfessionalsTablePaginationQuery(
 
 fragment ProfessionalsTableRow_item on MentalHealthProfessional {
   type
+  title
   firstName
   lastName
 }
@@ -175,6 +176,13 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
+                    "name": "title",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
                     "name": "firstName",
                     "args": null,
                     "storageKey": null
@@ -255,7 +263,7 @@ return {
     "operationKind": "query",
     "name": "ProfessionalsTablePaginationQuery",
     "id": null,
-    "text": "query ProfessionalsTablePaginationQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  type\n  firstName\n  lastName\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
+    "text": "query ProfessionalsTablePaginationQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  type\n  title\n  firstName\n  lastName\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

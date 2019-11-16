@@ -5,6 +5,7 @@ export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OT
 import { FragmentRefs } from "relay-runtime";
 export type ProfessionalsTableRow_item = {
     readonly type: MentalHealthProfessionalType;
+    readonly title: string | null;
     readonly firstName: string;
     readonly lastName: string;
     readonly " $refType": "ProfessionalsTableRow_item";
@@ -34,6 +35,13 @@ const node: ReaderFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
+      "name": "title",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
       "name": "firstName",
       "args": null,
       "storageKey": null
@@ -47,5 +55,5 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = 'fc304ab15e796e770e0cfedd2b00aca9';
+(node as any).hash = '3039c39d6872f5c72866ad309e4205be';
 export default node;

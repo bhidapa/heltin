@@ -25,6 +25,14 @@ const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<Professional
       },
     },
     {
+      width: 92,
+      flexGrow: 1,
+      HeaderCell: <FormattedMessage id="PROFESSIONAL_TITLE" />,
+      ItemCell: function ItemCell({ item }) {
+        return <span>{item.title}</span>;
+      },
+    },
+    {
       width: 256,
       flexGrow: 1,
       HeaderCell: <FormattedMessage id="NAME" />,
@@ -49,6 +57,7 @@ export const ProfessionalsTableRow = createFragmentContainer(RowItem, {
   item: graphql`
     fragment ProfessionalsTableRow_item on MentalHealthProfessional {
       type
+      title
       firstName
       lastName
     }
