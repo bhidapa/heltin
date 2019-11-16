@@ -16,14 +16,16 @@ create table public.case_study (
 grant all on public.case_study to viewer;
 
 create table public.case_study_relation (
-  case_study_id uuid references public.case_study(id) on delete restrict,
-  related_case_study_id uuid references public.case_study(id) on delete restrict,
+  case_study_id uuid not null references public.case_study(id) on delete restrict,
+  related_case_study_id uuid not null references public.case_study(id) on delete restrict,
 
   description text, -- why is it related?
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
+
+grant all on public.case_study_relation to viewer;
 
 ----
 
@@ -39,6 +41,8 @@ create table public.case_study_mental_health_professional (
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
+
+grant all on public.case_study_mental_health_professional to viewer;
 
 -- only one primary mental health professional
 create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id) where ("primary");

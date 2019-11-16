@@ -174,8 +174,6 @@ create table public.case_history (
 
   earlier_professional_help public.mental_health_professional_type[],
 
-  earlier_medical_reports boolean,
-
   referral_diagnosis text,
   referral public.case_history_referral_type[],
   involved_referral boolean,
@@ -206,5 +204,21 @@ create table public.case_history (
   updated_at updated_timestamptz not null
 );
 
+grant all on public.case_history to viewer;
+
 comment on column public.case_history.accompanied_by is 'With whom was the patient accopanied by.';
 comment on column public.case_history.lives_with is 'With whom does the patient live with.';
+
+----
+
+create table public.case_history_earlier_medical_report (
+  id uuid primary key default uuid_generate_v4(),
+
+  case_history_id uuid not null references public.case_history(id) on delete cascade,
+  file_id uuid not null references public.file(id) on delete cascade,
+
+  created_at created_timestamptz not null,
+  updated_at updated_timestamptz not null
+);
+
+grant all on public.case_history_earlier_medical_report to viewer;

@@ -80,6 +80,8 @@ create table public.group (
 
   "number" integer not null,
 
+  description text,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null  
 );
