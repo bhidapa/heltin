@@ -21,7 +21,7 @@ const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<Professional
       flexGrow: 1,
       HeaderCell: <FormattedMessage id="TYPE" />,
       ItemCell: function ItemCell({ item }) {
-        return <span>{item.number}</span>;
+        return <FormattedMessage id={item.type} />;
       },
     },
     {
