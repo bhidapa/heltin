@@ -13,5 +13,6 @@ module.exports = {
     UUID: 'String',
     BigInt: 'Int',
     EmailAddress: 'String',
+    Date: 'String',
   },
 };

@@ -7,7 +7,7 @@ export type UpdateClientInput = {
     readonly address: string;
     readonly city: string;
     readonly clientMutationId?: string | null;
-    readonly dateOfBirth: unknown;
+    readonly dateOfBirth: string;
     readonly discrete?: boolean | null;
     readonly email?: string | null;
     readonly firstName: string;
@@ -29,7 +29,7 @@ export type UpdateClientMutationResponse = {
             readonly number: number;
             readonly firstName: string;
             readonly lastName: string;
-            readonly dateOfBirth: unknown;
+            readonly dateOfBirth: string;
             readonly telephone: string;
             readonly gender: Gender;
             readonly city: string;

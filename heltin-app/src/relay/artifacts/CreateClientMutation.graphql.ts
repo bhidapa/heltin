@@ -7,7 +7,7 @@ export type CreateClientInput = {
     readonly address: string;
     readonly city: string;
     readonly clientMutationId?: string | null;
-    readonly dateOfBirth: unknown;
+    readonly dateOfBirth: string;
     readonly discrete?: boolean | null;
     readonly email?: string | null;
     readonly firstName: string;

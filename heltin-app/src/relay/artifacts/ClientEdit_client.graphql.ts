@@ -10,7 +10,7 @@ export type ClientEdit_client = {
     readonly number: number;
     readonly firstName: string;
     readonly lastName: string;
-    readonly dateOfBirth: unknown;
+    readonly dateOfBirth: string;
     readonly telephone: string;
     readonly gender: Gender;
     readonly city: string;
