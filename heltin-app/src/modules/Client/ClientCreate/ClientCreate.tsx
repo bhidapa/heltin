@@ -23,7 +23,7 @@ import {
   Form,
   FormInputField,
   FormSelectField,
-  FormLockedState,
+  FormSubmittingState,
   FormNumberField,
   FormSubmitErrorState,
   FormSubmitHandler,
@@ -215,13 +215,13 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                   </Flex>
                   <Flex item container justify="flex-end">
                     <Flex item>
-                      <FormLockedState>
+                      <FormSubmittingState>
                         {(locked) => (
                           <Button type="submit" disabled={locked} variant="primary">
                             <FormattedMessage id="CREATE" />
                           </Button>
                         )}
-                      </FormLockedState>
+                      </FormSubmittingState>
                     </Flex>
                   </Flex>
                 </Flex>
