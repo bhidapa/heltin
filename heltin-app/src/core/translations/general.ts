@@ -33,4 +33,16 @@ export const messages: Messages = {
     en: 'Sent by',
     hr: 'Poslan od',
   },
+  USER: {
+    en: 'User',
+    hr: 'Korisnik',
+  },
+  USERS: {
+    en: 'Users',
+    hr: 'Korisnici',
+  },
+  TYPE: {
+    en: 'Type',
+    hr: 'Tip',
+  },
 };

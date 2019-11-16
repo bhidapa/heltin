@@ -4,6 +4,7 @@ import { messages as actionsMessages } from './actions';
 import { messages as statesMessages } from './states';
 import { messages as clientMessages } from './client';
 import { messages as genderMessages } from './gender';
+import { messages as professionalMessages } from './professional';
 
 export const messages: Messages = {
   ...generalMessages,
@@ -11,4 +12,5 @@ export const messages: Messages = {
   ...statesMessages,
   ...clientMessages,
   ...genderMessages,
+  ...professionalMessages,
 };
