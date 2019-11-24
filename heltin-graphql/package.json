@@ -8,11 +8,11 @@
   },
   "dependencies": {
     "@graphile-contrib/pg-non-null": "^1.0.3",
-    "graphile-build-pg": "^4.4.4",
-    "graphile-utils": "^4.4.4",
-    "postgraphile": "^4.4.3"
+    "graphile-build-pg": "^4.5.0",
+    "graphile-utils": "^4.5.2",
+    "postgraphile": "^4.5.0"
   },
   "devDependencies": {
-    "typescript": "^3.6.2"
+    "typescript": "^3.7.2"
   }
 }
