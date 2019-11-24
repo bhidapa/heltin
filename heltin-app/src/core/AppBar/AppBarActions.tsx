@@ -46,7 +46,7 @@ export const AppBarActions: React.FC<AppBarActionsProps> = () => {
           return <Redirect to={LOGOUT_PAGE_ROUTE} />;
         }
         return (
-          <Flex container spacing="tiny">
+          <Flex container spacing="tiny" align="center">
             <Flex item>
               <Text>{props.viewer.email}</Text>
             </Flex>
