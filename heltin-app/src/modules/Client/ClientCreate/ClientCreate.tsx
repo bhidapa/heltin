@@ -16,7 +16,8 @@ import { environment } from 'relay/environment';
 import { ClientCreateQuery } from 'relay/artifacts/ClientCreateQuery.graphql';
 
 // ui
-import { Flex, Text, Button, Input, Select, Alert, Err, Loading } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select, Err, Loading } from '@domonda/ui';
+import { DismissableAlert } from 'lib/DismissableAlert';
 
 // form
 import {
@@ -116,7 +117,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                   <Flex item>
                     <FormSubmitErrorState>
                       {(error, { resetSubmitError }) =>
-                        error && <Alert message={error} onClose={resetSubmitError} />
+                        error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                       }
                     </FormSubmitErrorState>
                   </Flex>

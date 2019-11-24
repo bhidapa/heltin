@@ -16,7 +16,8 @@ import { updateClientMutation } from 'relay/mutations/UpdateClient';
 import { deleteClientMutation } from 'relay/mutations/DeleteClient';
 
 // ui
-import { Flex, Text, Button, Input, Select, Alert } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select } from '@domonda/ui';
+import { DismissableAlert } from 'lib/DismissableAlert';
 
 // form
 import {
@@ -97,7 +98,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
           >
             {({ trigger, loading, error, clearError }) =>
               error ? (
-                <Alert message={error} onClose={clearError} />
+                <DismissableAlert message={error} onDismiss={clearError} />
               ) : (
                 <Button variant="primary" color="danger" disabled={loading} onClick={trigger}>
                   <FormattedMessage id="DELETE" />
@@ -113,7 +114,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
             <Flex item>
               <FormSubmitErrorState>
                 {(error, { resetSubmitError }) =>
-                  error && <Alert message={error} onClose={resetSubmitError} />
+                  error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                 }
               </FormSubmitErrorState>
             </Flex>

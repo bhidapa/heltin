@@ -25,4 +25,8 @@ export const messages: Messages = {
     en: 'Search',
     hr: 'Pretraži',
   },
+  HIDE: {
+    en: 'Hide',
+    hr: 'Sakrij',
+  },
 };

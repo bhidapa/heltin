@@ -16,7 +16,8 @@ import {
 } from 'relay/mutations/CreateProfessional';
 
 // ui
-import { Flex, Text, Button, Input, Select, Alert } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select } from '@domonda/ui';
+import { DismissableAlert } from 'lib/DismissableAlert';
 
 // form
 import {
@@ -74,7 +75,7 @@ export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
             <Flex item>
               <FormSubmitErrorState>
                 {(error, { resetSubmitError }) =>
-                  error && <Alert message={error} onClose={resetSubmitError} />
+                  error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                 }
               </FormSubmitErrorState>
             </Flex>

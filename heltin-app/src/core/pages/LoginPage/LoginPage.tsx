@@ -12,8 +12,9 @@ import { authenticateMutation } from 'relay/mutations/Authenticate';
 import { handleJwtToken, setSession } from 'relay/client/session';
 
 // ui
-import { Flex, Button, Input, Alert } from '@domonda/ui';
+import { Flex, Button, Input } from '@domonda/ui';
 import { Form, FormInputField, FormSubmitErrorState } from '@domonda/react-form';
+import { DismissableAlert } from 'lib/DismissableAlert';
 
 // assets
 import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
@@ -65,7 +66,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
               <Flex item>
                 <FormSubmitErrorState>
                   {(error, { resetSubmitError }) =>
-                    error && <Alert message={error} onClose={resetSubmitError} />
+                    error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                   }
                 </FormSubmitErrorState>
               </Flex>

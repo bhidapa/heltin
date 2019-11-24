@@ -16,7 +16,8 @@ import { updateProfessionalMutation } from 'relay/mutations/UpdateProfessional';
 import { deleteProfessionalMutation } from 'relay/mutations/DeleteProfessional';
 
 // ui
-import { Flex, Text, Button, Input, Select, Alert } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select } from '@domonda/ui';
+import { DismissableAlert } from 'lib/DismissableAlert';
 
 // form
 import {
@@ -67,7 +68,7 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
           >
             {({ trigger, loading, error, clearError }) =>
               error ? (
-                <Alert message={error} onClose={clearError} />
+                <DismissableAlert message={error} onDismiss={clearError} />
               ) : (
                 <Button variant="primary" color="danger" disabled={loading} onClick={trigger}>
                   <FormattedMessage id="DELETE" />
@@ -83,7 +84,7 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
             <Flex item>
               <FormSubmitErrorState>
                 {(error, { resetSubmitError }) =>
-                  error && <Alert message={error} onClose={resetSubmitError} />
+                  error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                 }
               </FormSubmitErrorState>
             </Flex>
