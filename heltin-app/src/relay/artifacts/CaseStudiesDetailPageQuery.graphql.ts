@@ -7,14 +7,13 @@ export type CaseStudiesDetailPageQueryVariables = {
 };
 export type CaseStudiesDetailPageQueryResponse = {
     readonly caseStudy: {
-        readonly id: string;
         readonly description: string;
         readonly caseHistories: {
             readonly nodes: ReadonlyArray<{
                 readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEdit_caseHistory">;
             }>;
         };
-        readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEdit_caseStudy">;
+        readonly " $fragmentRefs": FragmentRefs<"CaseStudyEdit_caseStudy">;
     } | null;
 };
 export type CaseStudiesDetailPageQuery = {
@@ -29,15 +28,15 @@ query CaseStudiesDetailPageQuery(
   $rowId: UUID!
 ) {
   caseStudy: caseStudyByRowId(rowId: $rowId) {
-    id
     description
-    ...CaseHistoryEdit_caseStudy
     caseHistories: caseHistoriesByCaseStudyRowId {
       nodes {
         ...CaseHistoryEdit_caseHistory
         id
       }
     }
+    ...CaseStudyEdit_caseStudy
+    id
   }
 }
 
@@ -73,7 +72,8 @@ fragment CaseHistoryEdit_caseHistory on CaseHistory {
   schoolMark
 }
 
-fragment CaseHistoryEdit_caseStudy on CaseStudy {
+fragment CaseStudyEdit_caseStudy on CaseStudy {
+  rowId
   description
   client: clientByClientRowId {
     fullName
@@ -101,14 +101,21 @@ v1 = [
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
+  "name": "description",
   "args": null,
   "storageKey": null
 },
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "description",
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "rowId",
   "args": null,
   "storageKey": null
 };
@@ -131,7 +138,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "LinkedField",
             "alias": "caseHistories",
@@ -161,7 +167,7 @@ return {
           },
           {
             "kind": "FragmentSpread",
-            "name": "CaseHistoryEdit_caseStudy",
+            "name": "CaseStudyEdit_caseStudy",
             "args": null
           }
         ]
@@ -183,26 +189,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
-          {
-            "kind": "LinkedField",
-            "alias": "client",
-            "name": "clientByClientRowId",
-            "storageKey": null,
-            "args": null,
-            "concreteType": "Client",
-            "plural": false,
-            "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "fullName",
-                "args": null,
-                "storageKey": null
-              },
-              (v2/*: any*/)
-            ]
-          },
           {
             "kind": "LinkedField",
             "alias": "caseHistories",
@@ -221,14 +207,8 @@ return {
                 "concreteType": "CaseHistory",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "rowId",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -421,7 +401,28 @@ return {
                 ]
               }
             ]
-          }
+          },
+          (v4/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": "client",
+            "name": "clientByClientRowId",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "Client",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "fullName",
+                "args": null,
+                "storageKey": null
+              },
+              (v3/*: any*/)
+            ]
+          },
+          (v3/*: any*/)
         ]
       }
     ]
@@ -430,10 +431,10 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    id\n    description\n    ...CaseHistoryEdit_caseStudy\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryEdit_caseHistory\n        id\n      }\n    }\n  }\n}\n\nfragment CaseHistoryEdit_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseHistoryEdit_caseStudy on CaseStudy {\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryEdit_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEdit_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '5a58eb987193a238694072bc3c04f80c';
+(node as any).hash = '76d87873c1fdc63a29da7d5b92eb23a3';
 export default node;
