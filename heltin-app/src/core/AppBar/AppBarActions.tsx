@@ -51,7 +51,11 @@ export const AppBarActions: React.FC<AppBarActionsProps> = () => {
               <Text>{props.viewer.email}</Text>
             </Flex>
             <Flex item>
-              <Button variant="text" component={makeLink({ to: LOGOUT_PAGE_ROUTE })}>
+              <Button
+                variant="text"
+                color="secondary"
+                component={makeLink({ to: LOGOUT_PAGE_ROUTE })}
+              >
                 <SignOutAltIcon />
               </Button>
             </Flex>
