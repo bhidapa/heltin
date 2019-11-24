@@ -17,4 +17,8 @@ export const messages: Messages = {
     en: 'Requested page not found',
     hr: 'Tražena stranica nije pronađena',
   },
+  NO_ENTRIES: {
+    en: 'No entries',
+    hr: 'Nema unosa',
+  },
 };

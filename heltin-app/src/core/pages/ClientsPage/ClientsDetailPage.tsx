@@ -15,10 +15,11 @@ import { environment } from 'relay/environment';
 import { ClientsDetailPageQuery } from 'relay/artifacts/ClientsDetailPageQuery.graphql';
 
 // ui
-import { Err, Loading } from '@domonda/ui';
+import { Err, Loading, Flex } from '@domonda/ui';
 
 // modules
 import { ClientEdit } from 'modules/Client/ClientEdit';
+import { CaseStudiesTable } from 'modules/CaseStudies/CaseStudiesTable';
 
 export type ClientsDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
@@ -39,6 +40,11 @@ const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
             client: clientByRowId(rowId: $rowId) {
               fullName
               ...ClientEdit_client
+              caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
+                nodes {
+                  ...CaseStudiesTable_caseStudies
+                }
+              }
             }
           }
         `}
@@ -57,7 +63,14 @@ const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
           return (
             <>
               <Helmet title={client.fullName} />
-              <ClientEdit client={client} />
+              <Flex container direction="column" spacing="small">
+                <Flex item>
+                  <ClientEdit client={client} />
+                </Flex>
+                <Flex item>
+                  <CaseStudiesTable clientRowId={rowId} caseStudies={client.caseStudies.nodes} />
+                </Flex>
+              </Flex>
             </>
           );
         }}

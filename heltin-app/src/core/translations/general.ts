@@ -45,4 +45,8 @@ export const messages: Messages = {
     en: 'Type',
     hr: 'Tip',
   },
+  DESCRIPTION: {
+    en: 'Description',
+    hr: 'Opis',
+  },
 };
