@@ -1,7 +1,7 @@
 create or replace function private.register(
   email    text,
   password text,
-  id       uuid = NULL -- optional argument if you want a custom user id
+  id       uuid = null -- optional argument if you want a custom user id
 ) returns private.jwt_token as
 $$
 declare

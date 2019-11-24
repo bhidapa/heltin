@@ -9,3 +9,13 @@ create table public.file(
 );
 
 grant all on public.file to viewer;
+
+create or replace function public.delete_file(
+  id uuid
+) returns public.file as
+$$
+  delete from public.file
+  where id = delete_file.id
+  returning *
+$$
+language sql volatile;
