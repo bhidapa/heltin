@@ -1,9 +1,9 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
-import { FragmentRefs } from "relay-runtime";
 export type ClientEdit_client = {
     readonly rowId: string;
     readonly fullName: string;

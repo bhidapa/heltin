@@ -1,9 +1,9 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-import { FragmentRefs } from "relay-runtime";
 export type ProfessionalEdit_professional = {
     readonly rowId: string;
     readonly dateOfBirth: string;
