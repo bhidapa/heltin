@@ -30,8 +30,6 @@ const styles = createStyles(({ palette, spacing }) => ({
     },
   },
   content: {
-    display: 'flex',
-    flexWrap: 'nowrap',
     flex: 1,
     margin: '0 auto',
     maxWidth: 1024,
