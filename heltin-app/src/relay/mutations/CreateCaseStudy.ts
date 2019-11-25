@@ -15,6 +15,9 @@ import {
 const mutation = graphql`
   mutation CreateCaseStudyMutation($input: CreateCaseStudyInput!) {
     createCaseStudy(input: $input) {
+      caseStudy {
+        rowId
+      }
       clientByClientRowId {
         caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {

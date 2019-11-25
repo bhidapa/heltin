@@ -23,6 +23,7 @@ import { Form, FormInputField, FormSubmittingState } from '@domonda/react-form';
 
 // decorate
 import { decorate, Decorate } from './decorate';
+import { createCaseHistoryMutation } from 'relay/mutations/CreateCaseHistory';
 
 export interface CaseStudiesTableProps {
   clientRowId: UUID;
@@ -67,7 +68,15 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps & Decorate> = (props) => 
               clientRowId,
               description: '',
             }}
-            onSubmit={(values) => createCaseStudyMutation({ input: values })}
+            onSubmit={async (values) => {
+              const { createCaseStudy } = await createCaseStudyMutation({ input: values });
+              if (!createCaseStudy || !createCaseStudy.caseStudy) {
+                throw new Error('Malformed CreateCaseStudyMutation response!');
+              }
+              await createCaseHistoryMutation({
+                input: { caseStudyRowId: createCaseStudy.caseStudy.rowId },
+              });
+            }}
             resetOnSuccessfulSubmit
           >
             <Flex container spacing="tiny" align="baseline">
