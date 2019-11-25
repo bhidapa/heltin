@@ -105,81 +105,89 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
         </Text>
       </Flex>
       <Flex item container direction="column" spacing="tiny">
-        {caseStudy.caseStudyProfessionals.nodes.map(({ rowId, primary, professional }) => (
-          <Flex key={rowId} item>
-            <ResolveOnTrigger
-              params={{ input: { rowId } }}
-              promise={deleteCaseStudyProfessionalMutation}
-            >
-              {({
-                trigger: triggerDelete,
-                error: deleteError,
-                clearError: clearDeleteError,
-                loading: deleting,
-              }) => (
-                <Form
-                  defaultValues={{
-                    primary,
-                  }}
-                  onSubmit={({ primary }) =>
-                    updateCaseStudyProfessionalMutation({ input: { rowId, primary } })
-                  }
-                  autoSubmit
-                  autoSubmitDelay={0}
-                  className={classes.caseStudyProfessional}
-                  resetOnFailedSubmit
-                >
-                  {deleteError ? (
-                    <DismissableAlert message={deleteError} onDismiss={clearDeleteError} />
-                  ) : (
-                    <FormSubmitErrorState>
-                      {(error, { resetSubmitError }) =>
-                        error ? (
-                          <DismissableAlert message={error} onDismiss={resetSubmitError} />
-                        ) : (
-                          <Flex container spacing="tiny" align="center">
-                            <Flex item>
-                              <Text>
-                                <FormattedMessage id={professional.type} />
-                              </Text>
+        {caseStudy.caseStudyProfessionals.nodes.length > 0 ? (
+          caseStudy.caseStudyProfessionals.nodes.map(({ rowId, primary, professional }) => (
+            <Flex key={rowId} item>
+              <ResolveOnTrigger
+                params={{ input: { rowId } }}
+                promise={deleteCaseStudyProfessionalMutation}
+              >
+                {({
+                  trigger: triggerDelete,
+                  error: deleteError,
+                  clearError: clearDeleteError,
+                  loading: deleting,
+                }) => (
+                  <Form
+                    defaultValues={{
+                      primary,
+                    }}
+                    onSubmit={({ primary }) =>
+                      updateCaseStudyProfessionalMutation({ input: { rowId, primary } })
+                    }
+                    autoSubmit
+                    autoSubmitDelay={0}
+                    className={classes.caseStudyProfessional}
+                    resetOnFailedSubmit
+                  >
+                    {deleteError ? (
+                      <DismissableAlert message={deleteError} onDismiss={clearDeleteError} />
+                    ) : (
+                      <FormSubmitErrorState>
+                        {(error, { resetSubmitError }) =>
+                          error ? (
+                            <DismissableAlert message={error} onDismiss={resetSubmitError} />
+                          ) : (
+                            <Flex container spacing="tiny" align="center">
+                              <Flex item>
+                                <Text>
+                                  <FormattedMessage id={professional.type} />
+                                </Text>
+                              </Flex>
+                              <Flex item flex={1} style={{ display: 'flex' }}>
+                                <Button
+                                  variant="link"
+                                  component={makeLink({
+                                    to: `${PROFESSIONALS_PAGE_ROUTE}/${professional.rowId}`,
+                                  })}
+                                >
+                                  {professional.fullName}
+                                </Button>
+                              </Flex>
+                              <Flex item>
+                                <FormCheckboxField
+                                  path="primary"
+                                  color="secondary"
+                                  label={<FormattedMessage id="PRIMARY_PROFESSIONAL" />}
+                                />
+                              </Flex>
+                              <Flex item>
+                                <Button
+                                  color="danger"
+                                  variant="text"
+                                  onClick={triggerDelete}
+                                  disabled={deleting}
+                                >
+                                  <TrashIcon />
+                                </Button>
+                              </Flex>
                             </Flex>
-                            <Flex item flex={1} style={{ display: 'flex' }}>
-                              <Button
-                                variant="link"
-                                component={makeLink({
-                                  to: `${PROFESSIONALS_PAGE_ROUTE}/${professional.rowId}`,
-                                })}
-                              >
-                                {professional.fullName}
-                              </Button>
-                            </Flex>
-                            <Flex item>
-                              <FormCheckboxField
-                                path="primary"
-                                color="secondary"
-                                label={<FormattedMessage id="PRIMARY_PROFESSIONAL" />}
-                              />
-                            </Flex>
-                            <Flex item>
-                              <Button
-                                color="danger"
-                                variant="text"
-                                onClick={triggerDelete}
-                                disabled={deleting}
-                              >
-                                <TrashIcon />
-                              </Button>
-                            </Flex>
-                          </Flex>
-                        )
-                      }
-                    </FormSubmitErrorState>
-                  )}
-                </Form>
-              )}
-            </ResolveOnTrigger>
+                          )
+                        }
+                      </FormSubmitErrorState>
+                    )}
+                  </Form>
+                )}
+              </ResolveOnTrigger>
+            </Flex>
+          ))
+        ) : (
+          <Flex item>
+            <Text color="warning">
+              <FormattedMessage id="NO_PROFESSIONALS" />
+            </Text>
           </Flex>
-        ))}
+        )}
         <Flex item>
           <Form
             resetOnSuccessfulSubmit
