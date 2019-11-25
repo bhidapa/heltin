@@ -78,7 +78,10 @@ export const FormArrayField: React.FC<Omit<FormFieldProps<any[] | null | undefin
   <FormField {...rest}>
     {({ value, setValue }) => {
       let filtered = false;
-      const items = (!value || value.length === 0 ? [null] : value).filter((val) => {
+      const items = (!value || value.length === 0 || (value.length === 1 && value[0] === undefined)
+        ? [null]
+        : value
+      ).filter((val) => {
         if (val === undefined) {
           filtered = true;
           return false;
