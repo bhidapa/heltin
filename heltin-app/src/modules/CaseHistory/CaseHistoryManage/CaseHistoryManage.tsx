@@ -200,7 +200,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
             <Flex item>
               <FormTextAreaField
                 path="previousTreatment"
-                rows={3}
+                rows={5}
                 label={<FormattedMessage id="PREVIOUS_TREATMENT" />}
               />
             </Flex>
@@ -265,7 +265,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                   return (
                     <FormTextAreaField
                       path="referralDiagnosis"
-                      rows={3}
+                      rows={5}
                       label={<FormattedMessage id="REFERRAL_DIAGNOSIS" />}
                     />
                   );
@@ -630,7 +630,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
             <Flex item>
               <FormTextAreaField
                 path="familyHeredity"
-                rows={3}
+                rows={5}
                 label={<FormattedMessage id="FAMILY_HEREDITY" />}
               />
             </Flex>
@@ -638,7 +638,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               <Divider />
             </Flex>
             <Flex item>
-              <FormTextAreaField path="ptsp" rows={3} label={<FormattedMessage id="PTSP" />} />
+              <FormTextAreaField path="ptsp" rows={5} label={<FormattedMessage id="PTSP" />} />
             </Flex>
             <Flex item container justify="flex-end">
               <FormSubmittingState>
