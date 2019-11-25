@@ -70,7 +70,7 @@ grant all on public.case_study_relation to viewer;
 create table public.case_study_mental_health_professional (
   id uuid primary key default uuid_generate_v4(),
 
-  case_study_id                 uuid not null references public.case_study(id),
+  case_study_id                 uuid not null references public.case_study(id) on delete cascade,
   mental_health_professional_id uuid not null references public.mental_health_professional(id),
   unique(case_study_id, mental_health_professional_id),
 
