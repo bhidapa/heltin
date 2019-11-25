@@ -1,7 +1,6 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly clientRowId?: string | null;
@@ -17,7 +16,7 @@ export type CreateCaseStudyMutationResponse = {
             readonly caseStudiesByClientRowId: {
                 readonly nodes: ReadonlyArray<{
                     readonly rowId: string;
-                    readonly " $fragmentRefs": FragmentRefs<"CaseStudiesTableRow_item">;
+                    readonly description: string;
                 }>;
             };
         } | null;
@@ -39,19 +38,13 @@ mutation CreateCaseStudyMutation(
       caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
           rowId
-          ...CaseStudiesTableRow_item
+          description
           id
         }
       }
       id
     }
   }
-}
-
-fragment CaseStudiesTableRow_item on CaseStudy {
-  id
-  rowId
-  description
 }
 */
 
@@ -88,6 +81,13 @@ v3 = {
   "storageKey": null
 },
 v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "description",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -140,11 +140,7 @@ return {
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
-                      {
-                        "kind": "FragmentSpread",
-                        "name": "CaseStudiesTableRow_item",
-                        "args": null
-                      }
+                      (v4/*: any*/)
                     ]
                   }
                 ]
@@ -198,18 +194,12 @@ return {
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "description",
-                        "args": null,
-                        "storageKey": null
-                      }
+                      (v5/*: any*/)
                     ]
                   }
                 ]
               },
-              (v4/*: any*/)
+              (v5/*: any*/)
             ]
           }
         ]
@@ -220,7 +210,7 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          ...CaseStudiesTableRow_item\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudiesTableRow_item on CaseStudy {\n  id\n  rowId\n  description\n}\n",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          description\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

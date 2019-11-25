@@ -16,6 +16,7 @@ export type UpdateCaseStudyMutationResponse = {
             readonly rowId: string;
             readonly description: string;
             readonly client: {
+                readonly rowId: string;
                 readonly fullName: string;
             } | null;
             readonly caseStudyProfessionals: {
@@ -48,6 +49,7 @@ mutation UpdateCaseStudyMutation(
       rowId
       description
       client: clientByClientRowId {
+        rowId
         fullName
         id
       }
@@ -175,6 +177,7 @@ return {
                 "concreteType": "Client",
                 "plural": false,
                 "selections": [
+                  (v2/*: any*/),
                   (v4/*: any*/)
                 ]
               },
@@ -256,6 +259,7 @@ return {
                 "concreteType": "Client",
                 "plural": false,
                 "selections": [
+                  (v2/*: any*/),
                   (v4/*: any*/),
                   (v8/*: any*/)
                 ]
@@ -311,7 +315,7 @@ return {
     "operationKind": "mutation",
     "name": "UpdateCaseStudyMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      client: clientByClientRowId {\n        fullName\n        id\n      }\n      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n            rowId\n            type\n            fullName\n            id\n          }\n          primary\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      client: clientByClientRowId {\n        rowId\n        fullName\n        id\n      }\n      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n            rowId\n            type\n            fullName\n            id\n          }\n          primary\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

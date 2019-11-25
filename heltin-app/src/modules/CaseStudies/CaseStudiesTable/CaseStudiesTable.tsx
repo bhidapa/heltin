@@ -16,20 +16,21 @@ import { createCaseStudyMutation } from 'relay/mutations/CreateCaseStudy';
 // ui
 import { Flex, Text, Input, Button } from '@domonda/ui';
 import { FormattedMessage } from 'react-intl';
+import { PlusIcon } from 'lib/icons';
 
 // form
 import { Form, FormInputField, FormSubmittingState } from '@domonda/react-form';
 
-// parts
-import { CaseStudiesTableRowHeader, CaseStudiesTableRow } from './CaseStudiesTableRow';
+// decorate
+import { decorate, Decorate } from './decorate';
 
 export interface CaseStudiesTableProps {
   clientRowId: UUID;
   caseStudies: CaseStudiesTable_caseStudies;
 }
 
-const CaseStudiesTable: React.FC<CaseStudiesTableProps> = (props) => {
-  const { clientRowId, caseStudies } = props;
+const CaseStudiesTable: React.FC<CaseStudiesTableProps & Decorate> = (props) => {
+  const { classes, clientRowId, caseStudies } = props;
   return (
     <Flex container spacing="small" direction="column">
       <Flex item>
@@ -37,17 +38,20 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps> = (props) => {
           <FormattedMessage id="CASE_STUDIES" />
         </Text>
       </Flex>
-      <Flex item>
-        <CaseStudiesTableRowHeader />
-        {caseStudies.map((caseStudy) => (
-          <CaseStudiesTableRow
-            key={caseStudy.rowId}
-            item={caseStudy}
-            component={makeLink({
-              to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}`,
-              omit: ['item'],
-            })}
-          />
+      <Flex item container direction="column" spacing="tiny">
+        {caseStudies.map(({ rowId, description }) => (
+          <Flex item>
+            <div className={classes.caseStudy}>
+              <Button
+                variant="link"
+                component={makeLink({
+                  to: `${CASE_STUDIES_PAGE_ROUTE}/${rowId}`,
+                })}
+              >
+                {description}
+              </Button>
+            </div>
+          </Flex>
         ))}
       </Flex>
       <Flex item>
@@ -59,24 +63,22 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps> = (props) => {
           onSubmit={(values) => createCaseStudyMutation({ input: values })}
           resetOnSuccessfulSubmit
         >
-          <Flex container direction="column" spacing="tiny">
-            <Flex item>
+          <Flex container spacing="tiny" align="baseline">
+            <Flex item flex={1}>
               <FormInputField path="description" required>
                 {({ inputProps }) => (
                   <Input {...inputProps} label={<FormattedMessage id="DESCRIPTION" />} />
                 )}
               </FormInputField>
             </Flex>
-            <Flex item container justify="flex-end">
-              <Flex item>
-                <FormSubmittingState>
-                  {(submitting) => (
-                    <Button disabled={submitting} type="submit" variant="primary">
-                      <FormattedMessage id="CREATE" />
-                    </Button>
-                  )}
-                </FormSubmittingState>
-              </Flex>
+            <Flex item>
+              <FormSubmittingState>
+                {(submitting) => (
+                  <Button disabled={submitting} type="submit" variant="text" color="success">
+                    <PlusIcon />
+                  </Button>
+                )}
+              </FormSubmittingState>
             </Flex>
           </Flex>
         </Form>
@@ -85,11 +87,11 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps> = (props) => {
   );
 };
 
-const ComposedCaseStudiesTable = createFragmentContainer(CaseStudiesTable, {
+const ComposedCaseStudiesTable = createFragmentContainer(decorate(CaseStudiesTable), {
   caseStudies: graphql`
     fragment CaseStudiesTable_caseStudies on CaseStudy @relay(plural: true) {
       rowId
-      ...CaseStudiesTableRow_item
+      description
     }
   `,
 });

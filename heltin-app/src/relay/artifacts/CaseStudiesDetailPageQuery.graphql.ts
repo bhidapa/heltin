@@ -100,6 +100,7 @@ fragment CaseStudyEdit_caseStudy on CaseStudy {
   rowId
   description
   client: clientByClientRowId {
+    rowId
     fullName
     id
   }
@@ -544,6 +545,7 @@ return {
             "concreteType": "Client",
             "plural": false,
             "selections": [
+              (v3/*: any*/),
               (v6/*: any*/),
               (v5/*: any*/)
             ]
@@ -609,7 +611,7 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports\n            id\n          }\n        }\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports\n            id\n          }\n        }\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

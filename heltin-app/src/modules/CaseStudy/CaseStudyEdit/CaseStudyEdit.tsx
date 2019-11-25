@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { makeLink } from 'lib/makeLink';
-import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
+import { PROFESSIONALS_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
@@ -66,8 +66,17 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
           {caseStudy.description}
         </Text>
         <Text size="medium" color="primary">
-          {/* TODO: make groups */}
-          {caseStudy.client!.fullName}
+          <Button
+            color="primary"
+            size="medium"
+            variant="link"
+            component={makeLink({
+              to: `${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`,
+            })}
+          >
+            {/* TODO: make groups */}
+            {caseStudy.client!.fullName}
+          </Button>
         </Text>
       </Flex>
       <Flex item>
@@ -251,6 +260,7 @@ const ComposedCaseStudyEdit = createFragmentContainer(decorate(CaseStudyEdit), {
       rowId
       description
       client: clientByClientRowId {
+        rowId
         fullName
       }
       caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(

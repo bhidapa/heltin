@@ -7,6 +7,7 @@ export type CaseStudyEdit_caseStudy = {
     readonly rowId: string;
     readonly description: string;
     readonly client: {
+        readonly rowId: string;
         readonly fullName: string;
     } | null;
     readonly caseStudyProfessionals: {
@@ -69,6 +70,7 @@ return {
       "concreteType": "Client",
       "plural": false,
       "selections": [
+        (v0/*: any*/),
         (v1/*: any*/)
       ]
     },
@@ -133,5 +135,5 @@ return {
   ]
 };
 })();
-(node as any).hash = '57b77cf4a8ce11c35af199dc303cbec0';
+(node as any).hash = 'fd0a1a3279abbbdc269b8f7b4cbc0a7f';
 export default node;

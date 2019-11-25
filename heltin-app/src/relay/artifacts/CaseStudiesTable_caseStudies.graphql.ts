@@ -4,7 +4,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudiesTable_caseStudies = ReadonlyArray<{
     readonly rowId: string;
-    readonly " $fragmentRefs": FragmentRefs<"CaseStudiesTableRow_item">;
+    readonly description: string;
     readonly " $refType": "CaseStudiesTable_caseStudies";
 }>;
 export type CaseStudiesTable_caseStudies$data = CaseStudiesTable_caseStudies;
@@ -32,11 +32,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "kind": "FragmentSpread",
-      "name": "CaseStudiesTableRow_item",
-      "args": null
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "description",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
-(node as any).hash = 'ea13f9b38eb2c66119b4d868ec751327';
+(node as any).hash = 'f32e4f2fe75194f6eda7aa68abe2e821';
 export default node;
