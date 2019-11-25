@@ -14,6 +14,7 @@ import { PROFESSIONALS_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
 import { graphql, createFragmentContainer } from 'react-relay';
 import { CaseStudyEdit_caseStudy } from 'relay/artifacts/CaseStudyEdit_caseStudy.graphql';
 import { updateCaseStudyMutation } from 'relay/mutations/UpdateCaseStudy';
+import { deleteCaseStudyMutation } from 'relay/mutations/DeleteCaseStudy';
 import { createCaseStudyProfessionalMutation } from 'relay/mutations/CreateCaseStudyProfessional';
 import { updateCaseStudyProfessionalMutation } from 'relay/mutations/UpdateCaseStudyProfessional';
 import { deleteCaseStudyProfessionalMutation } from 'relay/mutations/DeleteCaseStudyProfessional';
@@ -39,6 +40,7 @@ import {
 
 // decorate
 import { decorate, Decorate } from './decorate';
+import { history } from 'lib/history';
 
 export interface CaseStudyEditProps {
   caseStudy: CaseStudyEdit_caseStudy;
@@ -61,23 +63,49 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
 
   return (
     <Flex container spacing="small" direction="column">
-      <Flex item>
-        <Text size="large" weight="medium">
-          {caseStudy.description}
-        </Text>
-        <Text size="medium" color="primary">
-          <Button
-            color="primary"
-            size="medium"
-            variant="link"
-            component={makeLink({
-              to: `${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`,
-            })}
+      <Flex item container spacing="tiny" align="center" justify="space-between">
+        <Flex item>
+          <Text size="large" weight="medium">
+            {caseStudy.description}
+          </Text>
+          <Text size="medium" color="primary">
+            <Button
+              color="primary"
+              size="medium"
+              variant="link"
+              component={makeLink({
+                to: `${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`,
+              })}
+            >
+              {/* TODO: make groups */}
+              {caseStudy.client!.fullName}
+            </Button>
+          </Text>
+        </Flex>
+        <Flex item>
+          <ResolveOnTrigger
+            params={undefined}
+            promise={async () => {
+              const { deleteCaseStudy } = await deleteCaseStudyMutation({
+                input: { rowId: caseStudy.rowId },
+              });
+              if (!deleteCaseStudy) {
+                throw new Error('Malfored DeleteCaseStudy response!');
+              }
+              history.push(`${CLIENTS_PAGE_ROUTE}/${deleteCaseStudy.clientByClientRowId!.rowId}`);
+            }}
           >
-            {/* TODO: make groups */}
-            {caseStudy.client!.fullName}
-          </Button>
-        </Text>
+            {({ trigger, loading, error, clearError }) =>
+              error ? (
+                <DismissableAlert message={error} onDismiss={clearError} />
+              ) : (
+                <Button variant="primary" color="danger" onClick={trigger} disabled={loading}>
+                  <FormattedMessage id="DELETE" />
+                </Button>
+              )
+            }
+          </ResolveOnTrigger>
+        </Flex>
       </Flex>
       <Flex item>
         <Form defaultValues={caseStudy} onSubmit={submit}>
