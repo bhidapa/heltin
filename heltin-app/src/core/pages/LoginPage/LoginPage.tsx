@@ -26,7 +26,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
   return (
     <>
       <Helmet title="Login" />
-      <Flex container justify="center" align="center">
+      <Flex container justify="center" align="center" fill>
         <Flex item>
           <Form<{ email: string | null; password: string | null }>
             defaultValues={{ email: null, password: null }}
