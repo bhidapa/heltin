@@ -10,7 +10,7 @@ export type CaseStudiesDetailPageQueryResponse = {
         readonly description: string;
         readonly caseHistories: {
             readonly nodes: ReadonlyArray<{
-                readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEdit_caseHistory">;
+                readonly " $fragmentRefs": FragmentRefs<"CaseHistoryManage_caseHistory">;
             }>;
         };
         readonly " $fragmentRefs": FragmentRefs<"CaseStudyEdit_caseStudy">;
@@ -31,7 +31,7 @@ query CaseStudiesDetailPageQuery(
     description
     caseHistories: caseHistoriesByCaseStudyRowId {
       nodes {
-        ...CaseHistoryEdit_caseHistory
+        ...CaseHistoryManage_caseHistory
         id
       }
     }
@@ -40,7 +40,7 @@ query CaseStudiesDetailPageQuery(
   }
 }
 
-fragment CaseHistoryEdit_caseHistory on CaseHistory {
+fragment CaseHistoryManage_caseHistory on CaseHistory {
   id
   rowId
   caseStudyRowId
@@ -158,7 +158,7 @@ return {
                 "selections": [
                   {
                     "kind": "FragmentSpread",
-                    "name": "CaseHistoryEdit_caseHistory",
+                    "name": "CaseHistoryManage_caseHistory",
                     "args": null
                   }
                 ]
@@ -431,10 +431,10 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryEdit_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEdit_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryManage_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '76d87873c1fdc63a29da7d5b92eb23a3';
+(node as any).hash = 'b7b18b5679ab37d149fac28a5a29b747';
 export default node;

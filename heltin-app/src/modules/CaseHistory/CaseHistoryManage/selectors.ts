@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { CaseHistoryEditProps } from './CaseHistoryEdit';
+import { CaseHistoryManageProps } from './CaseHistoryManage';
 import { CaseHistoryAbuseType } from '../CaseHistoryAbuseType';
 import { CaseHistoryAccompaniedByType } from '../CaseHistoryAccompaniedByType';
 import { CaseHistoryArrivalReasonType } from '../CaseHistoryArrivalReasonType';
@@ -14,8 +14,8 @@ import { CaseHistoryReferralType } from '../CaseHistoryReferralType';
 import { CaseHistoryReportedAbuseType } from '../CaseHistoryReportedAbuseType';
 import { ProfessionalType } from 'modules/Professional/ProfessionalType';
 
-const getCaseStudyRowId = ({ caseStudyRowId }: CaseHistoryEditProps) => caseStudyRowId;
-const getCaseHistory = ({ caseHistory }: CaseHistoryEditProps) => caseHistory;
+const getCaseStudyRowId = ({ caseStudyRowId }: CaseHistoryManageProps) => caseStudyRowId;
+const getCaseHistory = ({ caseHistory }: CaseHistoryManageProps) => caseHistory;
 
 export interface FormValues {
   caseStudyRowId: string;

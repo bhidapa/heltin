@@ -15,7 +15,7 @@ export type CaseHistoryReasonOfMultipleAdoptionsType = "ABUSE" | "LOSS_OF_FOSTER
 export type CaseHistoryReferralType = "COURT" | "HOSPITAL" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "OTHER" | "PEDIATRIST" | "POLICE" | "PSYCHIATRIST" | "SCHOOL" | "SELF" | "SOCIAL_WORK_CENTER";
 export type CaseHistoryReportedAbuseType = "COURT" | "NOT_REPORTED" | "SOCIAL_WORK_CENTER";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type CaseHistoryEdit_caseHistory = {
+export type CaseHistoryManage_caseHistory = {
     readonly id: string;
     readonly rowId: string;
     readonly caseStudyRowId: string;
@@ -45,19 +45,19 @@ export type CaseHistoryEdit_caseHistory = {
     readonly referralDiagnosis: string | null;
     readonly reportedFurtherAbuses: CaseHistoryReportedAbuseType | null;
     readonly schoolMark: number | null;
-    readonly " $refType": "CaseHistoryEdit_caseHistory";
+    readonly " $refType": "CaseHistoryManage_caseHistory";
 };
-export type CaseHistoryEdit_caseHistory$data = CaseHistoryEdit_caseHistory;
-export type CaseHistoryEdit_caseHistory$key = {
-    readonly " $data"?: CaseHistoryEdit_caseHistory$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEdit_caseHistory">;
+export type CaseHistoryManage_caseHistory$data = CaseHistoryManage_caseHistory;
+export type CaseHistoryManage_caseHistory$key = {
+    readonly " $data"?: CaseHistoryManage_caseHistory$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryManage_caseHistory">;
 };
 
 
 
 const node: ReaderFragment = {
   "kind": "Fragment",
-  "name": "CaseHistoryEdit_caseHistory",
+  "name": "CaseHistoryManage_caseHistory",
   "type": "CaseHistory",
   "metadata": null,
   "argumentDefinitions": [],
@@ -267,5 +267,5 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = '22827e935c5e087b3264f7a26bec7c7c';
+(node as any).hash = 'a17abeb4b9befb9302a70f2611d4e7f0';
 export default node;

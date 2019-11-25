@@ -16,7 +16,7 @@ const mutation = graphql`
   mutation CreateCaseHistoryMutation($input: CreateCaseHistoryInput!) {
     createCaseHistory(input: $input) {
       caseHistory {
-        ...CaseHistoryEdit_caseHistory @relay(mask: false)
+        ...CaseHistoryManage_caseHistory @relay(mask: false)
       }
     }
   }

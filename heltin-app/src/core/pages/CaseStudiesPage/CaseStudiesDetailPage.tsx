@@ -19,7 +19,7 @@ import { Err, Loading, Flex } from '@domonda/ui';
 
 // modules
 import { CaseStudyEdit } from 'modules/CaseStudy/CaseStudyEdit';
-import { CaseHistoryEdit } from 'modules/CaseHistory/CaseHistoryEdit';
+import { CaseHistoryManage } from 'modules/CaseHistory/CaseHistoryManage';
 
 export type CaseStudiesDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
@@ -41,7 +41,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
               description
               caseHistories: caseHistoriesByCaseStudyRowId {
                 nodes {
-                  ...CaseHistoryEdit_caseHistory
+                  ...CaseHistoryManage_caseHistory
                 }
               }
               ...CaseStudyEdit_caseStudy
@@ -68,7 +68,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                   <CaseStudyEdit caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
-                  <CaseHistoryEdit
+                  <CaseHistoryManage
                     caseStudyRowId={rowId}
                     caseHistory={caseStudy.caseHistories.nodes[0] || null}
                   />

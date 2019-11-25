@@ -1,6 +1,6 @@
 /**
  *
- * CaseHistoryEdit
+ * CaseHistoryManage
  *
  */
 
@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseHistoryEdit_caseHistory } from 'relay/artifacts/CaseHistoryEdit_caseHistory.graphql';
+import { CaseHistoryManage_caseHistory } from 'relay/artifacts/CaseHistoryManage_caseHistory.graphql';
 import { createCaseHistoryMutation } from 'relay/mutations/CreateCaseHistory';
 import { updateCaseHistoryMutation } from 'relay/mutations/UpdateCaseHistory';
 
@@ -52,12 +52,12 @@ import { CaseHistoryReportedAbuseTypeSelectOptions } from '../CaseHistoryReporte
 import { CaseHistoryAbuseTypeSelectOptions } from '../CaseHistoryAbuseType';
 import { CaseHistoryParentsInJailTypeSelectOptions } from '../CaseHistoryParentsInJailType';
 
-export interface CaseHistoryEditProps {
+export interface CaseHistoryManageProps {
   caseStudyRowId: UUID;
-  caseHistory: CaseHistoryEdit_caseHistory | null;
+  caseHistory: CaseHistoryManage_caseHistory | null;
 }
 
-const CaseHistoryEdit: React.FC<CaseHistoryEditProps> = (props) => {
+const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     ({ caseHistoryRowId, caseStudyRowId, ...rest }, { state }) => {
       // extracts only values which are present on the screen
@@ -656,9 +656,9 @@ const CaseHistoryEdit: React.FC<CaseHistoryEditProps> = (props) => {
   );
 };
 
-const ComposedCaseHistoryEdit = createFragmentContainer(CaseHistoryEdit, {
+const ComposedCaseHistoryManage = createFragmentContainer(CaseHistoryManage, {
   caseHistory: graphql`
-    fragment CaseHistoryEdit_caseHistory on CaseHistory {
+    fragment CaseHistoryManage_caseHistory on CaseHistory {
       id
       rowId
       caseStudyRowId
@@ -691,4 +691,4 @@ const ComposedCaseHistoryEdit = createFragmentContainer(CaseHistoryEdit, {
     }
   `,
 });
-export { ComposedCaseHistoryEdit as CaseHistoryEdit };
+export { ComposedCaseHistoryManage as CaseHistoryManage };
