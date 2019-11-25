@@ -114,11 +114,10 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
             </Flex>
             <Flex item>
               <FormSelectField
-                required
                 path="accompaniedBy"
                 label={<FormattedMessage id="ACCOMPANIED_BY" />}
               >
-                <CaseHistoryAccompaniedByTypeSelectOptions disableEmptyOption />
+                <CaseHistoryAccompaniedByTypeSelectOptions />
               </FormSelectField>
             </Flex>
             <Flex item>
@@ -132,7 +131,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                       {items.map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`arrivalReason[${index}]`}>
-                            <CaseHistoryArrivalReasonTypeSelectOptions disableEmptyOption />
+                            <CaseHistoryArrivalReasonTypeSelectOptions />
                           </FormSelectField>
                         </Flex>
                       ))}
@@ -324,7 +323,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                       {items.map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`livesWith[${index}]`}>
-                            <CaseHistoryLivesWithTypeSelectOptions disableEmptyOption />
+                            <CaseHistoryLivesWithTypeSelectOptions />
                           </FormSelectField>
                         </Flex>
                       ))}
