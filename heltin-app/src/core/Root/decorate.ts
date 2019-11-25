@@ -14,11 +14,13 @@ const styles = createStyles(({ palette, spacing }) => ({
     },
   },
   header: {
+    position: 'relative',
     zIndex: 1,
     backgroundColor: palette.white,
     borderBottom: `2px solid ${palette.border}`,
   },
   main: {
+    position: 'relative',
     zIndex: 0,
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
@@ -30,6 +32,7 @@ const styles = createStyles(({ palette, spacing }) => ({
     },
   },
   content: {
+    position: 'relative',
     flex: 1,
     margin: '0 auto',
     maxWidth: 1024,
