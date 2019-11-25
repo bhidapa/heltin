@@ -40,15 +40,9 @@ query ClientsDetailPageQuery(
   }
 }
 
-fragment CaseStudiesTableRow_item on CaseStudy {
-  id
-  rowId
-  description
-}
-
 fragment CaseStudiesTable_caseStudies on CaseStudy {
   rowId
-  ...CaseStudiesTableRow_item
+  description
 }
 
 fragment ClientEdit_client on Client {
@@ -281,14 +275,14 @@ return {
                 "plural": true,
                 "selections": [
                   (v4/*: any*/),
-                  (v5/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "description",
                     "args": null,
                     "storageKey": null
-                  }
+                  },
+                  (v5/*: any*/)
                 ]
               }
             ]
@@ -302,7 +296,7 @@ return {
     "operationKind": "query",
     "name": "ClientsDetailPageQuery",
     "id": null,
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudiesTable_caseStudies\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudiesTableRow_item on CaseStudy {\n  id\n  rowId\n  description\n}\n\nfragment CaseStudiesTable_caseStudies on CaseStudy {\n  rowId\n  ...CaseStudiesTableRow_item\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudiesTable_caseStudies\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudiesTable_caseStudies on CaseStudy {\n  rowId\n  description\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
     "metadata": {}
   }
 };

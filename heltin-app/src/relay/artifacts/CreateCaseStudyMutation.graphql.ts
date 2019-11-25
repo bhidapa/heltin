@@ -1,7 +1,6 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly clientRowId?: string | null;
@@ -13,11 +12,14 @@ export type CreateCaseStudyMutationVariables = {
 };
 export type CreateCaseStudyMutationResponse = {
     readonly createCaseStudy: {
+        readonly caseStudy: {
+            readonly rowId: string;
+        } | null;
         readonly clientByClientRowId: {
             readonly caseStudiesByClientRowId: {
                 readonly nodes: ReadonlyArray<{
                     readonly rowId: string;
-                    readonly " $fragmentRefs": FragmentRefs<"CaseStudiesTableRow_item">;
+                    readonly description: string;
                 }>;
             };
         } | null;
@@ -35,23 +37,21 @@ mutation CreateCaseStudyMutation(
   $input: CreateCaseStudyInput!
 ) {
   createCaseStudy(input: $input) {
+    caseStudy {
+      rowId
+      id
+    }
     clientByClientRowId {
       caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
           rowId
-          ...CaseStudiesTableRow_item
+          description
           id
         }
       }
       id
     }
   }
-}
-
-fragment CaseStudiesTableRow_item on CaseStudy {
-  id
-  rowId
-  description
 }
 */
 
@@ -71,7 +71,14 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = [
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "rowId",
+  "args": null,
+  "storageKey": null
+},
+v3 = [
   {
     "kind": "Literal",
     "name": "orderBy",
@@ -80,14 +87,14 @@ v2 = [
     ]
   }
 ],
-v3 = {
+v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
+  "name": "description",
   "args": null,
   "storageKey": null
 },
-v4 = {
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -115,6 +122,18 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
+            "name": "caseStudy",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CaseStudy",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/)
+            ]
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
             "name": "clientByClientRowId",
             "storageKey": null,
             "args": null,
@@ -126,7 +145,7 @@ return {
                 "alias": null,
                 "name": "caseStudiesByClientRowId",
                 "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v2/*: any*/),
+                "args": (v3/*: any*/),
                 "concreteType": "CaseStudiesConnection",
                 "plural": false,
                 "selections": [
@@ -139,12 +158,8 @@ return {
                     "concreteType": "CaseStudy",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
-                      {
-                        "kind": "FragmentSpread",
-                        "name": "CaseStudiesTableRow_item",
-                        "args": null
-                      }
+                      (v2/*: any*/),
+                      (v4/*: any*/)
                     ]
                   }
                 ]
@@ -172,6 +187,19 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
+            "name": "caseStudy",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "CaseStudy",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v5/*: any*/)
+            ]
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
             "name": "clientByClientRowId",
             "storageKey": null,
             "args": null,
@@ -183,7 +211,7 @@ return {
                 "alias": null,
                 "name": "caseStudiesByClientRowId",
                 "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v2/*: any*/),
+                "args": (v3/*: any*/),
                 "concreteType": "CaseStudiesConnection",
                 "plural": false,
                 "selections": [
@@ -196,20 +224,14 @@ return {
                     "concreteType": "CaseStudy",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
+                      (v2/*: any*/),
                       (v4/*: any*/),
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "description",
-                        "args": null,
-                        "storageKey": null
-                      }
+                      (v5/*: any*/)
                     ]
                   }
                 ]
               },
-              (v4/*: any*/)
+              (v5/*: any*/)
             ]
           }
         ]
@@ -220,10 +242,10 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          ...CaseStudiesTableRow_item\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudiesTableRow_item on CaseStudy {\n  id\n  rowId\n  description\n}\n",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          description\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '88ead9e8cb28a08a174236f5a4e85425';
+(node as any).hash = '5f70a72962b89d4dcec55558c604bd51';
 export default node;

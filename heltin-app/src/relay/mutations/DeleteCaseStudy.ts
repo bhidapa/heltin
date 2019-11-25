@@ -16,6 +16,7 @@ const mutation = graphql`
   mutation DeleteCaseStudyMutation($input: DeleteCaseStudyInput!) {
     deleteCaseStudy(input: $input) {
       clientByClientRowId {
+        rowId
         caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {
             id

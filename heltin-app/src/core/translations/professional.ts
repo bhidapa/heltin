@@ -18,6 +18,10 @@ export const messages: Messages = {
     en: 'Title',
     hr: 'Titula',
   },
+  PRIMARY_PROFESSIONAL: {
+    en: 'Primary',
+    hr: 'Primarni',
+  },
   [ProfessionalType.Psychotherapist]: {
     en: 'Psychotherapist',
     hr: 'Psihoterapeut',

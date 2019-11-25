@@ -408,3 +408,19 @@ $$
   returning *
 $$
 language sql volatile;
+
+create or replace function public.delete_case_history_earlier_medical_report(
+  id uuid
+) returns public.case_history_earlier_medical_report as
+$$
+  with deleted as (
+    delete from public.case_history_earlier_medical_report
+    where id = delete_case_history_earlier_medical_report.id
+    returning *
+  )
+  delete from public.file
+    using deleted
+  where deleted.file_id = file.id
+  returning deleted.*
+$$
+language sql volatile;

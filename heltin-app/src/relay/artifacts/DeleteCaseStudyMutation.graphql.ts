@@ -11,6 +11,7 @@ export type DeleteCaseStudyMutationVariables = {
 export type DeleteCaseStudyMutationResponse = {
     readonly deleteCaseStudy: {
         readonly clientByClientRowId: {
+            readonly rowId: string;
             readonly caseStudiesByClientRowId: {
                 readonly nodes: ReadonlyArray<{
                     readonly id: string;
@@ -32,6 +33,7 @@ mutation DeleteCaseStudyMutation(
 ) {
   deleteCaseStudy(input: $input) {
     clientByClientRowId {
+      rowId
       caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
           id
@@ -62,11 +64,18 @@ v1 = [
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
+  "name": "rowId",
   "args": null,
   "storageKey": null
 },
 v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "caseStudiesByClientRowId",
@@ -92,7 +101,7 @@ v3 = {
       "concreteType": "CaseStudy",
       "plural": true,
       "selections": [
-        (v2/*: any*/)
+        (v3/*: any*/)
       ]
     }
   ]
@@ -124,7 +133,8 @@ return {
             "concreteType": "Client",
             "plural": false,
             "selections": [
-              (v3/*: any*/)
+              (v2/*: any*/),
+              (v4/*: any*/)
             ]
           }
         ]
@@ -154,8 +164,9 @@ return {
             "concreteType": "Client",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
-              (v2/*: any*/)
+              (v2/*: any*/),
+              (v4/*: any*/),
+              (v3/*: any*/)
             ]
           }
         ]
@@ -166,10 +177,10 @@ return {
     "operationKind": "mutation",
     "name": "DeleteCaseStudyMutation",
     "id": null,
-    "text": "mutation DeleteCaseStudyMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation DeleteCaseStudyMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      rowId\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '791438da3e3e94f9e303dcef4a0c3a3e';
+(node as any).hash = '6d9424032e086bef7003d668c0ad440b';
 export default node;

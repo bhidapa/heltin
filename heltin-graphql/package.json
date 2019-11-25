@@ -10,7 +10,8 @@
     "@graphile-contrib/pg-non-null": "^1.0.3",
     "graphile-build-pg": "^4.5.0",
     "graphile-utils": "^4.5.2",
-    "postgraphile": "^4.5.0"
+    "postgraphile": "^4.5.0",
+    "postgres-bytea": "^2.0.0"
   },
   "devDependencies": {
     "typescript": "^3.7.2"

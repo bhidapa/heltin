@@ -26,12 +26,14 @@ import {
   DEFAULT_ROUTE,
   PROFESSIONALS_PAGE_ROUTE,
   CLIENTS_PAGE_ROUTE,
+  CASE_STUDIES_PAGE_ROUTE,
 } from 'lib/routes';
 const LazyFourOhFourPage = createLazy(() => import('../pages/FourOhFourPage/default'));
 const LazyLoginPage = createLazy(() => import('../pages/LoginPage/default'));
 const LazyLogoutPage = createLazy(() => import('../pages/LogoutPage/default'));
 const LazyProfessionalsPage = createLazy(() => import('../pages/ProfessionalsPage/default'));
 const LazyClientsPage = createLazy(() => import('../pages/ClientsPage/default'));
+const LazyCaseStudiesPage = createLazy(() => import('../pages/CaseStudiesPage/default'));
 
 // parts
 import { AppBar } from '../AppBar';
@@ -57,6 +59,7 @@ const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(pro
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
       <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />
       <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
+      <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
       <Redirect exact path="/" to={DEFAULT_ROUTE} />
       <Route path="*" component={LazyFourOhFourPage} />
     </Switch>

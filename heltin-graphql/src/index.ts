@@ -2,6 +2,7 @@ const http = require("http");
 import { postgraphile } from "postgraphile";
 const PgNonNullRelationsPlugin = require("@graphile-contrib/pg-non-null/relations");
 import { PgIdToRowIdInflectorPlugin } from "./plugins/PgIdToRowIdInflectorPlugin";
+const PgBytea = require("./plugins/PgBytea");
 
 const pgHost = process.env.POSTGRES_HOST;
 const pgUser = process.env.POSTGRES_USER;
@@ -63,7 +64,11 @@ function start() {
           graphileBuildOptions: {
             pgStrictFunctions: true
           },
-          appendPlugins: [PgNonNullRelationsPlugin, PgIdToRowIdInflectorPlugin],
+          appendPlugins: [
+            PgNonNullRelationsPlugin,
+            PgIdToRowIdInflectorPlugin,
+            PgBytea
+          ],
           graphqlRoute,
           graphiqlRoute,
           graphiql: !!graphiqlRoute,
