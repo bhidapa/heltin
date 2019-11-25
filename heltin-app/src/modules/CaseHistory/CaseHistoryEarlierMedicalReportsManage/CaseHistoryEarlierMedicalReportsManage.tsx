@@ -97,7 +97,7 @@ const CaseHistoryEarlierMedicalReportsManage: React.FC<CaseHistoryEarlierMedical
         ) : (
           <Flex item>
             <Text color="warning">
-              <FormattedMessage id="NO_EARLIER_MEDICAL_REPORTS" />
+              <FormattedMessage id="NO_ENTRIES" />
             </Text>
           </Flex>
         )}

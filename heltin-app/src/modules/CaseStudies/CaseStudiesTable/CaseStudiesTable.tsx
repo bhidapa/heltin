@@ -57,7 +57,7 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps & Decorate> = (props) => 
         ) : (
           <Flex item>
             <Text color="warning">
-              <FormattedMessage id="NO_CASE_STUDIES" />
+              <FormattedMessage id="NO_ENTRIES" />
             </Text>
           </Flex>
         )}

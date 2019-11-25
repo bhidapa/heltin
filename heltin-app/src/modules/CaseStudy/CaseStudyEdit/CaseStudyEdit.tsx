@@ -221,7 +221,7 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
         ) : (
           <Flex item>
             <Text color="warning">
-              <FormattedMessage id="NO_PROFESSIONALS" />
+              <FormattedMessage id="NO_ENTRIES" />
             </Text>
           </Flex>
         )}
