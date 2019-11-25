@@ -26,6 +26,71 @@ export const FormInputField: React.FC<Omit<FormInputFieldProps, 'children'> & In
   </ReactFormInputField>
 );
 
+// TextArea
+import { TextArea, TextAreaProps } from '@domonda/ui/TextArea';
+import {
+  FormTextAreaField as ReactFormTextAreaField,
+  FormTextAreaFieldProps,
+} from '@domonda/react-form/FormTextAreaField';
+
+export const FormTextAreaField: React.FC<Omit<FormTextAreaFieldProps, 'children'> &
+  TextAreaProps> = ({ children, path, required, ...rest }) => (
+  <ReactFormTextAreaField path={path} required={required}>
+    {({ textAreaProps, state }) => (
+      <TextArea {...textAreaProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
+    )}
+  </ReactFormTextAreaField>
+);
+
+// NumberInput
+import {
+  FormNumberField as ReactFormNumberField,
+  FormNumberFieldProps,
+} from '@domonda/react-form/FormNumberField';
+
+export const FormNumberField: React.FC<Omit<FormNumberFieldProps<number>, 'children'> &
+  InputProps> = ({
+  children,
+  // NumberField
+  path,
+  required,
+  prefix,
+  suffix,
+  includeThousandsSeparator,
+  thousandsSeparatorSymbol,
+  allowDecimal,
+  decimalSymbol,
+  decimalLimit,
+  requireDecimal,
+  allowNegative,
+  allowLeadingZeroes,
+  integerLimit,
+  isAllowed,
+  // Input
+  ...rest
+}) => (
+  <ReactFormNumberField
+    path={path}
+    required={required}
+    prefix={prefix}
+    suffix={suffix}
+    includeThousandsSeparator={includeThousandsSeparator}
+    thousandsSeparatorSymbol={thousandsSeparatorSymbol || ','}
+    decimalSymbol={decimalSymbol || '.'}
+    allowDecimal={allowDecimal}
+    decimalLimit={decimalLimit}
+    requireDecimal={requireDecimal}
+    allowNegative={allowNegative}
+    allowLeadingZeroes={allowLeadingZeroes}
+    integerLimit={integerLimit}
+    isAllowed={isAllowed}
+  >
+    {({ inputProps, state }) => (
+      <Input {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
+    )}
+  </ReactFormNumberField>
+);
+
 // Select
 import { Select, SelectProps } from '@domonda/ui/Select';
 import {
