@@ -731,6 +731,16 @@
           "possibleTypes": null
         },
         {
+          "description": "Binary data encoded using Base64",
+          "enumValues": null,
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "kind": "SCALAR",
+          "name": "Base64EncodedBinary",
+          "possibleTypes": null
+        },
+        {
           "description": "The `Boolean` scalar type represents `true` or `false`.",
           "enumValues": null,
           "fields": null,
@@ -7932,7 +7942,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "Base64EncodedBinary",
                   "ofType": null
                 }
               }
@@ -10282,7 +10292,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "String",
+                  "name": "Base64EncodedBinary",
                   "ofType": null
                 }
               }
@@ -10385,7 +10395,7 @@
               "name": "data",
               "type": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "Base64EncodedBinary",
                 "ofType": null
               }
             },
