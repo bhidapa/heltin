@@ -15,11 +15,12 @@ import { environment } from 'relay/environment';
 import { CaseStudiesDetailPageQuery } from 'relay/artifacts/CaseStudiesDetailPageQuery.graphql';
 
 // ui
-import { Err, Loading, Flex } from '@domonda/ui';
+import { Err, Loading, Flex, Text } from '@domonda/ui';
 
 // modules
 import { CaseStudyEdit } from 'modules/CaseStudy/CaseStudyEdit';
 import { CaseHistoryManage } from 'modules/CaseHistory/CaseHistoryManage';
+import { CaseHistoryEarlierMedicalReportsManage } from 'modules/CaseHistory/CaseHistoryEarlierMedicalReportsManage';
 
 export type CaseStudiesDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
@@ -41,7 +42,15 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
               description
               caseHistories: caseHistoriesByCaseStudyRowId {
                 nodes {
+                  rowId
                   ...CaseHistoryManage_caseHistory
+                  caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(
+                    orderBy: [CREATED_AT_ASC]
+                  ) {
+                    nodes {
+                      ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports
+                    }
+                  }
                 }
               }
               ...CaseStudyEdit_caseStudy
@@ -60,6 +69,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
           if (!caseStudy) {
             return <FourOhFourPage />;
           }
+          const caseHistory = caseStudy.caseHistories.nodes[0] || null;
           return (
             <>
               <Helmet title={caseStudy.description} />
@@ -68,10 +78,21 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                   <CaseStudyEdit caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
-                  <CaseHistoryManage
-                    caseStudyRowId={rowId}
-                    caseHistory={caseStudy.caseHistories.nodes[0] || null}
-                  />
+                  <CaseHistoryManage caseStudyRowId={rowId} caseHistory={caseHistory} />
+                </Flex>
+                <Flex item>
+                  {caseHistory ? (
+                    <CaseHistoryEarlierMedicalReportsManage
+                      caseHistoryRowId={caseHistory.rowId}
+                      caseHistoryEarlierMedicalReports={
+                        caseHistory.caseHistoryEarlierMedicalReports.nodes
+                      }
+                    />
+                  ) : (
+                    <Text color="warning">
+                      To upload earlier medical reports please create the case history first.
+                    </Text>
+                  )}
                 </Flex>
               </Flex>
             </>

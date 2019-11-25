@@ -29,4 +29,8 @@ export const messages: Messages = {
     en: 'Hide',
     hr: 'Sakrij',
   },
+  ADD: {
+    en: 'Add',
+    hr: 'Dodaj',
+  },
 };

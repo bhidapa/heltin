@@ -10,6 +10,12 @@ export type CaseStudiesDetailPageQueryResponse = {
         readonly description: string;
         readonly caseHistories: {
             readonly nodes: ReadonlyArray<{
+                readonly rowId: string;
+                readonly caseHistoryEarlierMedicalReports: {
+                    readonly nodes: ReadonlyArray<{
+                        readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports">;
+                    }>;
+                };
                 readonly " $fragmentRefs": FragmentRefs<"CaseHistoryManage_caseHistory">;
             }>;
         };
@@ -31,11 +37,29 @@ query CaseStudiesDetailPageQuery(
     description
     caseHistories: caseHistoriesByCaseStudyRowId {
       nodes {
+        rowId
         ...CaseHistoryManage_caseHistory
+        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+          nodes {
+            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports
+            id
+          }
+        }
         id
       }
     }
     ...CaseStudyEdit_caseStudy
+    id
+  }
+}
+
+fragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {
+  id
+  rowId
+  file: fileByFileRowId {
+    rowId
+    name
+    data
     id
   }
 }
@@ -121,18 +145,27 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "rowId",
   "args": null,
   "storageKey": null
 },
+v4 = [
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": [
+      "CREATED_AT_ASC"
+    ]
+  }
+],
 v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "fullName",
@@ -176,6 +209,34 @@ return {
                 "concreteType": "CaseHistory",
                 "plural": true,
                 "selections": [
+                  (v3/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": "caseHistoryEarlierMedicalReports",
+                    "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
+                    "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                    "args": (v4/*: any*/),
+                    "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "nodes",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "CaseHistoryEarlierMedicalReport",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "kind": "FragmentSpread",
+                            "name": "CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports",
+                            "args": null
+                          }
+                        ]
+                      }
+                    ]
+                  },
                   {
                     "kind": "FragmentSpread",
                     "name": "CaseHistoryManage_caseHistory",
@@ -228,7 +289,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
-                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -417,12 +478,63 @@ return {
                     "name": "schoolMark",
                     "args": null,
                     "storageKey": null
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": "caseHistoryEarlierMedicalReports",
+                    "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
+                    "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                    "args": (v4/*: any*/),
+                    "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "nodes",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "CaseHistoryEarlierMedicalReport",
+                        "plural": true,
+                        "selections": [
+                          (v5/*: any*/),
+                          (v3/*: any*/),
+                          {
+                            "kind": "LinkedField",
+                            "alias": "file",
+                            "name": "fileByFileRowId",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "File",
+                            "plural": false,
+                            "selections": [
+                              (v3/*: any*/),
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "name",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "data",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              (v5/*: any*/)
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
             ]
           },
-          (v4/*: any*/),
+          (v3/*: any*/),
           {
             "kind": "LinkedField",
             "alias": "client",
@@ -432,8 +544,8 @@ return {
             "concreteType": "Client",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
-              (v3/*: any*/)
+              (v6/*: any*/),
+              (v5/*: any*/)
             ]
           },
           {
@@ -441,15 +553,7 @@ return {
             "alias": "caseStudyProfessionals",
             "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
             "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "orderBy",
-                "value": [
-                  "CREATED_AT_ASC"
-                ]
-              }
-            ],
+            "args": (v4/*: any*/),
             "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
             "plural": false,
             "selections": [
@@ -462,7 +566,7 @@ return {
                 "concreteType": "CaseStudyMentalHealthProfessional",
                 "plural": true,
                 "selections": [
-                  (v4/*: any*/),
+                  (v3/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": "professional",
@@ -472,7 +576,7 @@ return {
                     "concreteType": "MentalHealthProfessional",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
+                      (v3/*: any*/),
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -480,8 +584,8 @@ return {
                         "args": null,
                         "storageKey": null
                       },
-                      (v5/*: any*/),
-                      (v3/*: any*/)
+                      (v6/*: any*/),
+                      (v5/*: any*/)
                     ]
                   },
                   {
@@ -491,12 +595,12 @@ return {
                     "args": null,
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v5/*: any*/)
                 ]
               }
             ]
           },
-          (v3/*: any*/)
+          (v5/*: any*/)
         ]
       }
     ]
@@ -505,10 +609,10 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryManage_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports\n            id\n          }\n        }\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'b7b18b5679ab37d149fac28a5a29b747';
+(node as any).hash = '335f3cd36bcfb3737e03e6af57b58b0f';
 export default node;

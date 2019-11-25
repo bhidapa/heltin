@@ -9367,6 +9367,151 @@
           "possibleTypes": null
         },
         {
+          "description": "All input for the `deleteCaseHistoryEarlierMedicalReport` mutation.",
+          "enumValues": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "defaultValue": null,
+              "description": "An arbitrary string value with no semantic meaning. Will be included in the payload verbatim. May be used to track mutations by the client.",
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "rowId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "UUID",
+                  "ofType": null
+                }
+              }
+            }
+          ],
+          "interfaces": null,
+          "kind": "INPUT_OBJECT",
+          "name": "DeleteCaseHistoryEarlierMedicalReportInput",
+          "possibleTypes": null
+        },
+        {
+          "description": "The output of our `deleteCaseHistoryEarlierMedicalReport` mutation.",
+          "enumValues": null,
+          "fields": [
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Reads a single `CaseHistory` that is related to this `CaseHistoryEarlierMedicalReport`.",
+              "isDeprecated": false,
+              "name": "caseHistoryByCaseHistoryRowId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CaseHistory",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "caseHistoryEarlierMedicalReport",
+              "type": {
+                "kind": "OBJECT",
+                "name": "CaseHistoryEarlierMedicalReport",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": "[PRIMARY_KEY_ASC]",
+                  "description": "The method to use when ordering `CaseHistoryEarlierMedicalReport`.",
+                  "name": "orderBy",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "CaseHistoryEarlierMedicalReportsOrderBy",
+                        "ofType": null
+                      }
+                    }
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": "An edge for our `CaseHistoryEarlierMedicalReport`. May be used by Relay 1.",
+              "isDeprecated": false,
+              "name": "caseHistoryEarlierMedicalReportEdge",
+              "type": {
+                "kind": "OBJECT",
+                "name": "CaseHistoryEarlierMedicalReportsEdge",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "The exact same `clientMutationId` that was provided in the mutation input, unchanged and unused. May be used by a client to track mutations.",
+              "isDeprecated": false,
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Reads a single `File` that is related to this `CaseHistoryEarlierMedicalReport`.",
+              "isDeprecated": false,
+              "name": "fileByFileRowId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "File",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": "Our root query field type. Allows us to run any query from our mutation payload.",
+              "isDeprecated": false,
+              "name": "query",
+              "type": {
+                "kind": "OBJECT",
+                "name": "Query",
+                "ofType": null
+              }
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "kind": "OBJECT",
+          "name": "DeleteCaseHistoryEarlierMedicalReportPayload",
+          "possibleTypes": null
+        },
+        {
           "description": "All input for the `deleteCaseHistory` mutation.",
           "enumValues": null,
           "fields": null,
@@ -14884,6 +15029,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "DeleteCaseHistoryPayload",
+                "ofType": null
+              }
+            },
+            {
+              "args": [
+                {
+                  "defaultValue": null,
+                  "description": "The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.",
+                  "name": "input",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "DeleteCaseHistoryEarlierMedicalReportInput",
+                      "ofType": null
+                    }
+                  }
+                }
+              ],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "deleteCaseHistoryEarlierMedicalReport",
+              "type": {
+                "kind": "OBJECT",
+                "name": "DeleteCaseHistoryEarlierMedicalReportPayload",
                 "ofType": null
               }
             },
