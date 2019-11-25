@@ -21,7 +21,7 @@ export const FormInputField: React.FC<Omit<FormInputFieldProps, 'children'> & In
 }) => (
   <ReactFormInputField path={path} required={required}>
     {({ inputProps, state }) => (
-      <Input {...inputProps} {...rest} disabled={state.disabled} readOnly={state.readOnly} />
+      <Input {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
     )}
   </ReactFormInputField>
 );
@@ -106,7 +106,7 @@ export const FormSelectField: React.FC<Omit<FormSelectFieldProps, 'children'> & 
 }) => (
   <ReactFormSelectField path={path} required={required}>
     {({ selectProps, state }) => (
-      <Select {...selectProps} {...rest} disabled={state.disabled} readOnly={state.readOnly}>
+      <Select {...selectProps} disabled={state.disabled} {...rest} readOnly={state.readOnly}>
         {children}
       </Select>
     )}
@@ -124,7 +124,7 @@ export const FormCheckboxField: React.FC<Omit<FormCheckboxFieldProps, 'children'
   CheckboxProps> = ({ children, path, required, ...rest }) => (
   <ReactFormCheckboxField path={path} required={required}>
     {({ inputProps, state }) => (
-      <Checkbox {...inputProps} {...rest} disabled={state.disabled} readOnly={state.readOnly}>
+      <Checkbox {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly}>
         {children}
       </Checkbox>
     )}
