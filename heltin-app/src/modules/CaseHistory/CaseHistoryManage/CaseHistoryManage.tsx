@@ -616,7 +616,10 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                     return null;
                   }
                   return (
-                    <FormSelectField path="reportedFurtherAbuses">
+                    <FormSelectField
+                      path="reportedFurtherAbuses"
+                      label={<FormattedMessage id="REPORTED_FURTHER_ABUSES" />}
+                    >
                       <CaseHistoryReportedAbuseTypeSelectOptions />
                     </FormSelectField>
                   );

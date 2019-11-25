@@ -13,7 +13,6 @@ export enum CaseHistoryArrivalReasonType {
   ADHD = 'ADHD',
   Anxiety = 'ANXIETY',
   AttentionProblems = 'ATTENTION_PROBLEMS',
-  BehavioralProblems = 'BEHAVIORAL_PROBLEMS',
   BehaviouralProblems = 'BEHAVIOURAL_PROBLEMS',
   Bullying = 'BULLYING',
   CommunicationProblems = 'COMMUNICATION_PROBLEMS',
