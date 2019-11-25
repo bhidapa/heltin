@@ -79,6 +79,19 @@ fragment CaseStudyEdit_caseStudy on CaseStudy {
     fullName
     id
   }
+  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {
+    nodes {
+      rowId
+      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+        rowId
+        type
+        fullName
+        id
+      }
+      primary
+      id
+    }
+  }
 }
 */
 
@@ -116,6 +129,13 @@ v4 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "rowId",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "fullName",
   "args": null,
   "storageKey": null
 };
@@ -412,14 +432,68 @@ return {
             "concreteType": "Client",
             "plural": false,
             "selections": [
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "fullName",
-                "args": null,
-                "storageKey": null
-              },
+              (v5/*: any*/),
               (v3/*: any*/)
+            ]
+          },
+          {
+            "kind": "LinkedField",
+            "alias": "caseStudyProfessionals",
+            "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
+            "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "orderBy",
+                "value": [
+                  "CREATED_AT_ASC"
+                ]
+              }
+            ],
+            "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "nodes",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "CaseStudyMentalHealthProfessional",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "alias": "professional",
+                    "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "MentalHealthProfessional",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "type",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      (v5/*: any*/),
+                      (v3/*: any*/)
+                    ]
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "primary",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  (v3/*: any*/)
+                ]
+              }
             ]
           },
           (v3/*: any*/)
@@ -431,7 +505,7 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryManage_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        ...CaseHistoryManage_caseHistory\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

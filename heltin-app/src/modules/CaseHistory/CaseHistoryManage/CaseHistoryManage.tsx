@@ -114,7 +114,6 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
             </Flex>
             <Flex item>
               <FormSelectField
-                autoFocus
                 required
                 path="accompaniedBy"
                 label={<FormattedMessage id="ACCOMPANIED_BY" />}

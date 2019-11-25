@@ -2,24 +2,21 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type UpdateCaseStudyInput = {
+export type CreateCaseStudyMentalHealthProfessionalInput = {
+    readonly caseStudyRowId: string;
     readonly clientMutationId?: string | null;
-    readonly description: string;
-    readonly rowId: string;
+    readonly mentalHealthProfessionalRowId: string;
+    readonly primary: boolean;
 };
-export type UpdateCaseStudyMutationVariables = {
-    input: UpdateCaseStudyInput;
+export type CreateCaseStudyProfessionalMutationVariables = {
+    input: CreateCaseStudyMentalHealthProfessionalInput;
 };
-export type UpdateCaseStudyMutationResponse = {
-    readonly updateCaseStudy: {
-        readonly caseStudy: {
-            readonly rowId: string;
-            readonly description: string;
-            readonly client: {
-                readonly fullName: string;
-            } | null;
-            readonly caseStudyProfessionals: {
+export type CreateCaseStudyProfessionalMutationResponse = {
+    readonly createCaseStudyMentalHealthProfessional: {
+        readonly caseStudyByCaseStudyRowId: {
+            readonly caseStudyMentalHealthProfessionalsByCaseStudyRowId: {
                 readonly nodes: ReadonlyArray<{
+                    readonly id: string;
                     readonly rowId: string;
                     readonly professional: {
                         readonly rowId: string;
@@ -29,30 +26,25 @@ export type UpdateCaseStudyMutationResponse = {
                     readonly primary: boolean;
                 }>;
             };
-        } | null;
+        };
     } | null;
 };
-export type UpdateCaseStudyMutation = {
-    readonly response: UpdateCaseStudyMutationResponse;
-    readonly variables: UpdateCaseStudyMutationVariables;
+export type CreateCaseStudyProfessionalMutation = {
+    readonly response: CreateCaseStudyProfessionalMutationResponse;
+    readonly variables: CreateCaseStudyProfessionalMutationVariables;
 };
 
 
 
 /*
-mutation UpdateCaseStudyMutation(
-  $input: UpdateCaseStudyInput!
+mutation CreateCaseStudyProfessionalMutation(
+  $input: CreateCaseStudyMentalHealthProfessionalInput!
 ) {
-  updateCaseStudy(input: $input) {
-    caseStudy {
-      rowId
-      description
-      client: clientByClientRowId {
-        fullName
-        id
-      }
-      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {
+  createCaseStudyMentalHealthProfessional(input: $input) {
+    caseStudyByCaseStudyRowId {
+      caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
+          id
           rowId
           professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
             rowId
@@ -61,7 +53,6 @@ mutation UpdateCaseStudyMutation(
             id
           }
           primary
-          id
         }
       }
       id
@@ -75,7 +66,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateCaseStudyInput!",
+    "type": "CreateCaseStudyMentalHealthProfessionalInput!",
     "defaultValue": null
   }
 ],
@@ -86,28 +77,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "rowId",
-  "args": null,
-  "storageKey": null
-},
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "description",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "fullName",
-  "args": null,
-  "storageKey": null
-},
-v5 = [
+v2 = [
   {
     "kind": "Literal",
     "name": "orderBy",
@@ -116,10 +86,31 @@ v5 = [
     ]
   }
 ],
-v6 = {
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
+},
+v4 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "rowId",
+  "args": null,
+  "storageKey": null
+},
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "fullName",
   "args": null,
   "storageKey": null
 },
@@ -129,19 +120,12 @@ v7 = {
   "name": "primary",
   "args": null,
   "storageKey": null
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
 };
 return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "UpdateCaseStudyMutation",
+    "name": "CreateCaseStudyProfessionalMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -149,41 +133,27 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudy",
+        "name": "createCaseStudyMentalHealthProfessional",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateCaseStudyPayload",
+        "concreteType": "CreateCaseStudyMentalHealthProfessionalPayload",
         "plural": false,
         "selections": [
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
+            "name": "caseStudyByCaseStudyRowId",
             "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "kind": "LinkedField",
-                "alias": "client",
-                "name": "clientByClientRowId",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Client",
-                "plural": false,
-                "selections": [
-                  (v4/*: any*/)
-                ]
-              },
-              {
-                "kind": "LinkedField",
-                "alias": "caseStudyProfessionals",
+                "alias": null,
                 "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
                 "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v5/*: any*/),
+                "args": (v2/*: any*/),
                 "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
                 "plural": false,
                 "selections": [
@@ -196,7 +166,8 @@ return {
                     "concreteType": "CaseStudyMentalHealthProfessional",
                     "plural": true,
                     "selections": [
-                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": "professional",
@@ -206,9 +177,9 @@ return {
                         "concreteType": "MentalHealthProfessional",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
-                          (v6/*: any*/),
-                          (v4/*: any*/)
+                          (v4/*: any*/),
+                          (v5/*: any*/),
+                          (v6/*: any*/)
                         ]
                       },
                       (v7/*: any*/)
@@ -224,48 +195,33 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "UpdateCaseStudyMutation",
+    "name": "CreateCaseStudyProfessionalMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudy",
+        "name": "createCaseStudyMentalHealthProfessional",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateCaseStudyPayload",
+        "concreteType": "CreateCaseStudyMentalHealthProfessionalPayload",
         "plural": false,
         "selections": [
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
+            "name": "caseStudyByCaseStudyRowId",
             "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "kind": "LinkedField",
-                "alias": "client",
-                "name": "clientByClientRowId",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Client",
-                "plural": false,
-                "selections": [
-                  (v4/*: any*/),
-                  (v8/*: any*/)
-                ]
-              },
-              {
-                "kind": "LinkedField",
-                "alias": "caseStudyProfessionals",
+                "alias": null,
                 "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
                 "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v5/*: any*/),
+                "args": (v2/*: any*/),
                 "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
                 "plural": false,
                 "selections": [
@@ -278,7 +234,8 @@ return {
                     "concreteType": "CaseStudyMentalHealthProfessional",
                     "plural": true,
                     "selections": [
-                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "LinkedField",
                         "alias": "professional",
@@ -288,19 +245,18 @@ return {
                         "concreteType": "MentalHealthProfessional",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
-                          (v6/*: any*/),
                           (v4/*: any*/),
-                          (v8/*: any*/)
+                          (v5/*: any*/),
+                          (v6/*: any*/),
+                          (v3/*: any*/)
                         ]
                       },
-                      (v7/*: any*/),
-                      (v8/*: any*/)
+                      (v7/*: any*/)
                     ]
                   }
                 ]
               },
-              (v8/*: any*/)
+              (v3/*: any*/)
             ]
           }
         ]
@@ -309,12 +265,12 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "UpdateCaseStudyMutation",
+    "name": "CreateCaseStudyProfessionalMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      client: clientByClientRowId {\n        fullName\n        id\n      }\n      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n            rowId\n            type\n            fullName\n            id\n          }\n          primary\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateCaseStudyProfessionalMutation(\n  $input: CreateCaseStudyMentalHealthProfessionalInput!\n) {\n  createCaseStudyMentalHealthProfessional(input: $input) {\n    caseStudyByCaseStudyRowId {\n      caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n          rowId\n          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n            rowId\n            type\n            fullName\n            id\n          }\n          primary\n        }\n      }\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'f1ad0b481eb389fa5a2b8d803268173e';
+(node as any).hash = '18deb3fc23d5042cca9d6c7518d851dc';
 export default node;
