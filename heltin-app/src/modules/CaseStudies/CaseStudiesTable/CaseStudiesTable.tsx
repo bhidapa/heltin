@@ -39,49 +39,57 @@ const CaseStudiesTable: React.FC<CaseStudiesTableProps & Decorate> = (props) => 
         </Text>
       </Flex>
       <Flex item container direction="column" spacing="tiny">
-        {caseStudies.map(({ rowId, description }) => (
+        {caseStudies.length > 0 ? (
+          caseStudies.map(({ rowId, description }) => (
+            <Flex item key={rowId}>
+              <div className={classes.caseStudy}>
+                <Button
+                  variant="link"
+                  component={makeLink({
+                    to: `${CASE_STUDIES_PAGE_ROUTE}/${rowId}`,
+                  })}
+                >
+                  {description}
+                </Button>
+              </div>
+            </Flex>
+          ))
+        ) : (
           <Flex item>
-            <div className={classes.caseStudy}>
-              <Button
-                variant="link"
-                component={makeLink({
-                  to: `${CASE_STUDIES_PAGE_ROUTE}/${rowId}`,
-                })}
-              >
-                {description}
-              </Button>
-            </div>
+            <Text color="warning">
+              <FormattedMessage id="NO_CASE_STUDIES" />
+            </Text>
           </Flex>
-        ))}
-      </Flex>
-      <Flex item>
-        <Form
-          defaultValues={{
-            clientRowId,
-            description: '',
-          }}
-          onSubmit={(values) => createCaseStudyMutation({ input: values })}
-          resetOnSuccessfulSubmit
-        >
-          <Flex container spacing="tiny" align="baseline">
-            <Flex item flex={1}>
-              <FormInputField path="description" required>
-                {({ inputProps }) => (
-                  <Input {...inputProps} label={<FormattedMessage id="DESCRIPTION" />} />
-                )}
-              </FormInputField>
+        )}
+        <Flex item>
+          <Form
+            defaultValues={{
+              clientRowId,
+              description: '',
+            }}
+            onSubmit={(values) => createCaseStudyMutation({ input: values })}
+            resetOnSuccessfulSubmit
+          >
+            <Flex container spacing="tiny" align="baseline">
+              <Flex item flex={1}>
+                <FormInputField path="description" required>
+                  {({ inputProps }) => (
+                    <Input {...inputProps} label={<FormattedMessage id="DESCRIPTION" />} />
+                  )}
+                </FormInputField>
+              </Flex>
+              <Flex item>
+                <FormSubmittingState>
+                  {(submitting) => (
+                    <Button disabled={submitting} type="submit" variant="text" color="success">
+                      <PlusIcon />
+                    </Button>
+                  )}
+                </FormSubmittingState>
+              </Flex>
             </Flex>
-            <Flex item>
-              <FormSubmittingState>
-                {(submitting) => (
-                  <Button disabled={submitting} type="submit" variant="text" color="success">
-                    <PlusIcon />
-                  </Button>
-                )}
-              </FormSubmittingState>
-            </Flex>
-          </Flex>
-        </Form>
+          </Form>
+        </Flex>
       </Flex>
     </Flex>
   );

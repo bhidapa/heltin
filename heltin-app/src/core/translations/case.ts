@@ -13,6 +13,10 @@ export const messages: Messages = {
     en: 'Case studies',
     hr: 'Studije slučajeva',
   },
+  NO_CASE_STUDIES: {
+    en: 'No case studies',
+    hr: 'Nema studija slučajeva',
+  },
   CASE_HISTORY: {
     en: 'Case history',
     hr: 'Povijest slučaja',
