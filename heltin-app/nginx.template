@@ -21,5 +21,6 @@ server {
   # graphql endpoint
   location /api/graphql {
     proxy_pass ${GRAPHQL_ENDPOINT};
+    client_max_body_size 0;
   }
 }

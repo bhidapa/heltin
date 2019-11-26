@@ -75,7 +75,8 @@ function start() {
           enhanceGraphiql: true,
           jwtPgTypeIdentifier,
           jwtSecret,
-          pgDefaultRole: noAuth ? "viewer" : "anonymous"
+          pgDefaultRole: noAuth ? "viewer" : "anonymous",
+          bodySizeLimit: "1GB"
         }
       )
     )
