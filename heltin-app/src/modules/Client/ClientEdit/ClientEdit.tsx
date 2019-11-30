@@ -169,10 +169,6 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
                 <FormDateField path="dateOfBirth" required>
                   {({ DateInput }) => (
                     <DateInput
-                      showTimeSelect
-                      timeFormat="HH:mm"
-                      dateFormat="dd.MM.yyyy HH:mm"
-                      timeIntervals={15}
                       customInput={<Input label={<FormattedMessage id="DATE_OF_BIRTH" />} />}
                     />
                   )}
