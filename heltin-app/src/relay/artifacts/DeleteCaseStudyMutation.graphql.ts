@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash e9954d2b40ce1ce01283aac3b32f462c */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyInput = {

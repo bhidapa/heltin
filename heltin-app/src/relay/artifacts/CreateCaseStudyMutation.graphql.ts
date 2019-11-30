@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash 08992bddf57a5b06bc98de0b7ad7b14b */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CreateCaseStudyInput = {

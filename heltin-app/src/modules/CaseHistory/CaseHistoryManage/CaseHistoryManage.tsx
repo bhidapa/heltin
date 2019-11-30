@@ -103,7 +103,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
         </Text>
       </Flex>
       <Flex item>
-        <Form defaultValues={deriveFormValues(props)} onSubmit={submit} resetOnSuccessfulSubmit>
+        <Form defaultValues={deriveFormValues(props)} resetOnDefaultValuesChange onSubmit={submit}>
           <Flex container direction="column" spacing="tiny">
             <Flex item>
               <FormSubmitErrorState>

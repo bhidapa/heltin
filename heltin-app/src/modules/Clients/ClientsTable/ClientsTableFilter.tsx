@@ -19,7 +19,8 @@ import { useClientsQueryParams } from '../clientsQueryParams';
 export interface ClientsTableFilterProps {}
 
 export const ClientsTableFilter: React.FC<ClientsTableFilterProps> = () => {
-  const [params, setParams] = useClientsQueryParams();
+  const qp = useClientsQueryParams();
+  const [params, setParams] = qp;
 
   return (
     <Flex container direction="column" spacing="tiny">

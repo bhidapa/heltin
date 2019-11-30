@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash dd17ef17521fc6fa52db9f06744c1e17 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";

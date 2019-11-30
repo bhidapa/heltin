@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash 053727fab1349fd471089e65bdc90b09 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AuthenticateInput = {

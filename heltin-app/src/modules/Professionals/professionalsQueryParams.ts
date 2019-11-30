@@ -5,12 +5,7 @@
  */
 
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
-import {
-  QueryModel,
-  UseQueryParamsProps,
-  UseQueryParamsReturn,
-  useQueryParams,
-} from '@domonda/query-params';
+import { QueryModel, UseQueryParamsProps, useQueryParams } from '@domonda/query-params';
 
 export interface CompaniesQueryParams {
   count: number;
@@ -28,12 +23,11 @@ export const companiesQueryModel: QueryModel<CompaniesQueryParams> = {
   },
 };
 
-export function useProfessionalsQueryParams(
-  props?: UseQueryParamsProps,
-): UseQueryParamsReturn<CompaniesQueryParams> {
-  const [params, setParams] = useQueryParams(companiesQueryModel, {
+export function useProfessionalsQueryParams<S = CompaniesQueryParams>(
+  props?: UseQueryParamsProps<CompaniesQueryParams, S>,
+) {
+  return useQueryParams(companiesQueryModel, {
     ...props,
     onPathname: CLIENTS_PAGE_ROUTE,
   });
-  return [params, setParams];
 }

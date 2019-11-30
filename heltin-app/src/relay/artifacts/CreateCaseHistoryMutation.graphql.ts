@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash ccedd5ffb50b8d2723a8b924119dd340 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";

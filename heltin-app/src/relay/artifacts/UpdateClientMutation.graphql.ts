@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash 7c05fd967c2ecdb1c0d28438e79db62e */
 
 import { ConcreteRequest } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";

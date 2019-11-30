@@ -19,7 +19,8 @@ import { useProfessionalsQueryParams } from '../professionalsQueryParams';
 export interface ProfessionalsTableFilterProps {}
 
 export const ProfessionalsTableFilter: React.FC<ProfessionalsTableFilterProps> = () => {
-  const [params, setParams] = useProfessionalsQueryParams();
+  const qp = useProfessionalsQueryParams();
+  const [params, setParams] = qp;
 
   return (
     <Flex container direction="column" spacing="tiny">

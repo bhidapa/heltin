@@ -1,4 +1,5 @@
 /* tslint:disable */
+/* @relayHash 609c1aa32e13439f41d7790bc342805d */
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyMentalHealthProfessionalInput = {
