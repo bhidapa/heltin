@@ -23,6 +23,14 @@ export const messages: Messages = {
     en: 'Case histories',
     hr: 'Povijesti slučajeva',
   },
+  ANAMNESIS: {
+    en: 'Anamnesis',
+    hr: 'Anamneza',
+  },
+  PLURAL_ANAMNESIS: {
+    en: 'Anamnesis',
+    hr: 'Anamneze',
+  },
   ACCOMPANIED_BY: {
     en: 'Accompanied by',
     hr: 'U pratnji',

@@ -99,7 +99,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
     <Flex container spacing="small" direction="column">
       <Flex item>
         <Text size="large" weight="medium">
-          <FormattedMessage id="CASE_HISTORY" />
+          <FormattedMessage id="ANAMNESIS" />
         </Text>
       </Flex>
       <Flex item>
