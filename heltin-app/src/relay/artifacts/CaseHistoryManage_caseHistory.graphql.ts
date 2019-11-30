@@ -3,9 +3,8 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";
-export type CaseHistoryAccompaniedByType = "FAMILY" | "FATHER" | "MOTHER" | "NONE";
-export type CaseHistoryArrivalReasonType = "ABUSE_WITNESS" | "ADDICTION" | "ADHD" | "ANXIETY" | "ATTENTION_PROBLEMS" | "BEHAVIORAL_PROBLEMS" | "BEHAVIOURAL_PROBLEMS" | "BULLYING" | "COMMUNICATION_PROBLEMS" | "COUPLE_PROBLEMS" | "CYBER_BULLYING" | "DEPRESION_SYMPTOMS" | "DIVORCE" | "DYSGRAPHIA" | "DYSLEXIA" | "EMOTIONAL_ABUSE" | "EMOTIONAL_PROBLEMS" | "GRIEVE" | "LEARNING_PROBLEMS" | "LOSS" | "NEGLECTION" | "NEURO_DEVELOPMENT_DISORDER" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE" | "SLEEP_DEFICIENCY" | "SUICIDAL_THOUGHTS" | "TALKING_ISSUES" | "TRAUMA";
-export type CaseHistoryDeceasedType = "BROTHER" | "FATHER" | "FOSTER_FATHER" | "FOSTER_MOTHER" | "MOTHER" | "SISTER" | "STEP_BROTHER" | "STEP_FATHER" | "STEP_MOTHER" | "STEP_SISTER";
+export type CaseHistoryAccompaniedByType = "FAMILY" | "FATHER" | "MOTHER" | "NO_ONE";
+export type CaseHistoryArrivalReasonType = "ABUSE_WITNESS" | "ADDICTION" | "ADHD" | "ANXIETY" | "ATTENTION_PROBLEMS" | "BEHAVIOURAL_PROBLEMS" | "BULLYING" | "COMMUNICATION_PROBLEMS" | "COUPLE_PROBLEMS" | "CYBER_BULLYING" | "DEPRESION_SYMPTOMS" | "DIVORCE" | "DYSGRAPHIA" | "DYSLEXIA" | "EMOTIONAL_ABUSE" | "EMOTIONAL_PROBLEMS" | "GRIEVE" | "LEARNING_PROBLEMS" | "LOSS" | "NEGLECTION" | "NEURO_DEVELOPMENT_DISORDER" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE" | "SLEEP_DEFICIENCY" | "SUICIDAL_THOUGHTS" | "TALKING_ISSUES" | "TRAUMA";
 export type CaseHistoryDivorceOutcomeType = "HIGH_CONFLICT" | "LOW_CONFLICT" | "MEDIUM_CONFLICT" | "NO_CONFLICT" | "UNKNOWN";
 export type CaseHistoryDivorcedParentsType = "IN_PROCESS" | "NO" | "YES";
 export type CaseHistoryIndividualType = "AUNT" | "BROTHER" | "COUSIN" | "FATHER" | "FOSTER_FATHER" | "FOSTER_MOTHER" | "FRIEND" | "GRANDFATHER" | "GRANDMOTHER" | "LOVER" | "MOTHER" | "SISTER" | "STEP_BROTHER" | "STEP_FATHER" | "STEP_MOTHER" | "STEP_SISTER" | "UNCLE";
@@ -25,7 +24,6 @@ export type CaseHistoryManage_caseHistory = {
     readonly ageDuringLossOfCloseIndividual: number | null;
     readonly arrivalReason: ReadonlyArray<CaseHistoryArrivalReasonType | null> | null;
     readonly attendsKindergarten: boolean | null;
-    readonly deceased: ReadonlyArray<CaseHistoryDeceasedType | null> | null;
     readonly diagnosedIntelectualDevelopmentProblems: boolean | null;
     readonly divorceOutcome: CaseHistoryDivorceOutcomeType | null;
     readonly divorcedParents: CaseHistoryDivorcedParentsType | null;
@@ -122,13 +120,6 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "alias": null,
       "name": "attendsKindergarten",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "deceased",
       "args": null,
       "storageKey": null
     },
@@ -267,5 +258,5 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = 'a17abeb4b9befb9302a70f2611d4e7f0';
+(node as any).hash = 'd863d6f62aeb9454ce41ed1194f89578';
 export default node;

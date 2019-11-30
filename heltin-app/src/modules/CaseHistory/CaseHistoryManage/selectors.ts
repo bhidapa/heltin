@@ -3,7 +3,6 @@ import { CaseHistoryManageProps } from './CaseHistoryManage';
 import { CaseHistoryAbuseType } from '../CaseHistoryAbuseType';
 import { CaseHistoryAccompaniedByType } from '../CaseHistoryAccompaniedByType';
 import { CaseHistoryArrivalReasonType } from '../CaseHistoryArrivalReasonType';
-import { CaseHistoryDeceasedType } from '../CaseHistoryDeceasedType';
 import { CaseHistoryDivorceOutcomeType } from '../CaseHistoryDivorceOutcomeType';
 import { CaseHistoryDivorcedParentsType } from '../CaseHistoryDivorcedParentsType';
 import { CaseHistoryIndividualType } from '../CaseHistoryIndividualType';
@@ -36,7 +35,6 @@ export interface FormValues {
   // lives with
   livesWith: CaseHistoryLivesWithType[] | null;
   // death
-  deceased: CaseHistoryDeceasedType[] | null;
   lossOfCloseIndividual: CaseHistoryIndividualType[] | null;
   ageDuringLossOfCloseIndividual: number | null;
   // adoption
@@ -89,7 +87,6 @@ export const deriveFormValues = createSelector(
     // lives with
     livesWith: caseHistory ? (caseHistory.livesWith as CaseHistoryLivesWithType[]) : null,
     // death
-    deceased: caseHistory ? (caseHistory.deceased as CaseHistoryDeceasedType[]) : null,
     lossOfCloseIndividual: caseHistory
       ? (caseHistory.lossOfCloseIndividual as CaseHistoryIndividualType[])
       : null,

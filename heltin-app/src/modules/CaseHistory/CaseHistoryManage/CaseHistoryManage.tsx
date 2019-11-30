@@ -43,7 +43,6 @@ import { CaseHistoryDivorceOutcomeTypeSelectOptions } from '../CaseHistoryDivorc
 // selectors
 import { deriveFormValues, FormValues } from './selectors';
 import { FormattedMessage } from 'react-intl';
-import { CaseHistoryDeceasedTypeSelectOptions } from '../CaseHistoryDeceasedType';
 import { CaseHistoryArrivalReasonTypeSelectOptions } from '../CaseHistoryArrivalReasonType';
 import { CaseHistoryReferralTypeSelectOptions } from '../CaseHistoryReferralType';
 import { ProfessionalTypeSelectOptions } from 'modules/Professional/ProfessionalTypeSelectOptions';
@@ -51,6 +50,7 @@ import { CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions } from '../CaseHi
 import { CaseHistoryReportedAbuseTypeSelectOptions } from '../CaseHistoryReportedAbuseType';
 import { CaseHistoryAbuseTypeSelectOptions } from '../CaseHistoryAbuseType';
 import { CaseHistoryParentsInJailTypeSelectOptions } from '../CaseHistoryParentsInJailType';
+import { CaseHistoryIndividualTypeSelectOptions } from '../CaseHistoryIndividualType';
 
 export interface CaseHistoryManageProps {
   caseStudyRowId: UUID;
@@ -353,42 +353,6 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
             </Flex>
             <Flex item>
               <Label>
-                <FormattedMessage id="DECEASED" />
-              </Label>
-              <Flex item container spacing="tiny">
-                <FormArrayField path="deceased">
-                  {({ items, add, remove }) => (
-                    <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
-                        <Flex key={index.toString()} item maxWidth={152}>
-                          <FormSelectField path={`deceased[${index}]`}>
-                            <CaseHistoryDeceasedTypeSelectOptions />
-                          </FormSelectField>
-                        </Flex>
-                      ))}
-                      <Flex item>
-                        <Button
-                          variant="text"
-                          size="tiny"
-                          color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
-                        >
-                          <MinusIcon />
-                        </Button>
-                      </Flex>
-                      <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
-                          <PlusIcon />
-                        </Button>
-                      </Flex>
-                    </Flex>
-                  )}
-                </FormArrayField>
-              </Flex>
-            </Flex>
-            <Flex item>
-              <Label>
                 <FormattedMessage id="LOSS_OF_CLOSE_INDIVIDUAL" />
               </Label>
               <Flex item container spacing="tiny">
@@ -398,7 +362,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                       {items.map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`lossOfCloseIndividual[${index}]`}>
-                            <CaseHistoryDeceasedTypeSelectOptions />
+                            <CaseHistoryIndividualTypeSelectOptions />
                           </FormSelectField>
                         </Flex>
                       ))}
@@ -423,7 +387,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                 </FormArrayField>
               </Flex>
             </Flex>
-            <Flex item maxWidth={128}>
+            <Flex item maxWidth={292}>
               <FormField<any[] | null> path="lossOfCloseIndividual">
                 {({ value }) => {
                   if (!value || value.every((val) => !val)) {
@@ -669,7 +633,6 @@ const ComposedCaseHistoryManage = createFragmentContainer(CaseHistoryManage, {
       ageDuringLossOfCloseIndividual
       arrivalReason
       attendsKindergarten
-      deceased
       diagnosedIntelectualDevelopmentProblems
       divorceOutcome
       divorcedParents

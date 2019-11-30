@@ -11,9 +11,9 @@ export type CaseStudiesDetailPageQueryResponse = {
         readonly caseHistories: {
             readonly nodes: ReadonlyArray<{
                 readonly rowId: string;
-                readonly caseHistoryEarlierMedicalReports: {
+                readonly caseHistoryFiles: {
                     readonly nodes: ReadonlyArray<{
-                        readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports">;
+                        readonly " $fragmentRefs": FragmentRefs<"CaseHistoryFilesManage_caseHistoryFiles">;
                     }>;
                 };
                 readonly " $fragmentRefs": FragmentRefs<"CaseHistoryManage_caseHistory">;
@@ -39,9 +39,9 @@ query CaseStudiesDetailPageQuery(
       nodes {
         rowId
         ...CaseHistoryManage_caseHistory
-        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {
-            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports
+            ...CaseHistoryFilesManage_caseHistoryFiles
             id
           }
         }
@@ -53,7 +53,7 @@ query CaseStudiesDetailPageQuery(
   }
 }
 
-fragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {
+fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {
   id
   rowId
   file: fileByFileRowId {
@@ -74,7 +74,6 @@ fragment CaseHistoryManage_caseHistory on CaseHistory {
   ageDuringLossOfCloseIndividual
   arrivalReason
   attendsKindergarten
-  deceased
   diagnosedIntelectualDevelopmentProblems
   divorceOutcome
   divorcedParents
@@ -213,11 +212,11 @@ return {
                   (v3/*: any*/),
                   {
                     "kind": "LinkedField",
-                    "alias": "caseHistoryEarlierMedicalReports",
-                    "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
-                    "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                    "alias": "caseHistoryFiles",
+                    "name": "caseHistoryFilesByCaseHistoryRowId",
+                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                     "args": (v4/*: any*/),
-                    "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                    "concreteType": "CaseHistoryFilesConnection",
                     "plural": false,
                     "selections": [
                       {
@@ -226,12 +225,12 @@ return {
                         "name": "nodes",
                         "storageKey": null,
                         "args": null,
-                        "concreteType": "CaseHistoryEarlierMedicalReport",
+                        "concreteType": "CaseHistoryFile",
                         "plural": true,
                         "selections": [
                           {
                             "kind": "FragmentSpread",
-                            "name": "CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports",
+                            "name": "CaseHistoryFilesManage_caseHistoryFiles",
                             "args": null
                           }
                         ]
@@ -337,13 +336,6 @@ return {
                     "kind": "ScalarField",
                     "alias": null,
                     "name": "attendsKindergarten",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "deceased",
                     "args": null,
                     "storageKey": null
                   },
@@ -482,11 +474,11 @@ return {
                   },
                   {
                     "kind": "LinkedField",
-                    "alias": "caseHistoryEarlierMedicalReports",
-                    "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
-                    "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                    "alias": "caseHistoryFiles",
+                    "name": "caseHistoryFilesByCaseHistoryRowId",
+                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                     "args": (v4/*: any*/),
-                    "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                    "concreteType": "CaseHistoryFilesConnection",
                     "plural": false,
                     "selections": [
                       {
@@ -495,7 +487,7 @@ return {
                         "name": "nodes",
                         "storageKey": null,
                         "args": null,
-                        "concreteType": "CaseHistoryEarlierMedicalReport",
+                        "concreteType": "CaseHistoryFile",
                         "plural": true,
                         "selections": [
                           (v5/*: any*/),
@@ -611,10 +603,10 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports\n            id\n          }\n        }\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  deceased\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    description\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryFilesManage_caseHistoryFiles\n            id\n          }\n        }\n        id\n      }\n    }\n    ...CaseStudyEdit_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyEdit_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '335f3cd36bcfb3737e03e6af57b58b0f';
+(node as any).hash = 'ba8dfdc0d1b8d6e8dde702304341476a';
 export default node;

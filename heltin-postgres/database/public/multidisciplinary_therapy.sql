@@ -34,8 +34,8 @@ create type public.multidisciplinary_therapy_type as enum (
 create table public.multidisciplinary_therapy (
   id uuid primary key default uuid_generate_v4(),
 
-  case_study_id         uuid not null references public.case_study(id) on delete cascade,
-  case_study_session_id uuid references public.case_study_session(id) on delete cascade,
+  case_study_id           uuid not null references public.case_study(id) on delete cascade,
+  case_study_treatment_id uuid references public.case_study_treatment(id) on delete cascade,
 
   multidisciplinary_diagnostic_id uuid references public.multidisciplinary_diagnostic(id) on delete restrict,
 

@@ -122,7 +122,7 @@ language sql volatile;
 
 ----
 
-create table public.case_study_session (
+create table public.case_study_treatment (
   id uuid primary key default uuid_generate_v4(),
 
   case_study_id uuid not null references public.case_study(id) on delete cascade,
@@ -132,7 +132,7 @@ create table public.case_study_session (
   started_at timestamptz not null,
   ended_at   timestamptz not null,
 
-  description text,
+  description text check(length(description) >= 3),
 
   score integer check(score >= 1 and score <= 5),
 
@@ -142,7 +142,107 @@ create table public.case_study_session (
   updated_at updated_timestamptz not null
 );
 
-grant all on public.case_study_session to viewer;
+grant all on public.case_study_treatment to viewer;
+
+create or replace function public.create_case_study_treatment(
+  case_study_id uuid,
+  "external"    boolean,
+  started_at    timestamptz,
+  ended_at      timestamptz,
+  description   text = null,
+  score         integer = null
+) returns public.case_study_treatment as
+$$
+  insert into public.case_study_treatment (case_study_id, "external", started_at, ended_at, description, score)
+    values (
+      create_case_study_treatment.case_study_id,
+      create_case_study_treatment."external",
+      create_case_study_treatment.started_at,
+      create_case_study_treatment.ended_at,
+      create_case_study_treatment.description,
+      create_case_study_treatment.score
+    )
+  returning *
+$$
+language sql volatile;
+
+create or replace function public.update_case_study_treatment(
+  id          uuid,
+  "external"  boolean,
+  started_at  timestamptz,
+  ended_at    timestamptz,
+  description text = null,
+  score       integer = null
+) returns public.case_study_treatment as
+$$
+  update public.case_study_treatment set
+    "external"=update_case_study_treatment."external",
+    started_at=update_case_study_treatment.started_at,
+    ended_at=update_case_study_treatment.ended_at,
+    description=update_case_study_treatment.description,
+    score=update_case_study_treatment.score,
+    updated_at=now()
+  where id = update_case_study_treatment.id
+  returning *
+$$
+language sql volatile;
+
+create or replace function public.delete_case_study_treatment(
+  id uuid
+) returns public.case_study_treatment as
+$$
+  delete from public.case_study_treatment
+  where id = delete_case_study_treatment.id
+  returning *
+$$
+language sql volatile;
+
+----
+
+create table public.case_study_treatment_file (
+  id uuid primary key default uuid_generate_v4(),
+
+  case_study_treatment_id uuid not null references public.case_study_treatment(id) on delete cascade,
+  file_id                 uuid not null references public.file(id) on delete cascade,
+
+  created_at created_timestamptz not null,
+  updated_at updated_timestamptz not null
+);
+
+grant all on public.case_study_treatment_file to viewer;
+
+create or replace function public.create_case_study_treatment_file(
+  case_study_treatment_id uuid,
+  file_name               text,
+  file_data               bytea
+) returns public.case_study_treatment_file as
+$$
+  with created_file as (
+    insert into public.file (name, data)
+      values (create_case_study_treatment_file.file_name, create_case_study_treatment_file.file_data)
+    returning *
+  )
+  insert into public.case_study_treatment_file (case_study_treatment_id, file_id)
+    select create_case_study_treatment_file.case_study_treatment_id, id from created_file
+  returning *
+$$
+language sql volatile;
+
+create or replace function public.delete_case_study_treatment_file(
+  id uuid
+) returns public.case_study_treatment_file as
+$$
+  with deleted as (
+    delete from public.case_study_treatment_file
+    where id = delete_case_study_treatment_file.id
+    returning *
+  )
+  delete from public.file
+    using deleted
+  where deleted.file_id = file.id
+  returning deleted.*
+$$
+language sql volatile;
 
 ----
 
@@ -161,10 +261,94 @@ create table public.case_study_conclusion (
 
   "type" public.case_study_conclusion_type not null,
 
-  description text,
+  description text not null check(length(description) >= 3),
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
 
 grant all on public.case_study_conclusion to viewer;
+
+create or replace function public.create_case_study_conclusion(
+  case_study_id uuid,
+  "type"        public.case_study_conclusion_type,
+  description   text
+) returns public.case_study_conclusion as
+$$
+  insert into public.case_study_conclusion (case_study_id, "type", description)
+    values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.description)
+  returning *
+$$
+language sql stable;
+
+create or replace function public.update_case_study_conclusion(
+  id          uuid,
+  "type"      public.case_study_conclusion_type,
+  description text
+) returns public.case_study_conclusion as
+$$
+  update public.case_study_conclusion set
+    "type"=update_case_study_conclusion."type",
+    description=update_case_study_conclusion.description,
+    updated_at=now()
+  where id = update_case_study_conclusion.id
+  returning *
+$$
+language sql stable;
+
+create or replace function public.delete_case_study_conclusion(
+  id uuid
+) returns public.case_study_conclusion as
+$$
+  delete from public.case_study_conclusion
+  where id = delete_case_study_conclusion.id
+  returning *
+$$
+language sql stable;
+
+----
+
+create table public.case_study_conclusion_file (
+  id uuid primary key default uuid_generate_v4(),
+
+  case_study_conclusion_id uuid not null references public.case_study_conclusion(id) on delete cascade,
+  file_id                  uuid not null references public.file(id) on delete cascade,
+
+  created_at created_timestamptz not null,
+  updated_at updated_timestamptz not null
+);
+
+grant all on public.case_study_conclusion_file to viewer;
+
+create or replace function public.create_case_study_conclusion_file(
+  case_study_conclusion_id uuid,
+  file_name                text,
+  file_data                bytea
+) returns public.case_study_conclusion_file as
+$$
+  with created_file as (
+    insert into public.file (name, data)
+      values (create_case_study_conclusion_file.file_name, create_case_study_conclusion_file.file_data)
+    returning *
+  )
+  insert into public.case_study_conclusion_file (case_study_conclusion_id, file_id)
+    select create_case_study_conclusion_file.case_study_conclusion_id, id from created_file
+  returning *
+$$
+language sql volatile;
+
+create or replace function public.delete_case_study_conclusion_file(
+  id uuid
+) returns public.case_study_conclusion_file as
+$$
+  with deleted as (
+    delete from public.case_study_conclusion_file
+    where id = delete_case_study_conclusion_file.id
+    returning *
+  )
+  delete from public.file
+    using deleted
+  where deleted.file_id = file.id
+  returning deleted.*
+$$
+language sql volatile;

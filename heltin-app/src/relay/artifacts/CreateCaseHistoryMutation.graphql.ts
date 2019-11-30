@@ -2,9 +2,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";
-export type CaseHistoryAccompaniedByType = "FAMILY" | "FATHER" | "MOTHER" | "NONE";
-export type CaseHistoryArrivalReasonType = "ABUSE_WITNESS" | "ADDICTION" | "ADHD" | "ANXIETY" | "ATTENTION_PROBLEMS" | "BEHAVIORAL_PROBLEMS" | "BEHAVIOURAL_PROBLEMS" | "BULLYING" | "COMMUNICATION_PROBLEMS" | "COUPLE_PROBLEMS" | "CYBER_BULLYING" | "DEPRESION_SYMPTOMS" | "DIVORCE" | "DYSGRAPHIA" | "DYSLEXIA" | "EMOTIONAL_ABUSE" | "EMOTIONAL_PROBLEMS" | "GRIEVE" | "LEARNING_PROBLEMS" | "LOSS" | "NEGLECTION" | "NEURO_DEVELOPMENT_DISORDER" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE" | "SLEEP_DEFICIENCY" | "SUICIDAL_THOUGHTS" | "TALKING_ISSUES" | "TRAUMA";
-export type CaseHistoryDeceasedType = "BROTHER" | "FATHER" | "FOSTER_FATHER" | "FOSTER_MOTHER" | "MOTHER" | "SISTER" | "STEP_BROTHER" | "STEP_FATHER" | "STEP_MOTHER" | "STEP_SISTER";
+export type CaseHistoryAccompaniedByType = "FAMILY" | "FATHER" | "MOTHER" | "NO_ONE";
+export type CaseHistoryArrivalReasonType = "ABUSE_WITNESS" | "ADDICTION" | "ADHD" | "ANXIETY" | "ATTENTION_PROBLEMS" | "BEHAVIOURAL_PROBLEMS" | "BULLYING" | "COMMUNICATION_PROBLEMS" | "COUPLE_PROBLEMS" | "CYBER_BULLYING" | "DEPRESION_SYMPTOMS" | "DIVORCE" | "DYSGRAPHIA" | "DYSLEXIA" | "EMOTIONAL_ABUSE" | "EMOTIONAL_PROBLEMS" | "GRIEVE" | "LEARNING_PROBLEMS" | "LOSS" | "NEGLECTION" | "NEURO_DEVELOPMENT_DISORDER" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE" | "SLEEP_DEFICIENCY" | "SUICIDAL_THOUGHTS" | "TALKING_ISSUES" | "TRAUMA";
 export type CaseHistoryDivorceOutcomeType = "HIGH_CONFLICT" | "LOW_CONFLICT" | "MEDIUM_CONFLICT" | "NO_CONFLICT" | "UNKNOWN";
 export type CaseHistoryDivorcedParentsType = "IN_PROCESS" | "NO" | "YES";
 export type CaseHistoryIndividualType = "AUNT" | "BROTHER" | "COUSIN" | "FATHER" | "FOSTER_FATHER" | "FOSTER_MOTHER" | "FRIEND" | "GRANDFATHER" | "GRANDMOTHER" | "LOVER" | "MOTHER" | "SISTER" | "STEP_BROTHER" | "STEP_FATHER" | "STEP_MOTHER" | "STEP_SISTER" | "UNCLE";
@@ -22,9 +21,8 @@ export type CreateCaseHistoryInput = {
     readonly arrivalReason?: ReadonlyArray<CaseHistoryArrivalReasonType | null> | null;
     readonly attendsKindergarten?: boolean | null;
     readonly caseStudyRowId: string;
-    readonly caseStudySessionRowId?: string | null;
+    readonly caseStudyTreatmentRowId?: string | null;
     readonly clientMutationId?: string | null;
-    readonly deceased?: ReadonlyArray<CaseHistoryDeceasedType | null> | null;
     readonly diagnosedIntelectualDevelopmentProblems?: boolean | null;
     readonly divorceOutcome?: CaseHistoryDivorceOutcomeType | null;
     readonly divorcedParents?: CaseHistoryDivorcedParentsType | null;
@@ -60,7 +58,6 @@ export type CreateCaseHistoryMutationResponse = {
             readonly ageDuringLossOfCloseIndividual: number | null;
             readonly arrivalReason: ReadonlyArray<CaseHistoryArrivalReasonType | null> | null;
             readonly attendsKindergarten: boolean | null;
-            readonly deceased: ReadonlyArray<CaseHistoryDeceasedType | null> | null;
             readonly diagnosedIntelectualDevelopmentProblems: boolean | null;
             readonly divorceOutcome: CaseHistoryDivorceOutcomeType | null;
             readonly divorcedParents: CaseHistoryDivorcedParentsType | null;
@@ -105,7 +102,6 @@ mutation CreateCaseHistoryMutation(
       ageDuringLossOfCloseIndividual
       arrivalReason
       attendsKindergarten
-      deceased
       diagnosedIntelectualDevelopmentProblems
       divorceOutcome
       divorcedParents
@@ -224,13 +220,6 @@ v1 = [
             "kind": "ScalarField",
             "alias": null,
             "name": "attendsKindergarten",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "deceased",
             "args": null,
             "storageKey": null
           },
@@ -392,7 +381,7 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseHistoryMutation",
     "id": null,
-    "text": "mutation CreateCaseHistoryMutation(\n  $input: CreateCaseHistoryInput!\n) {\n  createCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      deceased\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n",
+    "text": "mutation CreateCaseHistoryMutation(\n  $input: CreateCaseHistoryInput!\n) {\n  createCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

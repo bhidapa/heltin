@@ -1,5 +1,5 @@
 create type public.case_history_accompanied_by_type as enum (
-  'NONE',
+  'NO_ONE',
   'FATHER',
   'MOTHER',
   'FAMILY'
@@ -39,19 +39,6 @@ create type public.case_history_divorce_outcome_type as enum (
   'UNKNOWN'
 );
 
-create type public.case_history_deceased_type as enum (
-  'FATHER',
-  'MOTHER',
-  'SISTER',
-  'BROTHER',
-  'STEP_FATHER',
-  'STEP_MOTHER',
-  'STEP_SISTER',
-  'STEP_BROTHER',
-  'FOSTER_MOTHER',
-  'FOSTER_FATHER'
-);
-
 create type public.case_history_reason_of_multiple_adoptions_type as enum (
   'ABUSE',
   'NEGLECTION',
@@ -61,7 +48,6 @@ create type public.case_history_reason_of_multiple_adoptions_type as enum (
 
 create type public.case_history_arrival_reason_type as enum (
   'EMOTIONAL_PROBLEMS',
-  'BEHAVIORAL_PROBLEMS',
   'ANXIETY',
   'LEARNING_PROBLEMS',
   'ATTENTION_PROBLEMS',
@@ -73,7 +59,7 @@ create type public.case_history_arrival_reason_type as enum (
   'COMMUNICATION_PROBLEMS',
   'ADDICTION',
   'SLEEP_DEFICIENCY',
-  'BEHAVIOURAL_PROBLEMS', -- promjene u ponasanju
+  'BEHAVIOURAL_PROBLEMS',
   'TRAUMA',
   'SEXUAL_ABUSE',
   'PHYSICAL_ABUSE',
@@ -154,7 +140,7 @@ create table public.case_history (
   id uuid primary key default uuid_generate_v4(),
 
   case_study_id         uuid not null references public.case_study(id) on delete cascade,
-  case_study_session_id uuid references public.case_study_session(id) on delete cascade,
+  case_study_treatment_id uuid references public.case_study_treatment(id) on delete cascade,
 
   accompanied_by public.case_history_accompanied_by_type,
 
@@ -162,8 +148,6 @@ create table public.case_history (
 
   divorced_parents public.case_history_divorced_parents_type,
   divorce_outcome  public.case_history_divorce_outcome_type,
-
-  deceased public.case_history_deceased_type[],
 
   adoption_age float8,
 
@@ -211,12 +195,11 @@ comment on column public.case_history.lives_with is 'With whom does the patient 
 
 create or replace function public.create_case_history(
   case_study_id                              uuid,
-  case_study_session_id                      uuid = null,
+  case_study_treatment_id                    uuid = null,
   accompanied_by                             public.case_history_accompanied_by_type = null,
   lives_with                                 public.case_history_lives_with_type[] = null,
   divorced_parents                           public.case_history_divorced_parents_type = null,
   divorce_outcome                            public.case_history_divorce_outcome_type = null,
-  deceased                                   public.case_history_deceased_type[] = null,
   adoption_age                               float8 = null,
   number_of_adoptions                        integer = null,
   reason_of_multiple_adoptions               public.case_history_reason_of_multiple_adoptions_type[] = null,
@@ -242,12 +225,11 @@ create or replace function public.create_case_history(
 $$
   insert into public.case_history (
     case_study_id,
-    case_study_session_id,
+    case_study_treatment_id,
     accompanied_by,
     lives_with,
     divorced_parents,
     divorce_outcome,
-    deceased,
     adoption_age,
     number_of_adoptions,
     reason_of_multiple_adoptions,
@@ -271,12 +253,11 @@ $$
     parents_in_jail
   ) values (
     create_case_history.case_study_id,
-    create_case_history.case_study_session_id,
+    create_case_history.case_study_treatment_id,
     create_case_history.accompanied_by,
     create_case_history.lives_with,
     create_case_history.divorced_parents,
     create_case_history.divorce_outcome,
-    create_case_history.deceased,
     create_case_history.adoption_age,
     create_case_history.number_of_adoptions,
     create_case_history.reason_of_multiple_adoptions,
@@ -305,12 +286,11 @@ language sql volatile;
 
 create or replace function public.update_case_history(
   id                                         uuid,
-  case_study_session_id                      uuid = null,
+  case_study_treatment_id                    uuid = null,
   accompanied_by                             public.case_history_accompanied_by_type = null,
   lives_with                                 public.case_history_lives_with_type[] = null,
   divorced_parents                           public.case_history_divorced_parents_type = null,
   divorce_outcome                            public.case_history_divorce_outcome_type = null,
-  deceased                                   public.case_history_deceased_type[] = null,
   adoption_age                               float8 = null,
   number_of_adoptions                        integer = null,
   reason_of_multiple_adoptions               public.case_history_reason_of_multiple_adoptions_type[] = null,
@@ -335,12 +315,11 @@ create or replace function public.update_case_history(
 ) returns public.case_history as
 $$
   update public.case_history set
-    case_study_session_id=update_case_history.case_study_session_id,
+    case_study_treatment_id=update_case_history.case_study_treatment_id,
     accompanied_by=update_case_history.accompanied_by,
     lives_with=update_case_history.lives_with,
     divorced_parents=update_case_history.divorced_parents,
     divorce_outcome=update_case_history.divorce_outcome,
-    deceased=update_case_history.deceased,
     adoption_age=update_case_history.adoption_age,
     number_of_adoptions=update_case_history.number_of_adoptions,
     reason_of_multiple_adoptions=update_case_history.reason_of_multiple_adoptions,
@@ -380,7 +359,7 @@ language sql volatile;
 
 ----
 
-create table public.case_history_earlier_medical_report (
+create table public.case_history_file (
   id uuid primary key default uuid_generate_v4(),
 
   case_history_id uuid not null references public.case_history(id) on delete cascade,
@@ -390,32 +369,32 @@ create table public.case_history_earlier_medical_report (
   updated_at updated_timestamptz not null
 );
 
-grant all on public.case_history_earlier_medical_report to viewer;
+grant all on public.case_history_file to viewer;
 
-create or replace function public.create_case_history_earlier_medical_report(
+create or replace function public.create_case_history_file(
   case_history_id uuid,
   file_name       text,
   file_data       bytea
-) returns public.case_history_earlier_medical_report as
+) returns public.case_history_file as
 $$
   with created_file as (
     insert into public.file (name, data)
-      values (create_case_history_earlier_medical_report.file_name, create_case_history_earlier_medical_report.file_data)
+      values (create_case_history_file.file_name, create_case_history_file.file_data)
     returning *
   )
-  insert into public.case_history_earlier_medical_report (case_history_id, file_id)
-    select create_case_history_earlier_medical_report.case_history_id, id from created_file
+  insert into public.case_history_file (case_history_id, file_id)
+    select create_case_history_file.case_history_id, id from created_file
   returning *
 $$
 language sql volatile;
 
-create or replace function public.delete_case_history_earlier_medical_report(
+create or replace function public.delete_case_history_file(
   id uuid
-) returns public.case_history_earlier_medical_report as
+) returns public.case_history_file as
 $$
   with deleted as (
-    delete from public.case_history_earlier_medical_report
-    where id = delete_case_history_earlier_medical_report.id
+    delete from public.case_history_file
+    where id = delete_case_history_file.id
     returning *
   )
   delete from public.file

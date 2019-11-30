@@ -2,7 +2,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports = ReadonlyArray<{
+export type CaseHistoryFilesManage_caseHistoryFiles = ReadonlyArray<{
     readonly id: string;
     readonly rowId: string;
     readonly file: {
@@ -10,12 +10,12 @@ export type CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalRepo
         readonly name: string;
         readonly data: string;
     };
-    readonly " $refType": "CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports";
+    readonly " $refType": "CaseHistoryFilesManage_caseHistoryFiles";
 }>;
-export type CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports$data = CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports;
-export type CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports$key = ReadonlyArray<{
-    readonly " $data"?: CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports">;
+export type CaseHistoryFilesManage_caseHistoryFiles$data = CaseHistoryFilesManage_caseHistoryFiles;
+export type CaseHistoryFilesManage_caseHistoryFiles$key = ReadonlyArray<{
+    readonly " $data"?: CaseHistoryFilesManage_caseHistoryFiles$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryFilesManage_caseHistoryFiles">;
 }>;
 
 
@@ -30,8 +30,8 @@ var v0 = {
 };
 return {
   "kind": "Fragment",
-  "name": "CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports",
-  "type": "CaseHistoryEarlierMedicalReport",
+  "name": "CaseHistoryFilesManage_caseHistoryFiles",
+  "type": "CaseHistoryFile",
   "metadata": {
     "plural": true
   },
@@ -74,5 +74,5 @@ return {
   ]
 };
 })();
-(node as any).hash = 'a684801778a69f8beb9071d7861d524c';
+(node as any).hash = '5146b633703e6a95361b47ff52d8c3a3';
 export default node;

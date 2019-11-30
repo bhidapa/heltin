@@ -20,7 +20,7 @@ import { Err, Loading, Flex, Text } from '@domonda/ui';
 // modules
 import { CaseStudyEdit } from 'modules/CaseStudy/CaseStudyEdit';
 import { CaseHistoryManage } from 'modules/CaseHistory/CaseHistoryManage';
-import { CaseHistoryEarlierMedicalReportsManage } from 'modules/CaseHistory/CaseHistoryEarlierMedicalReportsManage';
+import { CaseHistoryFilesManage } from 'modules/CaseHistory/CaseHistoryFilesManage';
 
 export type CaseStudiesDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
@@ -44,11 +44,9 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                 nodes {
                   rowId
                   ...CaseHistoryManage_caseHistory
-                  caseHistoryEarlierMedicalReports: caseHistoryEarlierMedicalReportsByCaseHistoryRowId(
-                    orderBy: [CREATED_AT_ASC]
-                  ) {
+                  caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
                     nodes {
-                      ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports
+                      ...CaseHistoryFilesManage_caseHistoryFiles
                     }
                   }
                 }
@@ -82,11 +80,9 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                 </Flex>
                 <Flex item>
                   {caseHistory ? (
-                    <CaseHistoryEarlierMedicalReportsManage
+                    <CaseHistoryFilesManage
                       caseHistoryRowId={caseHistory.rowId}
-                      caseHistoryEarlierMedicalReports={
-                        caseHistory.caseHistoryEarlierMedicalReports.nodes
-                      }
+                      caseHistoryFiles={caseHistory.caseHistoryFiles.nodes}
                     />
                   ) : (
                     <Text color="warning">

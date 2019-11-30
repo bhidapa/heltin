@@ -2,40 +2,42 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type DeleteCaseHistoryEarlierMedicalReportInput = {
+export type CreateCaseHistoryFileInput = {
+    readonly caseHistoryRowId: string;
     readonly clientMutationId?: string | null;
-    readonly rowId: string;
+    readonly fileData: string;
+    readonly fileName: string;
 };
-export type DeleteCaseHistoryEarlierMedicalReportMutationVariables = {
-    input: DeleteCaseHistoryEarlierMedicalReportInput;
+export type CreateCaseHistoryFileMutationVariables = {
+    input: CreateCaseHistoryFileInput;
 };
-export type DeleteCaseHistoryEarlierMedicalReportMutationResponse = {
-    readonly deleteCaseHistoryEarlierMedicalReport: {
+export type CreateCaseHistoryFileMutationResponse = {
+    readonly createCaseHistoryFile: {
         readonly caseHistoryByCaseHistoryRowId: {
-            readonly caseHistoryEarlierMedicalReportsByCaseHistoryRowId: {
+            readonly caseHistoryFilesByCaseHistoryRowId: {
                 readonly nodes: ReadonlyArray<{
-                    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports">;
+                    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryFilesManage_caseHistoryFiles">;
                 }>;
             };
         };
     } | null;
 };
-export type DeleteCaseHistoryEarlierMedicalReportMutation = {
-    readonly response: DeleteCaseHistoryEarlierMedicalReportMutationResponse;
-    readonly variables: DeleteCaseHistoryEarlierMedicalReportMutationVariables;
+export type CreateCaseHistoryFileMutation = {
+    readonly response: CreateCaseHistoryFileMutationResponse;
+    readonly variables: CreateCaseHistoryFileMutationVariables;
 };
 
 
 
 /*
-mutation DeleteCaseHistoryEarlierMedicalReportMutation(
-  $input: DeleteCaseHistoryEarlierMedicalReportInput!
+mutation CreateCaseHistoryFileMutation(
+  $input: CreateCaseHistoryFileInput!
 ) {
-  deleteCaseHistoryEarlierMedicalReport(input: $input) {
+  createCaseHistoryFile(input: $input) {
     caseHistoryByCaseHistoryRowId {
-      caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
-          ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports
+          ...CaseHistoryFilesManage_caseHistoryFiles
           id
         }
       }
@@ -44,7 +46,7 @@ mutation DeleteCaseHistoryEarlierMedicalReportMutation(
   }
 }
 
-fragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {
+fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {
   id
   rowId
   file: fileByFileRowId {
@@ -61,7 +63,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseHistoryEarlierMedicalReportInput!",
+    "type": "CreateCaseHistoryFileInput!",
     "defaultValue": null
   }
 ],
@@ -99,7 +101,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "DeleteCaseHistoryEarlierMedicalReportMutation",
+    "name": "CreateCaseHistoryFileMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -107,10 +109,10 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseHistoryEarlierMedicalReport",
+        "name": "createCaseHistoryFile",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteCaseHistoryEarlierMedicalReportPayload",
+        "concreteType": "CreateCaseHistoryFilePayload",
         "plural": false,
         "selections": [
           {
@@ -125,10 +127,10 @@ return {
               {
                 "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
-                "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                "name": "caseHistoryFilesByCaseHistoryRowId",
+                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
-                "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                "concreteType": "CaseHistoryFilesConnection",
                 "plural": false,
                 "selections": [
                   {
@@ -137,12 +139,12 @@ return {
                     "name": "nodes",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "CaseHistoryEarlierMedicalReport",
+                    "concreteType": "CaseHistoryFile",
                     "plural": true,
                     "selections": [
                       {
                         "kind": "FragmentSpread",
-                        "name": "CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports",
+                        "name": "CaseHistoryFilesManage_caseHistoryFiles",
                         "args": null
                       }
                     ]
@@ -157,16 +159,16 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "DeleteCaseHistoryEarlierMedicalReportMutation",
+    "name": "CreateCaseHistoryFileMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseHistoryEarlierMedicalReport",
+        "name": "createCaseHistoryFile",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "DeleteCaseHistoryEarlierMedicalReportPayload",
+        "concreteType": "CreateCaseHistoryFilePayload",
         "plural": false,
         "selections": [
           {
@@ -181,10 +183,10 @@ return {
               {
                 "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId",
-                "storageKey": "caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                "name": "caseHistoryFilesByCaseHistoryRowId",
+                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
-                "concreteType": "CaseHistoryEarlierMedicalReportsConnection",
+                "concreteType": "CaseHistoryFilesConnection",
                 "plural": false,
                 "selections": [
                   {
@@ -193,7 +195,7 @@ return {
                     "name": "nodes",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "CaseHistoryEarlierMedicalReport",
+                    "concreteType": "CaseHistoryFile",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
@@ -238,12 +240,12 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "DeleteCaseHistoryEarlierMedicalReportMutation",
+    "name": "CreateCaseHistoryFileMutation",
     "id": null,
-    "text": "mutation DeleteCaseHistoryEarlierMedicalReportMutation(\n  $input: DeleteCaseHistoryEarlierMedicalReportInput!\n) {\n  deleteCaseHistoryEarlierMedicalReport(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryEarlierMedicalReportsByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n",
+    "text": "mutation CreateCaseHistoryFileMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    data\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '304f1ff4406308fb469ec6a9b6bdf415';
+(node as any).hash = 'e886354db494b2308a2888bd31fe2ac5';
 export default node;

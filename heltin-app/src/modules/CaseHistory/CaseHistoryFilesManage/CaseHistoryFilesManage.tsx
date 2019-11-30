@@ -1,6 +1,6 @@
 /**
  *
- * CaseHistoryEarlierMedicalReportsManage
+ * CaseHistoryFilesManage
  *
  */
 
@@ -10,9 +10,9 @@ import { toBase64 } from 'lib/file';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports } from 'relay/artifacts/CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports.graphql';
-import { createCaseHistoryEarlierMedicalReportMutation } from 'relay/mutations/CreateCaseHistoryEarlierMedicalReport';
-import { deleteCaseHistoryEarlierMedicalReportMutation } from 'relay/mutations/DeleteCaseHistoryEarlierMedicalReportMutation';
+import { CaseHistoryFilesManage_caseHistoryFiles } from 'relay/artifacts/CaseHistoryFilesManage_caseHistoryFiles.graphql';
+import { createCaseHistoryFileMutation } from 'relay/mutations/CreateCaseHistoryFile';
+import { deleteCaseHistoryFileMutation } from 'relay/mutations/DeleteCaseHistoryFile';
 
 // ui
 import { Flex, Label, Button, Text } from '@domonda/ui';
@@ -31,14 +31,13 @@ import {
 import { decorate, Decorate } from './decorate';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 
-export interface CaseHistoryEarlierMedicalReportsManageProps {
+export interface CaseHistoryFilesManageProps {
   caseHistoryRowId: UUID;
-  caseHistoryEarlierMedicalReports: CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports;
+  caseHistoryFiles: CaseHistoryFilesManage_caseHistoryFiles;
 }
 
-const CaseHistoryEarlierMedicalReportsManage: React.FC<CaseHistoryEarlierMedicalReportsManageProps &
-  Decorate> = (props) => {
-  const { classes, caseHistoryEarlierMedicalReports, caseHistoryRowId } = props;
+const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> = (props) => {
+  const { classes, caseHistoryFiles, caseHistoryRowId } = props;
 
   return (
     <Flex container direction="column" spacing="small">
@@ -48,12 +47,12 @@ const CaseHistoryEarlierMedicalReportsManage: React.FC<CaseHistoryEarlierMedical
         </Text>
       </Flex>
       <Flex item container direction="column" spacing="tiny">
-        {caseHistoryEarlierMedicalReports.length > 0 ? (
-          caseHistoryEarlierMedicalReports.map(({ rowId, file }) => (
+        {caseHistoryFiles.length > 0 ? (
+          caseHistoryFiles.map(({ rowId, file }) => (
             <Flex key={rowId} item>
               <ResolveOnTrigger
                 params={{ input: { rowId } }}
-                promise={deleteCaseHistoryEarlierMedicalReportMutation}
+                promise={deleteCaseHistoryFileMutation}
               >
                 {({ trigger, loading, error, clearError }) =>
                   error ? (
@@ -109,7 +108,7 @@ const CaseHistoryEarlierMedicalReportsManage: React.FC<CaseHistoryEarlierMedical
               if (!file) {
                 throw new Error('File is required!');
               }
-              return createCaseHistoryEarlierMedicalReportMutation({
+              return createCaseHistoryFileMutation({
                 input: {
                   caseHistoryRowId,
                   fileName: file.name,
@@ -163,21 +162,17 @@ const CaseHistoryEarlierMedicalReportsManage: React.FC<CaseHistoryEarlierMedical
   );
 };
 
-const ComposedCaseHistoryEarlierMedicalReportsManage = createFragmentContainer(
-  decorate(CaseHistoryEarlierMedicalReportsManage),
-  {
-    caseHistoryEarlierMedicalReports: graphql`
-      fragment CaseHistoryEarlierMedicalReportsManage_caseHistoryEarlierMedicalReports on CaseHistoryEarlierMedicalReport
-        @relay(plural: true) {
-        id
+const ComposedCaseHistoryFilesManage = createFragmentContainer(decorate(CaseHistoryFilesManage), {
+  caseHistoryFiles: graphql`
+    fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile @relay(plural: true) {
+      id
+      rowId
+      file: fileByFileRowId {
         rowId
-        file: fileByFileRowId {
-          rowId
-          name
-          data
-        }
+        name
+        data
       }
-    `,
-  },
-);
-export { ComposedCaseHistoryEarlierMedicalReportsManage as CaseHistoryEarlierMedicalReportsManage };
+    }
+  `,
+});
+export { ComposedCaseHistoryFilesManage as CaseHistoryFilesManage };
