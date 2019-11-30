@@ -30,14 +30,12 @@ const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (pro
 
   return (
     <>
-      <FormattedMessage id="PROFESSIONALS">
-        {(msg: string) => <Helmet title={msg} />}
-      </FormattedMessage>
+      <FormattedMessage id="THERAPISTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
             <Text size="large" weight="medium">
-              <FormattedMessage id="PROFESSIONALS" />
+              <FormattedMessage id="THERAPISTS" />
             </Text>
           </Flex>
           <Flex item>

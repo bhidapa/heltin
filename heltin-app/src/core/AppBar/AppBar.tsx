@@ -32,7 +32,7 @@ const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
       <Flex item flex={1} container alignSelf="stretch" spacing="tiny">
         <Flex item>
           <AppBarLink to={PROFESSIONALS_PAGE_ROUTE}>
-            <FormattedMessage id="PROFESSIONALS" />
+            <FormattedMessage id="THERAPISTS" />
           </AppBarLink>
         </Flex>
         <Flex item>

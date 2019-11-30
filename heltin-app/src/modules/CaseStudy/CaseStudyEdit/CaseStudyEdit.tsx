@@ -138,7 +138,7 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
       </Flex>
       <Flex item>
         <Text size="large" weight="medium">
-          <FormattedMessage id="PROFESSIONALS" />
+          <FormattedMessage id="THERAPISTS" />
         </Text>
       </Flex>
       <Flex item container direction="column" spacing="tiny">
