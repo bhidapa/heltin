@@ -18,7 +18,7 @@ const mutation = graphql`
       caseHistoryByCaseHistoryRowId {
         caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {
-            ...CaseHistoryFilesManage_caseHistoryFiles
+            id
           }
         }
       }

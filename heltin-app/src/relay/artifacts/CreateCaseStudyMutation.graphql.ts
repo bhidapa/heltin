@@ -1,13 +1,13 @@
 /* tslint:disable */
-/* @relayHash ec50122609b066d7f80cf0ce3f055ea2 */
+/* @relayHash cce349c52595f0732a218bf765d2d597 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly clientRowId?: string | null;
-    readonly description: string;
     readonly groupRowId?: string | null;
+    readonly title: string;
 };
 export type CreateCaseStudyMutationVariables = {
     input: CreateCaseStudyInput;
@@ -21,7 +21,7 @@ export type CreateCaseStudyMutationResponse = {
             readonly caseStudiesByClientRowId: {
                 readonly nodes: ReadonlyArray<{
                     readonly rowId: string;
-                    readonly description: string;
+                    readonly title: string;
                     readonly caseStudyTreatments: {
                         readonly nodes: ReadonlyArray<{
                             readonly rowId: string;
@@ -53,7 +53,7 @@ mutation CreateCaseStudyMutation(
       caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
           rowId
-          description
+          title
           caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
             nodes {
               rowId
@@ -111,7 +111,7 @@ v3 = [
 v4 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "description",
+  "name": "title",
   "args": null,
   "storageKey": null
 },
@@ -303,13 +303,7 @@ return {
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
-                              {
-                                "kind": "ScalarField",
-                                "alias": null,
-                                "name": "title",
-                                "args": null,
-                                "storageKey": null
-                              },
+                              (v4/*: any*/),
                               {
                                 "kind": "ScalarField",
                                 "alias": null,
@@ -345,7 +339,7 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          description\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
     "metadata": {}
   }
 };

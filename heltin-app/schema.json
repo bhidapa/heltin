@@ -3505,18 +3505,6 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
-              "name": "DESCRIPTION_ASC"
-            },
-            {
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "DESCRIPTION_DESC"
-            },
-            {
-              "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
               "name": "GROUP_ID_ASC"
             },
             {
@@ -3554,6 +3542,18 @@
               "description": null,
               "isDeprecated": false,
               "name": "PRIMARY_KEY_DESC"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "TITLE_ASC"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "TITLE_DESC"
             },
             {
               "deprecationReason": null,
@@ -4192,22 +4192,6 @@
             {
               "args": [],
               "deprecationReason": null,
-              "description": null,
-              "isDeprecated": false,
-              "name": "description",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "args": [],
-              "deprecationReason": null,
               "description": "Reads a single `Group` that is related to this `CaseStudy`.",
               "isDeprecated": false,
               "name": "groupByGroupRowId",
@@ -4447,6 +4431,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "UUID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }
@@ -5509,16 +5509,6 @@
             },
             {
               "defaultValue": null,
-              "description": "Checks for equality with the object’s `description` field.",
-              "name": "description",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            {
-              "defaultValue": null,
               "description": "Checks for equality with the object’s `groupRowId` field.",
               "name": "groupRowId",
               "type": {
@@ -5534,6 +5524,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "UUID",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": "Checks for equality with the object’s `title` field.",
+              "name": "title",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -9670,7 +9670,17 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "description",
+              "name": "groupRowId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "UUID",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "title",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -9679,16 +9689,6 @@
                   "name": "String",
                   "ofType": null
                 }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
-              "name": "groupRowId",
-              "type": {
-                "kind": "SCALAR",
-                "name": "UUID",
-                "ofType": null
               }
             }
           ],
@@ -21726,20 +21726,6 @@
             {
               "defaultValue": null,
               "description": null,
-              "name": "description",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              }
-            },
-            {
-              "defaultValue": null,
-              "description": null,
               "name": "rowId",
               "type": {
                 "kind": "NON_NULL",
@@ -21747,6 +21733,20 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "UUID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }

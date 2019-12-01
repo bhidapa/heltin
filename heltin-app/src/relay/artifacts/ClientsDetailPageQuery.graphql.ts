@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 973a6c745a2a815687577fe32eb96041 */
+/* @relayHash 5ff202b8a3976d9bdcd890ad4c54c0d6 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -53,7 +53,7 @@ fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
 
 fragment CaseStudyView_caseStudy on CaseStudy {
   rowId
-  description
+  title
   caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
     nodes {
       rowId
@@ -120,6 +120,13 @@ v4 = [
   }
 ],
 v5 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "title",
+  "args": null,
+  "storageKey": null
+},
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -295,13 +302,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "description",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v5/*: any*/),
                   {
                     "kind": "LinkedField",
                     "alias": "caseStudyTreatments",
@@ -329,13 +330,7 @@ return {
                         "plural": true,
                         "selections": [
                           (v2/*: any*/),
-                          {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "title",
-                            "args": null,
-                            "storageKey": null
-                          },
+                          (v5/*: any*/),
                           {
                             "kind": "ScalarField",
                             "alias": null,
@@ -350,17 +345,17 @@ return {
                             "args": null,
                             "storageKey": null
                           },
-                          (v5/*: any*/)
+                          (v6/*: any*/)
                         ]
                       }
                     ]
                   },
-                  (v5/*: any*/)
+                  (v6/*: any*/)
                 ]
               }
             ]
           },
-          (v5/*: any*/)
+          (v6/*: any*/)
         ]
       }
     ]
@@ -369,7 +364,7 @@ return {
     "operationKind": "query",
     "name": "ClientsDetailPageQuery",
     "id": null,
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  description\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
     "metadata": {}
   }
 };

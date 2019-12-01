@@ -1,6 +1,6 @@
 /**
  *
- * CaseHistoryFilesManage
+ * CaseStudyTreatmentFilesManage
  *
  */
 
@@ -10,9 +10,9 @@ import { toBase64 } from 'lib/file';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseHistoryFilesManage_caseHistoryFiles } from 'relay/artifacts/CaseHistoryFilesManage_caseHistoryFiles.graphql';
-import { createCaseHistoryFileMutation } from 'relay/mutations/CreateCaseHistoryFile';
-import { deleteCaseHistoryFileMutation } from 'relay/mutations/DeleteCaseHistoryFile';
+import { CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles } from 'relay/artifacts/CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles.graphql';
+import { createCaseStudyTreatmentFileMutation } from 'relay/mutations/CreateCaseStudyTreatmentFile';
+import { deleteCaseStudyTreatmentFileMutation } from 'relay/mutations/DeleteCaseStudyTreatmentFile';
 
 // ui
 import { Flex, Button, Text } from '@domonda/ui';
@@ -32,13 +32,15 @@ import { decorate, Decorate } from './decorate';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { FileDownloadButton } from 'modules/File/FileDownloadButton';
 
-export interface CaseHistoryFilesManageProps {
-  caseHistoryRowId: UUID;
-  caseHistoryFiles: CaseHistoryFilesManage_caseHistoryFiles;
+export interface CaseStudyTreatmentFilesManageProps {
+  caseStudyTreatmentRowId: UUID;
+  caseStudyTreatmentFiles: CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles;
 }
 
-const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> = (props) => {
-  const { classes, caseHistoryFiles, caseHistoryRowId } = props;
+const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps & Decorate> = (
+  props,
+) => {
+  const { classes, caseStudyTreatmentFiles, caseStudyTreatmentRowId } = props;
 
   return (
     <Flex container direction="column" spacing="small">
@@ -48,12 +50,12 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
         </Text>
       </Flex>
       <Flex item>
-        {caseHistoryFiles.length > 0 ? (
-          caseHistoryFiles.map(({ rowId, file }) => (
+        {caseStudyTreatmentFiles.length > 0 ? (
+          caseStudyTreatmentFiles.map(({ rowId, file }) => (
             <ResolveOnTrigger
               key={rowId}
               params={{ input: { rowId } }}
-              promise={deleteCaseHistoryFileMutation}
+              promise={deleteCaseStudyTreatmentFileMutation}
             >
               {({ trigger, loading, error, clearError }) =>
                 error ? (
@@ -102,9 +104,9 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
             if (!file) {
               throw new Error('File is required!');
             }
-            return createCaseHistoryFileMutation({
+            return createCaseStudyTreatmentFileMutation({
               input: {
-                caseHistoryRowId,
+                caseStudyTreatmentRowId,
                 fileName: file.name,
                 fileData: await toBase64(file),
               },
@@ -141,16 +143,20 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
   );
 };
 
-const ComposedCaseHistoryFilesManage = createFragmentContainer(decorate(CaseHistoryFilesManage), {
-  caseHistoryFiles: graphql`
-    fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile @relay(plural: true) {
-      id
-      rowId
-      file: fileByFileRowId {
+const ComposedCaseStudyTreatmentFilesManage = createFragmentContainer(
+  decorate(CaseStudyTreatmentFilesManage),
+  {
+    caseStudyTreatmentFiles: graphql`
+      fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile
+        @relay(plural: true) {
+        id
         rowId
-        name
+        file: fileByFileRowId {
+          rowId
+          name
+        }
       }
-    }
-  `,
-});
-export { ComposedCaseHistoryFilesManage as CaseHistoryFilesManage };
+    `,
+  },
+);
+export { ComposedCaseStudyTreatmentFilesManage as CaseStudyTreatmentFilesManage };

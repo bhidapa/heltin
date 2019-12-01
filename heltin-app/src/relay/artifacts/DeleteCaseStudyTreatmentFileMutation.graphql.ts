@@ -1,44 +1,42 @@
 /* tslint:disable */
-/* @relayHash 992eb0085c59de69047d276363d36599 */
+/* @relayHash c599d8e33d934eab6cd5533a4d97899e */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CreateCaseHistoryFileInput = {
-    readonly caseHistoryRowId: string;
+export type DeleteCaseStudyTreatmentFileInput = {
     readonly clientMutationId?: string | null;
-    readonly fileData: string;
-    readonly fileName: string;
+    readonly rowId: string;
 };
-export type CreateCaseHistoryFileMutationVariables = {
-    input: CreateCaseHistoryFileInput;
+export type DeleteCaseStudyTreatmentFileMutationVariables = {
+    input: DeleteCaseStudyTreatmentFileInput;
 };
-export type CreateCaseHistoryFileMutationResponse = {
-    readonly createCaseHistoryFile: {
-        readonly caseHistoryByCaseHistoryRowId: {
-            readonly caseHistoryFilesByCaseHistoryRowId: {
+export type DeleteCaseStudyTreatmentFileMutationResponse = {
+    readonly deleteCaseStudyTreatmentFile: {
+        readonly caseStudyTreatmentByCaseStudyTreatmentRowId: {
+            readonly caseStudyTreatmentFilesByCaseStudyTreatmentRowId: {
                 readonly nodes: ReadonlyArray<{
-                    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryFilesManage_caseHistoryFiles">;
+                    readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles">;
                 }>;
             };
         };
     } | null;
 };
-export type CreateCaseHistoryFileMutation = {
-    readonly response: CreateCaseHistoryFileMutationResponse;
-    readonly variables: CreateCaseHistoryFileMutationVariables;
+export type DeleteCaseStudyTreatmentFileMutation = {
+    readonly response: DeleteCaseStudyTreatmentFileMutationResponse;
+    readonly variables: DeleteCaseStudyTreatmentFileMutationVariables;
 };
 
 
 
 /*
-mutation CreateCaseHistoryFileMutation(
-  $input: CreateCaseHistoryFileInput!
+mutation DeleteCaseStudyTreatmentFileMutation(
+  $input: DeleteCaseStudyTreatmentFileInput!
 ) {
-  createCaseHistoryFile(input: $input) {
-    caseHistoryByCaseHistoryRowId {
-      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+  deleteCaseStudyTreatmentFile(input: $input) {
+    caseStudyTreatmentByCaseStudyTreatmentRowId {
+      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {
         nodes {
-          ...CaseHistoryFilesManage_caseHistoryFiles
+          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles
           id
         }
       }
@@ -47,7 +45,7 @@ mutation CreateCaseHistoryFileMutation(
   }
 }
 
-fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {
+fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {
   id
   rowId
   file: fileByFileRowId {
@@ -63,7 +61,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseHistoryFileInput!",
+    "type": "DeleteCaseStudyTreatmentFileInput!",
     "defaultValue": null
   }
 ],
@@ -101,7 +99,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "DeleteCaseStudyTreatmentFileMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -109,28 +107,28 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseHistoryFile",
+        "name": "deleteCaseStudyTreatmentFile",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateCaseHistoryFilePayload",
+        "concreteType": "DeleteCaseStudyTreatmentFilePayload",
         "plural": false,
         "selections": [
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
+            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
             "storageKey": null,
             "args": null,
-            "concreteType": "CaseHistory",
+            "concreteType": "CaseStudyTreatment",
             "plural": false,
             "selections": [
               {
                 "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryFilesByCaseHistoryRowId",
-                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
+                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
-                "concreteType": "CaseHistoryFilesConnection",
+                "concreteType": "CaseStudyTreatmentFilesConnection",
                 "plural": false,
                 "selections": [
                   {
@@ -139,12 +137,12 @@ return {
                     "name": "nodes",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "CaseHistoryFile",
+                    "concreteType": "CaseStudyTreatmentFile",
                     "plural": true,
                     "selections": [
                       {
                         "kind": "FragmentSpread",
-                        "name": "CaseHistoryFilesManage_caseHistoryFiles",
+                        "name": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles",
                         "args": null
                       }
                     ]
@@ -159,34 +157,34 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "DeleteCaseStudyTreatmentFileMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseHistoryFile",
+        "name": "deleteCaseStudyTreatmentFile",
         "storageKey": null,
         "args": (v1/*: any*/),
-        "concreteType": "CreateCaseHistoryFilePayload",
+        "concreteType": "DeleteCaseStudyTreatmentFilePayload",
         "plural": false,
         "selections": [
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
+            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
             "storageKey": null,
             "args": null,
-            "concreteType": "CaseHistory",
+            "concreteType": "CaseStudyTreatment",
             "plural": false,
             "selections": [
               {
                 "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryFilesByCaseHistoryRowId",
-                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
+                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
+                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
-                "concreteType": "CaseHistoryFilesConnection",
+                "concreteType": "CaseStudyTreatmentFilesConnection",
                 "plural": false,
                 "selections": [
                   {
@@ -195,7 +193,7 @@ return {
                     "name": "nodes",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "CaseHistoryFile",
+                    "concreteType": "CaseStudyTreatmentFile",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
@@ -233,12 +231,12 @@ return {
   },
   "params": {
     "operationKind": "mutation",
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "DeleteCaseStudyTreatmentFileMutation",
     "id": null,
-    "text": "mutation CreateCaseHistoryFileMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n",
+    "text": "mutation DeleteCaseStudyTreatmentFileMutation(\n  $input: DeleteCaseStudyTreatmentFileInput!\n) {\n  deleteCaseStudyTreatmentFile(input: $input) {\n    caseStudyTreatmentByCaseStudyTreatmentRowId {\n      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'e886354db494b2308a2888bd31fe2ac5';
+(node as any).hash = '15de1a83e026ff1329d7b55dcd91c4ee';
 export default node;

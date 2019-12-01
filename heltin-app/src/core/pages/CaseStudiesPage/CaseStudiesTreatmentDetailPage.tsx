@@ -15,10 +15,11 @@ import { environment } from 'relay/environment';
 import { CaseStudiesTreatmentDetailPageQuery } from 'relay/artifacts/CaseStudiesTreatmentDetailPageQuery.graphql';
 
 // ui
-import { Err, Loading } from '@domonda/ui';
+import { Err, Loading, Flex } from '@domonda/ui';
 
 // modules
 import { CaseStudyTreatmentManage } from 'modules/CaseStudy/CaseStudyTreatmentManage';
+import { CaseStudyTreatmentFilesManage } from 'modules/CaseStudy/CaseStudyTreatmentFilesManage';
 
 export type CaseStudiesTreatmentDetailPageProps = RouteComponentProps<{
   caseStudyTreatmentRowId: UUID;
@@ -40,10 +41,18 @@ const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPagePro
         query={graphql`
           query CaseStudiesTreatmentDetailPageQuery($rowId: UUID!) {
             caseStudyTreatment: caseStudyTreatmentByRowId(rowId: $rowId) {
+              rowId
               description
               ...CaseStudyTreatmentManage_caseStudyTreatment
               caseStudy: caseStudyByCaseStudyRowId {
                 ...CaseStudyTreatmentManage_caseStudy
+              }
+              caseStudyTreatmentFiles: caseStudyTreatmentFilesByCaseStudyTreatmentRowId(
+                orderBy: [CREATED_AT_ASC]
+              ) {
+                nodes {
+                  ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles
+                }
               }
             }
           }
@@ -63,10 +72,20 @@ const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPagePro
           return (
             <>
               {caseStudyTreatment.description && <Helmet title={caseStudyTreatment.description} />}
-              <CaseStudyTreatmentManage
-                caseStudy={caseStudyTreatment.caseStudy}
-                caseStudyTreatment={caseStudyTreatment}
-              />
+              <Flex container direction="column" spacing="small">
+                <Flex item>
+                  <CaseStudyTreatmentManage
+                    caseStudy={caseStudyTreatment.caseStudy}
+                    caseStudyTreatment={caseStudyTreatment}
+                  />
+                </Flex>
+                <Flex item>
+                  <CaseStudyTreatmentFilesManage
+                    caseStudyTreatmentRowId={caseStudyTreatment.rowId}
+                    caseStudyTreatmentFiles={caseStudyTreatment.caseStudyTreatmentFiles.nodes}
+                  />
+                </Flex>
+              </Flex>
             </>
           );
         }}

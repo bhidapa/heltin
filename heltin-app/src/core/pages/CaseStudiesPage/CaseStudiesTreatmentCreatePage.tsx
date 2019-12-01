@@ -8,6 +8,7 @@ import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { FourOhFourPage } from '../FourOhFourPage';
+import { FormattedMessage } from 'react-intl';
 
 // relay
 import { graphql, QueryRenderer } from 'react-relay';
@@ -15,7 +16,8 @@ import { environment } from 'relay/environment';
 import { CaseStudiesTreatmentCreatePageQuery } from 'relay/artifacts/CaseStudiesTreatmentCreatePageQuery.graphql';
 
 // ui
-import { Err, Loading } from '@domonda/ui';
+import { Err, Loading, Flex, Svg, Text } from '@domonda/ui';
+import { ExclamationTriangleIcon } from 'lib/icons';
 
 // modules
 import { CaseStudyTreatmentManage } from 'modules/CaseStudy/CaseStudyTreatmentManage';
@@ -55,7 +57,23 @@ const CaseStudiesTreatmentCreatePage: React.FC<CaseStudiesTreatmentCreatePagePro
           }
           return (
             <>
-              <CaseStudyTreatmentManage caseStudy={caseStudy} caseStudyTreatment={null} />
+              <Flex container direction="column" spacing="small">
+                <Flex item>
+                  <CaseStudyTreatmentManage caseStudy={caseStudy} caseStudyTreatment={null} />
+                </Flex>
+                <Flex item container spacing="tiny" align="center">
+                  <Flex item>
+                    <Svg>
+                      <ExclamationTriangleIcon />
+                    </Svg>
+                  </Flex>
+                  <Flex item>
+                    <Text>
+                      <FormattedMessage id="TO_ADD_OTHER_INFO_FINISH_CREATING_TREATMENT" />
+                    </Text>
+                  </Flex>
+                </Flex>
+              </Flex>
             </>
           );
         }}

@@ -2,19 +2,19 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CaseHistoryFilesManage_caseHistoryFiles = ReadonlyArray<{
+export type CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles = ReadonlyArray<{
     readonly id: string;
     readonly rowId: string;
     readonly file: {
         readonly rowId: string;
         readonly name: string;
     };
-    readonly " $refType": "CaseHistoryFilesManage_caseHistoryFiles";
+    readonly " $refType": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles";
 }>;
-export type CaseHistoryFilesManage_caseHistoryFiles$data = CaseHistoryFilesManage_caseHistoryFiles;
-export type CaseHistoryFilesManage_caseHistoryFiles$key = ReadonlyArray<{
-    readonly " $data"?: CaseHistoryFilesManage_caseHistoryFiles$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseHistoryFilesManage_caseHistoryFiles">;
+export type CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles$data = CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles;
+export type CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles$key = ReadonlyArray<{
+    readonly " $data"?: CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles">;
 }>;
 
 
@@ -29,8 +29,8 @@ var v0 = {
 };
 return {
   "kind": "Fragment",
-  "name": "CaseHistoryFilesManage_caseHistoryFiles",
-  "type": "CaseHistoryFile",
+  "name": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles",
+  "type": "CaseStudyTreatmentFile",
   "metadata": {
     "plural": true
   },
@@ -66,5 +66,5 @@ return {
   ]
 };
 })();
-(node as any).hash = 'ebb1d827c44d2ba02482c7ce24d14bc0';
+(node as any).hash = 'b4618c17e520b8590d81b3cf17e09e7a';
 export default node;

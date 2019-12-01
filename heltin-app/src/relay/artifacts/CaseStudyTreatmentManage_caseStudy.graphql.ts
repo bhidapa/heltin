@@ -4,7 +4,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyTreatmentManage_caseStudy = {
     readonly rowId: string;
-    readonly description: string;
+    readonly title: string;
     readonly client: {
         readonly rowId: string;
         readonly fullName: string;
@@ -38,7 +38,7 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "description",
+      "name": "title",
       "args": null,
       "storageKey": null
     },
@@ -64,5 +64,5 @@ return {
   ]
 };
 })();
-(node as any).hash = 'a86198095f36e1e9c68a5148e809e6b9';
+(node as any).hash = 'afc8a2fc81adb4fccea4fafd54c8244c';
 export default node;

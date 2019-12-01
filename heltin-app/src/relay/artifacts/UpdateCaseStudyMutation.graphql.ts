@@ -1,11 +1,11 @@
 /* tslint:disable */
-/* @relayHash 7f1d23f718ceb0b54fb212a6282df3a2 */
+/* @relayHash d064d2561a6520991d9574e8688eca04 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyInput = {
     readonly clientMutationId?: string | null;
-    readonly description: string;
     readonly rowId: string;
+    readonly title: string;
 };
 export type UpdateCaseStudyMutationVariables = {
     input: UpdateCaseStudyInput;
@@ -14,7 +14,7 @@ export type UpdateCaseStudyMutationResponse = {
     readonly updateCaseStudy: {
         readonly caseStudy: {
             readonly rowId: string;
-            readonly description: string;
+            readonly title: string;
         } | null;
     } | null;
 };
@@ -32,7 +32,7 @@ mutation UpdateCaseStudyMutation(
   updateCaseStudy(input: $input) {
     caseStudy {
       rowId
-      description
+      title
       id
     }
   }
@@ -65,7 +65,7 @@ v2 = {
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "description",
+  "name": "title",
   "args": null,
   "storageKey": null
 };
@@ -146,7 +146,7 @@ return {
     "operationKind": "mutation",
     "name": "UpdateCaseStudyMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      title\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

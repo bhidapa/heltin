@@ -35,7 +35,7 @@ import { FormInputField } from 'lib/FormFields';
 
 interface FormValues {
   rowId: UUID | null;
-  description: string;
+  title: string;
 }
 
 export interface CaseStudyManageProps {
@@ -46,19 +46,19 @@ export interface CaseStudyManageProps {
 const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
   const { client, caseStudy } = props;
 
-  const submit = useCallback<FormSubmitHandler<FormValues>>(async ({ rowId, description }) => {
+  const submit = useCallback<FormSubmitHandler<FormValues>>(async ({ rowId, title }) => {
     if (rowId) {
       return updateCaseStudyMutation({
         input: {
           rowId,
-          description,
+          title,
         },
       });
     }
     const { createCaseStudy } = await createCaseStudyMutation({
       input: {
         clientRowId: client.rowId,
-        description,
+        title,
       },
     });
 
@@ -78,7 +78,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
           <Flex container direction="column">
             <Flex item>
               <Text size="large" weight="medium">
-                {caseStudy ? caseStudy.description : <FormattedMessage id="NEW_CASE_STUDY" />}
+                {caseStudy ? caseStudy.title : <FormattedMessage id="NEW_CASE_STUDY" />}
               </Text>
             </Flex>
             <Flex item>
@@ -134,7 +134,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
         <Form<FormValues>
           defaultValues={{
             rowId: caseStudy ? caseStudy.rowId : null,
-            description: caseStudy ? caseStudy.description : ((null as any) as string), // field is required
+            title: caseStudy ? caseStudy.title : ((null as any) as string), // field is required
           }}
           onSubmit={submit}
         >
@@ -150,8 +150,8 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
               <FormInputField
                 autoFocus
                 required
-                path="description"
-                label={<FormattedMessage id="DESCRIPTION" />}
+                path="title"
+                label={<FormattedMessage id="TITLE" />}
               />
             </Flex>
             <Flex item container justify="flex-end">
@@ -180,7 +180,7 @@ const ComposedCaseStudyManage = createFragmentContainer(CaseStudyManage, {
   caseStudy: graphql`
     fragment CaseStudyManage_caseStudy on CaseStudy {
       rowId
-      description
+      title
     }
   `,
 });

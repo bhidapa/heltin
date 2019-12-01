@@ -29,4 +29,8 @@ export const messages: Messages = {
     en: 'Ended',
     hr: 'Završeno',
   },
+  DOWNLOADING: {
+    en: 'Downloading',
+    hr: 'Preuzimanje',
+  },
 };

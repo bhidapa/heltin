@@ -38,7 +38,7 @@ const CaseStudyView: React.FC<CaseStudyViewProps> = (props) => {
                 to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}`,
               })}
             >
-              {caseStudy.description}
+              {caseStudy.title}
             </Button>
           </Flex>
           <Flex item flex={1} />
@@ -62,6 +62,12 @@ const CaseStudyView: React.FC<CaseStudyViewProps> = (props) => {
         <Flex item>
           <Text size="medium" weight="medium">
             <FormattedMessage id="TREATMENTS" />
+            &nbsp;
+            <span style={{ textTransform: 'lowercase' }}>
+              <FormattedMessage id="FOR" />
+            </span>
+            &nbsp;
+            {caseStudy.title}
           </Text>
         </Flex>
         <Flex item>
@@ -94,7 +100,7 @@ const ComposedCaseStudyView = createFragmentContainer(CaseStudyView, {
   caseStudy: graphql`
     fragment CaseStudyView_caseStudy on CaseStudy {
       rowId
-      description
+      title
       caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
         nodes {
           rowId

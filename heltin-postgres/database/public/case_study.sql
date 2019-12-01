@@ -5,7 +5,7 @@ create table public.case_study (
   group_id  uuid references public.group(id) on delete cascade,
   check ((client_id is null) <> (group_id is null)), -- only one can be set. one must be set
 
-  description text not null,
+  title text not null check(length(title) > 0),
 
   -- todo: add more columns
 
@@ -16,25 +16,25 @@ create table public.case_study (
 grant all on public.case_study to viewer;
 
 create or replace function public.create_case_study(
-  description text,
+  title text,
   -- either client or group, but not both
   client_id   uuid = null,
   group_id    uuid = null
 ) returns public.case_study as
 $$
-  insert into public.case_study (client_id, group_id, description)
-    values (create_case_study.client_id, create_case_study.group_id, create_case_study.description)
+  insert into public.case_study (client_id, group_id, title)
+    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title)
   returning *
 $$
 language sql volatile;
 
 create or replace function public.update_case_study(
   id          uuid,
-  description text
+  title text
 ) returns public.case_study as
 $$
   update public.case_study set
-    description=update_case_study.description,
+    title=update_case_study.title,
     updated_at=now()
   where id = update_case_study.id
   returning *

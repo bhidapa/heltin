@@ -23,10 +23,6 @@ export const messages: Messages = {
     en: 'Case studies',
     hr: 'Studije slučajeva',
   },
-  CASE_STUDY_DESCRIPTION: {
-    en: 'Case study description',
-    hr: 'Opis studije slučaja',
-  },
   CASE_HISTORY: {
     en: 'Case history',
     hr: 'Povijest slučaja',
@@ -286,5 +282,9 @@ export const messages: Messages = {
   TREATMENT_FOR_CASE_STUDY: {
     en: 'Treatment for case study',
     hr: 'Tretman studije slučaja',
+  },
+  TO_ADD_OTHER_INFO_FINISH_CREATING_TREATMENT: {
+    en: 'To add further information please finish creating the treatment.',
+    hr: 'Da biste dodali daljnje informacije molimo završite kreiranje tretmana.',
   },
 };

@@ -33,4 +33,8 @@ export const messages: Messages = {
     en: 'Add',
     hr: 'Dodaj',
   },
+  DOWNLOAD: {
+    en: 'Download',
+    hr: 'Preuzmi',
+  },
 };

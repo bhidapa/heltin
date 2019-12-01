@@ -4,7 +4,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyManage_caseStudy = {
     readonly rowId: string;
-    readonly description: string;
+    readonly title: string;
     readonly " $refType": "CaseStudyManage_caseStudy";
 };
 export type CaseStudyManage_caseStudy$data = CaseStudyManage_caseStudy;
@@ -32,11 +32,11 @@ const node: ReaderFragment = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "description",
+      "name": "title",
       "args": null,
       "storageKey": null
     }
   ]
 };
-(node as any).hash = '63e84acf1eb0c445502bf8372d1950fc';
+(node as any).hash = '91171833afeda8e58ee33fbe9dfee9c1';
 export default node;

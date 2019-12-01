@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash e131406af279f9543e96b2b10051938f */
+/* @relayHash 06f9d085264c9cc4abb5a71511b1846b */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -30,7 +30,7 @@ query CaseStudiesTreatmentCreatePageQuery(
 
 fragment CaseStudyTreatmentManage_caseStudy on CaseStudy {
   rowId
-  description
+  title
   client: clientByClientRowId {
     rowId
     fullName
@@ -114,7 +114,7 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "description",
+            "name": "title",
             "args": null,
             "storageKey": null
           },
@@ -147,7 +147,7 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesTreatmentCreatePageQuery",
     "id": null,
-    "text": "query CaseStudiesTreatmentCreatePageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    ...CaseStudyTreatmentManage_caseStudy\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  description\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n",
+    "text": "query CaseStudiesTreatmentCreatePageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    ...CaseStudyTreatmentManage_caseStudy\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

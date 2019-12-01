@@ -234,4 +234,12 @@ export const messages: Messages = {
     en: 'For',
     hr: 'Za',
   },
+  FILE: {
+    en: 'File',
+    hr: 'Fajl',
+  },
+  FILES: {
+    en: 'Files',
+    hr: 'Fajlovi',
+  },
 };

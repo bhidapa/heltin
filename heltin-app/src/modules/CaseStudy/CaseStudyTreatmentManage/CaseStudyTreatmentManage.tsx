@@ -117,7 +117,7 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
                   to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}`,
                 })}
               >
-                {caseStudy.description}
+                {caseStudy.title}
               </Button>
               &nbsp;
               <Text size="medium" color="primary" inline style={{ textTransform: 'lowercase' }}>
@@ -252,7 +252,7 @@ const ComposedCaseStudyTreatmentManage = createFragmentContainer(CaseStudyTreatm
   caseStudy: graphql`
     fragment CaseStudyTreatmentManage_caseStudy on CaseStudy {
       rowId
-      description
+      title
       client: clientByClientRowId {
         rowId
         fullName

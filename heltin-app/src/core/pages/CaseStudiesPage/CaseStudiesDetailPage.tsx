@@ -40,7 +40,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
         query={graphql`
           query CaseStudiesDetailPageQuery($rowId: UUID!) {
             caseStudy: caseStudyByRowId(rowId: $rowId) {
-              description
+              title
               caseHistories: caseHistoriesByCaseStudyRowId {
                 nodes {
                   rowId
@@ -75,7 +75,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
           const caseHistory = caseStudy.caseHistories.nodes[0] || null;
           return (
             <>
-              <Helmet title={caseStudy.description} />
+              <Helmet title={caseStudy.title} />
               <Flex container direction="column" spacing="small">
                 <Flex item>
                   {/* Must exist until groups are created. */}
