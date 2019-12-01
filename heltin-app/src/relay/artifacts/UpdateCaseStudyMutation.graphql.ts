@@ -1,8 +1,7 @@
 /* tslint:disable */
-/* @relayHash dd17ef17521fc6fa52db9f06744c1e17 */
+/* @relayHash 7f1d23f718ceb0b54fb212a6282df3a2 */
 
 import { ConcreteRequest } from "relay-runtime";
-export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type UpdateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly description: string;
@@ -16,21 +15,6 @@ export type UpdateCaseStudyMutationResponse = {
         readonly caseStudy: {
             readonly rowId: string;
             readonly description: string;
-            readonly client: {
-                readonly rowId: string;
-                readonly fullName: string;
-            } | null;
-            readonly caseStudyProfessionals: {
-                readonly nodes: ReadonlyArray<{
-                    readonly rowId: string;
-                    readonly professional: {
-                        readonly rowId: string;
-                        readonly type: MentalHealthProfessionalType;
-                        readonly fullName: string;
-                    };
-                    readonly primary: boolean;
-                }>;
-            };
         } | null;
     } | null;
 };
@@ -49,24 +33,6 @@ mutation UpdateCaseStudyMutation(
     caseStudy {
       rowId
       description
-      client: clientByClientRowId {
-        rowId
-        fullName
-        id
-      }
-      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {
-        nodes {
-          rowId
-          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
-            rowId
-            type
-            fullName
-            id
-          }
-          primary
-          id
-        }
-      }
       id
     }
   }
@@ -102,43 +68,6 @@ v3 = {
   "name": "description",
   "args": null,
   "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "fullName",
-  "args": null,
-  "storageKey": null
-},
-v5 = [
-  {
-    "kind": "Literal",
-    "name": "orderBy",
-    "value": [
-      "CREATED_AT_ASC"
-    ]
-  }
-],
-v6 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "type",
-  "args": null,
-  "storageKey": null
-},
-v7 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "primary",
-  "args": null,
-  "storageKey": null
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "id",
-  "args": null,
-  "storageKey": null
 };
 return {
   "kind": "Request",
@@ -168,58 +97,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v3/*: any*/),
-              {
-                "kind": "LinkedField",
-                "alias": "client",
-                "name": "clientByClientRowId",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Client",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v4/*: any*/)
-                ]
-              },
-              {
-                "kind": "LinkedField",
-                "alias": "caseStudyProfessionals",
-                "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
-                "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v5/*: any*/),
-                "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
-                "plural": false,
-                "selections": [
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "CaseStudyMentalHealthProfessional",
-                    "plural": true,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "kind": "LinkedField",
-                        "alias": "professional",
-                        "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "MentalHealthProfessional",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v6/*: any*/),
-                          (v4/*: any*/)
-                        ]
-                      },
-                      (v7/*: any*/)
-                    ]
-                  }
-                ]
-              }
+              (v3/*: any*/)
             ]
           }
         ]
@@ -252,60 +130,12 @@ return {
               (v2/*: any*/),
               (v3/*: any*/),
               {
-                "kind": "LinkedField",
-                "alias": "client",
-                "name": "clientByClientRowId",
-                "storageKey": null,
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "id",
                 "args": null,
-                "concreteType": "Client",
-                "plural": false,
-                "selections": [
-                  (v2/*: any*/),
-                  (v4/*: any*/),
-                  (v8/*: any*/)
-                ]
-              },
-              {
-                "kind": "LinkedField",
-                "alias": "caseStudyProfessionals",
-                "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
-                "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
-                "args": (v5/*: any*/),
-                "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
-                "plural": false,
-                "selections": [
-                  {
-                    "kind": "LinkedField",
-                    "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
-                    "args": null,
-                    "concreteType": "CaseStudyMentalHealthProfessional",
-                    "plural": true,
-                    "selections": [
-                      (v2/*: any*/),
-                      {
-                        "kind": "LinkedField",
-                        "alias": "professional",
-                        "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "MentalHealthProfessional",
-                        "plural": false,
-                        "selections": [
-                          (v2/*: any*/),
-                          (v6/*: any*/),
-                          (v4/*: any*/),
-                          (v8/*: any*/)
-                        ]
-                      },
-                      (v7/*: any*/),
-                      (v8/*: any*/)
-                    ]
-                  }
-                ]
-              },
-              (v8/*: any*/)
+                "storageKey": null
+              }
             ]
           }
         ]
@@ -316,10 +146,10 @@ return {
     "operationKind": "mutation",
     "name": "UpdateCaseStudyMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      client: clientByClientRowId {\n        rowId\n        fullName\n        id\n      }\n      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n            rowId\n            type\n            fullName\n            id\n          }\n          primary\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      description\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'f1ad0b481eb389fa5a2b8d803268173e';
+(node as any).hash = 'cab29f1515732572e11adb7c1ccd35b2';
 export default node;

@@ -3,13 +3,8 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type CaseStudyEdit_caseStudy = {
+export type CaseStudyTherapistsManage_caseStudy = {
     readonly rowId: string;
-    readonly description: string;
-    readonly client: {
-        readonly rowId: string;
-        readonly fullName: string;
-    } | null;
     readonly caseStudyProfessionals: {
         readonly nodes: ReadonlyArray<{
             readonly rowId: string;
@@ -21,12 +16,12 @@ export type CaseStudyEdit_caseStudy = {
             readonly primary: boolean;
         }>;
     };
-    readonly " $refType": "CaseStudyEdit_caseStudy";
+    readonly " $refType": "CaseStudyTherapistsManage_caseStudy";
 };
-export type CaseStudyEdit_caseStudy$data = CaseStudyEdit_caseStudy;
-export type CaseStudyEdit_caseStudy$key = {
-    readonly " $data"?: CaseStudyEdit_caseStudy$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseStudyEdit_caseStudy">;
+export type CaseStudyTherapistsManage_caseStudy$data = CaseStudyTherapistsManage_caseStudy;
+export type CaseStudyTherapistsManage_caseStudy$key = {
+    readonly " $data"?: CaseStudyTherapistsManage_caseStudy$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseStudyTherapistsManage_caseStudy">;
 };
 
 
@@ -38,42 +33,15 @@ var v0 = {
   "name": "rowId",
   "args": null,
   "storageKey": null
-},
-v1 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "fullName",
-  "args": null,
-  "storageKey": null
 };
 return {
   "kind": "Fragment",
-  "name": "CaseStudyEdit_caseStudy",
+  "name": "CaseStudyTherapistsManage_caseStudy",
   "type": "CaseStudy",
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
     (v0/*: any*/),
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "description",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "LinkedField",
-      "alias": "client",
-      "name": "clientByClientRowId",
-      "storageKey": null,
-      "args": null,
-      "concreteType": "Client",
-      "plural": false,
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/)
-      ]
-    },
     {
       "kind": "LinkedField",
       "alias": "caseStudyProfessionals",
@@ -118,7 +86,13 @@ return {
                   "args": null,
                   "storageKey": null
                 },
-                (v1/*: any*/)
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "fullName",
+                  "args": null,
+                  "storageKey": null
+                }
               ]
             },
             {
@@ -135,5 +109,5 @@ return {
   ]
 };
 })();
-(node as any).hash = 'fd0a1a3279abbbdc269b8f7b4cbc0a7f';
+(node as any).hash = '7fdc42c1caa6725233167659dc291bcf';
 export default node;

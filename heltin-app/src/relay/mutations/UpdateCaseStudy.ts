@@ -16,7 +16,7 @@ const mutation = graphql`
   mutation UpdateCaseStudyMutation($input: UpdateCaseStudyInput!) {
     updateCaseStudy(input: $input) {
       caseStudy {
-        ...CaseStudyEdit_caseStudy @relay(mask: false)
+        ...CaseStudyManage_caseStudy @relay(mask: false)
       }
     }
   }

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 75e1905c72f398ec557dbbea6fb91c53 */
+/* @relayHash d8b9fb12c411c868d76cabfb26add023 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -11,7 +11,8 @@ export type ClientsDetailPageQueryResponse = {
         readonly fullName: string;
         readonly caseStudies: {
             readonly nodes: ReadonlyArray<{
-                readonly " $fragmentRefs": FragmentRefs<"CaseStudiesTable_caseStudies">;
+                readonly rowId: string;
+                readonly " $fragmentRefs": FragmentRefs<"CaseStudyView_caseStudy">;
             }>;
         };
         readonly " $fragmentRefs": FragmentRefs<"ClientEdit_client">;
@@ -33,7 +34,8 @@ query ClientsDetailPageQuery(
     ...ClientEdit_client
     caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
       nodes {
-        ...CaseStudiesTable_caseStudies
+        rowId
+        ...CaseStudyView_caseStudy
         id
       }
     }
@@ -41,7 +43,7 @@ query ClientsDetailPageQuery(
   }
 }
 
-fragment CaseStudiesTable_caseStudies on CaseStudy {
+fragment CaseStudyView_caseStudy on CaseStudy {
   rowId
   description
 }
@@ -146,9 +148,10 @@ return {
                 "concreteType": "CaseStudy",
                 "plural": true,
                 "selections": [
+                  (v4/*: any*/),
                   {
                     "kind": "FragmentSpread",
-                    "name": "CaseStudiesTable_caseStudies",
+                    "name": "CaseStudyView_caseStudy",
                     "args": null
                   }
                 ]
@@ -297,10 +300,10 @@ return {
     "operationKind": "query",
     "name": "ClientsDetailPageQuery",
     "id": null,
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudiesTable_caseStudies\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudiesTable_caseStudies on CaseStudy {\n  rowId\n  description\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  description\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '73599d7e540ed677909109ab763c3b93';
+(node as any).hash = '4a750dd920844b23077d30c4955e5ebe';
 export default node;

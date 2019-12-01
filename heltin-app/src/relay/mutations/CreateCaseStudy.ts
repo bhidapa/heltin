@@ -21,7 +21,7 @@ const mutation = graphql`
       clientByClientRowId {
         caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {
-            ...CaseStudiesTable_caseStudies @relay(mask: false)
+            ...CaseStudyView_caseStudy @relay(mask: false)
           }
         }
       }

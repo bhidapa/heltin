@@ -1,20 +1,18 @@
 /**
  *
- * CaseStudyEdit
+ * CaseStudyTherapistsManage
  *
  */
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { makeLink } from 'lib/makeLink';
-import { PROFESSIONALS_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyEdit_caseStudy } from 'relay/artifacts/CaseStudyEdit_caseStudy.graphql';
-import { updateCaseStudyMutation } from 'relay/mutations/UpdateCaseStudy';
-import { deleteCaseStudyMutation } from 'relay/mutations/DeleteCaseStudy';
+import { CaseStudyTherapistsManage_caseStudy } from 'relay/artifacts/CaseStudyTherapistsManage_caseStudy.graphql';
 import { createCaseStudyProfessionalMutation } from 'relay/mutations/CreateCaseStudyProfessional';
 import { updateCaseStudyProfessionalMutation } from 'relay/mutations/UpdateCaseStudyProfessional';
 import { deleteCaseStudyProfessionalMutation } from 'relay/mutations/DeleteCaseStudyProfessional';
@@ -25,14 +23,8 @@ import { DismissableAlert } from 'lib/DismissableAlert';
 import { PlusIcon, TrashIcon } from 'lib/icons';
 
 // form
-import {
-  Form,
-  FormLockedState,
-  FormSubmitHandler,
-  FormSubmitErrorState,
-  FormField,
-} from '@domonda/react-form';
-import { FormInputField, FormCheckboxField } from 'lib/FormFields';
+import { Form, FormSubmitErrorState, FormField } from '@domonda/react-form';
+import { FormCheckboxField } from 'lib/FormFields';
 import {
   AutocompleteProfessional,
   AutocompleteProfessionalItem,
@@ -40,102 +32,16 @@ import {
 
 // decorate
 import { decorate, Decorate } from './decorate';
-import { history } from 'lib/history';
 
-export interface CaseStudyEditProps {
-  caseStudy: CaseStudyEdit_caseStudy;
+export interface CaseStudyTherapistsManageProps {
+  caseStudy: CaseStudyTherapistsManage_caseStudy;
 }
 
-const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
+const CaseStudyTherapistsManage: React.FC<CaseStudyTherapistsManageProps & Decorate> = (props) => {
   const { classes, caseStudy } = props;
-
-  const submit = useCallback<FormSubmitHandler<CaseStudyEdit_caseStudy>>(
-    ({ rowId, description }) => {
-      return updateCaseStudyMutation({
-        input: {
-          rowId,
-          description,
-        },
-      });
-    },
-    [],
-  );
 
   return (
     <Flex container spacing="small" direction="column">
-      <Flex item container spacing="tiny" align="center" justify="space-between">
-        <Flex item>
-          <Text size="large" weight="medium">
-            {caseStudy.description}
-          </Text>
-          <Text size="medium" color="primary">
-            <Button
-              color="primary"
-              size="medium"
-              variant="link"
-              component={makeLink({
-                to: `${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`,
-              })}
-            >
-              {/* TODO: make groups */}
-              {caseStudy.client!.fullName}
-            </Button>
-          </Text>
-        </Flex>
-        <Flex item>
-          <ResolveOnTrigger
-            params={undefined}
-            promise={async () => {
-              const { deleteCaseStudy } = await deleteCaseStudyMutation({
-                input: { rowId: caseStudy.rowId },
-              });
-              if (!deleteCaseStudy) {
-                throw new Error('Malfored DeleteCaseStudy response!');
-              }
-              history.push(`${CLIENTS_PAGE_ROUTE}/${deleteCaseStudy.clientByClientRowId!.rowId}`);
-            }}
-          >
-            {({ trigger, loading, error, clearError }) =>
-              error ? (
-                <DismissableAlert message={error} onDismiss={clearError} />
-              ) : (
-                <Button variant="primary" color="danger" onClick={trigger} disabled={loading}>
-                  <FormattedMessage id="DELETE" />
-                </Button>
-              )
-            }
-          </ResolveOnTrigger>
-        </Flex>
-      </Flex>
-      <Flex item>
-        <Form defaultValues={caseStudy} onSubmit={submit}>
-          <Flex container direction="column" spacing="tiny">
-            <Flex item>
-              <FormSubmitErrorState>
-                {(error, { resetSubmitError }) =>
-                  error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
-                }
-              </FormSubmitErrorState>
-            </Flex>
-            <Flex item>
-              <FormInputField
-                required
-                path="description"
-                label={<FormattedMessage id="DESCRIPTION" />}
-              />
-            </Flex>
-            <Flex item container justify="flex-end">
-              <FormLockedState>
-                {(submitting) => (
-                  <Button disabled={submitting} variant="primary" type="submit">
-                    <FormattedMessage id="SAVE" />
-                  </Button>
-                )}
-              </FormLockedState>
-            </Flex>
-          </Flex>
-        </Form>
-      </Flex>
       <Flex item>
         <Text size="large" weight="medium">
           <FormattedMessage id="THERAPISTS" />
@@ -282,29 +188,27 @@ const CaseStudyEdit: React.FC<CaseStudyEditProps & Decorate> = (props) => {
   );
 };
 
-const ComposedCaseStudyEdit = createFragmentContainer(decorate(CaseStudyEdit), {
-  caseStudy: graphql`
-    fragment CaseStudyEdit_caseStudy on CaseStudy {
-      rowId
-      description
-      client: clientByClientRowId {
+const ComposedCaseStudyTherapistsManage = createFragmentContainer(
+  decorate(CaseStudyTherapistsManage),
+  {
+    caseStudy: graphql`
+      fragment CaseStudyTherapistsManage_caseStudy on CaseStudy {
         rowId
-        fullName
-      }
-      caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(
-        orderBy: [CREATED_AT_ASC]
-      ) {
-        nodes {
-          rowId
-          professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+        caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(
+          orderBy: [CREATED_AT_ASC]
+        ) {
+          nodes {
             rowId
-            type
-            fullName
+            professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+              rowId
+              type
+              fullName
+            }
+            primary
           }
-          primary
         }
       }
-    }
-  `,
-});
-export { ComposedCaseStudyEdit as CaseStudyEdit };
+    `,
+  },
+);
+export { ComposedCaseStudyTherapistsManage as CaseStudyTherapistsManage };

@@ -9,6 +9,7 @@ import { Route, Switch, RouteComponentProps } from 'react-router-dom';
 
 // parts
 import { ClientsCreatePage } from './ClientsCreatePage';
+import { ClientsCreateCaseStudyPage } from './ClientsCreateCaseStudyPage';
 import { ClientsDetailPage } from './ClientsDetailPage';
 import { ClientsOverviewPage } from './ClientsOverviewPage';
 
@@ -19,6 +20,10 @@ const ClientsPage: React.FC<ClientsPageProps> = (props) => {
   return (
     <Switch>
       <Route path={`${match.path}/create`} component={ClientsCreatePage} />
+      <Route
+        path={`${match.path}/:rowId/create-case-study`}
+        component={ClientsCreateCaseStudyPage}
+      />
       <Route path={`${match.path}/:rowId`} component={ClientsDetailPage} />
       <Route path={match.path} component={ClientsOverviewPage} />
     </Switch>

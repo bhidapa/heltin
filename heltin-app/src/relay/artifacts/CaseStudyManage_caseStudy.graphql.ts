@@ -2,26 +2,24 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type CaseStudiesTable_caseStudies = ReadonlyArray<{
+export type CaseStudyManage_caseStudy = {
     readonly rowId: string;
     readonly description: string;
-    readonly " $refType": "CaseStudiesTable_caseStudies";
-}>;
-export type CaseStudiesTable_caseStudies$data = CaseStudiesTable_caseStudies;
-export type CaseStudiesTable_caseStudies$key = ReadonlyArray<{
-    readonly " $data"?: CaseStudiesTable_caseStudies$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseStudiesTable_caseStudies">;
-}>;
+    readonly " $refType": "CaseStudyManage_caseStudy";
+};
+export type CaseStudyManage_caseStudy$data = CaseStudyManage_caseStudy;
+export type CaseStudyManage_caseStudy$key = {
+    readonly " $data"?: CaseStudyManage_caseStudy$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseStudyManage_caseStudy">;
+};
 
 
 
 const node: ReaderFragment = {
   "kind": "Fragment",
-  "name": "CaseStudiesTable_caseStudies",
+  "name": "CaseStudyManage_caseStudy",
   "type": "CaseStudy",
-  "metadata": {
-    "plural": true
-  },
+  "metadata": null,
   "argumentDefinitions": [],
   "selections": [
     {
@@ -40,5 +38,5 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = 'f32e4f2fe75194f6eda7aa68abe2e821';
+(node as any).hash = '63e84acf1eb0c445502bf8372d1950fc';
 export default node;

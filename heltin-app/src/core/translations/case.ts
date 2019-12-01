@@ -7,6 +7,14 @@ export const messages: Messages = {
     en: 'Case',
     hr: 'Slučaj',
   },
+  CREATE_CASE_STUDY: {
+    en: 'Create case study',
+    hr: 'Kreiraj studiju slučaja',
+  },
+  NEW_CASE_STUDY: {
+    en: 'New case study',
+    hr: 'Nova studija slučaja',
+  },
   CASE_STUDY: {
     en: 'Case study',
     hr: 'Studija slučaja',
@@ -14,6 +22,10 @@ export const messages: Messages = {
   CASE_STUDIES: {
     en: 'Case studies',
     hr: 'Studije slučajeva',
+  },
+  CASE_STUDY_DESCRIPTION: {
+    en: 'Case study description',
+    hr: 'Opis studije slučaja',
   },
   CASE_HISTORY: {
     en: 'Case history',
@@ -254,5 +266,17 @@ export const messages: Messages = {
   LOSS_OF_FOSTER_PARENT: {
     en: 'Loss of foster parent',
     hr: 'Gubitak udomitelja',
+  },
+  TO_ADD_OTHER_INFO_FINISH_CREATING_CASE_STUDY: {
+    en: 'To add further information please finish creating the case study.',
+    hr: 'Da biste dodali daljnje informacije molimo završite kreiranje nove studije slučaja.',
+  },
+  CREATE_CONCLUSION: {
+    en: 'Create conclusion',
+    hr: 'Kreiraj zaključak',
+  },
+  CREATE_THERAPY: {
+    en: 'Create therapy',
+    hr: 'Kreiraj terapiju',
   },
 };

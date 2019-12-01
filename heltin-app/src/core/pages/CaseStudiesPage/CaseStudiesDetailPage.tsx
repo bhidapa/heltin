@@ -18,7 +18,8 @@ import { CaseStudiesDetailPageQuery } from 'relay/artifacts/CaseStudiesDetailPag
 import { Err, Loading, Flex, Text } from '@domonda/ui';
 
 // modules
-import { CaseStudyEdit } from 'modules/CaseStudy/CaseStudyEdit';
+import { CaseStudyManage } from 'modules/CaseStudy/CaseStudyManage';
+import { CaseStudyTherapistsManage } from 'modules/CaseStudy/CaseStudyTherapistsManage';
 import { CaseHistoryManage } from 'modules/CaseHistory/CaseHistoryManage';
 import { CaseHistoryFilesManage } from 'modules/CaseHistory/CaseHistoryFilesManage';
 
@@ -51,7 +52,11 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                   }
                 }
               }
-              ...CaseStudyEdit_caseStudy
+              client: clientByClientRowId {
+                ...CaseStudyManage_client
+              }
+              ...CaseStudyManage_caseStudy
+              ...CaseStudyTherapistsManage_caseStudy
             }
           }
         `}
@@ -73,7 +78,11 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
               <Helmet title={caseStudy.description} />
               <Flex container direction="column" spacing="small">
                 <Flex item>
-                  <CaseStudyEdit caseStudy={caseStudy} />
+                  {/* Must exist until groups are created. */}
+                  <CaseStudyManage client={caseStudy.client!} caseStudy={caseStudy} />
+                </Flex>
+                <Flex item>
+                  <CaseStudyTherapistsManage caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
                   <CaseHistoryManage caseStudyRowId={rowId} caseHistory={caseHistory} />
