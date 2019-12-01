@@ -214,12 +214,24 @@ export const messages: Messages = {
     en: 'Foster house',
     hr: 'Udomiteljska kuća',
   },
-  THERAPY: {
-    en: 'Therapy',
-    hr: 'Terapija',
+  TREATMENT: {
+    en: 'Treatment',
+    hr: 'Tretman',
   },
-  THERAPIES: {
-    en: 'Therapies',
-    hr: 'Terapije',
+  TREATMENTS: {
+    en: 'Treatments',
+    hr: 'Tretmani',
+  },
+  EXTERNAL: {
+    en: 'External',
+    hr: 'Eksterni',
+  },
+  TITLE: {
+    en: 'Title',
+    hr: 'Naslov',
+  },
+  FOR: {
+    en: 'For',
+    hr: 'Za',
   },
 };

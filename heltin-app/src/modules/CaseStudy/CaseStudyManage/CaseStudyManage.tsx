@@ -66,7 +66,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
       throw new Error('Malformed CreateCaseStudyMutation response!');
     }
 
-    await createCaseHistoryMutation({ input: { caseStudyRowId: createCaseStudy.caseStudy.rowId } })
+    await createCaseHistoryMutation({ input: { caseStudyRowId: createCaseStudy.caseStudy.rowId } });
 
     history.push(`${CASE_STUDIES_PAGE_ROUTE}/${createCaseStudy.caseStudy.rowId}`);
   }, []);
@@ -75,21 +75,33 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     <Flex container spacing="small" direction="column">
       <Flex item container spacing="tiny" align="center" justify="space-between">
         <Flex item>
-          <Text size="large" weight="medium">
-            {caseStudy ? caseStudy.description : <FormattedMessage id="NEW_CASE_STUDY" />}
-          </Text>
-          <Text size="medium" color="primary">
-            <Button
-              color="primary"
-              size="medium"
-              variant="link"
-              component={makeLink({
-                to: `${CLIENTS_PAGE_ROUTE}/${client.rowId}`,
-              })}
-            >
-              {client.fullName}
-            </Button>
-          </Text>
+          <Flex container direction="column">
+            <Flex item>
+              <Text size="large" weight="medium">
+                {caseStudy ? caseStudy.description : <FormattedMessage id="NEW_CASE_STUDY" />}
+              </Text>
+            </Flex>
+            <Flex item>
+              <Text size="medium" color="primary" inline>
+                <FormattedMessage id="CASE_STUDY" />
+                &nbsp;
+                <span style={{ textTransform: 'lowercase' }}>
+                  <FormattedMessage id="FOR" />
+                </span>
+              </Text>
+              &nbsp;
+              <Button
+                color="primary"
+                size="medium"
+                variant="link"
+                component={makeLink({
+                  to: `${CLIENTS_PAGE_ROUTE}/${client.rowId}`,
+                })}
+              >
+                {client.fullName}
+              </Button>
+            </Flex>
+          </Flex>
         </Flex>
         {caseStudy && (
           <Flex item>
@@ -136,6 +148,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
             </Flex>
             <Flex item>
               <FormInputField
+                autoFocus
                 required
                 path="description"
                 label={<FormattedMessage id="DESCRIPTION" />}

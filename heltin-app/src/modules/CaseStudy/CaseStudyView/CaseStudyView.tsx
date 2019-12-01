@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { makeLink } from 'lib/makeLink';
-import { CASE_STUDIES_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { CASE_STUDIES_PAGE_ROUTE } from 'lib/routes';
 
 // relay
 import { graphql, createFragmentContainer } from 'react-relay';
@@ -16,37 +16,22 @@ import { CaseStudyView_caseStudy } from 'relay/artifacts/CaseStudyView_caseStudy
 import { Flex, Text, Button } from '@domonda/ui';
 import { FormattedMessage } from 'react-intl';
 
+// parts
+import { CaseStudyTreatmentRowHeader, CaseStudyTreatmentRow } from './CaseStudyTreatmentRow';
+
 export interface CaseStudyViewProps {
-  clientRowId: UUID;
   caseStudy: CaseStudyView_caseStudy;
 }
 
 const CaseStudyView: React.FC<CaseStudyViewProps> = (props) => {
-  const { clientRowId, caseStudy } = props;
+  const { caseStudy } = props;
   return (
     <Flex container spacing="small" direction="column">
-      <Flex item container spacing="tiny" justify="space-between" align="center">
-        <Flex item>
-          <Text size="large" weight="medium">
-            <FormattedMessage id="CASE_STUDIES" />
-          </Text>
-        </Flex>
-        <Flex item>
-          <Button
-            variant="primary"
-            component={makeLink({
-              to: `${CLIENTS_PAGE_ROUTE}/${clientRowId}/create-case-study`,
-            })}
-          >
-            <FormattedMessage id="CREATE_CASE_STUDY" />
-          </Button>
-        </Flex>
-      </Flex>
       <Flex item container direction="column" spacing="tiny">
         <Flex item container spacing="tiny" align="center">
           <Flex item>
             <Button
-              color="accent"
+              color="secondary"
               size="medium"
               variant="link"
               component={makeLink({
@@ -58,25 +43,47 @@ const CaseStudyView: React.FC<CaseStudyViewProps> = (props) => {
           </Flex>
           <Flex item flex={1} />
           <Flex item>
-            <Button color="secondary">
+            <Button color="secondary" disabled>
               <FormattedMessage id="CREATE_CONCLUSION" />
             </Button>
           </Flex>
           <Flex item>
-            <Button variant="primary" color="secondary">
-              <FormattedMessage id="CREATE_THERAPY" />
+            <Button
+              variant="primary"
+              color="secondary"
+              component={makeLink({
+                to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/create`,
+              })}
+            >
+              <FormattedMessage id="CREATE_TREATMENT" />
             </Button>
           </Flex>
         </Flex>
         <Flex item>
           <Text size="medium" weight="medium">
-            <FormattedMessage id="THERAPIES" />
+            <FormattedMessage id="TREATMENTS" />
           </Text>
         </Flex>
         <Flex item>
-          <Text color="warning">
-            <FormattedMessage id="NO_ENTRIES" />
-          </Text>
+          {caseStudy.caseStudyTreatments.nodes.length > 0 ? (
+            <>
+              <CaseStudyTreatmentRowHeader />
+              {caseStudy.caseStudyTreatments.nodes.map((node) => (
+                <CaseStudyTreatmentRow
+                  key={node.rowId}
+                  item={node}
+                  component={makeLink({
+                    to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/${node.rowId}`,
+                    omit: ['item'],
+                  })}
+                />
+              ))}
+            </>
+          ) : (
+            <Text color="warning">
+              <FormattedMessage id="NO_ENTRIES" />
+            </Text>
+          )}
         </Flex>
       </Flex>
     </Flex>
@@ -88,6 +95,12 @@ const ComposedCaseStudyView = createFragmentContainer(CaseStudyView, {
     fragment CaseStudyView_caseStudy on CaseStudy {
       rowId
       description
+      caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
+        nodes {
+          rowId
+          ...CaseStudyTreatmentRow_item
+        }
+      }
     }
   `,
 });

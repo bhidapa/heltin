@@ -275,8 +275,16 @@ export const messages: Messages = {
     en: 'Create conclusion',
     hr: 'Kreiraj zaključak',
   },
-  CREATE_THERAPY: {
-    en: 'Create therapy',
-    hr: 'Kreiraj terapiju',
+  NEW_TREATMENT: {
+    en: 'New treatment',
+    hr: 'Novi tretman',
+  },
+  CREATE_TREATMENT: {
+    en: 'Create treatment',
+    hr: 'Kreiraj tretman',
+  },
+  TREATMENT_FOR_CASE_STUDY: {
+    en: 'Treatment for case study',
+    hr: 'Tretman studije slučaja',
   },
 };

@@ -132,6 +132,7 @@ create table public.case_study_treatment (
   started_at timestamptz not null,
   ended_at   timestamptz not null,
 
+  title       text not null check(length(title) > 0),
   description text check(length(description) >= 3),
 
   score integer check(score >= 1 and score <= 5),
@@ -149,17 +150,19 @@ create or replace function public.create_case_study_treatment(
   "external"    boolean,
   started_at    timestamptz,
   ended_at      timestamptz,
+  title         text,
   description   text = null,
   score         integer = null
 ) returns public.case_study_treatment as
 $$
-  insert into public.case_study_treatment (case_study_id, "external", started_at, ended_at, description, score)
+  insert into public.case_study_treatment (case_study_id, "external", started_at, ended_at, description, title, score)
     values (
       create_case_study_treatment.case_study_id,
       create_case_study_treatment."external",
       create_case_study_treatment.started_at,
       create_case_study_treatment.ended_at,
       create_case_study_treatment.description,
+      create_case_study_treatment.title,
       create_case_study_treatment.score
     )
   returning *
@@ -171,6 +174,7 @@ create or replace function public.update_case_study_treatment(
   "external"  boolean,
   started_at  timestamptz,
   ended_at    timestamptz,
+  title       text,
   description text = null,
   score       integer = null
 ) returns public.case_study_treatment as
@@ -179,6 +183,7 @@ $$
     "external"=update_case_study_treatment."external",
     started_at=update_case_study_treatment.started_at,
     ended_at=update_case_study_treatment.ended_at,
+    title=update_case_study_treatment.title,
     description=update_case_study_treatment.description,
     score=update_case_study_treatment.score,
     updated_at=now()

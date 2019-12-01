@@ -21,4 +21,12 @@ export const messages: Messages = {
     en: 'No entries',
     hr: 'Nema unosa',
   },
+  STARTED: {
+    en: 'Started',
+    hr: 'Počelo',
+  },
+  ENDED: {
+    en: 'Ended',
+    hr: 'Završeno',
+  },
 };

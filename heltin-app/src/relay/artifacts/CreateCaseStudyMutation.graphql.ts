@@ -1,7 +1,8 @@
 /* tslint:disable */
-/* @relayHash 4340ba97c24344674ef1a18e0d76b14b */
+/* @relayHash ec50122609b066d7f80cf0ce3f055ea2 */
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly clientRowId?: string | null;
@@ -21,6 +22,12 @@ export type CreateCaseStudyMutationResponse = {
                 readonly nodes: ReadonlyArray<{
                     readonly rowId: string;
                     readonly description: string;
+                    readonly caseStudyTreatments: {
+                        readonly nodes: ReadonlyArray<{
+                            readonly rowId: string;
+                            readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentRow_item">;
+                        }>;
+                    };
                 }>;
             };
         } | null;
@@ -47,12 +54,25 @@ mutation CreateCaseStudyMutation(
         nodes {
           rowId
           description
+          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
+            nodes {
+              rowId
+              ...CaseStudyTreatmentRow_item
+              id
+            }
+          }
           id
         }
       }
       id
     }
   }
+}
+
+fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
+  title
+  startedAt
+  endedAt
 }
 */
 
@@ -95,7 +115,16 @@ v4 = {
   "args": null,
   "storageKey": null
 },
-v5 = {
+v5 = [
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": [
+      "STARTED_AT_DESC"
+    ]
+  }
+],
+v6 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -160,7 +189,35 @@ return {
                     "plural": true,
                     "selections": [
                       (v2/*: any*/),
-                      (v4/*: any*/)
+                      (v4/*: any*/),
+                      {
+                        "kind": "LinkedField",
+                        "alias": "caseStudyTreatments",
+                        "name": "caseStudyTreatmentsByCaseStudyRowId",
+                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])",
+                        "args": (v5/*: any*/),
+                        "concreteType": "CaseStudyTreatmentsConnection",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "nodes",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "CaseStudyTreatment",
+                            "plural": true,
+                            "selections": [
+                              (v2/*: any*/),
+                              {
+                                "kind": "FragmentSpread",
+                                "name": "CaseStudyTreatmentRow_item",
+                                "args": null
+                              }
+                            ]
+                          }
+                        ]
+                      }
                     ]
                   }
                 ]
@@ -195,7 +252,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v5/*: any*/)
+              (v6/*: any*/)
             ]
           },
           {
@@ -227,12 +284,57 @@ return {
                     "selections": [
                       (v2/*: any*/),
                       (v4/*: any*/),
-                      (v5/*: any*/)
+                      {
+                        "kind": "LinkedField",
+                        "alias": "caseStudyTreatments",
+                        "name": "caseStudyTreatmentsByCaseStudyRowId",
+                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])",
+                        "args": (v5/*: any*/),
+                        "concreteType": "CaseStudyTreatmentsConnection",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "nodes",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "CaseStudyTreatment",
+                            "plural": true,
+                            "selections": [
+                              (v2/*: any*/),
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "title",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "startedAt",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "endedAt",
+                                "args": null,
+                                "storageKey": null
+                              },
+                              (v6/*: any*/)
+                            ]
+                          }
+                        ]
+                      },
+                      (v6/*: any*/)
                     ]
                   }
                 ]
               },
-              (v5/*: any*/)
+              (v6/*: any*/)
             ]
           }
         ]
@@ -243,7 +345,7 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          description\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          description\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
     "metadata": {}
   }
 };

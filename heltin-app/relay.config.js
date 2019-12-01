@@ -14,6 +14,7 @@ module.exports = {
     BigInt: 'Int',
     EmailAddress: 'String',
     Date: 'String',
+    Datetime: 'String',
     Base64EncodedBinary: 'String',
   },
 };

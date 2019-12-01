@@ -6944,6 +6944,22 @@
               "deprecationReason": null,
               "description": null,
               "isDeprecated": false,
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "args": [],
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
               "name": "updatedAt",
               "type": {
                 "kind": "NON_NULL",
@@ -7050,6 +7066,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Datetime",
+                "ofType": null
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": "Checks for equality with the object’s `title` field.",
+              "name": "title",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -7740,6 +7766,18 @@
               "description": null,
               "isDeprecated": false,
               "name": "STARTED_AT_DESC"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "TITLE_ASC"
+            },
+            {
+              "deprecationReason": null,
+              "description": null,
+              "isDeprecated": false,
+              "name": "TITLE_DESC"
             },
             {
               "deprecationReason": null,
@@ -10194,6 +10232,20 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Datetime",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }
@@ -22053,6 +22105,20 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Datetime",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "defaultValue": null,
+              "description": null,
+              "name": "title",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               }
