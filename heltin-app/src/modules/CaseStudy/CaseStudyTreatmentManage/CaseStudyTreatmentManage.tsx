@@ -200,7 +200,7 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
                       timeIntervals={15}
                       timeFormat="HH:mm"
                       dateFormat="dd.MM.yyyy HH:mm"
-                      customInput={<Input label="Started at" required />}
+                      customInput={<Input label={<FormattedMessage id="STARTED" />} required />}
                     />
                   )}
                 </FormDateField>
@@ -213,7 +213,7 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
                       timeIntervals={15}
                       timeFormat="HH:mm"
                       dateFormat="dd.MM.yyyy HH:mm"
-                      customInput={<Input label="Ended at" required />}
+                      customInput={<Input label={<FormattedMessage id="ENDED" />} required />}
                     />
                   )}
                 </FormDateField>
