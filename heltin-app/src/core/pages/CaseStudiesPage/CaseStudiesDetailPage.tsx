@@ -19,7 +19,7 @@ import { Err, Loading, Flex, Text } from '@domonda/ui';
 
 // modules
 import { CaseStudyManage } from 'modules/CaseStudy/CaseStudyManage';
-import { CaseStudyTherapistsManage } from 'modules/CaseStudy/CaseStudyTherapistsManage';
+import { CaseStudyProfessionalsManage } from 'modules/CaseStudy/CaseStudyProfessionalsManage';
 import { CaseHistoryManage } from 'modules/CaseHistory/CaseHistoryManage';
 import { CaseHistoryFilesManage } from 'modules/CaseHistory/CaseHistoryFilesManage';
 
@@ -56,7 +56,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                 ...CaseStudyManage_client
               }
               ...CaseStudyManage_caseStudy
-              ...CaseStudyTherapistsManage_caseStudy
+              ...CaseStudyProfessionalsManage_caseStudy
             }
           }
         `}
@@ -82,7 +82,7 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                   <CaseStudyManage client={caseStudy.client!} caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
-                  <CaseStudyTherapistsManage caseStudy={caseStudy} />
+                  <CaseStudyProfessionalsManage caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
                   <CaseHistoryManage caseStudyRowId={rowId} caseHistory={caseHistory} />

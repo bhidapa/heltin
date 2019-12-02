@@ -45,7 +45,7 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
   return (
     <Flex container direction="column" spacing="small">
       <Flex item>
-        <Text size="large" weight="medium">
+        <Text size="medium" weight="medium">
           <FormattedMessage id="FILES" />
         </Text>
       </Flex>
@@ -61,7 +61,7 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
                 error ? (
                   <DismissableAlert message={error} onDismiss={clearError} />
                 ) : (
-                  <div className={classes.medicalReport}>
+                  <div className={classes.file}>
                     <Flex container spacing="tiny" align="center">
                       <Flex item flex={1}>
                         <Text>{file.name}</Text>

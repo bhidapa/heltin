@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash ccc978bad571d883925dea8b07edf00f */
+/* @relayHash e410e990cc4cbadd7013399135e8d7be */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -23,7 +23,7 @@ export type CaseStudiesDetailPageQueryResponse = {
         readonly client: {
             readonly " $fragmentRefs": FragmentRefs<"CaseStudyManage_client">;
         } | null;
-        readonly " $fragmentRefs": FragmentRefs<"CaseStudyManage_caseStudy" | "CaseStudyTherapistsManage_caseStudy">;
+        readonly " $fragmentRefs": FragmentRefs<"CaseStudyManage_caseStudy" | "CaseStudyProfessionalsManage_caseStudy">;
     } | null;
 };
 export type CaseStudiesDetailPageQuery = {
@@ -57,7 +57,7 @@ query CaseStudiesDetailPageQuery(
       id
     }
     ...CaseStudyManage_caseStudy
-    ...CaseStudyTherapistsManage_caseStudy
+    ...CaseStudyProfessionalsManage_caseStudy
     id
   }
 }
@@ -113,7 +113,7 @@ fragment CaseStudyManage_client on Client {
   fullName
 }
 
-fragment CaseStudyTherapistsManage_caseStudy on CaseStudy {
+fragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {
   rowId
   caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {
     nodes {
@@ -281,7 +281,7 @@ return {
           },
           {
             "kind": "FragmentSpread",
-            "name": "CaseStudyTherapistsManage_caseStudy",
+            "name": "CaseStudyProfessionalsManage_caseStudy",
             "args": null
           }
         ]
@@ -629,10 +629,10 @@ return {
     "operationKind": "query",
     "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    title\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryFilesManage_caseHistoryFiles\n            id\n          }\n        }\n        id\n      }\n    }\n    client: clientByClientRowId {\n      ...CaseStudyManage_client\n      id\n    }\n    ...CaseStudyManage_caseStudy\n    ...CaseStudyTherapistsManage_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment CaseStudyTherapistsManage_caseStudy on CaseStudy {\n  rowId\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    title\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryFilesManage_caseHistoryFiles\n            id\n          }\n        }\n        id\n      }\n    }\n    client: clientByClientRowId {\n      ...CaseStudyManage_client\n      id\n    }\n    ...CaseStudyManage_caseStudy\n    ...CaseStudyProfessionalsManage_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {\n  rowId\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = 'b59e8546dd9355dc0c1452faf5b704e1';
+(node as any).hash = 'c59ab48861f8625109f329f666c2134d';
 export default node;

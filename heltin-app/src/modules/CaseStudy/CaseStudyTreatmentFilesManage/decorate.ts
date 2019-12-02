@@ -1,7 +1,7 @@
 import { createStyles, withStyles, WithStyles } from '@domonda/ui/styles';
 
 const styles = createStyles(({ palette, spacing, shape }) => ({
-  medicalReport: {
+  file: {
     padding: spacing('tiny'),
     backgroundColor: palette.white,
     borderRadius: shape.borderRadius.tiny,

@@ -1,7 +1,7 @@
 import { createStyles, withStyles, WithStyles } from '@domonda/ui/styles';
 
 const styles = createStyles(({ palette, spacing, shape }) => ({
-  file: {
+  caseStudyProfessional: {
     padding: spacing('tiny'),
     backgroundColor: palette.white,
     border: `1px solid ${palette.border}`,

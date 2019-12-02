@@ -10,6 +10,10 @@ export const messages: Messages = {
     en: 'Professionals',
     hr: 'Profesionalaci',
   },
+  ADD_THERAPIST: {
+    en: 'Add therapist',
+    hr: 'Dodaj terapeuta',
+  },
   THERAPIST: {
     en: 'Therapist',
     hr: 'Terapeut',

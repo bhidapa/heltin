@@ -3,7 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type CaseStudyTherapistsManage_caseStudy = {
+export type CaseStudyProfessionalsManage_caseStudy = {
     readonly rowId: string;
     readonly caseStudyProfessionals: {
         readonly nodes: ReadonlyArray<{
@@ -16,12 +16,12 @@ export type CaseStudyTherapistsManage_caseStudy = {
             readonly primary: boolean;
         }>;
     };
-    readonly " $refType": "CaseStudyTherapistsManage_caseStudy";
+    readonly " $refType": "CaseStudyProfessionalsManage_caseStudy";
 };
-export type CaseStudyTherapistsManage_caseStudy$data = CaseStudyTherapistsManage_caseStudy;
-export type CaseStudyTherapistsManage_caseStudy$key = {
-    readonly " $data"?: CaseStudyTherapistsManage_caseStudy$data;
-    readonly " $fragmentRefs": FragmentRefs<"CaseStudyTherapistsManage_caseStudy">;
+export type CaseStudyProfessionalsManage_caseStudy$data = CaseStudyProfessionalsManage_caseStudy;
+export type CaseStudyProfessionalsManage_caseStudy$key = {
+    readonly " $data"?: CaseStudyProfessionalsManage_caseStudy$data;
+    readonly " $fragmentRefs": FragmentRefs<"CaseStudyProfessionalsManage_caseStudy">;
 };
 
 
@@ -36,7 +36,7 @@ var v0 = {
 };
 return {
   "kind": "Fragment",
-  "name": "CaseStudyTherapistsManage_caseStudy",
+  "name": "CaseStudyProfessionalsManage_caseStudy",
   "type": "CaseStudy",
   "metadata": null,
   "argumentDefinitions": [],
@@ -109,5 +109,5 @@ return {
   ]
 };
 })();
-(node as any).hash = '7fdc42c1caa6725233167659dc291bcf';
+(node as any).hash = '510468170c17c69ad2a52de820ad447b';
 export default node;
