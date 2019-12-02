@@ -164,6 +164,7 @@ const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (pro
               ? {
                   ...caseStudyConclusion,
                   type: caseStudyConclusion.type as CaseStudyConclusionType,
+                  concludedAt: new Date(caseStudyConclusion.concludedAt),
                 }
               : defaultCreateConclusionValues
           }

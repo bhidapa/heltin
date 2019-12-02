@@ -42,7 +42,9 @@ export interface ClientEditProps {
 const ClientEdit: React.FC<ClientEditProps> = (props) => {
   const { client } = props;
 
-  const submit = useCallback<FormSubmitHandler<ClientEdit_client>>(
+  const submit = useCallback<
+    FormSubmitHandler<Omit<ClientEdit_client, 'dateOfBirth'> & { dateOfBirth: Date }>
+  >(
     ({
       rowId,
       address,
@@ -62,7 +64,7 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
           rowId,
           address,
           city,
-          dateOfBirth,
+          dateOfBirth: dateOfBirth.toISOString(),
           discrete,
           email,
           firstName,
@@ -109,7 +111,13 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
         </Flex>
       </Flex>
       <Flex item>
-        <Form defaultValues={client} onSubmit={submit}>
+        <Form
+          defaultValues={{
+            ...client,
+            dateOfBirth: new Date(client.dateOfBirth),
+          }}
+          onSubmit={submit}
+        >
           <Flex container spacing="tiny" direction="column">
             <Flex item>
               <FormSubmitErrorState>

@@ -41,10 +41,15 @@ export interface ProfessionalEditProps {
 const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
   const { professional } = props;
 
-  const submit = useCallback<FormSubmitHandler<ProfessionalEdit_professional>>(
-    ({ fullName, ...values }) =>
+  const submit = useCallback<
+    FormSubmitHandler<Omit<ProfessionalEdit_professional, 'dateOfBirth'> & { dateOfBirth: Date }>
+  >(
+    ({ fullName, dateOfBirth, ...rest }) =>
       updateProfessionalMutation({
-        input: values,
+        input: {
+          ...rest,
+          dateOfBirth: dateOfBirth.toISOString(),
+        },
       }),
     [],
   );
@@ -79,7 +84,13 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
         </Flex>
       </Flex>
       <Flex item>
-        <Form defaultValues={professional} onSubmit={submit}>
+        <Form
+          defaultValues={{
+            ...professional,
+            dateOfBirth: new Date(professional.dateOfBirth),
+          }}
+          onSubmit={submit}
+        >
           <Flex container spacing="tiny" direction="column">
             <Flex item>
               <FormSubmitErrorState>

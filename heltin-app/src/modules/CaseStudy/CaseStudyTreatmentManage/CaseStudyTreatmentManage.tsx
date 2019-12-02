@@ -164,7 +164,15 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
       </Flex>
       <Flex item>
         <Form<FormValues>
-          defaultValues={caseStudyTreatment || defaultCreateTreatmentValues}
+          defaultValues={
+            caseStudyTreatment
+              ? {
+                  ...caseStudyTreatment,
+                  startedAt: new Date(caseStudyTreatment.startedAt),
+                  endedAt: new Date(caseStudyTreatment.endedAt),
+                }
+              : defaultCreateTreatmentValues
+          }
           onSubmit={submit}
         >
           <Flex container direction="column" spacing="tiny">
