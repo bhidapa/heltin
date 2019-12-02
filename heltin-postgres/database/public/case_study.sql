@@ -145,6 +145,16 @@ create table public.case_study_treatment (
 
 grant all on public.case_study_treatment to viewer;
 
+create or replace function public.client_case_study_treatments_by_case_studies_client_id(
+  client public.client
+) returns setof public.case_study_treatment as
+$$
+  select cst.* from public.case_study_treatment as cst
+    inner join public.case_study as cs on cs.id = cst.case_study_id
+  where cs.client_id = client.id
+$$
+language sql stable;
+
 create or replace function public.create_case_study_treatment(
   case_study_id uuid,
   "external"    boolean,

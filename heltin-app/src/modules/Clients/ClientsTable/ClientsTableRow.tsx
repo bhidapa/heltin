@@ -17,15 +17,14 @@ import { makeRow } from '@domonda/ui/Row';
 const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_item>({
   columns: [
     {
-      width: 124,
-      flexGrow: 1,
+      width: 64,
       HeaderCell: <FormattedMessage id="NUMBER" />,
       ItemCell: function ItemCell({ item }) {
         return <span>{item.number}</span>;
       },
     },
     {
-      width: 256,
+      width: 128,
       flexGrow: 1,
       HeaderCell: <FormattedMessage id="NAME" />,
       ItemCell: function ItemCell({ item }) {
@@ -40,6 +39,14 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
         return <span>{item.lastName}</span>;
       },
     },
+    {
+      width: 92,
+      textAlign: 'right',
+      HeaderCell: <FormattedMessage id="NUMBER_OF_TREATMENTS" />,
+      ItemCell: function ItemCell({ item }) {
+        return <span>{item.treatments.totalCount}</span>;
+      },
+    },
   ],
 });
 
@@ -51,6 +58,9 @@ export const ClientsTableRow = createFragmentContainer(RowItem, {
       number
       firstName
       lastName
+      treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
+        totalCount
+      }
     }
   `,
 });

@@ -6,6 +6,9 @@ export type ClientsTableRow_item = {
     readonly number: number;
     readonly firstName: string;
     readonly lastName: string;
+    readonly treatments: {
+        readonly totalCount: number;
+    };
     readonly " $refType": "ClientsTableRow_item";
 };
 export type ClientsTableRow_item$data = ClientsTableRow_item;
@@ -43,8 +46,26 @@ const node: ReaderFragment = {
       "name": "lastName",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "LinkedField",
+      "alias": "treatments",
+      "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "CaseStudyTreatmentsConnection",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "ScalarField",
+          "alias": null,
+          "name": "totalCount",
+          "args": null,
+          "storageKey": null
+        }
+      ]
     }
   ]
 };
-(node as any).hash = '9873f7a7ff1dee4647aea134296ab9b6';
+(node as any).hash = '654a76889e52315a2dee67b43998abc3';
 export default node;

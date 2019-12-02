@@ -217,6 +217,10 @@ export const messages: Messages = {
     en: 'Treatment',
     hr: 'Tretman',
   },
+  NUMBER_OF_TREATMENTS: {
+    en: 'Number of treatments',
+    hr: 'Broj tretmana',
+  },
   TREATMENTS: {
     en: 'Treatments',
     hr: 'Tretmani',
