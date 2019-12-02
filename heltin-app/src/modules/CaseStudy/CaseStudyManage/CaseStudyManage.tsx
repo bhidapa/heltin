@@ -154,14 +154,31 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
                 label={<FormattedMessage id="TITLE" />}
               />
             </Flex>
-            <Flex item container justify="flex-end">
-              <FormLockedState>
-                {(submitting) => (
-                  <Button disabled={submitting} variant="primary" type="submit">
-                    {caseStudy ? <FormattedMessage id="SAVE" /> : <FormattedMessage id="CREATE" />}
+            <Flex item container justify="flex-end" spacing="tiny">
+              {caseStudy && (
+                <Flex item>
+                  <Button
+                    component={makeLink({
+                      to: `${CLIENTS_PAGE_ROUTE}/${client.rowId}/create-case-study`,
+                    })}
+                  >
+                    <FormattedMessage id="CREATE_NEW" />
                   </Button>
-                )}
-              </FormLockedState>
+                </Flex>
+              )}
+              <Flex item>
+                <FormLockedState>
+                  {(submitting) => (
+                    <Button disabled={submitting} variant="primary" type="submit">
+                      {caseStudy ? (
+                        <FormattedMessage id="SAVE" />
+                      ) : (
+                        <FormattedMessage id="CREATE" />
+                      )}
+                    </Button>
+                  )}
+                </FormLockedState>
+              </Flex>
             </Flex>
           </Flex>
         </Form>

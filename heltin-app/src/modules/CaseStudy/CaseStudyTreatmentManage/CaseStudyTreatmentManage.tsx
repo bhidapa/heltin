@@ -249,7 +249,18 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
                 label={<FormattedMessage id="DESCRIPTION" />}
               />
             </Flex>
-            <Flex item container justify="flex-end">
+            <Flex item container justify="flex-end" spacing="tiny">
+              {caseStudyTreatment && (
+                <Flex item>
+                  <Button
+                    component={makeLink({
+                      to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/create`,
+                    })}
+                  >
+                    <FormattedMessage id="CREATE_NEW" />
+                  </Button>
+                </Flex>
+              )}
               <Flex item>
                 <FormLockedState>
                   {(locked) => (
