@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 5ff202b8a3976d9bdcd890ad4c54c0d6 */
+/* @relayHash dbb4c3e54714188172968586829e5013 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -58,6 +58,13 @@ fragment CaseStudyView_caseStudy on CaseStudy {
     nodes {
       rowId
       ...CaseStudyTreatmentRow_item
+      id
+    }
+  }
+  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {
+    nodes {
+      rowId
+      type
       id
     }
   }
@@ -350,6 +357,37 @@ return {
                       }
                     ]
                   },
+                  {
+                    "kind": "LinkedField",
+                    "alias": "caseStudyConclusions",
+                    "name": "caseStudyConclusionsByCaseStudyRowId",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "CaseStudyConclusionsConnection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "nodes",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "CaseStudyConclusion",
+                        "plural": true,
+                        "selections": [
+                          (v2/*: any*/),
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "type",
+                            "args": null,
+                            "storageKey": null
+                          },
+                          (v6/*: any*/)
+                        ]
+                      }
+                    ]
+                  },
                   (v6/*: any*/)
                 ]
               }
@@ -364,7 +402,7 @@ return {
     "operationKind": "query",
     "name": "ClientsDetailPageQuery",
     "id": null,
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
     "metadata": {}
   }
 };

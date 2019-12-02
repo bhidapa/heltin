@@ -10,6 +10,8 @@ import { Route, Switch, RouteComponentProps } from 'react-router-dom';
 // parts
 import { CaseStudiesTreatmentDetailPage } from './CaseStudiesTreatmentDetailPage';
 import { CaseStudiesTreatmentCreatePage } from './CaseStudiesTreatmentCreatePage';
+import { CaseStudiesConclusionDetailPage } from './CaseStudiesConclusionDetailPage';
+import { CaseStudiesConclusionCreatePage } from './CaseStudiesConclusionCreatePage';
 import { CaseStudiesDetailPage } from './CaseStudiesDetailPage';
 import { FourOhFourPage } from '../FourOhFourPage';
 
@@ -26,6 +28,14 @@ const CaseStudiesPage: React.FC<CaseStudiesPageProps> = (props) => {
       <Route
         path={`${match.path}/:caseStudyRowId/treatments/:caseStudyTreatmentRowId`}
         component={CaseStudiesTreatmentDetailPage}
+      />
+      <Route
+        path={`${match.path}/:rowId/conclusions/create`}
+        component={CaseStudiesConclusionCreatePage}
+      />
+      <Route
+        path={`${match.path}/:caseStudyRowId/conclusions/:caseStudyConclusionRowId`}
+        component={CaseStudiesConclusionDetailPage}
       />
       <Route exact path={`${match.path}/:rowId`} component={CaseStudiesDetailPage} />
       <Route path="*" component={FourOhFourPage} />

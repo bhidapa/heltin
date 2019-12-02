@@ -1,6 +1,7 @@
 import { Messages } from 'lib/intl/messages';
 import { CaseHistoryAbuseType } from 'modules/CaseHistory/CaseHistoryAbuseType';
 import { CaseHistoryArrivalReasonType } from 'modules/CaseHistory/CaseHistoryArrivalReasonType';
+import { CaseStudyConclusionType } from 'modules/CaseStudy/CaseStudyConclusionType';
 
 export const messages: Messages = {
   CASE: {
@@ -286,5 +287,33 @@ export const messages: Messages = {
   TO_ADD_OTHER_INFO_FINISH_CREATING_TREATMENT: {
     en: 'To add further information please finish creating the treatment.',
     hr: 'Da biste dodali daljnje informacije molimo završite kreiranje tretmana.',
+  },
+  [CaseStudyConclusionType.TreatmentCompletion]: {
+    en: 'Treatment complete',
+    hr: 'Završeno liječenje',
+  },
+  [CaseStudyConclusionType.CancellationByClient]: {
+    en: 'Canceled by client',
+    hr: 'Otkazano od strane klijenta',
+  },
+  [CaseStudyConclusionType.CancellationByParent]: {
+    en: 'Canceled by parent',
+    hr: 'Otkazano od strane roditelja',
+  },
+  [CaseStudyConclusionType.FurtherReferral]: {
+    en: 'Referred further',
+    hr: 'Poslan dalje',
+  },
+  CONCLUSION: {
+    en: 'Conclusion',
+    hr: 'Zaključak',
+  },
+  CONCLUDE: {
+    en: 'Conclude',
+    hr: 'Zaključi',
+  },
+  TO_ADD_OTHER_INFO_FINISH_CREATING_CONCLUSION: {
+    en: 'To add further information please finish creating the conclusion.',
+    hr: 'Da biste dodali daljnje informacije molimo završite kreiranje zaključka.',
   },
 };

@@ -1,8 +1,9 @@
 /* tslint:disable */
-/* @relayHash cce349c52595f0732a218bf765d2d597 */
+/* @relayHash 230fbb0a0ce3b2e16241a856f86aec7e */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyInput = {
     readonly clientMutationId?: string | null;
     readonly clientRowId?: string | null;
@@ -26,6 +27,12 @@ export type CreateCaseStudyMutationResponse = {
                         readonly nodes: ReadonlyArray<{
                             readonly rowId: string;
                             readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentRow_item">;
+                        }>;
+                    };
+                    readonly caseStudyConclusions: {
+                        readonly nodes: ReadonlyArray<{
+                            readonly rowId: string;
+                            readonly type: CaseStudyConclusionType;
                         }>;
                     };
                 }>;
@@ -58,6 +65,13 @@ mutation CreateCaseStudyMutation(
             nodes {
               rowId
               ...CaseStudyTreatmentRow_item
+              id
+            }
+          }
+          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {
+            nodes {
+              rowId
+              type
               id
             }
           }
@@ -125,6 +139,13 @@ v5 = [
   }
 ],
 v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "type",
+  "args": null,
+  "storageKey": null
+},
+v7 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
@@ -217,6 +238,30 @@ return {
                             ]
                           }
                         ]
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": "caseStudyConclusions",
+                        "name": "caseStudyConclusionsByCaseStudyRowId",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "CaseStudyConclusionsConnection",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "nodes",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "CaseStudyConclusion",
+                            "plural": true,
+                            "selections": [
+                              (v2/*: any*/),
+                              (v6/*: any*/)
+                            ]
+                          }
+                        ]
                       }
                     ]
                   }
@@ -252,7 +297,7 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v6/*: any*/)
+              (v7/*: any*/)
             ]
           },
           {
@@ -318,17 +363,42 @@ return {
                                 "args": null,
                                 "storageKey": null
                               },
-                              (v6/*: any*/)
+                              (v7/*: any*/)
                             ]
                           }
                         ]
                       },
-                      (v6/*: any*/)
+                      {
+                        "kind": "LinkedField",
+                        "alias": "caseStudyConclusions",
+                        "name": "caseStudyConclusionsByCaseStudyRowId",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "CaseStudyConclusionsConnection",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "LinkedField",
+                            "alias": null,
+                            "name": "nodes",
+                            "storageKey": null,
+                            "args": null,
+                            "concreteType": "CaseStudyConclusion",
+                            "plural": true,
+                            "selections": [
+                              (v2/*: any*/),
+                              (v6/*: any*/),
+                              (v7/*: any*/)
+                            ]
+                          }
+                        ]
+                      },
+                      (v7/*: any*/)
                     ]
                   }
                 ]
               },
-              (v6/*: any*/)
+              (v7/*: any*/)
             ]
           }
         ]
@@ -339,7 +409,7 @@ return {
     "operationKind": "mutation",
     "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n            nodes {\n              rowId\n              type\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
     "metadata": {}
   }
 };

@@ -2,6 +2,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CaseStudyView_caseStudy = {
     readonly rowId: string;
     readonly title: string;
@@ -9,6 +10,12 @@ export type CaseStudyView_caseStudy = {
         readonly nodes: ReadonlyArray<{
             readonly rowId: string;
             readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentRow_item">;
+        }>;
+    };
+    readonly caseStudyConclusions: {
+        readonly nodes: ReadonlyArray<{
+            readonly rowId: string;
+            readonly type: CaseStudyConclusionType;
         }>;
     };
     readonly " $refType": "CaseStudyView_caseStudy";
@@ -79,9 +86,39 @@ return {
           ]
         }
       ]
+    },
+    {
+      "kind": "LinkedField",
+      "alias": "caseStudyConclusions",
+      "name": "caseStudyConclusionsByCaseStudyRowId",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "CaseStudyConclusionsConnection",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "nodes",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "CaseStudyConclusion",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "name": "type",
+              "args": null,
+              "storageKey": null
+            }
+          ]
+        }
+      ]
     }
   ]
 };
 })();
-(node as any).hash = '40fa70005e30a555ff92e8787c4504fb';
+(node as any).hash = 'c48b96a278eec19e7404693027fa9a2b';
 export default node;

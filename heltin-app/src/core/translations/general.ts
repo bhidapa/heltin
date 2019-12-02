@@ -65,7 +65,6 @@ export const messages: Messages = {
     en: 'Father and mother',
     hr: 'Otac i majka',
   },
-
   BROTHER: {
     en: 'Brother',
     hr: 'Brat',
