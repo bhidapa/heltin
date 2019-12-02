@@ -284,7 +284,7 @@ $$
     values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.description)
   returning *
 $$
-language sql stable;
+language sql volatile;
 
 create or replace function public.update_case_study_conclusion(
   id          uuid,
@@ -299,7 +299,7 @@ $$
   where id = update_case_study_conclusion.id
   returning *
 $$
-language sql stable;
+language sql volatile;
 
 create or replace function public.delete_case_study_conclusion(
   id uuid
@@ -309,7 +309,7 @@ $$
   where id = delete_case_study_conclusion.id
   returning *
 $$
-language sql stable;
+language sql volatile;
 
 ----
 
