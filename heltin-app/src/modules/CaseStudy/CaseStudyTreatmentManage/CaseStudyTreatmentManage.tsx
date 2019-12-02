@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import { CASE_STUDIES_PAGE_ROUTE, CLIENTS_PAGE_ROUTE } from 'lib/routes';
 import { FormattedMessage } from 'react-intl';
 import { makeLink } from 'lib/makeLink';
-import { addHours } from 'date-fns';
+import { addHours, isEqual } from 'date-fns';
 import { history } from 'lib/history';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 
@@ -38,8 +38,8 @@ interface FormValues {
   title: string;
   description: string | null;
   score: number | null;
-  startedAt: Date | string;
-  endedAt: Date | string;
+  startedAt: Date;
+  endedAt: Date;
   external: boolean;
 }
 
@@ -56,6 +56,8 @@ const defaultCreateTreatmentValues: FormValues = {
   endedAt: addHours(new Date(), 1),
   external: false,
 };
+
+let previousFormValues: FormValues | null = null;
 
 const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props) => {
   const { caseStudy, caseStudyTreatment } = props;
@@ -174,6 +176,19 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
               : defaultCreateTreatmentValues
           }
           onSubmit={submit}
+          transformer={(values) => {
+            // 1 hour from start time is the end time, when start time changes
+            if (previousFormValues && !isEqual(previousFormValues.startedAt, values.startedAt)) {
+              previousFormValues = values;
+              return {
+                ...values,
+                endedAt: addHours(values.startedAt, 1),
+              };
+            }
+
+            previousFormValues = values;
+            return values;
+          }}
         >
           <Flex container direction="column" spacing="tiny">
             <Flex item>
