@@ -268,6 +268,8 @@ create table public.case_study_conclusion (
 
   description text not null check(length(description) >= 3),
 
+  concluded_at timestamptz not null,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
@@ -277,24 +279,27 @@ grant all on public.case_study_conclusion to viewer;
 create or replace function public.create_case_study_conclusion(
   case_study_id uuid,
   "type"        public.case_study_conclusion_type,
+  concluded_at  timestamptz,
   description   text
 ) returns public.case_study_conclusion as
 $$
-  insert into public.case_study_conclusion (case_study_id, "type", description)
-    values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.description)
+  insert into public.case_study_conclusion (case_study_id, "type", concluded_at, description)
+    values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.concluded_at, create_case_study_conclusion.description)
   returning *
 $$
 language sql volatile;
 
 create or replace function public.update_case_study_conclusion(
-  id          uuid,
-  "type"      public.case_study_conclusion_type,
-  description text
+  id           uuid,
+  "type"       public.case_study_conclusion_type,
+  concluded_at timestamptz,
+  description  text
 ) returns public.case_study_conclusion as
 $$
   update public.case_study_conclusion set
     "type"=update_case_study_conclusion."type",
     description=update_case_study_conclusion.description,
+    concluded_at=update_case_study_conclusion.concluded_at,
     updated_at=now()
   where id = update_case_study_conclusion.id
   returning *
