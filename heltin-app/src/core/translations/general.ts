@@ -97,6 +97,10 @@ export const messages: Messages = {
     en: 'Step sister',
     hr: 'Step sister',
   },
+  NO_ONE: {
+    en: 'No one',
+    hr: 'Samostalan',
+  },
   NONE: {
     en: 'None',
     hr: 'Nijedan',

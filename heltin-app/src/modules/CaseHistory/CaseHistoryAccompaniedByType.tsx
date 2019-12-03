@@ -11,7 +11,7 @@ export enum CaseHistoryAccompaniedByType {
   Family = 'FAMILY',
   Father = 'FATHER',
   Mother = 'MOTHER',
-  None = 'NONE',
+  NoOne = 'NO_ONE',
 }
 
 export interface CaseHistoryAccompaniedByTypeSelectOptionsProps {

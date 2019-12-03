@@ -64,7 +64,7 @@ export const deriveFormValues = createSelector(
     // arival
     accompaniedBy: caseHistory
       ? (caseHistory.accompaniedBy as CaseHistoryAccompaniedByType)
-      : CaseHistoryAccompaniedByType.None,
+      : CaseHistoryAccompaniedByType.NoOne,
     arrivalReason: caseHistory
       ? (caseHistory.arrivalReason as CaseHistoryArrivalReasonType[])
       : null,
