@@ -82,8 +82,8 @@ create table public.case_study_mental_health_professional (
 
 grant all on public.case_study_mental_health_professional to viewer;
 
--- only one primary mental health professional
-create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id) where ("primary");
+-- only one primary mental health professional per case study
+create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id, "primary") where ("primary");
 
 create or replace function public.create_case_study_mental_health_professional(
   case_study_id                 uuid,
