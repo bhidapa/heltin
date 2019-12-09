@@ -52,7 +52,7 @@ async function fetchQuery(
       sink.next(fromCache);
 
       const forceFetch = cacheConfig && cacheConfig.force;
-      if (!forceFetch && queryMap[query] >= timeMutated) {
+      if (!forceFetch && queryMap[query + JSON.stringify(variables)] >= timeMutated) {
         sink.complete();
         return;
       }
@@ -114,7 +114,7 @@ async function fetchQuery(
     // update cache on queries
     if (isQuery) {
       // eslint-disable-next-line require-atomic-updates
-      queryMap[query] = timestamp;
+      queryMap[query + JSON.stringify(variables)] = timestamp;
       cache.set(query, variables, data);
     }
 
