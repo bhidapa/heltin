@@ -1,5 +1,3 @@
-declare const __DEV__: boolean;
-
 declare type Base64 = string;
 
 declare type UUID = string;

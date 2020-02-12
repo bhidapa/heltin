@@ -44,7 +44,10 @@ module.exports = merge(common, {
   },
   plugins: [
     new DefinePlugin({
-      __DEV__: false,
+      // environment
+      __DEV__: JSON.stringify(false),
+      // GraphQL WebSocket endpoint
+      GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({

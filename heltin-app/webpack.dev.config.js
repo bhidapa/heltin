@@ -110,7 +110,10 @@ module.exports = merge(common, {
   },
   plugins: [
     new DefinePlugin({
-      __DEV__: true,
+      // environment
+      __DEV__: JSON.stringify(true),
+      // GraphQL WebSocket endpoint
+      GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
     new ForkTsCheckerWebpackPlugin({
       checkSyntacticErrors: true,
