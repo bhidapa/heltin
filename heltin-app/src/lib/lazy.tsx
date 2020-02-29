@@ -6,10 +6,8 @@
  *
  */
 
-import React, { Suspense } from 'react';
-
-// ui
-import { Loading } from '@domonda/ui/Loading';
+import React from 'react';
+import { Boundry } from './Boundry';
 
 export function createLazy<T extends React.ComponentType<any>>(
   factory: () => Promise<{ default: T }>,
@@ -18,9 +16,9 @@ export function createLazy<T extends React.ComponentType<any>>(
 
   const Lazy: React.FC<React.ComponentProps<T>> = ({ children, ...rest }) => {
     return (
-      <Suspense fallback={<Loading />}>
+      <Boundry>
         <LazyComponent {...(rest as any)}>{children}</LazyComponent>
-      </Suspense>
+      </Boundry>
     );
   };
 
