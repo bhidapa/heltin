@@ -3,7 +3,7 @@
 /* @relayHash b684c26c082684e0ee453b64b408e96f */
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentReference, FragmentRefs } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type ClientsTableRefetchQueryVariables = {
     count: number;
     cursor?: unknown | null;
