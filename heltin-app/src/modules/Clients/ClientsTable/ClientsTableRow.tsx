@@ -82,6 +82,7 @@ export const ClientsTableRow: React.FC<ClientsTableRowProps> = (props) => {
       item={item}
       component={makeLink({
         to: `${CLIENTS_PAGE_ROUTE}/${item.rowId}`,
+        omit: ['item'],
       })}
     />
   );
