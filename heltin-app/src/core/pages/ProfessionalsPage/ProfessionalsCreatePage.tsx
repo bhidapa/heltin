@@ -17,7 +17,7 @@ export type ProfessionalsCreatePageProps = RouteComponentProps;
 const ProfessionalsCreatePage: React.FC<ProfessionalsCreatePageProps> = () => {
   return (
     <>
-      <FormattedMessage id="CREATE_PROFESSIONAL">
+      <FormattedMessage id="ADD_THERAPIST">
         {(msg: string) => <Helmet title={msg} />}
       </FormattedMessage>
       <ProfessionalCreate />

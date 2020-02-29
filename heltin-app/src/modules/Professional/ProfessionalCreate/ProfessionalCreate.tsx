@@ -56,7 +56,7 @@ export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
     <Flex container direction="column" spacing="small">
       <Flex item>
         <Text size="large" weight="medium">
-          <FormattedMessage id="CREATE_PROFESSIONAL" />
+          <FormattedMessage id="ADD_THERAPIST" />
         </Text>
       </Flex>
       <Flex item>
