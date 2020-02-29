@@ -148,7 +148,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                       </FormSelectField>
                     </Flex>
                   </Flex>
-                  <Flex item container spacing="tiny">
+                  <Flex item container spacing="tiny" wrap>
                     <Flex item flex={1}>
                       <FormInputField path="firstName" required>
                         {({ inputProps }) => (
