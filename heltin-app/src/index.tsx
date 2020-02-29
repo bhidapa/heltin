@@ -28,6 +28,7 @@ import { Baseline } from '@domonda/ui/Baseline';
 import { theme } from 'theme';
 
 // parts
+import { Boundry } from 'lib/Boundry';
 import { Root } from 'core/Root';
 
 ReactDOM.render(
@@ -36,8 +37,10 @@ ReactDOM.render(
       <RelayEnvironmentProvider environment={environment}>
         <IntlProvider defaultLocale="hr" messages={messages}>
           <ThemeProvider theme={theme}>
-            <Baseline />
-            <Root />
+            <Boundry>
+              <Baseline />
+              <Root />
+            </Boundry>
           </ThemeProvider>
         </IntlProvider>
       </RelayEnvironmentProvider>
