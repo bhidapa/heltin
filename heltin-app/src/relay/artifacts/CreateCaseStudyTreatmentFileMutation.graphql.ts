@@ -1,13 +1,14 @@
 /* tslint:disable */
-/* @relayHash 0540bf99d2a86c47c0cd50ee1dfaa347 */
+/* eslint-disable */
+/* @relayHash e2fb09711dea7df22f615440bde911e7 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyTreatmentFileInput = {
-    readonly caseStudyTreatmentRowId: string;
-    readonly clientMutationId?: string | null;
-    readonly fileData: string;
-    readonly fileName: string;
+    caseStudyTreatmentRowId: string;
+    clientMutationId?: string | null;
+    fileData: string;
+    fileName: string;
 };
 export type CreateCaseStudyTreatmentFileMutationVariables = {
     input: CreateCaseStudyTreatmentFileInput;

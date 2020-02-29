@@ -1,14 +1,15 @@
 /* tslint:disable */
-/* @relayHash 230fbb0a0ce3b2e16241a856f86aec7e */
+/* eslint-disable */
+/* @relayHash 76cee7c21564af6c4002a51d0413ff46 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyInput = {
-    readonly clientMutationId?: string | null;
-    readonly clientRowId?: string | null;
-    readonly groupRowId?: string | null;
-    readonly title: string;
+    clientMutationId?: string | null;
+    clientRowId?: string | null;
+    groupRowId?: string | null;
+    title: string;
 };
 export type CreateCaseStudyMutationVariables = {
     input: CreateCaseStudyInput;

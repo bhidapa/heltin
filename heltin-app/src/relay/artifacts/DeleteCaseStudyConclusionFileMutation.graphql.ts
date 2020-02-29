@@ -1,11 +1,12 @@
 /* tslint:disable */
-/* @relayHash f2b9a719d82f6bbb4948e80ddc297a93 */
+/* eslint-disable */
+/* @relayHash 16529d56560c0802d99740430b3a1e4d */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type DeleteCaseStudyConclusionFileInput = {
-    readonly clientMutationId?: string | null;
-    readonly rowId: string;
+    clientMutationId?: string | null;
+    rowId: string;
 };
 export type DeleteCaseStudyConclusionFileMutationVariables = {
     input: DeleteCaseStudyConclusionFileInput;

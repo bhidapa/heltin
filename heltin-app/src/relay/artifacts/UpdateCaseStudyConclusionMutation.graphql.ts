@@ -1,14 +1,15 @@
 /* tslint:disable */
-/* @relayHash 05bd97686cd9788c1d5733842dd289fd */
+/* eslint-disable */
+/* @relayHash c0213b31d9a86766dddfa8252c965ff7 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type UpdateCaseStudyConclusionInput = {
-    readonly clientMutationId?: string | null;
-    readonly concludedAt: string;
-    readonly description: string;
-    readonly rowId: string;
-    readonly type: CaseStudyConclusionType;
+    clientMutationId?: string | null;
+    concludedAt: string;
+    description: string;
+    rowId: string;
+    type: CaseStudyConclusionType;
 };
 export type UpdateCaseStudyConclusionMutationVariables = {
     input: UpdateCaseStudyConclusionInput;

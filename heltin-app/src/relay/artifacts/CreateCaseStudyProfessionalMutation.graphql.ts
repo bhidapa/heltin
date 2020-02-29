@@ -1,13 +1,14 @@
 /* tslint:disable */
-/* @relayHash bab32664e2db5490ec46d3be53fed31c */
+/* eslint-disable */
+/* @relayHash c3496aded88538dd258be96cb934238f */
 
 import { ConcreteRequest } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type CreateCaseStudyMentalHealthProfessionalInput = {
-    readonly caseStudyRowId: string;
-    readonly clientMutationId?: string | null;
-    readonly mentalHealthProfessionalRowId: string;
-    readonly primary: boolean;
+    caseStudyRowId: string;
+    clientMutationId?: string | null;
+    mentalHealthProfessionalRowId: string;
+    primary: boolean;
 };
 export type CreateCaseStudyProfessionalMutationVariables = {
     input: CreateCaseStudyMentalHealthProfessionalInput;

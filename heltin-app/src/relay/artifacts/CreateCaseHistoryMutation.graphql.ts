@@ -1,5 +1,6 @@
 /* tslint:disable */
-/* @relayHash ccedd5ffb50b8d2723a8b924119dd340 */
+/* eslint-disable */
+/* @relayHash 92d96c9974f43597a702a9c75ab1772c */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";
@@ -15,34 +16,34 @@ export type CaseHistoryReferralType = "COURT" | "HOSPITAL" | "KINDERGARTEN" | "M
 export type CaseHistoryReportedAbuseType = "COURT" | "NOT_REPORTED" | "SOCIAL_WORK_CENTER";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type CreateCaseHistoryInput = {
-    readonly accompaniedBy?: CaseHistoryAccompaniedByType | null;
-    readonly adaptedEducationProgram?: boolean | null;
-    readonly adoptionAge?: number | null;
-    readonly ageDuringLossOfCloseIndividual?: number | null;
-    readonly arrivalReason?: ReadonlyArray<CaseHistoryArrivalReasonType | null> | null;
-    readonly attendsKindergarten?: boolean | null;
-    readonly caseStudyRowId: string;
-    readonly caseStudyTreatmentRowId?: string | null;
-    readonly clientMutationId?: string | null;
-    readonly diagnosedIntelectualDevelopmentProblems?: boolean | null;
-    readonly divorceOutcome?: CaseHistoryDivorceOutcomeType | null;
-    readonly divorcedParents?: CaseHistoryDivorcedParentsType | null;
-    readonly earlierProfessionalHelp?: ReadonlyArray<MentalHealthProfessionalType | null> | null;
-    readonly familyHeredity?: string | null;
-    readonly furtherAbuses?: ReadonlyArray<CaseHistoryAbuseType | null> | null;
-    readonly individualizedEducationProgram?: boolean | null;
-    readonly involvedReferral?: boolean | null;
-    readonly livesWith?: ReadonlyArray<CaseHistoryLivesWithType | null> | null;
-    readonly lossOfCloseIndividual?: ReadonlyArray<CaseHistoryIndividualType | null> | null;
-    readonly numberOfAdoptions?: number | null;
-    readonly parentsInJail?: CaseHistoryParentsInJailType | null;
-    readonly previousTreatment?: string | null;
-    readonly ptsp?: string | null;
-    readonly reasonOfMultipleAdoptions?: ReadonlyArray<CaseHistoryReasonOfMultipleAdoptionsType | null> | null;
-    readonly referral?: ReadonlyArray<CaseHistoryReferralType | null> | null;
-    readonly referralDiagnosis?: string | null;
-    readonly reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null;
-    readonly schoolMark?: number | null;
+    accompaniedBy?: CaseHistoryAccompaniedByType | null;
+    adaptedEducationProgram?: boolean | null;
+    adoptionAge?: number | null;
+    ageDuringLossOfCloseIndividual?: number | null;
+    arrivalReason?: Array<CaseHistoryArrivalReasonType | null> | null;
+    attendsKindergarten?: boolean | null;
+    caseStudyRowId: string;
+    caseStudyTreatmentRowId?: string | null;
+    clientMutationId?: string | null;
+    diagnosedIntelectualDevelopmentProblems?: boolean | null;
+    divorceOutcome?: CaseHistoryDivorceOutcomeType | null;
+    divorcedParents?: CaseHistoryDivorcedParentsType | null;
+    earlierProfessionalHelp?: Array<MentalHealthProfessionalType | null> | null;
+    familyHeredity?: string | null;
+    furtherAbuses?: Array<CaseHistoryAbuseType | null> | null;
+    individualizedEducationProgram?: boolean | null;
+    involvedReferral?: boolean | null;
+    livesWith?: Array<CaseHistoryLivesWithType | null> | null;
+    lossOfCloseIndividual?: Array<CaseHistoryIndividualType | null> | null;
+    numberOfAdoptions?: number | null;
+    parentsInJail?: CaseHistoryParentsInJailType | null;
+    previousTreatment?: string | null;
+    ptsp?: string | null;
+    reasonOfMultipleAdoptions?: Array<CaseHistoryReasonOfMultipleAdoptionsType | null> | null;
+    referral?: Array<CaseHistoryReferralType | null> | null;
+    referralDiagnosis?: string | null;
+    reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null;
+    schoolMark?: number | null;
 };
 export type CreateCaseHistoryMutationVariables = {
     input: CreateCaseHistoryInput;

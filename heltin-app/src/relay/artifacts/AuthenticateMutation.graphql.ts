@@ -1,11 +1,12 @@
 /* tslint:disable */
-/* @relayHash 053727fab1349fd471089e65bdc90b09 */
+/* eslint-disable */
+/* @relayHash 7323acbb719ca44be9df28216d22e246 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AuthenticateInput = {
-    readonly clientMutationId?: string | null;
-    readonly email: string;
-    readonly password: string;
+    clientMutationId?: string | null;
+    email: string;
+    password: string;
 };
 export type AuthenticateMutationVariables = {
     input: AuthenticateInput;

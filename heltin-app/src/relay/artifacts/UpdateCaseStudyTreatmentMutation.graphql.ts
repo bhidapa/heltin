@@ -1,16 +1,17 @@
 /* tslint:disable */
-/* @relayHash a0923f72d56f42e6735ca7253338de15 */
+/* eslint-disable */
+/* @relayHash 8ef42db08dfbdb2e6861b6a98a46fc9b */
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyTreatmentInput = {
-    readonly clientMutationId?: string | null;
-    readonly description?: string | null;
-    readonly endedAt: string;
-    readonly external: boolean;
-    readonly rowId: string;
-    readonly score?: number | null;
-    readonly startedAt: string;
-    readonly title: string;
+    clientMutationId?: string | null;
+    description?: string | null;
+    endedAt: string;
+    external: boolean;
+    rowId: string;
+    score?: number | null;
+    startedAt: string;
+    title: string;
 };
 export type UpdateCaseStudyTreatmentMutationVariables = {
     input: UpdateCaseStudyTreatmentInput;

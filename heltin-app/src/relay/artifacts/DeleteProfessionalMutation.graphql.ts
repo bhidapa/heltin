@@ -1,10 +1,11 @@
 /* tslint:disable */
-/* @relayHash a195e3beabeef7a05a54ed144d9b00bc */
+/* eslint-disable */
+/* @relayHash f577719e27de693d2136298296333cbf */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteMentalHealthProfessionalInput = {
-    readonly clientMutationId?: string | null;
-    readonly rowId: string;
+    clientMutationId?: string | null;
+    rowId: string;
 };
 export type DeleteProfessionalMutationVariables = {
     input: DeleteMentalHealthProfessionalInput;

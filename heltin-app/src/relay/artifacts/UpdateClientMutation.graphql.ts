@@ -1,23 +1,24 @@
 /* tslint:disable */
-/* @relayHash 7c05fd967c2ecdb1c0d28438e79db62e */
+/* eslint-disable */
+/* @relayHash 5b8969e508a3a72cf4c80e55b85f590f */
 
 import { ConcreteRequest } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
 export type UpdateClientInput = {
-    readonly address: string;
-    readonly city: string;
-    readonly clientMutationId?: string | null;
-    readonly dateOfBirth: string;
-    readonly discrete?: boolean | null;
-    readonly email?: string | null;
-    readonly firstName: string;
-    readonly gender: Gender;
-    readonly lastName: string;
-    readonly number: number;
-    readonly rowId: string;
-    readonly sentBy: ClientSentBy;
-    readonly telephone: string;
+    address: string;
+    city: string;
+    clientMutationId?: string | null;
+    dateOfBirth: string;
+    discrete?: boolean | null;
+    email?: string | null;
+    firstName: string;
+    gender: Gender;
+    lastName: string;
+    number: number;
+    rowId: string;
+    sentBy: ClientSentBy;
+    telephone: string;
 };
 export type UpdateClientMutationVariables = {
     input: UpdateClientInput;

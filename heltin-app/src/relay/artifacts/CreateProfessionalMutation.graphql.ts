@@ -1,19 +1,20 @@
 /* tslint:disable */
-/* @relayHash 4b92a4d061b3363d7de50d996723e87f */
+/* eslint-disable */
+/* @relayHash f53e92af4b6849f1cf74e72244aca731 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type CreateMentalHealthProfessionalInput = {
-    readonly clientMutationId?: string | null;
-    readonly dateOfBirth: string;
-    readonly email: string;
-    readonly firstName: string;
-    readonly gender: Gender;
-    readonly lastName: string;
-    readonly title?: string | null;
-    readonly type: MentalHealthProfessionalType;
-    readonly userRowId?: string | null;
+    clientMutationId?: string | null;
+    dateOfBirth: string;
+    email: string;
+    firstName: string;
+    gender: Gender;
+    lastName: string;
+    title?: string | null;
+    type: MentalHealthProfessionalType;
+    userRowId?: string | null;
 };
 export type CreateProfessionalMutationVariables = {
     input: CreateMentalHealthProfessionalInput;
