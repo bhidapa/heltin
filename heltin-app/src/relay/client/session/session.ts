@@ -5,7 +5,7 @@
  */
 
 import { graphql, commitLocalUpdate, Environment, WithoutRefType } from 'relay-runtime';
-import { populateRecordValues, lookup } from '../utils';
+import { populateRecordValues, lookup, querylessOperationDescriptor } from '../utils';
 import { loadSession, saveSession } from './storage';
 
 // type
@@ -32,11 +32,13 @@ export function init(_environment: Environment) {
   setSession(loadSession());
 
   // keep in memory
-  const retainLock = environment.retain({
-    dataID,
-    variables: {},
-    node: { selections: [] } as any,
-  });
+  const retainLock = environment.retain(
+    querylessOperationDescriptor({
+      identifier: `${dataID}-init`,
+      dataID,
+      selections: [],
+    }),
+  );
 
   return () => {
     retainLock.dispose();

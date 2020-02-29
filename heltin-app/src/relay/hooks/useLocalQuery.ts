@@ -39,7 +39,7 @@ export function useLocalQuery<O extends OperationType>({
     const response = environment.lookup(operation.fragment);
     dataRef.current = response.data;
 
-    const retainDisposable = environment.retain(operation.root);
+    const retainDisposable = environment.retain(operation);
     const subscribeDisposable = environment.subscribe(response, (newSnapshot) => {
       dataRef.current = newSnapshot.data;
       forceUpdate();

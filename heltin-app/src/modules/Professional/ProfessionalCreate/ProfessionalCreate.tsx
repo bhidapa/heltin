@@ -88,7 +88,7 @@ export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
                 )}
               </FormSelectField>
             </Flex>
-            <Flex item container spacing="tiny">
+            <Flex item container spacing="tiny" wrap>
               <Flex item minWidth={92} maxWidth={92}>
                 <FormInputField path="title">
                   {({ inputProps }) => (
