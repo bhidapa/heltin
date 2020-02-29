@@ -7,13 +7,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// polyfills
+import 'lib/polyfills';
+
 // router
 import { Router } from 'react-router-dom';
 import { QueryParamsProvider } from '@domonda/query-params';
 import { history } from 'lib/history';
 
-// polyfills
-import 'lib/polyfills';
+import { RelayEnvironmentProvider } from 'react-relay/hooks';
+import { environment } from 'relay/environment';
 
 // intl
 import { IntlProvider } from 'lib/intl/IntlProvider';
@@ -30,12 +33,14 @@ import { Root } from 'core/Root';
 ReactDOM.render(
   <Router history={history}>
     <QueryParamsProvider history={history}>
-      <IntlProvider defaultLocale="hr" messages={messages}>
-        <ThemeProvider theme={theme}>
-          <Baseline />
-          <Root />
-        </ThemeProvider>
-      </IntlProvider>
+      <RelayEnvironmentProvider environment={environment}>
+        <IntlProvider defaultLocale="hr" messages={messages}>
+          <ThemeProvider theme={theme}>
+            <Baseline />
+            <Root />
+          </ThemeProvider>
+        </IntlProvider>
+      </RelayEnvironmentProvider>
     </QueryParamsProvider>
   </Router>,
   document.getElementById('root'),
