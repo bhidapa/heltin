@@ -11,8 +11,8 @@ import { RestoreScroll } from 'lib/RestoreScroll';
 import { Helmet } from 'react-helmet';
 
 // relay
-import { graphql, useLocalQuery } from 'relay/hooks';
-import { environment } from 'relay/environment';
+import { graphql } from 'relay/hooks';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 import { checkIsAuthorized } from 'relay/client/session';
 import { RootSessionQuery } from 'relay/artifacts/RootSessionQuery.graphql';
 
@@ -69,9 +69,8 @@ const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(pro
 const Root: React.FC<Decorate> = (props) => {
   const { classes } = props;
 
-  const { session } = useLocalQuery<RootSessionQuery>({
-    environment,
-    query: graphql`
+  const { session } = useLazyLoadQuery<RootSessionQuery>(
+    graphql`
       query RootSessionQuery {
         __typename
         session {
@@ -80,8 +79,8 @@ const Root: React.FC<Decorate> = (props) => {
         }
       }
     `,
-    variables: {},
-  });
+    {},
+  );
 
   const isAuthorized = (session && checkIsAuthorized(session)) || false;
 
