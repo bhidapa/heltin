@@ -11,12 +11,19 @@ import {
   CreateClientMutationVariables,
   CreateClientMutationResponse,
 } from 'relay/artifacts/CreateClientMutation.graphql';
+import { ConnectionHandler } from 'relay-runtime';
 
 const mutation = graphql`
   mutation CreateClientMutation($input: CreateClientInput!) {
     createClient(input: $input) {
       client {
         rowId
+      }
+      clientEdge {
+        node {
+          rowId
+          ...ClientsTableRow_item
+        }
       }
     }
   }
@@ -33,5 +40,15 @@ export const createClientMutation = (
       variables,
       onCompleted: resolve,
       onError: reject,
+      updater: (store) => {
+        const filterClientsConn = ConnectionHandler.getConnection(
+          store.getRoot(),
+          'ClientsTable_filterClients',
+        );
+        if (filterClientsConn) {
+          const clientEdge = store.getRootField('createClient').getLinkedRecord('clientEdge');
+          ConnectionHandler.insertEdgeBefore(filterClientsConn, clientEdge);
+        }
+      },
     }),
   );

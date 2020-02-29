@@ -1,25 +1,26 @@
 /* tslint:disable */
-/* @relayHash 2e7b75073e0104901fa4e6034fabc244 */
+/* eslint-disable */
+/* @relayHash b684c26c082684e0ee453b64b408e96f */
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
-export type ClientsTablePaginationQueryVariables = {
+import { FragmentReference, FragmentRefs } from "relay-runtime";
+export type ClientsTableRefetchQueryVariables = {
     count: number;
     cursor?: unknown | null;
     searchText?: string | null;
 };
-export type ClientsTablePaginationQueryResponse = {
+export type ClientsTableRefetchQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"ClientsTable_clientsQuery">;
 };
-export type ClientsTablePaginationQuery = {
-    readonly response: ClientsTablePaginationQueryResponse;
-    readonly variables: ClientsTablePaginationQueryVariables;
+export type ClientsTableRefetchQuery = {
+    readonly response: ClientsTableRefetchQueryResponse;
+    readonly variables: ClientsTableRefetchQueryVariables;
 };
 
 
 
 /*
-query ClientsTablePaginationQuery(
+query ClientsTableRefetchQuery(
   $count: Int!
   $cursor: Cursor
   $searchText: String
@@ -28,6 +29,7 @@ query ClientsTablePaginationQuery(
 }
 
 fragment ClientsTableRow_item on Client {
+  rowId
   number
   firstName
   lastName
@@ -106,7 +108,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "ClientsTablePaginationQuery",
+    "name": "ClientsTableRefetchQuery",
     "type": "Query",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -132,7 +134,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "ClientsTablePaginationQuery",
+    "name": "ClientsTableRefetchQuery",
     "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
@@ -270,12 +272,15 @@ return {
   },
   "params": {
     "operationKind": "query",
-    "name": "ClientsTablePaginationQuery",
+    "name": "ClientsTableRefetchQuery",
     "id": null,
-    "text": "query ClientsTablePaginationQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
-    "metadata": {}
+    "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
+    "metadata": {
+      "derivedFrom": "ClientsTable_clientsQuery",
+      "isRefetchableQuery": true
+    }
   }
 };
 })();
-(node as any).hash = 'd15b72639a90a3561a91ff0169d7bab7';
+(node as any).hash = '6a54b82ea5c24e99f2061f4decfe09cf';
 export default node;

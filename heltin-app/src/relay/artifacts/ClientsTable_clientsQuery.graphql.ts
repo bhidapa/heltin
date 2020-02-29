@@ -23,7 +23,11 @@ export type ClientsTable_clientsQuery$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  "filterClients"
+];
+return {
   "kind": "Fragment",
   "name": "ClientsTable_clientsQuery",
   "type": "Query",
@@ -33,11 +37,21 @@ const node: ReaderFragment = {
         "count": "count",
         "cursor": "cursor",
         "direction": "forward",
-        "path": [
-          "filterClients"
-        ]
+        "path": (v0/*: any*/)
       }
-    ]
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "operation": require('./ClientsTableRefetchQuery.graphql.ts'),
+      "fragmentPathInResult": []
+    }
   },
   "argumentDefinitions": [
     {
@@ -159,5 +173,6 @@ const node: ReaderFragment = {
     }
   ]
 };
-(node as any).hash = '485628a8fe6049cc905873f2ed2323f8';
+})();
+(node as any).hash = '6a54b82ea5c24e99f2061f4decfe09cf';
 export default node;

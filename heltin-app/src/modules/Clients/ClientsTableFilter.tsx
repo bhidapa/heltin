@@ -14,13 +14,12 @@ import { Flex, Input } from '@domonda/ui';
 import { Form, FormInputField } from '@domonda/react-form';
 
 // parts
-import { useClientsQueryParams } from '../clientsQueryParams';
+import { useClientsQueryParams } from './clientsQueryParams';
 
 export interface ClientsTableFilterProps {}
 
 export const ClientsTableFilter: React.FC<ClientsTableFilterProps> = () => {
-  const qp = useClientsQueryParams();
-  const [params, setParams] = qp;
+  const [params, setParams] = useClientsQueryParams();
 
   return (
     <Flex container direction="column" spacing="tiny">

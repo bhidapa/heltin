@@ -1,8 +1,9 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash bdf672e4bfd04b15c67693d1ae3e840a */
+/* @relayHash 94ad59f8ef1088411be4cdaf38984885 */
 
 import { ConcreteRequest } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
 export type CreateClientInput = {
@@ -27,6 +28,12 @@ export type CreateClientMutationResponse = {
         readonly client: {
             readonly rowId: string;
         } | null;
+        readonly clientEdge: {
+            readonly node: {
+                readonly rowId: string;
+                readonly " $fragmentRefs": FragmentRefs<"ClientsTableRow_item">;
+            };
+        } | null;
     } | null;
 };
 export type CreateClientMutation = {
@@ -45,6 +52,23 @@ mutation CreateClientMutation(
       rowId
       id
     }
+    clientEdge {
+      node {
+        rowId
+        ...ClientsTableRow_item
+        id
+      }
+    }
+  }
+}
+
+fragment ClientsTableRow_item on Client {
+  rowId
+  number
+  firstName
+  lastName
+  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
+    totalCount
   }
 }
 */
@@ -69,6 +93,13 @@ v2 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "rowId",
+  "args": null,
+  "storageKey": null
+},
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
   "args": null,
   "storageKey": null
 };
@@ -101,6 +132,34 @@ return {
             "selections": [
               (v2/*: any*/)
             ]
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "clientEdge",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "ClientsEdge",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Client",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "kind": "FragmentSpread",
+                    "name": "ClientsTableRow_item",
+                    "args": null
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
@@ -130,12 +189,69 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/)
+            ]
+          },
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "clientEdge",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "ClientsEdge",
+            "plural": false,
+            "selections": [
               {
-                "kind": "ScalarField",
+                "kind": "LinkedField",
                 "alias": null,
-                "name": "id",
+                "name": "node",
+                "storageKey": null,
                 "args": null,
-                "storageKey": null
+                "concreteType": "Client",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "number",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "firstName",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "lastName",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "LinkedField",
+                    "alias": "treatments",
+                    "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "CaseStudyTreatmentsConnection",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "totalCount",
+                        "args": null,
+                        "storageKey": null
+                      }
+                    ]
+                  },
+                  (v3/*: any*/)
+                ]
               }
             ]
           }
@@ -147,10 +263,10 @@ return {
     "operationKind": "mutation",
     "name": "CreateClientMutation",
     "id": null,
-    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n  }\n}\n",
+    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n      }\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n",
     "metadata": {}
   }
 };
 })();
-(node as any).hash = '311274de0ae8aa261e6501d14a75aa6f';
+(node as any).hash = '3726eb376c8fcdc1278729aa34625fab';
 export default node;

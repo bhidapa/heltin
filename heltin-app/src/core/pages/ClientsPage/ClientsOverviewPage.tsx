@@ -10,23 +10,47 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql } from 'react-relay';
+import { useLazyLoadQuery } from 'react-relay/hooks';
 import { ClientsOverviewPageQuery } from 'relay/artifacts/ClientsOverviewPageQuery.graphql';
 
 // ui
-import { Flex, Err, Loading, Text, Button } from '@domonda/ui';
+import { Flex, Text, Button } from '@domonda/ui';
 
 // modules
 import { useClientsQueryParams } from 'modules/Clients/clientsQueryParams';
 import { ClientsTable } from 'modules/Clients/ClientsTable';
 import { makeLink } from 'lib/makeLink';
+import { ClientsTableFilter } from 'modules/Clients/ClientsTableFilter';
+import { Boundry } from 'lib/Boundry';
 
 export type ClientsOverviewPageProps = RouteComponentProps;
 
 const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
   const { match } = props;
   const [params] = useClientsQueryParams({ once: true });
+
+  const data = useLazyLoadQuery<ClientsOverviewPageQuery>(
+    graphql`
+      query ClientsOverviewPageQuery(
+        # pagination
+        $count: Int!
+        $cursor: Cursor
+        # filters
+        $searchText: String
+      ) {
+        ...ClientsTable_clientsQuery
+          @arguments(
+            # pagination
+            count: $count
+            cursor: $cursor
+            # filters
+            searchText: $searchText
+          )
+      }
+    `,
+    params,
+  );
 
   return (
     <>
@@ -45,37 +69,12 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
           </Flex>
         </Flex>
         <Flex item>
-          <QueryRenderer<ClientsOverviewPageQuery>
-            environment={environment}
-            query={graphql`
-              query ClientsOverviewPageQuery(
-                # pagination
-                $count: Int!
-                $cursor: Cursor
-                # filters
-                $searchText: String
-              ) {
-                ...ClientsTable_clientsQuery
-                  @arguments(
-                    # pagination
-                    count: $count
-                    cursor: $cursor
-                    # filters
-                    searchText: $searchText
-                  )
-              }
-            `}
-            variables={params}
-            render={({ props, error, retry }) => {
-              if (error) {
-                return <Err error={error} onRetry={retry} />;
-              }
-              if (!props) {
-                return <Loading />;
-              }
-              return <ClientsTable clientsQuery={props} />;
-            }}
-          />
+          <ClientsTableFilter />
+        </Flex>
+        <Flex item>
+          <Boundry>
+            <ClientsTable clientsQuery={data} />
+          </Boundry>
         </Flex>
       </Flex>
     </>

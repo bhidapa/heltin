@@ -6,10 +6,15 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { makeLink } from 'lib/makeLink';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { ClientsTableRow_item } from 'relay/artifacts/ClientsTableRow_item.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import {
+  ClientsTableRow_item,
+  ClientsTableRow_item$key,
+} from 'relay/artifacts/ClientsTableRow_item.graphql';
 
 // ui
 import { makeRow } from '@domonda/ui/Row';
@@ -52,15 +57,32 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
 
 export { ClientsTableRowHeader };
 
-export const ClientsTableRow = createFragmentContainer(RowItem, {
-  item: graphql`
-    fragment ClientsTableRow_item on Client {
-      number
-      firstName
-      lastName
-      treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
-        totalCount
+export interface ClientsTableRowProps {
+  item: ClientsTableRow_item$key;
+}
+
+export const ClientsTableRow: React.FC<ClientsTableRowProps> = (props) => {
+  const item = useFragment(
+    graphql`
+      fragment ClientsTableRow_item on Client {
+        rowId
+        number
+        firstName
+        lastName
+        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
+          totalCount
+        }
       }
-    }
-  `,
-});
+    `,
+    props.item,
+  );
+
+  return (
+    <RowItem
+      item={item}
+      component={makeLink({
+        to: `${CLIENTS_PAGE_ROUTE}/${item.rowId}`,
+      })}
+    />
+  );
+};
