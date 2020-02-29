@@ -17,6 +17,7 @@ import {
 } from 'relay-runtime';
 import { lookupSession } from './client/session';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { environment } from './environment';
 
 interface Sink<T = any> {
   next(value: T): void;
@@ -50,6 +51,7 @@ function makeQueryMapKey(query: string, variables: Variables) {
 let timeMutated = 0;
 export function remoteDatabaseMutated(timestamp: number = Date.now()) {
   timeMutated = timestamp;
+  environment.commitUpdate((store) => (store as any).invalidateStore()); // not typed yet
 }
 
 async function fetchQuery(
@@ -136,7 +138,7 @@ async function fetchQuery(
     }
 
     if (isMutation) {
-      remoteDatabaseMutated(timestamp);
+      timeMutated = timestamp;
     }
 
     sink.next(data);
