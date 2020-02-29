@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { createLazy } from 'lib/lazy';
 import { RestoreScroll } from 'lib/RestoreScroll';
 import { Helmet } from 'react-helmet';
 
@@ -28,19 +27,19 @@ import {
   CLIENTS_PAGE_ROUTE,
   CASE_STUDIES_PAGE_ROUTE,
 } from 'lib/routes';
-const LazyFourOhFourPage = createLazy(() => import('../pages/FourOhFourPage/default'));
-const LazyLoginPage = createLazy(() => import('../pages/LoginPage/default'));
-const LazyLogoutPage = createLazy(() => import('../pages/LogoutPage/default'));
-const LazyProfessionalsPage = createLazy(() => import('../pages/ProfessionalsPage/default'));
-const LazyClientsPage = createLazy(() => import('../pages/ClientsPage/default'));
-const LazyCaseStudiesPage = createLazy(() => import('../pages/CaseStudiesPage/default'));
+const LazyFourOhFourPage = React.lazy(() => import('../pages/FourOhFourPage/default'));
+const LazyLoginPage = React.lazy(() => import('../pages/LoginPage/default'));
+const LazyLogoutPage = React.lazy(() => import('../pages/LogoutPage/default'));
+const LazyProfessionalsPage = React.lazy(() => import('../pages/ProfessionalsPage/default'));
+const LazyClientsPage = React.lazy(() => import('../pages/ClientsPage/default'));
+const LazyCaseStudiesPage = React.lazy(() => import('../pages/CaseStudiesPage/default'));
 
 // parts
 import { AppBar } from '../AppBar';
+import { Boundry } from 'lib/Boundry';
 
 // decorate
 import { decorate, Decorate } from './decorate';
-import { ErrBoundry } from '@domonda/ui';
 
 // eslint-disable-next-line react/display-name
 const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
@@ -87,19 +86,19 @@ const Root: React.FC<Decorate> = (props) => {
   return (
     <>
       <Helmet titleTemplate="%s | heltin" />
-      <ErrBoundry>
-        <Flex container direction="column">
-          {isAuthorized && (
-            <div className={classes.header}>
-              <Flex container className={classes.content}>
-                <AppBar />
-              </Flex>
-            </div>
-          )}
-          <RestoreScroll>
-            {(ref) => (
-              <Flex ref={ref} item container flex={1} className={classes.main} component="main">
-                <div className={classes.content}>
+      <Flex container direction="column">
+        {isAuthorized && (
+          <div className={classes.header}>
+            <Flex container className={classes.content}>
+              <AppBar />
+            </Flex>
+          </div>
+        )}
+        <RestoreScroll>
+          {(ref) => (
+            <Flex ref={ref} item container flex={1} className={classes.main} component="main">
+              <div className={classes.content}>
+                <Boundry>
                   <Switch>
                     {/* Removes trailing slashes */}
                     <Route
@@ -112,12 +111,12 @@ const Root: React.FC<Decorate> = (props) => {
                     />
                     <RootRoutes isAuthorized={isAuthorized} />
                   </Switch>
-                </div>
-              </Flex>
-            )}
-          </RestoreScroll>
-        </Flex>
-      </ErrBoundry>
+                </Boundry>
+              </div>
+            </Flex>
+          )}
+        </RestoreScroll>
+      </Flex>
     </>
   );
 };
