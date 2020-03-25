@@ -30,7 +30,9 @@ export interface LocaleContextValue {
 
 export const LocaleContext = React.createContext<LocaleContextValue>({
   locale: 'en',
-  setLocale: () => {},
+  setLocale: () => {
+    /**/
+  },
 });
 
 export function useLocale(): LocaleContextValue {

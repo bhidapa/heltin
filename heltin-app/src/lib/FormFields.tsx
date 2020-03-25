@@ -33,8 +33,9 @@ import {
   FormTextAreaFieldProps,
 } from '@domonda/react-form/FormTextAreaField';
 
-export const FormTextAreaField: React.FC<Omit<FormTextAreaFieldProps, 'children'> &
-  TextAreaProps> = ({ children, path, required, ...rest }) => (
+export const FormTextAreaField: React.FC<
+  Omit<FormTextAreaFieldProps, 'children'> & TextAreaProps
+> = ({ children, path, required, ...rest }) => (
   <ReactFormTextAreaField path={path} required={required}>
     {({ textAreaProps, state }) => (
       <TextArea {...textAreaProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
@@ -48,8 +49,9 @@ import {
   FormNumberFieldProps,
 } from '@domonda/react-form/FormNumberField';
 
-export const FormNumberField: React.FC<Omit<FormNumberFieldProps<number>, 'children'> &
-  InputProps> = ({
+export const FormNumberField: React.FC<
+  Omit<FormNumberFieldProps<number>, 'children'> & InputProps
+> = ({
   children,
   // NumberField
   path,
@@ -120,8 +122,9 @@ import {
   FormCheckboxFieldProps,
 } from '@domonda/react-form/FormCheckboxField';
 
-export const FormCheckboxField: React.FC<Omit<FormCheckboxFieldProps, 'children'> &
-  CheckboxProps> = ({ children, path, required, ...rest }) => (
+export const FormCheckboxField: React.FC<
+  Omit<FormCheckboxFieldProps, 'children'> & CheckboxProps
+> = ({ children, path, required, ...rest }) => (
   <ReactFormCheckboxField path={path} required={required}>
     {({ inputProps, state }) => (
       <Checkbox {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly}>
@@ -133,13 +136,15 @@ export const FormCheckboxField: React.FC<Omit<FormCheckboxFieldProps, 'children'
 
 // Array
 import { FormField, FormFieldProps } from '@domonda/react-form/FormField';
-export const FormArrayField: React.FC<Omit<FormFieldProps<any[] | null | undefined>, 'children'> & {
-  children: (props: {
-    items: any[];
-    add: () => void;
-    remove: () => void;
-  }) => React.ReactElement | null;
-}> = ({ children, ...rest }) => (
+export const FormArrayField: React.FC<
+  Omit<FormFieldProps<any[] | null | undefined>, 'children'> & {
+    children: (props: {
+      items: any[];
+      add: () => void;
+      remove: () => void;
+    }) => React.ReactElement | null;
+  }
+> = ({ children, ...rest }) => (
   <FormField {...rest}>
     {({ value, setValue }) => {
       let filtered = false;

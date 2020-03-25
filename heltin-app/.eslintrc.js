@@ -57,5 +57,6 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
 
     'relay/unused-fields': 'off',
+    'relay/generated-flow-types': 'off',
   },
 };
