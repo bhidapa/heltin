@@ -16,7 +16,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const { DefinePlugin } = require('webpack');
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -65,9 +64,6 @@ module.exports = merge(common, {
         minifyCSS: true,
         minifyURLs: true,
       },
-    }),
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: paths.publicUrl,
     }),
     new CopyWebpackPlugin([
       {
