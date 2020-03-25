@@ -15,7 +15,6 @@ const pkg = require('./package.json');
 
 // plugins
 const { DefinePlugin } = require('webpack');
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
@@ -70,7 +69,6 @@ module.exports = merge(common, {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-              experimentalWatchApi: true,
             },
           },
         ],
@@ -125,11 +123,9 @@ module.exports = merge(common, {
     }),
     new HtmlWebpackPlugin({
       template: paths.appHtml,
+      templateParameters: (_0, { publicPath }) => ({ publicPath }),
       inject: true,
       appMountIds: ['root'],
-    }),
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: paths.publicUrl,
     }),
     new IgnoreNotFoundExportPlugin(),
     new AddAssetHtmlPlugin({

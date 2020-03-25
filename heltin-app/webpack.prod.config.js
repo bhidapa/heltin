@@ -52,6 +52,7 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      templateParameters: (_0, { publicPath }) => ({ publicPath }),
       minify: {
         removeComments: true,
         collapseWhitespace: true,

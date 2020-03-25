@@ -5,12 +5,13 @@
  */
 
 const path = require('path');
+const { publicUrl } = require('./paths.config');
 
 module.exports = {
   context: __dirname,
   target: 'web',
   output: {
-    publicPath: '/',
+    publicPath: publicUrl,
     path: path.join(__dirname, 'build'),
     pathinfo: false,
   },
