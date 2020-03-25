@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./heltin-postgres/Dockerfile
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
@@ -13,6 +15,7 @@ services:
       context: .
       dockerfile: ./heltin-graphql/Dockerfile
     environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - JWT_SECRET=a347988782164b20856e28aa2e4d63b2
       - WATCH=true
     ports:
