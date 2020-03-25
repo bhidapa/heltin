@@ -14,10 +14,7 @@ import {
   getRequest,
   Snapshot,
   OperationType,
-  ReaderScalarField,
-  ReaderLinkedField,
-  OperationDescriptor,
-  NormalizationSelector,
+  Disposable,
 } from 'relay-runtime';
 
 /** Loop through the object and `setValue` on the passed RecordProxy. */
@@ -30,48 +27,24 @@ export function populateRecordValues(
   });
 }
 
-export function lookup<O extends OperationType>(
+export type TypedSnapshot<T> = Omit<Snapshot, 'data'> & { data: T };
+
+export function lookupQuery<O extends OperationType>(
   environment: Environment,
   query: GraphQLTaggedNode,
   variables: O['variables'],
 ): Omit<Snapshot, 'data'> & { data: O['response'] | undefined | null } {
-  return environment.lookup(createOperationDescriptor(getRequest(query), variables).fragment);
+  const operation = createOperationDescriptor(getRequest(query), variables);
+  environment.check(operation); // we dont care about the result, we just need the missingFieldsHandlers to get called
+  return environment.lookup(operation.fragment);
 }
 
-export type TypedSnapshot<T> = Omit<Snapshot, 'data'> & { data: T };
-
-export type Selections = ReadonlyArray<ReaderLinkedField | ReaderScalarField>;
-
-export function normalizationSelector({
-  dataID,
-  selections,
-}: {
-  dataID: string;
-  selections: Selections;
-}): NormalizationSelector {
-  return {
-    dataID,
-    variables: {},
-    node: {
-      kind: 'Operation',
-      name: '', // appears to be unnecessary
-      argumentDefinitions: [],
-      selections,
-    },
-  };
-}
-
-export function querylessOperationDescriptor({
-  identifier,
-  dataID,
-  selections,
-}: {
-  identifier: string;
-  dataID: string;
-  selections: Selections;
-}) {
-  return {
-    request: { identifier },
-    root: normalizationSelector({ dataID, selections }),
-  } as OperationDescriptor;
+export function retainQuery<O extends OperationType>(
+  environment: Environment,
+  query: GraphQLTaggedNode,
+  variables: O['variables'],
+): Disposable {
+  const operation = createOperationDescriptor(getRequest(query), variables);
+  environment.check(operation); // we dont care about the result, we just need the missingFieldsHandlers to get called
+  return environment.retain(operation);
 }

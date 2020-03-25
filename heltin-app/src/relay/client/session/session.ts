@@ -5,7 +5,7 @@
  */
 
 import { graphql, commitLocalUpdate, Environment, WithoutRefType } from 'relay-runtime';
-import { populateRecordValues, lookup, querylessOperationDescriptor } from '../utils';
+import { populateRecordValues, lookupQuery, retainQuery } from '../utils';
 import { loadSession, saveSession } from './storage';
 
 // type
@@ -32,12 +32,17 @@ export function init(_environment: Environment) {
   setSession(loadSession());
 
   // keep in memory
-  const retainLock = environment.retain(
-    querylessOperationDescriptor({
-      identifier: `${dataID}-init`,
-      dataID,
-      selections: [],
-    }),
+  const retainLock = retainQuery(
+    environment,
+    graphql`
+      query sessionRetainQuery {
+        __typename
+        session {
+          ...session
+        }
+      }
+    `,
+    {},
   );
 
   return () => {
@@ -46,7 +51,7 @@ export function init(_environment: Environment) {
 }
 
 export function lookupSession(): Session | null {
-  const { data } = lookup<sessionLookupQuery>(
+  const { data } = lookupQuery<sessionLookupQuery>(
     environment,
     graphql`
       query sessionLookupQuery {
