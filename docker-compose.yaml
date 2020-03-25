@@ -18,10 +18,11 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: [
-        "CMD-SHELL",
-        "psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1",
-      ]
+      test:
+        [
+          "CMD-SHELL",
+          "psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1",
+        ]
       timeout: 3s
       interval: 6s
       retries: 3
@@ -46,7 +47,7 @@ services:
     restart: unless-stopped
   app:
     image: bhidapa/heltin-app
-    networks: 
+    networks:
       - public
     environment:
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
