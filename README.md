@@ -10,13 +10,15 @@
     +
     <a href="https://www.postgresql.org/">Postgres</a>
     +
+    <a href="https://www.typescriptlang.org/">TypeScript</a>
+    +
     <a href="https://www.graphile.org/postgraphile/">PostGraphile</a>
     +
     <a href="https://webpack.js.org/">Webpack</a>
     +
-    <a href="https://reactjs.org/">React</a>
+    <a href="https://babeljs.io/">Babel</a>
     +
-    <a href="https://www.typescriptlang.org/">TypeScript</a>
+    <a href="https://reactjs.org/">React</a>
     +
     <a href="http://facebook.github.io/relay/docs/en/thinking-in-relay.html">Relay Modern</a>
   </p>
@@ -35,4 +37,4 @@
 
 # Documentation
 
-Detailed documentation coming soon, until then happy code digging. 😁
+Detailed documentation coming soon. Until then, happy code digging. 🔬
