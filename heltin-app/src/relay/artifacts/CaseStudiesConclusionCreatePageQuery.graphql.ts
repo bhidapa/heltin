@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 5551a85ee68752c0f49c78a16657b165 */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -42,10 +42,10 @@ fragment CaseStudyConclusionManage_caseStudy on CaseStudy {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -56,99 +56,99 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CaseStudiesConclusionCreatePageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CaseStudiesConclusionCreatePageQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudy",
-        "name": "caseStudyByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudy",
+        "kind": "LinkedField",
+        "name": "caseStudyByRowId",
         "plural": false,
         "selections": [
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CaseStudyConclusionManage_caseStudy",
-            "args": null
+            "name": "CaseStudyConclusionManage_caseStudy"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CaseStudiesConclusionCreatePageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudy",
-        "name": "caseStudyByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudy",
+        "kind": "LinkedField",
+        "name": "caseStudyByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "title",
             "args": null,
+            "kind": "ScalarField",
+            "name": "title",
             "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "client",
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "fullName",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "fullName",
                 "storageKey": null
               },
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v3/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CaseStudiesConclusionCreatePageQuery",
     "id": null,
-    "text": "query CaseStudiesConclusionCreatePageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    ...CaseStudyConclusionManage_caseStudy\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CaseStudiesConclusionCreatePageQuery",
+    "operationKind": "query",
+    "text": "query CaseStudiesConclusionCreatePageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    ...CaseStudyConclusionManage_caseStudy\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n"
   }
 };
 })();

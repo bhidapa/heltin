@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash e2fb09711dea7df22f615440bde911e7 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -62,10 +61,10 @@ fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreat
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseStudyTreatmentFileInput!",
-    "defaultValue": null
+    "type": "CreateCaseStudyTreatmentFileInput!"
   }
 ],
 v1 = [
@@ -85,159 +84,159 @@ v2 = [
   }
 ],
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseStudyTreatmentFileMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseStudyTreatmentFileMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyTreatmentFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyTreatmentFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyTreatmentFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
-                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseStudyTreatmentFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyTreatmentFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       {
+                        "args": null,
                         "kind": "FragmentSpread",
-                        "name": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles",
-                        "args": null
+                        "name": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles"
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])"
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseStudyTreatmentFileMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyTreatmentFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyTreatmentFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyTreatmentFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
-                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseStudyTreatmentFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyTreatmentFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": "file",
-                        "name": "fileByFileRowId",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "File",
+                        "kind": "LinkedField",
+                        "name": "fileByFileRowId",
                         "plural": false,
                         "selections": [
                           (v4/*: any*/),
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "name",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
                             "storageKey": null
                           },
                           (v3/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy:[\"CREATED_AT_ASC\"])"
               },
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseStudyTreatmentFileMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyTreatmentFileMutation(\n  $input: CreateCaseStudyTreatmentFileInput!\n) {\n  createCaseStudyTreatmentFile(input: $input) {\n    caseStudyTreatmentByCaseStudyTreatmentRowId {\n      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseStudyTreatmentFileMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseStudyTreatmentFileMutation(\n  $input: CreateCaseStudyTreatmentFileInput!\n) {\n  createCaseStudyTreatmentFile(input: $input) {\n    caseStudyTreatmentByCaseStudyTreatmentRowId {\n      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();

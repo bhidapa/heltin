@@ -22,49 +22,49 @@ export type CaseStudyConclusionFilesManage_caseStudyConclusionFiles$key = Readon
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
+  "argumentDefinitions": [],
   "kind": "Fragment",
-  "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles",
-  "type": "CaseStudyConclusionFile",
   "metadata": {
     "plural": true
   },
-  "argumentDefinitions": [],
+  "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "id",
       "args": null,
+      "kind": "ScalarField",
+      "name": "id",
       "storageKey": null
     },
     (v0/*: any*/),
     {
-      "kind": "LinkedField",
       "alias": "file",
-      "name": "fileByFileRowId",
-      "storageKey": null,
       "args": null,
       "concreteType": "File",
+      "kind": "LinkedField",
+      "name": "fileByFileRowId",
       "plural": false,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "name",
           "args": null,
+          "kind": "ScalarField",
+          "name": "name",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseStudyConclusionFile"
 };
 })();
 (node as any).hash = 'a1c5bdf6ef9fd234dfb1d15f4424e2ae';

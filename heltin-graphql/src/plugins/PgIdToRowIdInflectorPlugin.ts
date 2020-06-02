@@ -57,7 +57,7 @@ export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
     // replace ids in all mutation arguments
     argument(name: string, index: number) {
       return camelCase(replaceIdWithRowId(name || `arg${index}`));
-    }
+    },
   },
   true
 );

@@ -26,7 +26,7 @@ const mutation = graphql`
   }
 `;
 
-export { DeleteCaseStudyTreatmentFileMutation };
+export type { DeleteCaseStudyTreatmentFileMutation };
 
 export const deleteCaseStudyTreatmentFileMutation = (
   variables: DeleteCaseStudyTreatmentFileMutationVariables,

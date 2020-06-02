@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 093953613d3d38afbe36819123eb06ce */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyInput = {
@@ -50,10 +49,10 @@ mutation DeleteCaseStudyMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseStudyInput!",
-    "defaultValue": null
+    "type": "DeleteCaseStudyInput!"
   }
 ],
 v1 = [
@@ -64,24 +63,21 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "caseStudiesByClientRowId",
-  "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])",
   "args": [
     {
       "kind": "Literal",
@@ -92,95 +88,98 @@ v4 = {
     }
   ],
   "concreteType": "CaseStudiesConnection",
+  "kind": "LinkedField",
+  "name": "caseStudiesByClientRowId",
   "plural": false,
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "nodes",
-      "storageKey": null,
       "args": null,
       "concreteType": "CaseStudy",
+      "kind": "LinkedField",
+      "name": "nodes",
       "plural": true,
       "selections": [
         (v3/*: any*/)
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCaseStudyMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCaseStudyMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v4/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCaseStudyMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v4/*: any*/),
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCaseStudyMutation",
     "id": null,
-    "text": "mutation DeleteCaseStudyMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      rowId\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCaseStudyMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCaseStudyMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      rowId\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

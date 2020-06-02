@@ -17,27 +17,27 @@ export type CaseStudyManage_client$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "CaseStudyManage_client",
-  "type": "Client",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyManage_client",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "rowId",
       "args": null,
+      "kind": "ScalarField",
+      "name": "rowId",
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "fullName",
       "args": null,
+      "kind": "ScalarField",
+      "name": "fullName",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "Client"
 };
 (node as any).hash = '7d8ef04fa5a1019b39bc954fbf933917';
 export default node;

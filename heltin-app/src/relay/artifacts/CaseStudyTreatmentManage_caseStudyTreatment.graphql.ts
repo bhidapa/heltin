@@ -22,62 +22,62 @@ export type CaseStudyTreatmentManage_caseStudyTreatment$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "CaseStudyTreatmentManage_caseStudyTreatment",
-  "type": "CaseStudyTreatment",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyTreatmentManage_caseStudyTreatment",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "rowId",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "title",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "description",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "score",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "startedAt",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "endedAt",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "external",
       "args": null,
+      "kind": "ScalarField",
+      "name": "external",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseStudyTreatment"
 };
 (node as any).hash = '770296e01a2d5f187f80d9f7b11efff9';
 export default node;

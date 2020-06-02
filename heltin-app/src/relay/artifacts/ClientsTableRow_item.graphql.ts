@@ -22,59 +22,59 @@ export type ClientsTableRow_item$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "ClientsTableRow_item",
-  "type": "Client",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "ClientsTableRow_item",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "rowId",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "number",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "firstName",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "lastName",
       "args": null,
+      "kind": "ScalarField",
+      "name": "lastName",
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": "treatments",
-      "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
-      "storageKey": null,
       "args": null,
       "concreteType": "CaseStudyTreatmentsConnection",
+      "kind": "LinkedField",
+      "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
       "plural": false,
       "selections": [
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "totalCount",
           "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Client"
 };
 (node as any).hash = 'd6778520e27d6a2431831d2f3431e7c6';
 export default node;

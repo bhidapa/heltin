@@ -23,12 +23,12 @@ import {
   FormSubmitErrorState,
   FormSubmittingState,
   FormSubmitHandler,
+  FormArrayField,
   FormField,
 } from '@domonda/react-form';
 import {
   FormSelectField,
   FormNumberField,
-  FormArrayField,
   FormCheckboxField,
   FormTextAreaField,
 } from 'lib/FormFields';
@@ -126,9 +126,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="arrivalReason">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`arrivalReason[${index}]`}>
                             <CaseHistoryArrivalReasonTypeSelectOptions />
@@ -140,14 +140,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>
@@ -165,9 +170,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="earlierProfessionalHelp">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`earlierProfessionalHelp[${index}]`}>
                             <ProfessionalTypeSelectOptions />
@@ -179,14 +184,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>
@@ -208,9 +218,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="referral">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`referral[${index}]`}>
                             <CaseHistoryReferralTypeSelectOptions />
@@ -222,14 +232,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>
@@ -318,9 +333,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="livesWith">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`livesWith[${index}]`}>
                             <CaseHistoryLivesWithTypeSelectOptions />
@@ -332,14 +347,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>
@@ -357,9 +377,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="lossOfCloseIndividual">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`lossOfCloseIndividual[${index}]`}>
                             <CaseHistoryIndividualTypeSelectOptions />
@@ -371,14 +391,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>
@@ -423,8 +448,8 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                         <FormNumberField
                           path="numberOfAdoptions"
                           label={<FormattedMessage id="NUMBER_OF_ADOPTIONS" />}
-                          allowDecimal={false}
-                          isAllowed={(value) => value == null || value > 0}
+                          scale={0}
+                          min={1}
                         />
                       </Flex>
                     );
@@ -444,9 +469,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                         </Label>
                         <Flex item container spacing="tiny">
                           <FormArrayField path="reasonOfMultipleAdoptions">
-                            {({ items, add, remove }) => (
+                            {({ items, insert, remove }) => (
                               <Flex item container spacing="tiny" align="baseline">
-                                {items.map((_0, index) => (
+                                {(items ?? []).map((_0, index) => (
                                   <Flex key={index.toString()} item maxWidth={152}>
                                     <FormSelectField path={`reasonOfMultipleAdoptions[${index}]`}>
                                       <CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions />
@@ -458,14 +483,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                                     variant="text"
                                     size="tiny"
                                     color="danger"
-                                    onClick={remove}
-                                    disabled={items.length === 1}
+                                    onClick={() => remove()}
+                                    disabled={(items ?? []).length === 1}
                                   >
                                     <MinusIcon />
                                   </Button>
                                 </Flex>
                                 <Flex item>
-                                  <Button variant="text" size="tiny" color="success" onClick={add}>
+                                  <Button
+                                    variant="text"
+                                    size="tiny"
+                                    color="success"
+                                    onClick={() => insert(null)}
+                                  >
                                     <PlusIcon />
                                   </Button>
                                 </Flex>
@@ -542,9 +572,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Label>
               <Flex item container spacing="tiny">
                 <FormArrayField path="furtherAbuses">
-                  {({ items, add, remove }) => (
+                  {({ items, insert, remove }) => (
                     <Flex item container spacing="tiny" align="baseline">
-                      {items.map((_0, index) => (
+                      {(items ?? []).map((_0, index) => (
                         <Flex key={index.toString()} item maxWidth={152}>
                           <FormSelectField path={`furtherAbuses[${index}]`}>
                             <CaseHistoryAbuseTypeSelectOptions />
@@ -556,14 +586,19 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
                           variant="text"
                           size="tiny"
                           color="danger"
-                          onClick={remove}
-                          disabled={items.length === 1}
+                          onClick={() => remove()}
+                          disabled={(items ?? []).length === 1}
                         >
                           <MinusIcon />
                         </Button>
                       </Flex>
                       <Flex item>
-                        <Button variant="text" size="tiny" color="success" onClick={add}>
+                        <Button
+                          variant="text"
+                          size="tiny"
+                          color="success"
+                          onClick={() => insert(null)}
+                        >
                           <PlusIcon />
                         </Button>
                       </Flex>

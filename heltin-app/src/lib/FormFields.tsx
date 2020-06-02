@@ -1,3 +1,4 @@
+/* eslint-disable react/no-multi-comp */
 /**
  *
  * FormFields
@@ -17,11 +18,12 @@ export const FormInputField: React.FC<Omit<FormInputFieldProps, 'children'> & In
   children,
   path,
   required,
+  transformer,
   ...rest
 }) => (
-  <ReactFormInputField path={path} required={required}>
+  <ReactFormInputField path={path} required={required} transformer={transformer}>
     {({ inputProps, state }) => (
-      <Input {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
+      <Input {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest} />
     )}
   </ReactFormInputField>
 );
@@ -35,10 +37,10 @@ import {
 
 export const FormTextAreaField: React.FC<
   Omit<FormTextAreaFieldProps, 'children'> & TextAreaProps
-> = ({ children, path, required, ...rest }) => (
-  <ReactFormTextAreaField path={path} required={required}>
+> = ({ children, path, required, transformer, ...rest }) => (
+  <ReactFormTextAreaField path={path} required={required} transformer={transformer}>
     {({ textAreaProps, state }) => (
-      <TextArea {...textAreaProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
+      <TextArea {...textAreaProps} disabled={state.disabled} readOnly={state.readOnly} {...rest} />
     )}
   </ReactFormTextAreaField>
 );
@@ -49,46 +51,40 @@ import {
   FormNumberFieldProps,
 } from '@domonda/react-form/FormNumberField';
 
-export const FormNumberField: React.FC<
-  Omit<FormNumberFieldProps<number>, 'children'> & InputProps
-> = ({
+export const FormNumberField: React.FC<Omit<FormNumberFieldProps, 'children'> & InputProps> = ({
   children,
   // NumberField
   path,
   required,
-  prefix,
-  suffix,
-  includeThousandsSeparator,
-  thousandsSeparatorSymbol,
-  allowDecimal,
-  decimalSymbol,
-  decimalLimit,
-  requireDecimal,
-  allowNegative,
-  allowLeadingZeroes,
-  integerLimit,
-  isAllowed,
+  transformer,
+  scale,
+  signed,
+  thousandsSeparator,
+  padFractionalZeros,
+  normalizeZeros,
+  radix,
+  mapToRadix,
+  min,
+  max,
   // Input
   ...rest
 }) => (
   <ReactFormNumberField
     path={path}
     required={required}
-    prefix={prefix}
-    suffix={suffix}
-    includeThousandsSeparator={includeThousandsSeparator}
-    thousandsSeparatorSymbol={thousandsSeparatorSymbol || ','}
-    decimalSymbol={decimalSymbol || '.'}
-    allowDecimal={allowDecimal}
-    decimalLimit={decimalLimit}
-    requireDecimal={requireDecimal}
-    allowNegative={allowNegative}
-    allowLeadingZeroes={allowLeadingZeroes}
-    integerLimit={integerLimit}
-    isAllowed={isAllowed}
+    transformer={transformer}
+    scale={scale !== undefined ? scale : 2} // default 2 decimal positions
+    signed={signed !== undefined ? signed : false} // disallow negative values by default
+    thousandsSeparator={thousandsSeparator !== undefined ? thousandsSeparator : '.'}
+    padFractionalZeros={thousandsSeparator !== undefined ? padFractionalZeros : false}
+    normalizeZeros={normalizeZeros !== undefined ? normalizeZeros : true}
+    radix={radix !== undefined ? radix : '.'} // default decimal separator is comma
+    mapToRadix={mapToRadix !== undefined ? mapToRadix : [',']} // dots might be a decimal separator
+    min={min}
+    max={max}
   >
     {({ inputProps, state }) => (
-      <Input {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly} />
+      <Input {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest} />
     )}
   </ReactFormNumberField>
 );
@@ -104,11 +100,12 @@ export const FormSelectField: React.FC<Omit<FormSelectFieldProps, 'children'> & 
   children,
   path,
   required,
+  transformer,
   ...rest
 }) => (
-  <ReactFormSelectField path={path} required={required}>
+  <ReactFormSelectField path={path} required={required} transformer={transformer}>
     {({ selectProps, state }) => (
-      <Select {...selectProps} disabled={state.disabled} {...rest} readOnly={state.readOnly}>
+      <Select {...selectProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
         {children}
       </Select>
     )}
@@ -124,48 +121,12 @@ import {
 
 export const FormCheckboxField: React.FC<
   Omit<FormCheckboxFieldProps, 'children'> & CheckboxProps
-> = ({ children, path, required, ...rest }) => (
-  <ReactFormCheckboxField path={path} required={required}>
+> = ({ children, path, required, transformer, ...rest }) => (
+  <ReactFormCheckboxField path={path} required={required} transformer={transformer}>
     {({ inputProps, state }) => (
-      <Checkbox {...inputProps} disabled={state.disabled} {...rest} readOnly={state.readOnly}>
+      <Checkbox {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
         {children}
       </Checkbox>
     )}
   </ReactFormCheckboxField>
-);
-
-// Array
-import { FormField, FormFieldProps } from '@domonda/react-form/FormField';
-export const FormArrayField: React.FC<
-  Omit<FormFieldProps<any[] | null | undefined>, 'children'> & {
-    children: (props: {
-      items: any[];
-      add: () => void;
-      remove: () => void;
-    }) => React.ReactElement | null;
-  }
-> = ({ children, ...rest }) => (
-  <FormField {...rest}>
-    {({ value, setValue }) => {
-      let filtered = false;
-      const items = (!value || value.length === 0 || (value.length === 1 && value[0] === undefined)
-        ? [null]
-        : value
-      ).filter((val) => {
-        if (val === undefined) {
-          filtered = true;
-          return false;
-        }
-        return true;
-      });
-      if (filtered) {
-        setTimeout(() => setValue(items), 0);
-      }
-      return children({
-        items,
-        add: () => setValue([...items, null]),
-        remove: () => setValue(items.slice(0, -1)),
-      });
-    }}
-  </FormField>
 );

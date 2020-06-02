@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 62e94a79e3dc760d7fafba7c020174c0 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CreateCaseStudyTreatmentInput = {
@@ -46,10 +45,10 @@ mutation CreateCaseStudyTreatmentMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseStudyTreatmentInput!",
-    "defaultValue": null
+    "type": "CreateCaseStudyTreatmentInput!"
   }
 ],
 v1 = [
@@ -60,89 +59,89 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseStudyTreatmentMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseStudyTreatmentMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyTreatment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyTreatmentPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseStudyTreatmentMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyTreatment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyTreatmentPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseStudyTreatmentMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyTreatmentMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      rowId\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseStudyTreatmentMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseStudyTreatmentMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      rowId\n      id\n    }\n  }\n}\n"
   }
 };
 })();

@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 50d0728a2064d121fd2c06c9bfd88b9f */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseHistoryFileInput = {
@@ -48,10 +47,10 @@ mutation DeleteCaseHistoryFileMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseHistoryFileInput!",
-    "defaultValue": null
+    "type": "DeleteCaseHistoryFileInput!"
   }
 ],
 v1 = [
@@ -62,17 +61,14 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "caseHistoryFilesByCaseHistoryRowId",
-  "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
   "args": [
     {
       "kind": "Literal",
@@ -83,93 +79,96 @@ v3 = {
     }
   ],
   "concreteType": "CaseHistoryFilesConnection",
+  "kind": "LinkedField",
+  "name": "caseHistoryFilesByCaseHistoryRowId",
   "plural": false,
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "nodes",
-      "storageKey": null,
       "args": null,
       "concreteType": "CaseHistoryFile",
+      "kind": "LinkedField",
+      "name": "nodes",
       "plural": true,
       "selections": [
         (v2/*: any*/)
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])"
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCaseHistoryFileMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCaseHistoryFileMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseHistoryFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseHistoryFilePayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseHistoryFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistory",
+            "kind": "LinkedField",
+            "name": "caseHistoryByCaseHistoryRowId",
             "plural": false,
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCaseHistoryFileMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseHistoryFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseHistoryFilePayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseHistoryFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistory",
+            "kind": "LinkedField",
+            "name": "caseHistoryByCaseHistoryRowId",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCaseHistoryFileMutation",
     "id": null,
-    "text": "mutation DeleteCaseHistoryFileMutation(\n  $input: DeleteCaseHistoryFileInput!\n) {\n  deleteCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCaseHistoryFileMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCaseHistoryFileMutation(\n  $input: DeleteCaseHistoryFileInput!\n) {\n  deleteCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

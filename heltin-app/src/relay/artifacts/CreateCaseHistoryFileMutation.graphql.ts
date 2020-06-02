@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 1a226d9b3048416a1a0e91058bdb0c0d */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -62,10 +61,10 @@ fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseHistoryFileInput!",
-    "defaultValue": null
+    "type": "CreateCaseHistoryFileInput!"
   }
 ],
 v1 = [
@@ -85,159 +84,159 @@ v2 = [
   }
 ],
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseHistoryFileMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseHistoryFileMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseHistoryFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseHistoryFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseHistoryFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistory",
+            "kind": "LinkedField",
+            "name": "caseHistoryByCaseHistoryRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryFilesByCaseHistoryRowId",
-                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseHistoryFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseHistoryFilesByCaseHistoryRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseHistoryFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       {
+                        "args": null,
                         "kind": "FragmentSpread",
-                        "name": "CaseHistoryFilesManage_caseHistoryFiles",
-                        "args": null
+                        "name": "CaseHistoryFilesManage_caseHistoryFiles"
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])"
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseHistoryFileMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseHistoryFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseHistoryFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseHistoryFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseHistoryByCaseHistoryRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistory",
+            "kind": "LinkedField",
+            "name": "caseHistoryByCaseHistoryRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseHistoryFilesByCaseHistoryRowId",
-                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseHistoryFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseHistoryFilesByCaseHistoryRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseHistoryFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": "file",
-                        "name": "fileByFileRowId",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "File",
+                        "kind": "LinkedField",
+                        "name": "fileByFileRowId",
                         "plural": false,
                         "selections": [
                           (v4/*: any*/),
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "name",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
                             "storageKey": null
                           },
                           (v3/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])"
               },
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseHistoryFileMutation",
     "id": null,
-    "text": "mutation CreateCaseHistoryFileMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseHistoryFileMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseHistoryFileMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();

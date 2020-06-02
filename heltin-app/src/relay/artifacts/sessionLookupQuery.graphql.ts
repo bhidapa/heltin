@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 78d6c891441cd0b9198fcdc90efe6a0b */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 export type sessionLookupQueryVariables = {};
@@ -26,67 +26,67 @@ query sessionLookupQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "ScalarField",
     "alias": null,
-    "name": "__typename",
     "args": null,
+    "kind": "ScalarField",
+    "name": "__typename",
     "storageKey": null
   },
   {
     "kind": "ClientExtension",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "session",
-        "storageKey": null,
         "args": null,
         "concreteType": "Session",
+        "kind": "LinkedField",
+        "name": "session",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "token",
             "args": null,
+            "kind": "ScalarField",
+            "name": "token",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "expiresAt",
             "args": null,
+            "kind": "ScalarField",
+            "name": "expiresAt",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "sessionLookupQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "sessionLookupQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "sessionLookupQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "sessionLookupQuery",
     "id": null,
-    "text": "query sessionLookupQuery {\n  __typename\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "sessionLookupQuery",
+    "operationKind": "query",
+    "text": "query sessionLookupQuery {\n  __typename\n}\n"
   }
 };
 })();
-(node as any).hash = '6eb494cbfeb42336ea7aa6fd9b701f59';
+(node as any).hash = '22cb49c906f584f48c49e62699b36ccc';
 export default node;

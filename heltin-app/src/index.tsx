@@ -7,9 +7,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// polyfills
-import 'lib/polyfills';
-
 // router
 import { Router } from 'react-router-dom';
 import { QueryParamsProvider } from '@domonda/query-params';

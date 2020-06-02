@@ -20,7 +20,7 @@ const mutation = graphql`
   }
 `;
 
-export { DeleteCaseStudyTreatmentMutation };
+export type { DeleteCaseStudyTreatmentMutation };
 
 export const deleteCaseStudyTreatmentMutation = (
   variables: DeleteCaseStudyTreatmentMutationVariables,

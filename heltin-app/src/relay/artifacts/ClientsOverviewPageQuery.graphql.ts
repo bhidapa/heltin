@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 0c26a6f6c48e2cdbcfcdba48a8a06957 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -61,22 +60,22 @@ fragment ClientsTable_clientsQuery_4CrFSY on Query {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "count",
-    "type": "Int!",
-    "defaultValue": null
+    "type": "Int!"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "cursor",
-    "type": "Cursor",
-    "defaultValue": null
+    "type": "Cursor"
   },
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "searchText",
-    "type": "String",
-    "defaultValue": null
+    "type": "String"
   }
 ],
 v1 = {
@@ -98,24 +97,20 @@ v2 = [
   (v1/*: any*/)
 ],
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "totalCount",
   "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ClientsOverviewPageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ClientsOverviewPageQuery",
     "selections": [
       {
-        "kind": "FragmentSpread",
-        "name": "ClientsTable_clientsQuery",
         "args": [
           {
             "kind": "Variable",
@@ -128,154 +123,158 @@ return {
             "variableName": "cursor"
           },
           (v1/*: any*/)
-        ]
+        ],
+        "kind": "FragmentSpread",
+        "name": "ClientsTable_clientsQuery"
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ClientsOverviewPageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "filterClients",
-        "storageKey": null,
         "args": (v2/*: any*/),
         "concreteType": "ClientsConnection",
+        "kind": "LinkedField",
+        "name": "filterClients",
         "plural": false,
         "selections": [
           (v3/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "edges",
-            "storageKey": null,
             "args": null,
             "concreteType": "ClientsEdge",
+            "kind": "LinkedField",
+            "name": "edges",
             "plural": true,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Client",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "rowId",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "number",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "firstName",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "lastName",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "lastName",
                     "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": "treatments",
-                    "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyTreatmentsConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
                     "plural": false,
                     "selections": [
                       (v3/*: any*/)
-                    ]
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "id",
-                    "args": null,
+                    ],
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "__typename",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
                     "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "cursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "cursor",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "pageInfo",
-            "storageKey": null,
             "args": null,
             "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
             "plural": false,
             "selections": [
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "endCursor",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "endCursor",
                 "storageKey": null
               },
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "hasNextPage",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "hasNextPage",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       },
       {
-        "kind": "LinkedHandle",
         "alias": null,
-        "name": "filterClients",
         "args": (v2/*: any*/),
-        "handle": "connection",
-        "key": "ClientsTable_filterClients",
         "filters": [
           "searchText"
-        ]
+        ],
+        "handle": "connection",
+        "key": "ClientsTable_filterClients",
+        "kind": "LinkedHandle",
+        "name": "filterClients"
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ClientsOverviewPageQuery",
     "id": null,
-    "text": "query ClientsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ClientsOverviewPageQuery",
+    "operationKind": "query",
+    "text": "query ClientsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash b9120d1cc244faa4b26fb34a5222516f */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -37,10 +37,10 @@ fragment CaseStudyManage_client on Client {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -51,77 +51,77 @@ v1 = [
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ClientsCreateCaseStudyPageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ClientsCreateCaseStudyPageQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "client",
-        "name": "clientByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Client",
+        "kind": "LinkedField",
+        "name": "clientByRowId",
         "plural": false,
         "selections": [
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CaseStudyManage_client",
-            "args": null
+            "name": "CaseStudyManage_client"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ClientsCreateCaseStudyPageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "client",
-        "name": "clientByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Client",
+        "kind": "LinkedField",
+        "name": "clientByRowId",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "rowId",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "fullName",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ClientsCreateCaseStudyPageQuery",
     "id": null,
-    "text": "query ClientsCreateCaseStudyPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    ...CaseStudyManage_client\n    id\n  }\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ClientsCreateCaseStudyPageQuery",
+    "operationKind": "query",
+    "text": "query ClientsCreateCaseStudyPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    ...CaseStudyManage_client\n    id\n  }\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n"
   }
 };
 })();

@@ -20,41 +20,41 @@ export type CaseStudyConclusionManage_caseStudyConclusion$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "CaseStudyConclusionManage_caseStudyConclusion",
-  "type": "CaseStudyConclusion",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyConclusionManage_caseStudyConclusion",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "rowId",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "type",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "concludedAt",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "description",
       "args": null,
+      "kind": "ScalarField",
+      "name": "description",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseStudyConclusion"
 };
 (node as any).hash = '649cd3b916073591050767f944794beb';
 export default node;

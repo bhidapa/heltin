@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 0cf57a1d86b1466869066f6cbc2f0d4e */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
@@ -44,10 +43,10 @@ mutation CreateCaseStudyConclusionMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseStudyConclusionInput!",
-    "defaultValue": null
+    "type": "CreateCaseStudyConclusionInput!"
   }
 ],
 v1 = [
@@ -58,89 +57,89 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseStudyConclusionMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseStudyConclusionMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyConclusion",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyConclusionPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyConclusion",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusion",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusion",
             "plural": false,
             "selections": [
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseStudyConclusionMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyConclusion",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyConclusionPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyConclusion",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusion",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusion",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseStudyConclusionMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyConclusionMutation(\n  $input: CreateCaseStudyConclusionInput!\n) {\n  createCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseStudyConclusionMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseStudyConclusionMutation(\n  $input: CreateCaseStudyConclusionInput!\n) {\n  createCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      id\n    }\n  }\n}\n"
   }
 };
 })();

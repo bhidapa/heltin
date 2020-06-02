@@ -71,7 +71,9 @@ const Root: React.FC<Decorate> = (props) => {
   const { session } = useLazyLoadQuery<RootSessionQuery>(
     graphql`
       query RootSessionQuery {
-        __typename
+        ... on Query {
+          __typename
+        }
         session {
           token
           expiresAt

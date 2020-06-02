@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash f577719e27de693d2136298296333cbf */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteMentalHealthProfessionalInput = {
@@ -39,18 +38,15 @@ mutation DeleteProfessionalMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteMentalHealthProfessionalInput!",
-    "defaultValue": null
+    "type": "DeleteMentalHealthProfessionalInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "deleteMentalHealthProfessional",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -59,51 +55,54 @@ v1 = [
       }
     ],
     "concreteType": "DeleteMentalHealthProfessionalPayload",
+    "kind": "LinkedField",
+    "name": "deleteMentalHealthProfessional",
     "plural": false,
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "mentalHealthProfessional",
-        "storageKey": null,
         "args": null,
         "concreteType": "MentalHealthProfessional",
+        "kind": "LinkedField",
+        "name": "mentalHealthProfessional",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteProfessionalMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteProfessionalMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteProfessionalMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteProfessionalMutation",
     "id": null,
-    "text": "mutation DeleteProfessionalMutation(\n  $input: DeleteMentalHealthProfessionalInput!\n) {\n  deleteMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteProfessionalMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteProfessionalMutation(\n  $input: DeleteMentalHealthProfessionalInput!\n) {\n  deleteMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      id\n    }\n  }\n}\n"
   }
 };
 })();

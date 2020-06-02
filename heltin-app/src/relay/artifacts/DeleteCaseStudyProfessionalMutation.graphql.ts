@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash dcd2e141614d81387189b4e781533963 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyMentalHealthProfessionalInput = {
@@ -48,10 +47,10 @@ mutation DeleteCaseStudyProfessionalMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseStudyMentalHealthProfessionalInput!",
-    "defaultValue": null
+    "type": "DeleteCaseStudyMentalHealthProfessionalInput!"
   }
 ],
 v1 = [
@@ -62,17 +61,14 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
-  "kind": "LinkedField",
   "alias": null,
-  "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
-  "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
   "args": [
     {
       "kind": "Literal",
@@ -83,93 +79,96 @@ v3 = {
     }
   ],
   "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
+  "kind": "LinkedField",
+  "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
   "plural": false,
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": null,
-      "name": "nodes",
-      "storageKey": null,
       "args": null,
       "concreteType": "CaseStudyMentalHealthProfessional",
+      "kind": "LinkedField",
+      "name": "nodes",
       "plural": true,
       "selections": [
         (v2/*: any*/)
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCaseStudyProfessionalMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCaseStudyProfessionalMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseStudyMentalHealthProfessional",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseStudyMentalHealthProfessionalPayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseStudyMentalHealthProfessional",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudyByCaseStudyRowId",
             "plural": false,
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCaseStudyProfessionalMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "deleteCaseStudyMentalHealthProfessional",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "DeleteCaseStudyMentalHealthProfessionalPayload",
+        "kind": "LinkedField",
+        "name": "deleteCaseStudyMentalHealthProfessional",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudyByCaseStudyRowId",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCaseStudyProfessionalMutation",
     "id": null,
-    "text": "mutation DeleteCaseStudyProfessionalMutation(\n  $input: DeleteCaseStudyMentalHealthProfessionalInput!\n) {\n  deleteCaseStudyMentalHealthProfessional(input: $input) {\n    caseStudyByCaseStudyRowId {\n      caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCaseStudyProfessionalMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCaseStudyProfessionalMutation(\n  $input: DeleteCaseStudyMentalHealthProfessionalInput!\n) {\n  deleteCaseStudyMentalHealthProfessional(input: $input) {\n    caseStudyByCaseStudyRowId {\n      caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();

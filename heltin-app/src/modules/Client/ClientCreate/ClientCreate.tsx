@@ -123,12 +123,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
                   </Flex>
                   <Flex item container spacing="tiny">
                     <Flex item flex={1}>
-                      <FormNumberField
-                        path="number"
-                        allowDecimal={false}
-                        includeThousandsSeparator={false}
-                        required
-                      >
+                      <FormNumberField path="number" scale={0} thousandsSeparator={''} required>
                         {({ inputProps }) => (
                           <Input
                             {...inputProps}

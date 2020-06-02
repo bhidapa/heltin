@@ -18,34 +18,34 @@ export type AutocompleteProfessional_item$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "AutocompleteProfessional_item",
-  "type": "MentalHealthProfessional",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "AutocompleteProfessional_item",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "id",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "rowId",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "fullName",
       "args": null,
+      "kind": "ScalarField",
+      "name": "fullName",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "MentalHealthProfessional"
 };
 (node as any).hash = 'e6f329baee7b977f5944983fac42f78a';
 export default node;

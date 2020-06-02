@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 0773292791621d59aa37ec98fb0c0712 */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 export type ClientCreateQueryVariables = {};
@@ -22,35 +22,35 @@ query ClientCreateQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "ScalarField",
     "alias": null,
-    "name": "nextAvailableClientNumber",
     "args": null,
+    "kind": "ScalarField",
+    "name": "nextAvailableClientNumber",
     "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ClientCreateQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ClientCreateQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "ClientCreateQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "ClientCreateQuery",
     "id": null,
-    "text": "query ClientCreateQuery {\n  nextAvailableClientNumber\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ClientCreateQuery",
+    "operationKind": "query",
+    "text": "query ClientCreateQuery {\n  nextAvailableClientNumber\n}\n"
   }
 };
 })();

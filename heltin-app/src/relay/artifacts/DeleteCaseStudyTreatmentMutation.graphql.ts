@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash aa9ed53e7cb674f5c805e158c4903753 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyTreatmentInput = {
@@ -35,18 +34,15 @@ mutation DeleteCaseStudyTreatmentMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseStudyTreatmentInput!",
-    "defaultValue": null
+    "type": "DeleteCaseStudyTreatmentInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "deleteCaseStudyTreatment",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -55,40 +51,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteCaseStudyTreatmentPayload",
+    "kind": "LinkedField",
+    "name": "deleteCaseStudyTreatment",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "clientMutationId",
         "args": null,
+        "kind": "ScalarField",
+        "name": "clientMutationId",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCaseStudyTreatmentMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCaseStudyTreatmentMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCaseStudyTreatmentMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCaseStudyTreatmentMutation",
     "id": null,
-    "text": "mutation DeleteCaseStudyTreatmentMutation(\n  $input: DeleteCaseStudyTreatmentInput!\n) {\n  deleteCaseStudyTreatment(input: $input) {\n    clientMutationId\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCaseStudyTreatmentMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCaseStudyTreatmentMutation(\n  $input: DeleteCaseStudyTreatmentInput!\n) {\n  deleteCaseStudyTreatment(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();

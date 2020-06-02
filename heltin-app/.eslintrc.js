@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
+    '@typescript-eslint/no-empty-function': 'off', // sometimes necessary
 
     // sometimes type assertion is neccessary and TypeScript will dissalow it if it does not fit
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
@@ -53,10 +54,12 @@ module.exports = {
     'react/no-unescaped-entities': 'off',
     'react/prop-types': 'off',
     'react/no-array-index-key': 'error',
+    'react/no-multi-comp': 'error',
 
     'react-hooks/rules-of-hooks': 'error',
 
     'relay/unused-fields': 'off',
+    // disabled because the check is a false positive for TS
     'relay/generated-flow-types': 'off',
   },
 };

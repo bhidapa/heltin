@@ -9,13 +9,12 @@ const paths = require('./paths.config');
 const common = require('./webpack.common.config');
 
 // plugins
-const TerserPlugin = require('terser-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const { DefinePlugin } = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -23,33 +22,48 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /__tests__/, /(test|spec)\.tsx?$/],
         use: [
           {
             loader: 'babel-loader',
-          },
-          {
-            loader: 'ts-loader',
-            options: { reportFiles: ['!src/**/*.test.{ts,tsx}'] },
           },
         ],
       },
     ],
   },
   output: {
-    filename: '[name].[contenthash:8].chunk.js',
+    filename: '[name].[contenthash:8].js',
+    chunkFilename: '[name].[contenthash:8].chunk.js',
     path: paths.appBuild,
   },
+  optimization: {
+    runtimeChunk: true,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          parallel: true,
+        },
+      }),
+    ],
+  },
   plugins: [
+    // clean build folder
+    new CleanWebpackPlugin(),
+    // injecting env constants
     new DefinePlugin({
       // environment
       __DEV__: JSON.stringify(false),
       // GraphQL WebSocket endpoint
       GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
-    new CleanWebpackPlugin(),
+    // type-checking for typescript
+    new ForkTsCheckerWebpackPlugin({
+      async: false, // we check types synchronously because transpilation is done by babel and we have no ts-loader
+      checkSyntacticErrors: true,
+    }),
+    // html transpiler
     new HtmlWebpackPlugin({
-      inject: true,
       template: paths.appHtml,
       templateParameters: (_0, { publicPath }) => ({ publicPath }),
       minify: {
@@ -65,57 +79,14 @@ module.exports = merge(common, {
         minifyURLs: true,
       },
     }),
-    new CopyWebpackPlugin([
-      {
-        from: paths.appPublic,
-        to: paths.appBuild,
-      },
-    ]),
-    new WorkboxWebpackPlugin.GenerateSW({
-      clientsClaim: true,
-      exclude: [/\.map$/, /asset-manifest\.json$/],
-      navigateFallback: '/index.html',
-      navigateFallbackDenylist: [
-        // Exclude URLs starting with /_, as they're likely an API call
-        new RegExp('^/_'),
-        // Exclude URLs containing a dot, as they're likely a resource in
-        // public/ and not a SPA route
-        new RegExp('/[^/]+\\.[^/]+$'),
+    // simply copy everything from the public folder to the build
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: paths.appPublic,
+          to: paths.appBuild,
+        },
       ],
     }),
-    new ManifestPlugin({
-      fileName: 'asset-manifest.json',
-      publicPath: paths.publicUrl,
-    }),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parse: {
-            ecma: 8,
-          },
-          compress: {
-            ecma: 5,
-            warnings: false,
-            comparisons: false,
-            inline: 2,
-          },
-          mangle: {
-            safari10: true,
-          },
-          output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true,
-          },
-          parallel: true,
-          cache: true,
-          sourceMap: true,
-        },
-      }),
-    ],
-    runtimeChunk: true,
-  },
 });

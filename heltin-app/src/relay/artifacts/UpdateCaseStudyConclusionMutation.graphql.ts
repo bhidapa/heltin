@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash c0213b31d9a86766dddfa8252c965ff7 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
@@ -50,10 +49,10 @@ mutation UpdateCaseStudyConclusionMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateCaseStudyConclusionInput!",
-    "defaultValue": null
+    "type": "UpdateCaseStudyConclusionInput!"
   }
 ],
 v1 = [
@@ -64,91 +63,89 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "type",
   "args": null,
+  "kind": "ScalarField",
+  "name": "type",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "concludedAt",
   "args": null,
+  "kind": "ScalarField",
+  "name": "concludedAt",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateCaseStudyConclusionMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateCaseStudyConclusionMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudyConclusion",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyConclusionPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudyConclusion",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusion",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusion",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
               (v4/*: any*/),
               (v5/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateCaseStudyConclusionMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudyConclusion",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyConclusionPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudyConclusion",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusion",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusion",
             "plural": false,
             "selections": [
               (v2/*: any*/),
@@ -156,24 +153,26 @@ return {
               (v4/*: any*/),
               (v5/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateCaseStudyConclusionMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyConclusionMutation(\n  $input: UpdateCaseStudyConclusionInput!\n) {\n  updateCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      type\n      concludedAt\n      description\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateCaseStudyConclusionMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateCaseStudyConclusionMutation(\n  $input: UpdateCaseStudyConclusionInput!\n) {\n  updateCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      type\n      concludedAt\n      description\n      id\n    }\n  }\n}\n"
   }
 };
 })();

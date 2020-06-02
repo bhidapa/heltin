@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 8ef42db08dfbdb2e6861b6a98a46fc9b */
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyTreatmentInput = {
@@ -58,10 +57,10 @@ mutation UpdateCaseStudyTreatmentMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateCaseStudyTreatmentInput!",
-    "defaultValue": null
+    "type": "UpdateCaseStudyTreatmentInput!"
   }
 ],
 v1 = [
@@ -72,79 +71,75 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "title",
   "args": null,
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "score",
   "args": null,
+  "kind": "ScalarField",
+  "name": "score",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "startedAt",
   "args": null,
+  "kind": "ScalarField",
+  "name": "startedAt",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "endedAt",
   "args": null,
+  "kind": "ScalarField",
+  "name": "endedAt",
   "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "external",
   "args": null,
+  "kind": "ScalarField",
+  "name": "external",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateCaseStudyTreatmentMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateCaseStudyTreatmentMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudyTreatment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyTreatmentPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               (v2/*: any*/),
@@ -154,33 +149,35 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateCaseStudyTreatmentMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudyTreatment",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyTreatmentPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyTreatment",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyTreatment",
+            "kind": "LinkedField",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               (v2/*: any*/),
@@ -191,24 +188,26 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateCaseStudyTreatmentMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyTreatmentMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      rowId\n      title\n      description\n      score\n      startedAt\n      endedAt\n      external\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateCaseStudyTreatmentMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateCaseStudyTreatmentMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      rowId\n      title\n      description\n      score\n      startedAt\n      endedAt\n      external\n      id\n    }\n  }\n}\n"
   }
 };
 })();

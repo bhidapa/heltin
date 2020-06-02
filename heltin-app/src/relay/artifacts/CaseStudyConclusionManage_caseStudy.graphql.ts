@@ -22,47 +22,47 @@ export type CaseStudyConclusionManage_caseStudy$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Fragment",
-  "name": "CaseStudyConclusionManage_caseStudy",
-  "type": "CaseStudy",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyConclusionManage_caseStudy",
   "selections": [
     (v0/*: any*/),
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "title",
       "args": null,
+      "kind": "ScalarField",
+      "name": "title",
       "storageKey": null
     },
     {
-      "kind": "LinkedField",
       "alias": "client",
-      "name": "clientByClientRowId",
-      "storageKey": null,
       "args": null,
       "concreteType": "Client",
+      "kind": "LinkedField",
+      "name": "clientByClientRowId",
       "plural": false,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "fullName",
           "args": null,
+          "kind": "ScalarField",
+          "name": "fullName",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseStudy"
 };
 })();
 (node as any).hash = '04dc90c9eb8cf99d81a950cc6766c984';

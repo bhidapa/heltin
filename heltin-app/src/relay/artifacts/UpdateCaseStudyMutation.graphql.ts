@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash d61c009de3c6132ef7486844a10442ae */
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyInput = {
@@ -43,10 +42,10 @@ mutation UpdateCaseStudyMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateCaseStudyInput!",
-    "defaultValue": null
+    "type": "UpdateCaseStudyInput!"
   }
 ],
 v1 = [
@@ -57,98 +56,98 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "title",
   "args": null,
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateCaseStudyMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateCaseStudyMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudy",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateCaseStudyMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "updateCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudy",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateCaseStudyMutation",
     "id": null,
-    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      title\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateCaseStudyMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateCaseStudyMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      title\n      id\n    }\n  }\n}\n"
   }
 };
 })();

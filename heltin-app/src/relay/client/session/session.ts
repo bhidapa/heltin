@@ -36,7 +36,9 @@ export function init(_environment: Environment) {
     environment,
     graphql`
       query sessionRetainQuery {
-        __typename
+        ... on Query {
+          __typename
+        }
         session {
           ...session
         }
@@ -55,7 +57,9 @@ export function lookupSession(): Session | null {
     environment,
     graphql`
       query sessionLookupQuery {
-        __typename
+        ... on Query {
+          __typename
+        }
         session {
           ...session @relay(mask: false)
         }

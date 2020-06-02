@@ -22,49 +22,49 @@ export type CaseHistoryFilesManage_caseHistoryFiles$key = ReadonlyArray<{
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
+  "argumentDefinitions": [],
   "kind": "Fragment",
-  "name": "CaseHistoryFilesManage_caseHistoryFiles",
-  "type": "CaseHistoryFile",
   "metadata": {
     "plural": true
   },
-  "argumentDefinitions": [],
+  "name": "CaseHistoryFilesManage_caseHistoryFiles",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "id",
       "args": null,
+      "kind": "ScalarField",
+      "name": "id",
       "storageKey": null
     },
     (v0/*: any*/),
     {
-      "kind": "LinkedField",
       "alias": "file",
-      "name": "fileByFileRowId",
-      "storageKey": null,
       "args": null,
       "concreteType": "File",
+      "kind": "LinkedField",
+      "name": "fileByFileRowId",
       "plural": false,
       "selections": [
         (v0/*: any*/),
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "name",
           "args": null,
+          "kind": "ScalarField",
+          "name": "name",
           "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseHistoryFile"
 };
 })();
 (node as any).hash = 'ebb1d827c44d2ba02482c7ce24d14bc0';

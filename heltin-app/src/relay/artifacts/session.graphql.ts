@@ -17,32 +17,32 @@ export type session$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "session",
-  "type": "Session",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "session",
   "selections": [
     {
       "kind": "ClientExtension",
       "selections": [
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "token",
           "args": null,
+          "kind": "ScalarField",
+          "name": "token",
           "storageKey": null
         },
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "expiresAt",
           "args": null,
+          "kind": "ScalarField",
+          "name": "expiresAt",
           "storageKey": null
         }
       ]
     }
-  ]
+  ],
+  "type": "Session"
 };
 (node as any).hash = 'eeb14443fa2416cce228c0754afbe508';
 export default node;

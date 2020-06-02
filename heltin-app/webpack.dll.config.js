@@ -18,6 +18,7 @@ const pkg = require('./package.json');
 
 module.exports = merge(require('./webpack.common.config'), {
   mode: 'development',
+  devtool: 'eval-source-map',
   entry: {
     [pkg.dll.name]: pullAll(Object.keys(pkg.dependencies), pkg.dll.exclude || []),
   },

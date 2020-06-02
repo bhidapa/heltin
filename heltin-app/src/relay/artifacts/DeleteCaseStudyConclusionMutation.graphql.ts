@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash cd70c5b7fea6a2a5b2f98196f91f291a */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyConclusionInput = {
@@ -35,18 +34,15 @@ mutation DeleteCaseStudyConclusionMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteCaseStudyConclusionInput!",
-    "defaultValue": null
+    "type": "DeleteCaseStudyConclusionInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "deleteCaseStudyConclusion",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -55,40 +51,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteCaseStudyConclusionPayload",
+    "kind": "LinkedField",
+    "name": "deleteCaseStudyConclusion",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "clientMutationId",
         "args": null,
+        "kind": "ScalarField",
+        "name": "clientMutationId",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteCaseStudyConclusionMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteCaseStudyConclusionMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteCaseStudyConclusionMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteCaseStudyConclusionMutation",
     "id": null,
-    "text": "mutation DeleteCaseStudyConclusionMutation(\n  $input: DeleteCaseStudyConclusionInput!\n) {\n  deleteCaseStudyConclusion(input: $input) {\n    clientMutationId\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteCaseStudyConclusionMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteCaseStudyConclusionMutation(\n  $input: DeleteCaseStudyConclusionInput!\n) {\n  deleteCaseStudyConclusion(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();

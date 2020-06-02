@@ -5,19 +5,9 @@
  */
 
 module.exports = {
-  preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['src'],
   moduleDirectories: ['node_modules', 'src'],
-  globals: {
-    'ts-jest': {
-      tsConfig: 'tsconfig.test.json',
-      diagnostics: {
-        warnOnly: true,
-        ignoreCodes: [
-          151001, // ts-jest.Errors.ConfigNoModuleInterop
-        ],
-      },
-    },
-  },
+  testRegex: '(/__tests__/.*|(\\.|/)(test))\\.tsx?$',
+  testPathIgnorePatterns: ['/node_modules/', '(/__tests__/.*|(\\.|/)(test))\\.d.ts$'],
+  transformIgnorePatterns: ['node_modules/(?!(@domonda)/)'],
 };

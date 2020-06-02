@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 535fe07fc48ad353b8f83e25c233ea5d */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -81,10 +81,10 @@ fragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -95,17 +95,17 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "description",
   "args": null,
+  "kind": "ScalarField",
+  "name": "description",
   "storageKey": null
 },
 v4 = [
@@ -118,209 +118,209 @@ v4 = [
   }
 ],
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CaseStudiesConclusionDetailPageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CaseStudiesConclusionDetailPageQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudyConclusion",
-        "name": "caseStudyConclusionByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudyConclusion",
+        "kind": "LinkedField",
+        "name": "caseStudyConclusionByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": "caseStudy",
-            "name": "caseStudyByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudyByCaseStudyRowId",
             "plural": false,
             "selections": [
               {
+                "args": null,
                 "kind": "FragmentSpread",
-                "name": "CaseStudyConclusionManage_caseStudy",
-                "args": null
+                "name": "CaseStudyConclusionManage_caseStudy"
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "caseStudyConclusionFiles",
-            "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
-            "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])",
             "args": (v4/*: any*/),
             "concreteType": "CaseStudyConclusionFilesConnection",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseStudyConclusionFile",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles",
-                    "args": null
+                    "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles"
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])"
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CaseStudyConclusionManage_caseStudyConclusion",
-            "args": null
+            "name": "CaseStudyConclusionManage_caseStudyConclusion"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CaseStudiesConclusionDetailPageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudyConclusion",
-        "name": "caseStudyConclusionByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudyConclusion",
+        "kind": "LinkedField",
+        "name": "caseStudyConclusionByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "type",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "concludedAt",
             "args": null,
+            "kind": "ScalarField",
+            "name": "concludedAt",
             "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "caseStudy",
-            "name": "caseStudyByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudyByCaseStudyRowId",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "title",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "title",
                 "storageKey": null
               },
               {
-                "kind": "LinkedField",
                 "alias": "client",
-                "name": "clientByClientRowId",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Client",
+                "kind": "LinkedField",
+                "name": "clientByClientRowId",
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "fullName",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "fullName",
                     "storageKey": null
                   },
                   (v5/*: any*/)
-                ]
+                ],
+                "storageKey": null
               },
               (v5/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "caseStudyConclusionFiles",
-            "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
-            "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])",
             "args": (v4/*: any*/),
             "concreteType": "CaseStudyConclusionFilesConnection",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseStudyConclusionFile",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v5/*: any*/),
                   (v2/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": "file",
-                    "name": "fileByFileRowId",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "File",
+                    "kind": "LinkedField",
+                    "name": "fileByFileRowId",
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
                       {
-                        "kind": "ScalarField",
                         "alias": null,
-                        "name": "name",
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
                         "storageKey": null
                       },
                       (v5/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])"
           },
           (v5/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CaseStudiesConclusionDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesConclusionDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudyConclusion: caseStudyConclusionByRowId(rowId: $rowId) {\n    rowId\n    description\n    ...CaseStudyConclusionManage_caseStudyConclusion\n    caseStudy: caseStudyByCaseStudyRowId {\n      ...CaseStudyConclusionManage_caseStudy\n      id\n    }\n    caseStudyConclusionFiles: caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {\n  rowId\n  type\n  concludedAt\n  description\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CaseStudiesConclusionDetailPageQuery",
+    "operationKind": "query",
+    "text": "query CaseStudiesConclusionDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudyConclusion: caseStudyConclusionByRowId(rowId: $rowId) {\n    rowId\n    description\n    ...CaseStudyConclusionManage_caseStudyConclusion\n    caseStudy: caseStudyByCaseStudyRowId {\n      ...CaseStudyConclusionManage_caseStudy\n      id\n    }\n    caseStudyConclusionFiles: caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {\n  rowId\n  type\n  concludedAt\n  description\n}\n"
   }
 };
 })();

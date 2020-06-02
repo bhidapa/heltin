@@ -1,16 +1,17 @@
-FROM node:12-alpine
+FROM node:13-alpine
 
 COPY ./heltin-graphql/tsconfig.json /heltin-graphql/
-COPY ./heltin-graphql/package-lock.json /heltin-graphql/
+COPY ./heltin-graphql/yarn.lock /heltin-graphql/
 COPY ./heltin-graphql/package.json /heltin-graphql/
+COPY ./heltin-graphql/LICENSE.md /heltin-graphql/
 COPY ./heltin-graphql/src /heltin-graphql/
 
 WORKDIR /heltin-graphql/
 
-RUN npm ci
+RUN yarn install --immutable
 
-RUN npm run build
+RUN yarn build
 
 ENV GRAPHILE_TURBO=1
 
-ENTRYPOINT [ "npm", "start" ]
+ENTRYPOINT [ "yarn", "start" ]

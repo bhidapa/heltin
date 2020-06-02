@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 9b3de70322e82f1d4193a4beeb44a6c5 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteFileInput = {
@@ -35,18 +34,15 @@ mutation DeleteFileMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "DeleteFileInput!",
-    "defaultValue": null
+    "type": "DeleteFileInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "deleteFile",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -55,40 +51,43 @@ v1 = [
       }
     ],
     "concreteType": "DeleteFilePayload",
+    "kind": "LinkedField",
+    "name": "deleteFile",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "clientMutationId",
         "args": null,
+        "kind": "ScalarField",
+        "name": "clientMutationId",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "DeleteFileMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "DeleteFileMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteFileMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "DeleteFileMutation",
     "id": null,
-    "text": "mutation DeleteFileMutation(\n  $input: DeleteFileInput!\n) {\n  deleteFile(input: $input) {\n    clientMutationId\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "DeleteFileMutation",
+    "operationKind": "mutation",
+    "text": "mutation DeleteFileMutation(\n  $input: DeleteFileInput!\n) {\n  deleteFile(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();

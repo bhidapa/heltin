@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 7323acbb719ca44be9df28216d22e246 */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AuthenticateInput = {
@@ -36,18 +35,15 @@ mutation AuthenticateMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "AuthenticateInput!",
-    "defaultValue": null
+    "type": "AuthenticateInput!"
   }
 ],
 v1 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "authenticate",
-    "storageKey": null,
     "args": [
       {
         "kind": "Variable",
@@ -56,40 +52,43 @@ v1 = [
       }
     ],
     "concreteType": "AuthenticatePayload",
+    "kind": "LinkedField",
+    "name": "authenticate",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "jwtToken",
         "args": null,
+        "kind": "ScalarField",
+        "name": "jwtToken",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "AuthenticateMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "AuthenticateMutation",
+    "selections": (v1/*: any*/),
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AuthenticateMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "AuthenticateMutation",
     "id": null,
-    "text": "mutation AuthenticateMutation(\n  $input: AuthenticateInput!\n) {\n  authenticate(input: $input) {\n    jwtToken\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "AuthenticateMutation",
+    "operationKind": "mutation",
+    "text": "mutation AuthenticateMutation(\n  $input: AuthenticateInput!\n) {\n  authenticate(input: $input) {\n    jwtToken\n  }\n}\n"
   }
 };
 })();

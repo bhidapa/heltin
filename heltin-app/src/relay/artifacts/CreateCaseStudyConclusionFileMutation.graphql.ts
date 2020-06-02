@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash f1f22b4d8f8223f4761654fe89c5d751 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -62,10 +61,10 @@ fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyCon
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseStudyConclusionFileInput!",
-    "defaultValue": null
+    "type": "CreateCaseStudyConclusionFileInput!"
   }
 ],
 v1 = [
@@ -85,159 +84,159 @@ v2 = [
   }
 ],
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseStudyConclusionFileMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseStudyConclusionFileMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyConclusionFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyConclusionFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyConclusionFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusionByCaseStudyConclusionRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusionByCaseStudyConclusionRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
-                "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseStudyConclusionFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyConclusionFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       {
+                        "args": null,
                         "kind": "FragmentSpread",
-                        "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles",
-                        "args": null
+                        "name": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles"
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])"
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseStudyConclusionFileMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudyConclusionFile",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyConclusionFilePayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudyConclusionFile",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudyConclusionByCaseStudyConclusionRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudyConclusion",
+            "kind": "LinkedField",
+            "name": "caseStudyConclusionByCaseStudyConclusionRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
-                "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v2/*: any*/),
                 "concreteType": "CaseStudyConclusionFilesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudyConclusionFilesByCaseStudyConclusionRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyConclusionFile",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       (v3/*: any*/),
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": "file",
-                        "name": "fileByFileRowId",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "File",
+                        "kind": "LinkedField",
+                        "name": "fileByFileRowId",
                         "plural": false,
                         "selections": [
                           (v4/*: any*/),
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "name",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
                             "storageKey": null
                           },
                           (v3/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy:[\"CREATED_AT_ASC\"])"
               },
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseStudyConclusionFileMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyConclusionFileMutation(\n  $input: CreateCaseStudyConclusionFileInput!\n) {\n  createCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseStudyConclusionFileMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseStudyConclusionFileMutation(\n  $input: CreateCaseStudyConclusionFileInput!\n) {\n  createCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash e410e990cc4cbadd7013399135e8d7be */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -134,10 +134,10 @@ fragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -148,17 +148,17 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "title",
   "args": null,
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v4 = [
@@ -171,466 +171,466 @@ v4 = [
   }
 ],
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "fullName",
   "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CaseStudiesDetailPageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CaseStudiesDetailPageQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudy",
-        "name": "caseStudyByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudy",
+        "kind": "LinkedField",
+        "name": "caseStudyByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": "caseHistories",
-            "name": "caseHistoriesByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistoriesConnection",
+            "kind": "LinkedField",
+            "name": "caseHistoriesByCaseStudyRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseHistory",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": "caseHistoryFiles",
-                    "name": "caseHistoryFilesByCaseHistoryRowId",
-                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                     "args": (v4/*: any*/),
                     "concreteType": "CaseHistoryFilesConnection",
+                    "kind": "LinkedField",
+                    "name": "caseHistoryFilesByCaseHistoryRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "nodes",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseHistoryFile",
+                        "kind": "LinkedField",
+                        "name": "nodes",
                         "plural": true,
                         "selections": [
                           {
+                            "args": null,
                             "kind": "FragmentSpread",
-                            "name": "CaseHistoryFilesManage_caseHistoryFiles",
-                            "args": null
+                            "name": "CaseHistoryFilesManage_caseHistoryFiles"
                           }
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])"
                   },
                   {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "CaseHistoryManage_caseHistory",
-                    "args": null
+                    "name": "CaseHistoryManage_caseHistory"
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "client",
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               {
+                "args": null,
                 "kind": "FragmentSpread",
-                "name": "CaseStudyManage_client",
-                "args": null
+                "name": "CaseStudyManage_client"
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CaseStudyManage_caseStudy",
-            "args": null
+            "name": "CaseStudyManage_caseStudy"
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "CaseStudyProfessionalsManage_caseStudy",
-            "args": null
+            "name": "CaseStudyProfessionalsManage_caseStudy"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CaseStudiesDetailPageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "caseStudy",
-        "name": "caseStudyByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CaseStudy",
+        "kind": "LinkedField",
+        "name": "caseStudyByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": "caseHistories",
-            "name": "caseHistoriesByCaseStudyRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseHistoriesConnection",
+            "kind": "LinkedField",
+            "name": "caseHistoriesByCaseStudyRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseHistory",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
                   (v5/*: any*/),
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "caseStudyRowId",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "accompaniedBy",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "adaptedEducationProgram",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "adoptionAge",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "ageDuringLossOfCloseIndividual",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "arrivalReason",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "attendsKindergarten",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "diagnosedIntelectualDevelopmentProblems",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "divorceOutcome",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "divorcedParents",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "earlierProfessionalHelp",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "familyHeredity",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "furtherAbuses",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "individualizedEducationProgram",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "involvedReferral",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "livesWith",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "lossOfCloseIndividual",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "numberOfAdoptions",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "parentsInJail",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "previousTreatment",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "ptsp",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "reasonOfMultipleAdoptions",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "referral",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "referralDiagnosis",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "reportedFurtherAbuses",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "schoolMark",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "schoolMark",
                     "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": "caseHistoryFiles",
-                    "name": "caseHistoryFilesByCaseHistoryRowId",
-                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])",
                     "args": (v4/*: any*/),
                     "concreteType": "CaseHistoryFilesConnection",
+                    "kind": "LinkedField",
+                    "name": "caseHistoryFilesByCaseHistoryRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "nodes",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseHistoryFile",
+                        "kind": "LinkedField",
+                        "name": "nodes",
                         "plural": true,
                         "selections": [
                           (v5/*: any*/),
                           (v3/*: any*/),
                           {
-                            "kind": "LinkedField",
                             "alias": "file",
-                            "name": "fileByFileRowId",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "File",
+                            "kind": "LinkedField",
+                            "name": "fileByFileRowId",
                             "plural": false,
                             "selections": [
                               (v3/*: any*/),
                               {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "name",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "name",
                                 "storageKey": null
                               },
                               (v5/*: any*/)
-                            ]
+                            ],
+                            "storageKey": null
                           }
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": "caseHistoryFilesByCaseHistoryRowId(orderBy:[\"CREATED_AT_ASC\"])"
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "client",
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               (v3/*: any*/),
               (v6/*: any*/),
               (v5/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           (v3/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": "caseStudyProfessionals",
-            "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
-            "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
             "args": (v4/*: any*/),
             "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
+            "kind": "LinkedField",
+            "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseStudyMentalHealthProfessional",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v3/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": "professional",
-                    "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "MentalHealthProfessional",
+                    "kind": "LinkedField",
+                    "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
                       {
-                        "kind": "ScalarField",
                         "alias": null,
-                        "name": "type",
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "type",
                         "storageKey": null
                       },
                       (v6/*: any*/),
                       (v5/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "primary",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "primary",
                     "storageKey": null
                   },
                   (v5/*: any*/)
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
           },
           (v5/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "CaseStudiesDetailPageQuery",
     "id": null,
-    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    title\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryFilesManage_caseHistoryFiles\n            id\n          }\n        }\n        id\n      }\n    }\n    client: clientByClientRowId {\n      ...CaseStudyManage_client\n      id\n    }\n    ...CaseStudyManage_caseStudy\n    ...CaseStudyProfessionalsManage_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {\n  rowId\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CaseStudiesDetailPageQuery",
+    "operationKind": "query",
+    "text": "query CaseStudiesDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $rowId) {\n    title\n    caseHistories: caseHistoriesByCaseStudyRowId {\n      nodes {\n        rowId\n        ...CaseHistoryManage_caseHistory\n        caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            ...CaseHistoryFilesManage_caseHistoryFiles\n            id\n          }\n        }\n        id\n      }\n    }\n    client: clientByClientRowId {\n      ...CaseStudyManage_client\n      id\n    }\n    ...CaseStudyManage_caseStudy\n    ...CaseStudyProfessionalsManage_caseStudy\n    id\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseHistoryManage_caseHistory on CaseHistory {\n  id\n  rowId\n  caseStudyRowId\n  accompaniedBy\n  adaptedEducationProgram\n  adoptionAge\n  ageDuringLossOfCloseIndividual\n  arrivalReason\n  attendsKindergarten\n  diagnosedIntelectualDevelopmentProblems\n  divorceOutcome\n  divorcedParents\n  earlierProfessionalHelp\n  familyHeredity\n  furtherAbuses\n  individualizedEducationProgram\n  involvedReferral\n  livesWith\n  lossOfCloseIndividual\n  numberOfAdoptions\n  parentsInJail\n  previousTreatment\n  ptsp\n  reasonOfMultipleAdoptions\n  referral\n  referralDiagnosis\n  reportedFurtherAbuses\n  schoolMark\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {\n  rowId\n  caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      primary\n      id\n    }\n  }\n}\n"
   }
 };
 })();

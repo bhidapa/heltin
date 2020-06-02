@@ -20,7 +20,7 @@ const mutation = graphql`
   }
 `;
 
-export { DeleteFileMutation };
+export type { DeleteFileMutation };
 
 export const deleteFileMutation = (
   variables: DeleteFileMutationVariables,

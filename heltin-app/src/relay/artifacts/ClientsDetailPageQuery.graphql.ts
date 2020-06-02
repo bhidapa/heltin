@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash dbb4c3e54714188172968586829e5013 */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -90,10 +90,10 @@ fragment ClientEdit_client on Client {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -104,17 +104,17 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "fullName",
   "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
   "storageKey": null
 },
 v4 = [
@@ -127,194 +127,188 @@ v4 = [
   }
 ],
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "title",
   "args": null,
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "ClientsDetailPageQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ClientsDetailPageQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "client",
-        "name": "clientByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Client",
+        "kind": "LinkedField",
+        "name": "clientByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "LinkedField",
             "alias": "caseStudies",
-            "name": "caseStudiesByClientRowId",
-            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])",
             "args": (v4/*: any*/),
             "concreteType": "CaseStudiesConnection",
+            "kind": "LinkedField",
+            "name": "caseStudiesByClientRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseStudy",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
                   {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "CaseStudyView_caseStudy",
-                    "args": null
+                    "name": "CaseStudyView_caseStudy"
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
           },
           {
+            "args": null,
             "kind": "FragmentSpread",
-            "name": "ClientEdit_client",
-            "args": null
+            "name": "ClientEdit_client"
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "ClientsDetailPageQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "client",
-        "name": "clientByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Client",
+        "kind": "LinkedField",
+        "name": "clientByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "number",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "firstName",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "lastName",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "dateOfBirth",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "telephone",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "gender",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "city",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "address",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "sentBy",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "email",
-            "args": null,
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "discrete",
             "args": null,
+            "kind": "ScalarField",
+            "name": "discrete",
             "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": "caseStudies",
-            "name": "caseStudiesByClientRowId",
-            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])",
             "args": (v4/*: any*/),
             "concreteType": "CaseStudiesConnection",
+            "kind": "LinkedField",
+            "name": "caseStudiesByClientRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "nodes",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "CaseStudy",
+                "kind": "LinkedField",
+                "name": "nodes",
                 "plural": true,
                 "selections": [
                   (v2/*: any*/),
                   (v5/*: any*/),
                   {
-                    "kind": "LinkedField",
                     "alias": "caseStudyTreatments",
-                    "name": "caseStudyTreatmentsByCaseStudyRowId",
-                    "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])",
                     "args": [
                       {
                         "kind": "Literal",
@@ -325,85 +319,91 @@ return {
                       }
                     ],
                     "concreteType": "CaseStudyTreatmentsConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudyTreatmentsByCaseStudyRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "nodes",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseStudyTreatment",
+                        "kind": "LinkedField",
+                        "name": "nodes",
                         "plural": true,
                         "selections": [
                           (v2/*: any*/),
                           (v5/*: any*/),
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "startedAt",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "startedAt",
                             "storageKey": null
                           },
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "endedAt",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "endedAt",
                             "storageKey": null
                           },
                           (v6/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])"
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": "caseStudyConclusions",
-                    "name": "caseStudyConclusionsByCaseStudyRowId",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyConclusionsConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudyConclusionsByCaseStudyRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "nodes",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseStudyConclusion",
+                        "kind": "LinkedField",
+                        "name": "nodes",
                         "plural": true,
                         "selections": [
                           (v2/*: any*/),
                           {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "type",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "type",
                             "storageKey": null
                           },
                           (v6/*: any*/)
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v6/*: any*/)
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
           },
           (v6/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "ClientsDetailPageQuery",
     "id": null,
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "ClientsDetailPageQuery",
+    "operationKind": "query",
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n"
   }
 };
 })();

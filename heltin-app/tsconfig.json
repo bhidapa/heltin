@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "strictNullChecks": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "module": "esnext",
     "target": "esnext",
-    "jsx": "react",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "sourceMap": true
-  }
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "exclude": ["node_modules", "build"]
 }

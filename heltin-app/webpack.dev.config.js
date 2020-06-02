@@ -15,39 +15,9 @@ const pkg = require('./package.json');
 
 // plugins
 const { DefinePlugin } = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-
-/**
- *
- * `ts-loader` has a bug where it produces false-positives about missing exports when
- * in `transpileOnly` mode. The `IgnoreNotFoundExportPlugin` omits those warnings.
- *
- * Take a look at: https://github.com/TypeStrong/ts-loader/issues/653#issuecomment-390889335
- *
- */
-const ModuleDependencyWarning = require('webpack/lib/ModuleDependencyWarning');
-class IgnoreNotFoundExportPlugin {
-  apply(compiler) {
-    const messageRegExp = /export '.*'( \(reexported as '.*'\))? was not found in/;
-    const doneHook = (stats) => {
-      // eslint-disable-next-line no-param-reassign
-      stats.compilation.warnings = stats.compilation.warnings.filter((warn) => {
-        if (warn instanceof ModuleDependencyWarning && messageRegExp.test(warn.message)) {
-          return false;
-        }
-        return true;
-      });
-    };
-
-    if (compiler.hooks) {
-      compiler.hooks.done.tap('IgnoreNotFoundExportPlugin', doneHook);
-    } else {
-      compiler.plugin('done', doneHook);
-    }
-  }
-}
 
 module.exports = merge(common, {
   mode: 'development',
@@ -57,18 +27,13 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /__tests__/, /(test|spec)\.tsx?$/],
         use: [
           {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-            },
-          },
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
+              cacheCompression: false, // unnecessary compression
             },
           },
         ],
@@ -80,6 +45,7 @@ module.exports = merge(common, {
     filename: '[name].bundle.js',
     chunkFilename: '[name].[contenthash:8].chunk.js',
   },
+  // we disable all optimizations to get blazing fast builds
   optimization: {
     minimize: false,
     removeAvailableModules: false,
@@ -87,6 +53,7 @@ module.exports = merge(common, {
     splitChunks: false,
   },
   devServer: {
+    host: '0.0.0.0',
     port: 6001,
     contentBase: paths.appPublic,
     historyApiFallback: true,
@@ -107,27 +74,28 @@ module.exports = merge(common, {
     },
   },
   plugins: [
+    // injecting env constants
     new DefinePlugin({
       // environment
       __DEV__: JSON.stringify(true),
       // GraphQL WebSocket endpoint
       GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
+    // type-checking for typescript
     new ForkTsCheckerWebpackPlugin({
       checkSyntacticErrors: true,
     }),
+    // html transpiler
+    new HtmlWebpackPlugin({
+      template: paths.appHtml,
+      templateParameters: (_0, { publicPath }) => ({ publicPath }),
+    }),
+    // injecting the DLL
     new webpack.DllReferencePlugin({
       sourceType: 'var',
       context: __dirname,
       manifest: path.join(paths.dll, `${pkg.dll.name}.manifest.json`),
     }),
-    new HtmlWebpackPlugin({
-      template: paths.appHtml,
-      templateParameters: (_0, { publicPath }) => ({ publicPath }),
-      inject: true,
-      appMountIds: ['root'],
-    }),
-    new IgnoreNotFoundExportPlugin(),
     new AddAssetHtmlPlugin({
       filepath: path.join(paths.dll, '*.dll.js'),
       includeSourcemap: false,

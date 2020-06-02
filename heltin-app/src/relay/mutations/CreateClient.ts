@@ -29,7 +29,7 @@ const mutation = graphql`
   }
 `;
 
-export { CreateClientMutation };
+export type { CreateClientMutation };
 
 export const createClientMutation = (
   variables: CreateClientMutationVariables,

@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 94ad59f8ef1088411be4cdaf38984885 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -76,10 +75,10 @@ fragment ClientsTableRow_item on Client {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateClientInput!",
-    "defaultValue": null
+    "type": "CreateClientInput!"
   }
 ],
 v1 = [
@@ -90,181 +89,181 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateClientMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateClientMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createClient",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateClientPayload",
+        "kind": "LinkedField",
+        "name": "createClient",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "client",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "client",
             "plural": false,
             "selections": [
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientEdge",
-            "storageKey": null,
             "args": null,
             "concreteType": "ClientsEdge",
+            "kind": "LinkedField",
+            "name": "clientEdge",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Client",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
                   {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "ClientsTableRow_item",
-                    "args": null
+                    "name": "ClientsTableRow_item"
                   }
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateClientMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createClient",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateClientPayload",
+        "kind": "LinkedField",
+        "name": "createClient",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "client",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "client",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientEdge",
-            "storageKey": null,
             "args": null,
             "concreteType": "ClientsEdge",
+            "kind": "LinkedField",
+            "name": "clientEdge",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "node",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "Client",
+                "kind": "LinkedField",
+                "name": "node",
                 "plural": false,
                 "selections": [
                   (v2/*: any*/),
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "number",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "firstName",
-                    "args": null,
                     "storageKey": null
                   },
                   {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "lastName",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "lastName",
                     "storageKey": null
                   },
                   {
-                    "kind": "LinkedField",
                     "alias": "treatments",
-                    "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudyTreatmentsConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "ScalarField",
                         "alias": null,
-                        "name": "totalCount",
                         "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
                         "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   },
                   (v3/*: any*/)
-                ]
+                ],
+                "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateClientMutation",
     "id": null,
-    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n      }\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateClientMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n      }\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n"
   }
 };
 })();

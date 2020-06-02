@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash a99fdfa05593b4a8bcfbfeb82a2e3b50 */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 export type FileDownloadButtonQueryVariables = {
@@ -33,10 +33,10 @@ query FileDownloadButtonQuery(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "rowId",
-    "type": "UUID!",
-    "defaultValue": null
+    "type": "UUID!"
   }
 ],
 v1 = [
@@ -47,76 +47,76 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "name",
   "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "data",
   "args": null,
+  "kind": "ScalarField",
+  "name": "data",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "FileDownloadButtonQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "FileDownloadButtonQuery",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "file",
-        "name": "fileByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "File",
+        "kind": "LinkedField",
+        "name": "fileByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/)
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "FileDownloadButtonQuery",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": "file",
-        "name": "fileByRowId",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "File",
+        "kind": "LinkedField",
+        "name": "fileByRowId",
         "plural": false,
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "query",
-    "name": "FileDownloadButtonQuery",
     "id": null,
-    "text": "query FileDownloadButtonQuery(\n  $rowId: UUID!\n) {\n  file: fileByRowId(rowId: $rowId) {\n    name\n    data\n    id\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "FileDownloadButtonQuery",
+    "operationKind": "query",
+    "text": "query FileDownloadButtonQuery(\n  $rowId: UUID!\n) {\n  file: fileByRowId(rowId: $rowId) {\n    name\n    data\n    id\n  }\n}\n"
   }
 };
 })();

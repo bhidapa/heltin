@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 9940ef560f94310ae3acfe6bb5361acc */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 export type RootSessionQueryVariables = {};
@@ -26,67 +26,67 @@ query RootSessionQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "ScalarField",
     "alias": null,
-    "name": "__typename",
     "args": null,
+    "kind": "ScalarField",
+    "name": "__typename",
     "storageKey": null
   },
   {
     "kind": "ClientExtension",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "session",
-        "storageKey": null,
         "args": null,
         "concreteType": "Session",
+        "kind": "LinkedField",
+        "name": "session",
         "plural": false,
         "selections": [
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "token",
             "args": null,
+            "kind": "ScalarField",
+            "name": "token",
             "storageKey": null
           },
           {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "expiresAt",
             "args": null,
+            "kind": "ScalarField",
+            "name": "expiresAt",
             "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "RootSessionQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "RootSessionQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "RootSessionQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "RootSessionQuery",
     "id": null,
-    "text": "query RootSessionQuery {\n  __typename\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "RootSessionQuery",
+    "operationKind": "query",
+    "text": "query RootSessionQuery {\n  __typename\n}\n"
   }
 };
 })();
-(node as any).hash = 'b3463fe1675ec026f31ca97405698b72';
+(node as any).hash = '878c60fcb8e58b60bf44a7bfe89fdac2';
 export default node;

@@ -20,41 +20,41 @@ export type ProfessionalsTableRow_item$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "ProfessionalsTableRow_item",
-  "type": "MentalHealthProfessional",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "ProfessionalsTableRow_item",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "type",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "title",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "firstName",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "lastName",
       "args": null,
+      "kind": "ScalarField",
+      "name": "lastName",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "MentalHealthProfessional"
 };
 (node as any).hash = '3039c39d6872f5c72866ad309e4205be';
 export default node;

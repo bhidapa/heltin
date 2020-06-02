@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 76cee7c21564af6c4002a51d0413ff46 */
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -94,10 +93,10 @@ fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateCaseStudyInput!",
-    "defaultValue": null
+    "type": "CreateCaseStudyInput!"
   }
 ],
 v1 = [
@@ -108,10 +107,10 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = [
@@ -124,10 +123,10 @@ v3 = [
   }
 ],
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "title",
   "args": null,
+  "kind": "ScalarField",
+  "name": "title",
   "storageKey": null
 },
 v5 = [
@@ -140,278 +139,278 @@ v5 = [
   }
 ],
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "type",
   "args": null,
+  "kind": "ScalarField",
+  "name": "type",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "id",
   "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "CreateCaseStudyMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "CreateCaseStudyMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudy",
             "plural": false,
             "selections": [
               (v2/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudiesByClientRowId",
-                "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v3/*: any*/),
                 "concreteType": "CaseStudiesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudiesByClientRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudy",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       (v2/*: any*/),
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": "caseStudyTreatments",
-                        "name": "caseStudyTreatmentsByCaseStudyRowId",
-                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])",
                         "args": (v5/*: any*/),
                         "concreteType": "CaseStudyTreatmentsConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudyTreatmentsByCaseStudyRowId",
                         "plural": false,
                         "selections": [
                           {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "nodes",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "CaseStudyTreatment",
+                            "kind": "LinkedField",
+                            "name": "nodes",
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
                               {
+                                "args": null,
                                 "kind": "FragmentSpread",
-                                "name": "CaseStudyTreatmentRow_item",
-                                "args": null
+                                "name": "CaseStudyTreatmentRow_item"
                               }
-                            ]
+                            ],
+                            "storageKey": null
                           }
-                        ]
+                        ],
+                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])"
                       },
                       {
-                        "kind": "LinkedField",
                         "alias": "caseStudyConclusions",
-                        "name": "caseStudyConclusionsByCaseStudyRowId",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseStudyConclusionsConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudyConclusionsByCaseStudyRowId",
                         "plural": false,
                         "selections": [
                           {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "nodes",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "CaseStudyConclusion",
+                            "kind": "LinkedField",
+                            "name": "nodes",
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
                               (v6/*: any*/)
-                            ]
+                            ],
+                            "storageKey": null
                           }
-                        ]
+                        ],
+                        "storageKey": null
                       }
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "CreateCaseStudyMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "createCaseStudy",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "CreateCaseStudyPayload",
+        "kind": "LinkedField",
+        "name": "createCaseStudy",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "caseStudy",
-            "storageKey": null,
             "args": null,
             "concreteType": "CaseStudy",
+            "kind": "LinkedField",
+            "name": "caseStudy",
             "plural": false,
             "selections": [
               (v2/*: any*/),
               (v7/*: any*/)
-            ]
+            ],
+            "storageKey": null
           },
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "clientByClientRowId",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "clientByClientRowId",
             "plural": false,
             "selections": [
               {
-                "kind": "LinkedField",
                 "alias": null,
-                "name": "caseStudiesByClientRowId",
-                "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])",
                 "args": (v3/*: any*/),
                 "concreteType": "CaseStudiesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudiesByClientRowId",
                 "plural": false,
                 "selections": [
                   {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "nodes",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "CaseStudy",
+                    "kind": "LinkedField",
+                    "name": "nodes",
                     "plural": true,
                     "selections": [
                       (v2/*: any*/),
                       (v4/*: any*/),
                       {
-                        "kind": "LinkedField",
                         "alias": "caseStudyTreatments",
-                        "name": "caseStudyTreatmentsByCaseStudyRowId",
-                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])",
                         "args": (v5/*: any*/),
                         "concreteType": "CaseStudyTreatmentsConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudyTreatmentsByCaseStudyRowId",
                         "plural": false,
                         "selections": [
                           {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "nodes",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "CaseStudyTreatment",
+                            "kind": "LinkedField",
+                            "name": "nodes",
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
                               (v4/*: any*/),
                               {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "startedAt",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "startedAt",
                                 "storageKey": null
                               },
                               {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "endedAt",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "endedAt",
                                 "storageKey": null
                               },
                               (v7/*: any*/)
-                            ]
+                            ],
+                            "storageKey": null
                           }
-                        ]
+                        ],
+                        "storageKey": "caseStudyTreatmentsByCaseStudyRowId(orderBy:[\"STARTED_AT_DESC\"])"
                       },
                       {
-                        "kind": "LinkedField",
                         "alias": "caseStudyConclusions",
-                        "name": "caseStudyConclusionsByCaseStudyRowId",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "CaseStudyConclusionsConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudyConclusionsByCaseStudyRowId",
                         "plural": false,
                         "selections": [
                           {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "nodes",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "CaseStudyConclusion",
+                            "kind": "LinkedField",
+                            "name": "nodes",
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
                               (v6/*: any*/),
                               (v7/*: any*/)
-                            ]
+                            ],
+                            "storageKey": null
                           }
-                        ]
+                        ],
+                        "storageKey": null
                       },
                       (v7/*: any*/)
-                    ]
+                    ],
+                    "storageKey": null
                   }
-                ]
+                ],
+                "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
               },
               (v7/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "CreateCaseStudyMutation",
     "id": null,
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n            nodes {\n              rowId\n              type\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "CreateCaseStudyMutation",
+    "operationKind": "mutation",
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n            nodes {\n              rowId\n              type\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n"
   }
 };
 })();

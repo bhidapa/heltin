@@ -38,7 +38,7 @@ function start() {
         jwtPgTypeIdentifier,
         jwtSecret: jwtSecret ? "<omitted>" : undefined,
         noAuth,
-        port
+        port,
       },
       undefined,
       "  "
@@ -62,12 +62,12 @@ function start() {
           disableQueryLog: false,
           watchPg: watch,
           graphileBuildOptions: {
-            pgStrictFunctions: true
+            pgStrictFunctions: true,
           },
           appendPlugins: [
             PgNonNullRelationsPlugin,
             PgIdToRowIdInflectorPlugin,
-            PgBytea
+            PgBytea,
           ],
           graphqlRoute,
           graphiqlRoute,
@@ -76,7 +76,7 @@ function start() {
           jwtPgTypeIdentifier,
           jwtSecret,
           pgDefaultRole: noAuth ? "viewer" : "anonymous",
-          bodySizeLimit: "1GB"
+          bodySizeLimit: "1GB",
         }
       )
     )
@@ -84,5 +84,5 @@ function start() {
 }
 
 function isTrue(str: string | undefined): boolean {
-  return ["t", "true", "1", "yes"].some(flag => str === flag);
+  return ["t", "true", "1", "yes"].some((flag) => str === flag);
 }

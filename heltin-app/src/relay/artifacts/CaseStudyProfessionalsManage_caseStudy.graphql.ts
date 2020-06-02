@@ -29,25 +29,21 @@ export type CaseStudyProfessionalsManage_caseStudy$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 };
 return {
-  "kind": "Fragment",
-  "name": "CaseStudyProfessionalsManage_caseStudy",
-  "type": "CaseStudy",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyProfessionalsManage_caseStudy",
   "selections": [
     (v0/*: any*/),
     {
-      "kind": "LinkedField",
       "alias": "caseStudyProfessionals",
-      "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
-      "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])",
       "args": [
         {
           "kind": "Literal",
@@ -58,56 +54,60 @@ return {
         }
       ],
       "concreteType": "CaseStudyMentalHealthProfessionalsConnection",
+      "kind": "LinkedField",
+      "name": "caseStudyMentalHealthProfessionalsByCaseStudyRowId",
       "plural": false,
       "selections": [
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "nodes",
-          "storageKey": null,
           "args": null,
           "concreteType": "CaseStudyMentalHealthProfessional",
+          "kind": "LinkedField",
+          "name": "nodes",
           "plural": true,
           "selections": [
             (v0/*: any*/),
             {
-              "kind": "LinkedField",
               "alias": "professional",
-              "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
-              "storageKey": null,
               "args": null,
               "concreteType": "MentalHealthProfessional",
+              "kind": "LinkedField",
+              "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
               "plural": false,
               "selections": [
                 (v0/*: any*/),
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "type",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "type",
                   "storageKey": null
                 },
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "fullName",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "fullName",
                   "storageKey": null
                 }
-              ]
+              ],
+              "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "primary",
               "args": null,
+              "kind": "ScalarField",
+              "name": "primary",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
     }
-  ]
+  ],
+  "type": "CaseStudy"
 };
 })();
 (node as any).hash = '510468170c17c69ad2a52de820ad447b';

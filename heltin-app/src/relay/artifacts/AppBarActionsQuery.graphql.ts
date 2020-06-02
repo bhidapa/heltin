@@ -1,5 +1,5 @@
 /* tslint:disable */
-/* @relayHash 45fa33f5baf219568e2e2aaadb66d4a5 */
+/* eslint-disable */
 
 import { ConcreteRequest } from "relay-runtime";
 export type AppBarActionsQueryVariables = {};
@@ -28,53 +28,53 @@ query AppBarActionsQuery {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "kind": "LinkedField",
     "alias": null,
-    "name": "viewer",
-    "storageKey": null,
     "args": null,
     "concreteType": "User",
+    "kind": "LinkedField",
+    "name": "viewer",
     "plural": false,
     "selections": [
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "id",
         "args": null,
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
       },
       {
-        "kind": "ScalarField",
         "alias": null,
-        "name": "email",
         "args": null,
+        "kind": "ScalarField",
+        "name": "email",
         "storageKey": null
       }
-    ]
+    ],
+    "storageKey": null
   }
 ];
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "AppBarActionsQuery",
-    "type": "Query",
-    "metadata": null,
     "argumentDefinitions": [],
-    "selections": (v0/*: any*/)
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "AppBarActionsQuery",
+    "selections": (v0/*: any*/),
+    "type": "Query"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "AppBarActionsQuery",
-    "argumentDefinitions": [],
     "selections": (v0/*: any*/)
   },
   "params": {
-    "operationKind": "query",
-    "name": "AppBarActionsQuery",
     "id": null,
-    "text": "query AppBarActionsQuery {\n  viewer {\n    id\n    email\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "AppBarActionsQuery",
+    "operationKind": "query",
+    "text": "query AppBarActionsQuery {\n  viewer {\n    id\n    email\n  }\n}\n"
   }
 };
 })();

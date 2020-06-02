@@ -28,9 +28,27 @@ var v0 = [
   "filterClients"
 ];
 return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "count",
+      "type": "Int!"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor",
+      "type": "Cursor"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "searchText",
+      "type": "String"
+    }
+  ],
   "kind": "Fragment",
-  "name": "ClientsTable_clientsQuery",
-  "type": "Query",
   "metadata": {
     "connection": [
       {
@@ -49,36 +67,14 @@ return {
         "backward": null,
         "path": (v0/*: any*/)
       },
-      "operation": require('./ClientsTableRefetchQuery.graphql.ts'),
-      "fragmentPathInResult": []
+      "fragmentPathInResult": [],
+      "operation": require('./ClientsTableRefetchQuery.graphql.ts')
     }
   },
-  "argumentDefinitions": [
-    {
-      "kind": "LocalArgument",
-      "name": "count",
-      "type": "Int!",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "cursor",
-      "type": "Cursor",
-      "defaultValue": null
-    },
-    {
-      "kind": "LocalArgument",
-      "name": "searchText",
-      "type": "String",
-      "defaultValue": null
-    }
-  ],
+  "name": "ClientsTable_clientsQuery",
   "selections": [
     {
-      "kind": "LinkedField",
       "alias": "filterClients",
-      "name": "__ClientsTable_filterClients_connection",
-      "storageKey": null,
       "args": [
         {
           "kind": "Variable",
@@ -87,91 +83,95 @@ return {
         }
       ],
       "concreteType": "ClientsConnection",
+      "kind": "LinkedField",
+      "name": "__ClientsTable_filterClients_connection",
       "plural": false,
       "selections": [
         {
-          "kind": "ScalarField",
           "alias": null,
-          "name": "totalCount",
           "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
           "storageKey": null
         },
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "edges",
-          "storageKey": null,
           "args": null,
           "concreteType": "ClientsEdge",
+          "kind": "LinkedField",
+          "name": "edges",
           "plural": true,
           "selections": [
             {
-              "kind": "LinkedField",
               "alias": null,
-              "name": "node",
-              "storageKey": null,
               "args": null,
               "concreteType": "Client",
+              "kind": "LinkedField",
+              "name": "node",
               "plural": false,
               "selections": [
                 {
-                  "kind": "ScalarField",
                   "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
                   "name": "rowId",
-                  "args": null,
                   "storageKey": null
                 },
                 {
-                  "kind": "ScalarField",
                   "alias": null,
-                  "name": "__typename",
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
                   "storageKey": null
                 },
                 {
+                  "args": null,
                   "kind": "FragmentSpread",
-                  "name": "ClientsTableRow_item",
-                  "args": null
+                  "name": "ClientsTableRow_item"
                 }
-              ]
+              ],
+              "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "cursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         },
         {
-          "kind": "LinkedField",
           "alias": null,
-          "name": "pageInfo",
-          "storageKey": null,
           "args": null,
           "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
           "plural": false,
           "selections": [
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "endCursor",
               "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
               "storageKey": null
             },
             {
-              "kind": "ScalarField",
               "alias": null,
-              "name": "hasNextPage",
               "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             }
-          ]
+          ],
+          "storageKey": null
         }
-      ]
+      ],
+      "storageKey": null
     }
-  ]
+  ],
+  "type": "Query"
 };
 })();
 (node as any).hash = '6a54b82ea5c24e99f2061f4decfe09cf';

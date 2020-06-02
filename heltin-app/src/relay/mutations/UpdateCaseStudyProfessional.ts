@@ -26,7 +26,7 @@ const mutation = graphql`
   }
 `;
 
-export { UpdateCaseStudyProfessionalMutation };
+export type { UpdateCaseStudyProfessionalMutation };
 
 export const updateCaseStudyProfessionalMutation = (
   variables: UpdateCaseStudyProfessionalMutationVariables,

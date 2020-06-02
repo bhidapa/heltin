@@ -1,6 +1,5 @@
 /* tslint:disable */
 /* eslint-disable */
-/* @relayHash 5b8969e508a3a72cf4c80e55b85f590f */
 
 import { ConcreteRequest } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
@@ -77,10 +76,10 @@ mutation UpdateClientMutation(
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
+    "defaultValue": null,
     "kind": "LocalArgument",
     "name": "input",
-    "type": "UpdateClientInput!",
-    "defaultValue": null
+    "type": "UpdateClientInput!"
   }
 ],
 v1 = [
@@ -91,121 +90,117 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "rowId",
   "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
   "storageKey": null
 },
 v3 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "fullName",
   "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
   "storageKey": null
 },
 v4 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "number",
   "args": null,
+  "kind": "ScalarField",
+  "name": "number",
   "storageKey": null
 },
 v5 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "firstName",
   "args": null,
+  "kind": "ScalarField",
+  "name": "firstName",
   "storageKey": null
 },
 v6 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "lastName",
   "args": null,
+  "kind": "ScalarField",
+  "name": "lastName",
   "storageKey": null
 },
 v7 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "dateOfBirth",
   "args": null,
+  "kind": "ScalarField",
+  "name": "dateOfBirth",
   "storageKey": null
 },
 v8 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "telephone",
   "args": null,
+  "kind": "ScalarField",
+  "name": "telephone",
   "storageKey": null
 },
 v9 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "gender",
   "args": null,
+  "kind": "ScalarField",
+  "name": "gender",
   "storageKey": null
 },
 v10 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "city",
   "args": null,
+  "kind": "ScalarField",
+  "name": "city",
   "storageKey": null
 },
 v11 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "address",
   "args": null,
+  "kind": "ScalarField",
+  "name": "address",
   "storageKey": null
 },
 v12 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "sentBy",
   "args": null,
+  "kind": "ScalarField",
+  "name": "sentBy",
   "storageKey": null
 },
 v13 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "email",
   "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 },
 v14 = {
-  "kind": "ScalarField",
   "alias": null,
-  "name": "discrete",
   "args": null,
+  "kind": "ScalarField",
+  "name": "discrete",
   "storageKey": null
 };
 return {
-  "kind": "Request",
   "fragment": {
-    "kind": "Fragment",
-    "name": "UpdateClientMutation",
-    "type": "Mutation",
-    "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "UpdateClientMutation",
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateClient",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateClientPayload",
+        "kind": "LinkedField",
+        "name": "updateClient",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "client",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "client",
             "plural": false,
             "selections": [
               (v2/*: any*/),
@@ -221,33 +216,35 @@ return {
               (v12/*: any*/),
               (v13/*: any*/),
               (v14/*: any*/)
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
-    ]
+    ],
+    "type": "Mutation"
   },
+  "kind": "Request",
   "operation": {
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "UpdateClientMutation",
-    "argumentDefinitions": (v0/*: any*/),
     "selections": [
       {
-        "kind": "LinkedField",
         "alias": null,
-        "name": "updateClient",
-        "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "UpdateClientPayload",
+        "kind": "LinkedField",
+        "name": "updateClient",
         "plural": false,
         "selections": [
           {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "client",
-            "storageKey": null,
             "args": null,
             "concreteType": "Client",
+            "kind": "LinkedField",
+            "name": "client",
             "plural": false,
             "selections": [
               (v2/*: any*/),
@@ -264,24 +261,26 @@ return {
               (v13/*: any*/),
               (v14/*: any*/),
               {
-                "kind": "ScalarField",
                 "alias": null,
-                "name": "id",
                 "args": null,
+                "kind": "ScalarField",
+                "name": "id",
                 "storageKey": null
               }
-            ]
+            ],
+            "storageKey": null
           }
-        ]
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "operationKind": "mutation",
-    "name": "UpdateClientMutation",
     "id": null,
-    "text": "mutation UpdateClientMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      fullName\n      number\n      firstName\n      lastName\n      dateOfBirth\n      telephone\n      gender\n      city\n      address\n      sentBy\n      email\n      discrete\n      id\n    }\n  }\n}\n",
-    "metadata": {}
+    "metadata": {},
+    "name": "UpdateClientMutation",
+    "operationKind": "mutation",
+    "text": "mutation UpdateClientMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      fullName\n      number\n      firstName\n      lastName\n      dateOfBirth\n      telephone\n      gender\n      city\n      address\n      sentBy\n      email\n      discrete\n      id\n    }\n  }\n}\n"
   }
 };
 })();

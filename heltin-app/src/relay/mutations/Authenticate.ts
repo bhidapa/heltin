@@ -20,7 +20,7 @@ const mutation = graphql`
   }
 `;
 
-export { AuthenticateMutation };
+export type { AuthenticateMutation };
 
 export const authenticateMutation = (
   variables: AuthenticateMutationVariables,

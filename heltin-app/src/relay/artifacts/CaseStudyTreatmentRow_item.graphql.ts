@@ -18,34 +18,34 @@ export type CaseStudyTreatmentRow_item$key = {
 
 
 const node: ReaderFragment = {
-  "kind": "Fragment",
-  "name": "CaseStudyTreatmentRow_item",
-  "type": "CaseStudyTreatment",
-  "metadata": null,
   "argumentDefinitions": [],
+  "kind": "Fragment",
+  "metadata": null,
+  "name": "CaseStudyTreatmentRow_item",
   "selections": [
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "title",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "startedAt",
-      "args": null,
       "storageKey": null
     },
     {
-      "kind": "ScalarField",
       "alias": null,
-      "name": "endedAt",
       "args": null,
+      "kind": "ScalarField",
+      "name": "endedAt",
       "storageKey": null
     }
-  ]
+  ],
+  "type": "CaseStudyTreatment"
 };
 (node as any).hash = '02d694411e614a43638b118ceb021274';
 export default node;
