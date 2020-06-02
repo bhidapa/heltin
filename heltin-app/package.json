@@ -12,6 +12,10 @@
   },
   "homepage": "https://github.com/bhidapa/heltin#readme",
   "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "node": ">=11",
+    "yarn": ">=1.22.0"
+  },
   "scripts": {
     "test": "jest",
     "watch:test": "jest --watch",

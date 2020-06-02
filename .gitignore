@@ -4,4 +4,7 @@
 **/Thumbs.db
 **/node_modules
 **/build
-.vscode
+**/.vscode
+**/.yarn/*
+!**/.yarn/releases
+!**/.yarn/plugins

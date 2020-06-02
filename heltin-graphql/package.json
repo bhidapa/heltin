@@ -2,18 +2,23 @@
   "name": "heltin-graphql",
   "description": "GraphQL server for heltin using PostGraphile",
   "version": "1.0.0",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "node": ">=13",
+    "yarn": ">=1.22.0"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node ./build"
   },
   "dependencies": {
     "@graphile-contrib/pg-non-null": "^1.0.3",
-    "graphile-build-pg": "^4.5.0",
-    "graphile-utils": "^4.5.2",
-    "postgraphile": "^4.5.0",
+    "graphile-build-pg": "^4.7.0",
+    "graphile-utils": "^4.7.0",
+    "postgraphile": "^4.7.0",
     "postgres-bytea": "^2.0.0"
   },
   "devDependencies": {
-    "typescript": "^3.7.2"
+    "typescript": "^3.9.3"
   }
 }
