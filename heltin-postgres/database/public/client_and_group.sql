@@ -185,6 +185,7 @@ create function public.delete_client(
 ) returns public.client as
 $$
   delete from public.client
+  where id = delete_client.id
   returning *
 $$
 language sql volatile;
