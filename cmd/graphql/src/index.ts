@@ -25,7 +25,8 @@ const config = {
   watch: isTrue(process.env.WATCH),
   graphqlRoute: process.env.GRAPHQL_ROUTE,
   graphiqlRoute: process.env.GRAPHIQL_ROUTE,
-  jwtPgTypeIdentifier: process.env.JWT_POSTGRES_TYPE_IDENTIFIER,
+  sessionTableSchema: process.env.POSTGRES_SESSION_TABLE_SCHEMA,
+  sessionTable: process.env.POSTGRES_SESSION_TABLE,
   sessionSecret: process.env.SESSION_SECRET,
   noAuth: isTrue(process.env.NO_AUTH),
   port: process.env.PORT,
@@ -67,8 +68,19 @@ const app = express();
 app.use(
   session({
     store: new (connectPgSimple(session))({
-      pool: pgPool,
-      tableName: "private.session",
+      pgPromise: {
+        query: async (query: any, params: any) => {
+          if (config.sessionTableSchema) {
+            await pgPool.query("begin;set local search_path to private;");
+          }
+          const { rows } = await pgPool.query(query, params);
+          if (config.sessionTableSchema) {
+            await pgPool.query("end;");
+          }
+          return rows;
+        },
+      },
+      tableName: config.sessionTable,
     }),
     secret: config.sessionSecret,
     resave: false,
