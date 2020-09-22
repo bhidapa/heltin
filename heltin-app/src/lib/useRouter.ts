@@ -13,7 +13,6 @@ export function useRouter<
 >(): RouteComponentProps<Params> {
   const forceUpdate = useForceUpdate();
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const router = useContext<RouteComponentProps<Params>>(__RouterContext as any);
 
   useEffect(() => {

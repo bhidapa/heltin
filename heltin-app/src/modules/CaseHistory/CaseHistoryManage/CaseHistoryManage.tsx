@@ -68,7 +68,6 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
           return agg;
         }
         if (Array.isArray(val)) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           val = (val as any[]).filter((el) => !!el);
           if ((val as unknown[]).length === 0) {
             val = null;

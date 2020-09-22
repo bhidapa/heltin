@@ -25,7 +25,6 @@ interface Sink<T = unknown> {
   readonly closed: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleGraphqlError(data: any): Error | null {
   if (typeof data !== 'object') {
     throw new Error('Malformed data argument passed to `handleGraphqlError`');

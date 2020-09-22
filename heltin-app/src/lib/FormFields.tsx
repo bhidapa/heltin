@@ -46,7 +46,6 @@ export const FormTextAreaField: React.FC<
           submitOnEnter
             ? (event) => {
                 // `form` does indeed exist on the target when the TextArea is wrapped by a form
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const form: HTMLFormElement | undefined = (event.target as any).form;
                 if (!form) {
                   throw new Error('TextArea component must wrapped by a Form element!');
