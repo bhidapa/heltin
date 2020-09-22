@@ -29,6 +29,7 @@ query ProfessionalsTableRefetchQuery(
 }
 
 fragment ProfessionalsTableRow_item on MentalHealthProfessional {
+  rowId
   type
   title
   firstName
@@ -260,12 +261,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "09099639a85cb632a61d87cc90f5db8b",
+    "cacheID": "ef1f9544da9580ed5c7010d468347055",
     "id": null,
     "metadata": {},
     "name": "ProfessionalsTableRefetchQuery",
     "operationKind": "query",
-    "text": "query ProfessionalsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  type\n  title\n  firstName\n  lastName\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ProfessionalsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  rowId\n  type\n  title\n  firstName\n  lastName\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

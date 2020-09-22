@@ -5,8 +5,6 @@
  */
 
 import React from 'react';
-import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
-import { makeLink } from 'lib/makeLink';
 import { Sentinel } from 'lib/Sentinel';
 import { useOnValueChange } from 'lib/useOnValueChange';
 
@@ -82,14 +80,7 @@ export const ProfessionalsTable: React.FC<ProfessionalsTableProps> = (props) => 
       <Flex item>
         <ProfessionalsTableRowHeader />
         {filterMentalHealthProfessionals.edges.map(({ node }) => (
-          <ProfessionalsTableRow
-            key={node.rowId}
-            item={node}
-            component={makeLink({
-              to: `${PROFESSIONALS_PAGE_ROUTE}/${node.rowId}`,
-              omit: ['item'],
-            })}
-          />
+          <ProfessionalsTableRow key={node.rowId} item={node} />
         ))}
       </Flex>
       {hasNext && !isLoadingNext && <Sentinel onReached={() => loadNext(params.count)} />}

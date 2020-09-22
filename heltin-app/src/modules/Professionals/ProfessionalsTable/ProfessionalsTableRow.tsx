@@ -6,13 +6,18 @@
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { makeLink } from 'lib/makeLink';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { ProfessionalsTableRow_item } from 'relay/artifacts/ProfessionalsTableRow_item.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import {
+  ProfessionalsTableRow_item,
+  ProfessionalsTableRow_item$key,
+} from 'relay/artifacts/ProfessionalsTableRow_item.graphql';
 
 // ui
 import { makeRow } from '@domonda/ui/Row';
+import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 
 const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<ProfessionalsTableRow_item>({
   columns: [
@@ -53,13 +58,31 @@ const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<Professional
 
 export { ProfessionalsTableRowHeader };
 
-export const ProfessionalsTableRow = createFragmentContainer(RowItem, {
-  item: graphql`
-    fragment ProfessionalsTableRow_item on MentalHealthProfessional {
-      type
-      title
-      firstName
-      lastName
-    }
-  `,
-});
+export interface ProfessionalsTableRowProps {
+  item: ProfessionalsTableRow_item$key;
+}
+
+export const ProfessionalsTableRow: React.FC<ProfessionalsTableRowProps> = (props) => {
+  const item = useFragment(
+    graphql`
+      fragment ProfessionalsTableRow_item on MentalHealthProfessional {
+        rowId
+        type
+        title
+        firstName
+        lastName
+      }
+    `,
+    props.item,
+  );
+
+  return (
+    <RowItem
+      item={item}
+      component={makeLink({
+        to: `${PROFESSIONALS_PAGE_ROUTE}/${item.rowId}`,
+        omit: ['item'],
+      })}
+    />
+  );
+};
