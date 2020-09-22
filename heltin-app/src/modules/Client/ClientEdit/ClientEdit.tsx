@@ -67,7 +67,7 @@ export const ClientEdit: React.FC<ClientEditProps> = (props) => {
     mutation ClientEditUpdateMutation($input: UpdateClientInput!) {
       updateClient(input: $input) {
         client {
-          ...ClientEdit_client @relay(mask: false)
+          ...ClientEdit_client
         }
       }
     }

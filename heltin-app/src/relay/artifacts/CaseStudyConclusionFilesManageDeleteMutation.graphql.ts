@@ -8,10 +8,10 @@ export type DeleteCaseStudyConclusionFileInput = {
     clientMutationId?: string | null;
     rowId: string;
 };
-export type DeleteCaseStudyConclusionFileMutationVariables = {
+export type CaseStudyConclusionFilesManageDeleteMutationVariables = {
     input: DeleteCaseStudyConclusionFileInput;
 };
-export type DeleteCaseStudyConclusionFileMutationResponse = {
+export type CaseStudyConclusionFilesManageDeleteMutationResponse = {
     readonly deleteCaseStudyConclusionFile: {
         readonly caseStudyConclusionByCaseStudyConclusionRowId: {
             readonly caseStudyConclusionFilesByCaseStudyConclusionRowId: {
@@ -22,15 +22,15 @@ export type DeleteCaseStudyConclusionFileMutationResponse = {
         };
     } | null;
 };
-export type DeleteCaseStudyConclusionFileMutation = {
-    readonly response: DeleteCaseStudyConclusionFileMutationResponse;
-    readonly variables: DeleteCaseStudyConclusionFileMutationVariables;
+export type CaseStudyConclusionFilesManageDeleteMutation = {
+    readonly response: CaseStudyConclusionFilesManageDeleteMutationResponse;
+    readonly variables: CaseStudyConclusionFilesManageDeleteMutationVariables;
 };
 
 
 
 /*
-mutation DeleteCaseStudyConclusionFileMutation(
+mutation CaseStudyConclusionFilesManageDeleteMutation(
   $input: DeleteCaseStudyConclusionFileInput!
 ) {
   deleteCaseStudyConclusionFile(input: $input) {
@@ -100,7 +100,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageDeleteMutation",
     "selections": [
       {
         "alias": null,
@@ -159,7 +159,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageDeleteMutation",
     "selections": [
       {
         "alias": null,
@@ -231,14 +231,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4a084683c7e64c2f38670fb502fe0b81",
+    "cacheID": "99174d1a970be521fda5952a0bcc3780",
     "id": null,
     "metadata": {},
-    "name": "DeleteCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteCaseStudyConclusionFileMutation(\n  $input: DeleteCaseStudyConclusionFileInput!\n) {\n  deleteCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyConclusionFilesManageDeleteMutation(\n  $input: DeleteCaseStudyConclusionFileInput!\n) {\n  deleteCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '404809c5b58b2bc47787fca6352acc18';
+(node as any).hash = '40aa3fd9c74898c5b23fdaa9d30588cc';
 export default node;

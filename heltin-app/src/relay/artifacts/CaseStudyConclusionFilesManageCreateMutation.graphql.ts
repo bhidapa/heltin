@@ -10,10 +10,10 @@ export type CreateCaseStudyConclusionFileInput = {
     fileData: string;
     fileName: string;
 };
-export type CreateCaseStudyConclusionFileMutationVariables = {
+export type CaseStudyConclusionFilesManageCreateMutationVariables = {
     input: CreateCaseStudyConclusionFileInput;
 };
-export type CreateCaseStudyConclusionFileMutationResponse = {
+export type CaseStudyConclusionFilesManageCreateMutationResponse = {
     readonly createCaseStudyConclusionFile: {
         readonly caseStudyConclusionByCaseStudyConclusionRowId: {
             readonly caseStudyConclusionFilesByCaseStudyConclusionRowId: {
@@ -24,15 +24,15 @@ export type CreateCaseStudyConclusionFileMutationResponse = {
         };
     } | null;
 };
-export type CreateCaseStudyConclusionFileMutation = {
-    readonly response: CreateCaseStudyConclusionFileMutationResponse;
-    readonly variables: CreateCaseStudyConclusionFileMutationVariables;
+export type CaseStudyConclusionFilesManageCreateMutation = {
+    readonly response: CaseStudyConclusionFilesManageCreateMutationResponse;
+    readonly variables: CaseStudyConclusionFilesManageCreateMutationVariables;
 };
 
 
 
 /*
-mutation CreateCaseStudyConclusionFileMutation(
+mutation CaseStudyConclusionFilesManageCreateMutation(
   $input: CreateCaseStudyConclusionFileInput!
 ) {
   createCaseStudyConclusionFile(input: $input) {
@@ -102,7 +102,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -161,7 +161,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -233,14 +233,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7d6c1b619407402193e69965a6fdb595",
+    "cacheID": "7514c401ccfafacbe885988662872ace",
     "id": null,
     "metadata": {},
-    "name": "CreateCaseStudyConclusionFileMutation",
+    "name": "CaseStudyConclusionFilesManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseStudyConclusionFileMutation(\n  $input: CreateCaseStudyConclusionFileInput!\n) {\n  createCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyConclusionFilesManageCreateMutation(\n  $input: CreateCaseStudyConclusionFileInput!\n) {\n  createCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e60fa8b9a76876073ebdac53c25290dd';
+(node as any).hash = '12f2604565368fc6ceb48554b12dce8b';
 export default node;

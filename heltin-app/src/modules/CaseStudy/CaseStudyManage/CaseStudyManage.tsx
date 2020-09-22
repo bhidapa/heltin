@@ -51,7 +51,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     mutation CaseStudyManageCreateMutation($input: CreateCaseHistoryInput!) {
       createCaseHistory(input: $input) {
         caseHistory {
-          ...CaseHistoryManage_caseHistory @relay(mask: false)
+          ...CaseHistoryManage_caseHistory
         }
       }
     }

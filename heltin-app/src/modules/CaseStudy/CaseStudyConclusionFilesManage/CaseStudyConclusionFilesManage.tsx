@@ -9,10 +9,11 @@ import { FormattedMessage } from 'react-intl';
 import { toBase64 } from 'lib/file';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyConclusionFilesManage_caseStudyConclusionFiles } from 'relay/artifacts/CaseStudyConclusionFilesManage_caseStudyConclusionFiles.graphql';
-import { createCaseStudyConclusionFileMutation } from 'relay/mutations/CreateCaseStudyConclusionFile';
-import { deleteCaseStudyConclusionFileMutation } from 'relay/mutations/DeleteCaseStudyConclusionFile';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { usePromiseMutation } from 'relay/hooks';
+import { CaseStudyConclusionFilesManage_caseStudyConclusionFiles$key } from 'relay/artifacts/CaseStudyConclusionFilesManage_caseStudyConclusionFiles.graphql';
+import { CaseStudyConclusionFilesManageCreateMutation } from 'relay/artifacts/CaseStudyConclusionFilesManageCreateMutation.graphql';
+import { CaseStudyConclusionFilesManageDeleteMutation } from 'relay/artifacts/CaseStudyConclusionFilesManageDeleteMutation.graphql';
 
 // ui
 import { Flex, Button, Text } from '@domonda/ui';
@@ -34,13 +35,68 @@ import { FileDownloadButton } from 'modules/File/FileDownloadButton';
 
 export interface CaseStudyConclusionFilesManageProps {
   caseStudyConclusionRowId: UUID;
-  caseStudyConclusionFiles: CaseStudyConclusionFilesManage_caseStudyConclusionFiles;
+  caseStudyConclusionFiles: CaseStudyConclusionFilesManage_caseStudyConclusionFiles$key;
 }
 
 const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManageProps & Decorate> = (
   props,
 ) => {
-  const { classes, caseStudyConclusionFiles, caseStudyConclusionRowId } = props;
+  const {
+    classes,
+    caseStudyConclusionRowId,
+    caseStudyConclusionFiles: caseStudyConclusionFilesKey,
+  } = props;
+
+  const caseStudyConclusionFiles = useFragment(
+    graphql`
+      fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile
+      @relay(plural: true) {
+        id
+        rowId
+        file: fileByFileRowId {
+          rowId
+          name
+        }
+      }
+    `,
+    caseStudyConclusionFilesKey,
+  );
+
+  const createCaseStudyConclusionFile = usePromiseMutation<
+    CaseStudyConclusionFilesManageCreateMutation
+  >(graphql`
+    mutation CaseStudyConclusionFilesManageCreateMutation(
+      $input: CreateCaseStudyConclusionFileInput!
+    ) {
+      createCaseStudyConclusionFile(input: $input) {
+        caseStudyConclusionByCaseStudyConclusionRowId {
+          caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
+            nodes {
+              ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  const deleteCaseStudyConclusionFile = usePromiseMutation<
+    CaseStudyConclusionFilesManageDeleteMutation
+  >(graphql`
+    mutation CaseStudyConclusionFilesManageDeleteMutation(
+      $input: DeleteCaseStudyConclusionFileInput!
+    ) {
+      deleteCaseStudyConclusionFile(input: $input) {
+        caseStudyConclusionByCaseStudyConclusionRowId {
+          caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
+            nodes {
+              ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+            }
+          }
+        }
+      }
+    }
+  `);
 
   return (
     <Flex container direction="column" spacing="small">
@@ -54,8 +110,8 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
           caseStudyConclusionFiles.map(({ rowId, file }) => (
             <ResolveOnTrigger
               key={rowId}
-              params={{ input: { rowId } }}
-              promise={deleteCaseStudyConclusionFileMutation}
+              params={{ variables: { input: { rowId } } }}
+              promise={deleteCaseStudyConclusionFile}
             >
               {({ trigger, loading, error, clearError }) =>
                 error ? (
@@ -104,11 +160,13 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
             if (!file) {
               throw new Error('File is required!');
             }
-            return createCaseStudyConclusionFileMutation({
-              input: {
-                caseStudyConclusionRowId,
-                fileName: file.name,
-                fileData: await toBase64(file),
+            return createCaseStudyConclusionFile({
+              variables: {
+                input: {
+                  caseStudyConclusionRowId,
+                  fileName: file.name,
+                  fileData: await toBase64(file),
+                },
               },
             });
           }}
@@ -143,20 +201,5 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
   );
 };
 
-const ComposedCaseStudyConclusionFilesManage = createFragmentContainer(
-  decorate(CaseStudyConclusionFilesManage),
-  {
-    caseStudyConclusionFiles: graphql`
-      fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile
-      @relay(plural: true) {
-        id
-        rowId
-        file: fileByFileRowId {
-          rowId
-          name
-        }
-      }
-    `,
-  },
-);
+const ComposedCaseStudyConclusionFilesManage = decorate(CaseStudyConclusionFilesManage);
 export { ComposedCaseStudyConclusionFilesManage as CaseStudyConclusionFilesManage };

@@ -159,7 +159,7 @@ export const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
     mutation CaseHistoryManageCreateMutation($input: CreateCaseHistoryInput!) {
       createCaseHistory(input: $input) {
         caseHistory {
-          ...CaseHistoryManage_caseHistory @relay(mask: false)
+          ...CaseHistoryManage_caseHistory
         }
       }
     }
@@ -169,7 +169,7 @@ export const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
     mutation CaseHistoryManageUpdateMutation($input: UpdateCaseHistoryInput!) {
       updateCaseHistory(input: $input) {
         caseHistory {
-          ...CaseHistoryManage_caseHistory @relay(mask: false)
+          ...CaseHistoryManage_caseHistory
         }
       }
     }
