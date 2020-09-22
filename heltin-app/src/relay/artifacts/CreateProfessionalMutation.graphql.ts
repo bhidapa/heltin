@@ -7,13 +7,13 @@ export type Gender = "FEMALE" | "MALE";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type CreateMentalHealthProfessionalInput = {
     clientMutationId?: string | null;
-    dateOfBirth: string;
+    type: MentalHealthProfessionalType;
     email: string;
     firstName: string;
-    gender: Gender;
     lastName: string;
+    dateOfBirth: string;
+    gender: Gender;
     title?: string | null;
-    type: MentalHealthProfessionalType;
     userRowId?: string | null;
 };
 export type CreateProfessionalMutationVariables = {

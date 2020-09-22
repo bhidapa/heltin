@@ -6,15 +6,15 @@ import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type UpdateCaseStudyConclusionInput = {
     clientMutationId?: string | null;
-    concludedAt: string;
-    description: string;
     rowId: string;
     type: CaseStudyConclusionType;
+    concludedAt: string;
+    description: string;
 };
-export type UpdateCaseStudyConclusionMutationVariables = {
+export type CaseStudyConclusionManageUpdateMutationVariables = {
     input: UpdateCaseStudyConclusionInput;
 };
-export type UpdateCaseStudyConclusionMutationResponse = {
+export type CaseStudyConclusionManageUpdateMutationResponse = {
     readonly updateCaseStudyConclusion: {
         readonly caseStudyConclusion: {
             readonly rowId: string;
@@ -24,15 +24,15 @@ export type UpdateCaseStudyConclusionMutationResponse = {
         } | null;
     } | null;
 };
-export type UpdateCaseStudyConclusionMutation = {
-    readonly response: UpdateCaseStudyConclusionMutationResponse;
-    readonly variables: UpdateCaseStudyConclusionMutationVariables;
+export type CaseStudyConclusionManageUpdateMutation = {
+    readonly response: CaseStudyConclusionManageUpdateMutationResponse;
+    readonly variables: CaseStudyConclusionManageUpdateMutationVariables;
 };
 
 
 
 /*
-mutation UpdateCaseStudyConclusionMutation(
+mutation CaseStudyConclusionManageUpdateMutation(
   $input: UpdateCaseStudyConclusionInput!
 ) {
   updateCaseStudyConclusion(input: $input) {
@@ -95,7 +95,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UpdateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -131,7 +131,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UpdateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -169,14 +169,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6310d27fbcce1842142da2468e5ce1a0",
+    "cacheID": "b5f36c9fc2be33ce92f7d872c47024ff",
     "id": null,
     "metadata": {},
-    "name": "UpdateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCaseStudyConclusionMutation(\n  $input: UpdateCaseStudyConclusionInput!\n) {\n  updateCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      type\n      concludedAt\n      description\n      id\n    }\n  }\n}\n"
+    "text": "mutation CaseStudyConclusionManageUpdateMutation(\n  $input: UpdateCaseStudyConclusionInput!\n) {\n  updateCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      type\n      concludedAt\n      description\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '7c6848a3b10749d80ec5845b07184b39';
+(node as any).hash = 'e3365607ac5e54c0c9276b68e9a70dad';
 export default node;

@@ -76,7 +76,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
       {isRefetching && <Loading />}
       <Flex item>
         <ClientsTableRowHeader />
-        {filterClients.edges.map(({ node }) => (
+        {filterClients!.edges.map(({ node }) => (
           <ClientsTableRow key={node.rowId} item={node} />
         ))}
       </Flex>

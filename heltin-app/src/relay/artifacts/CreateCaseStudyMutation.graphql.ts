@@ -7,9 +7,9 @@ import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyInput = {
     clientMutationId?: string | null;
+    title: string;
     clientRowId?: string | null;
     groupRowId?: string | null;
-    title: string;
 };
 export type CreateCaseStudyMutationVariables = {
     input: CreateCaseStudyInput;
@@ -85,6 +85,8 @@ mutation CreateCaseStudyMutation(
 }
 
 fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
+  rowId
+  caseStudyRowId
   title
   startedAt
   endedAt
@@ -343,6 +345,13 @@ return {
                             "plural": true,
                             "selections": [
                               (v2/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "caseStudyRowId",
+                                "storageKey": null
+                              },
                               (v4/*: any*/),
                               {
                                 "alias": null,
@@ -407,12 +416,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a16c87127a4719938335d19756f5c0c1",
+    "cacheID": "6b2341ea4deeadd3b8bf843ec2f19f8c",
     "id": null,
     "metadata": {},
     "name": "CreateCaseStudyMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n            nodes {\n              rowId\n              type\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  title\n  startedAt\n  endedAt\n}\n"
+    "text": "mutation CreateCaseStudyMutation(\n  $input: CreateCaseStudyInput!\n) {\n  createCaseStudy(input: $input) {\n    caseStudy {\n      rowId\n      id\n    }\n    clientByClientRowId {\n      caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          rowId\n          title\n          caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n            nodes {\n              rowId\n              ...CaseStudyTreatmentRow_item\n              id\n            }\n          }\n          caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n            nodes {\n              rowId\n              type\n              id\n            }\n          }\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  rowId\n  caseStudyRowId\n  title\n  startedAt\n  endedAt\n}\n"
   }
 };
 })();

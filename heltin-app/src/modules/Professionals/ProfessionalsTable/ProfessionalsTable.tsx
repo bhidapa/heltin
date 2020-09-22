@@ -79,7 +79,7 @@ export const ProfessionalsTable: React.FC<ProfessionalsTableProps> = (props) => 
       {isRefetching && <Loading />}
       <Flex item>
         <ProfessionalsTableRowHeader />
-        {filterMentalHealthProfessionals.edges.map(({ node }) => (
+        {filterMentalHealthProfessionals!.edges.map(({ node }) => (
           <ProfessionalsTableRow key={node.rowId} item={node} />
         ))}
       </Flex>

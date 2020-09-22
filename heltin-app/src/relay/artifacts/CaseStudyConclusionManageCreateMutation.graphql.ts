@@ -5,31 +5,31 @@
 import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyConclusionInput = {
-    caseStudyRowId: string;
     clientMutationId?: string | null;
+    caseStudyRowId: string;
+    type: CaseStudyConclusionType;
     concludedAt: string;
     description: string;
-    type: CaseStudyConclusionType;
 };
-export type CreateCaseStudyConclusionMutationVariables = {
+export type CaseStudyConclusionManageCreateMutationVariables = {
     input: CreateCaseStudyConclusionInput;
 };
-export type CreateCaseStudyConclusionMutationResponse = {
+export type CaseStudyConclusionManageCreateMutationResponse = {
     readonly createCaseStudyConclusion: {
         readonly caseStudyConclusion: {
             readonly rowId: string;
         } | null;
     } | null;
 };
-export type CreateCaseStudyConclusionMutation = {
-    readonly response: CreateCaseStudyConclusionMutationResponse;
-    readonly variables: CreateCaseStudyConclusionMutationVariables;
+export type CaseStudyConclusionManageCreateMutation = {
+    readonly response: CaseStudyConclusionManageCreateMutationResponse;
+    readonly variables: CaseStudyConclusionManageCreateMutationVariables;
 };
 
 
 
 /*
-mutation CreateCaseStudyConclusionMutation(
+mutation CaseStudyConclusionManageCreateMutation(
   $input: CreateCaseStudyConclusionInput!
 ) {
   createCaseStudyConclusion(input: $input) {
@@ -68,7 +68,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -101,7 +101,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -136,14 +136,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1b5396e014103ca260b31deaae2b3e3e",
+    "cacheID": "f1fc5eb9052b022c1f9c42d2d9c10d1d",
     "id": null,
     "metadata": {},
-    "name": "CreateCaseStudyConclusionMutation",
+    "name": "CaseStudyConclusionManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseStudyConclusionMutation(\n  $input: CreateCaseStudyConclusionInput!\n) {\n  createCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      id\n    }\n  }\n}\n"
+    "text": "mutation CaseStudyConclusionManageCreateMutation(\n  $input: CreateCaseStudyConclusionInput!\n) {\n  createCaseStudyConclusion(input: $input) {\n    caseStudyConclusion {\n      rowId\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '74c24540619beee134e58d2791ac10e9';
+(node as any).hash = '89c59f56143f7228e9a65c84f3dc7e7d';
 export default node;

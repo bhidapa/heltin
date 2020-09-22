@@ -5,8 +5,8 @@
 import { ConcreteRequest } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type CreateCaseStudyMentalHealthProfessionalInput = {
-    caseStudyRowId: string;
     clientMutationId?: string | null;
+    caseStudyRowId: string;
     mentalHealthProfessionalRowId: string;
     primary: boolean;
 };

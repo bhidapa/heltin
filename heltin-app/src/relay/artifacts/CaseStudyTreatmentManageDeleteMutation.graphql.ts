@@ -7,23 +7,23 @@ export type DeleteCaseStudyTreatmentInput = {
     clientMutationId?: string | null;
     rowId: string;
 };
-export type DeleteCaseStudyTreatmentMutationVariables = {
+export type CaseStudyTreatmentManageDeleteMutationVariables = {
     input: DeleteCaseStudyTreatmentInput;
 };
-export type DeleteCaseStudyTreatmentMutationResponse = {
+export type CaseStudyTreatmentManageDeleteMutationResponse = {
     readonly deleteCaseStudyTreatment: {
         readonly clientMutationId: string | null;
     } | null;
 };
-export type DeleteCaseStudyTreatmentMutation = {
-    readonly response: DeleteCaseStudyTreatmentMutationResponse;
-    readonly variables: DeleteCaseStudyTreatmentMutationVariables;
+export type CaseStudyTreatmentManageDeleteMutation = {
+    readonly response: CaseStudyTreatmentManageDeleteMutationResponse;
+    readonly variables: CaseStudyTreatmentManageDeleteMutationVariables;
 };
 
 
 
 /*
-mutation DeleteCaseStudyTreatmentMutation(
+mutation CaseStudyTreatmentManageDeleteMutation(
   $input: DeleteCaseStudyTreatmentInput!
 ) {
   deleteCaseStudyTreatment(input: $input) {
@@ -71,7 +71,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteCaseStudyTreatmentMutation",
+    "name": "CaseStudyTreatmentManageDeleteMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -80,18 +80,18 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteCaseStudyTreatmentMutation",
+    "name": "CaseStudyTreatmentManageDeleteMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "91b58e3df62cac3bb99e6402c4627d83",
+    "cacheID": "3a995f88e6383cc8f7b82b8507c1728d",
     "id": null,
     "metadata": {},
-    "name": "DeleteCaseStudyTreatmentMutation",
+    "name": "CaseStudyTreatmentManageDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteCaseStudyTreatmentMutation(\n  $input: DeleteCaseStudyTreatmentInput!\n) {\n  deleteCaseStudyTreatment(input: $input) {\n    clientMutationId\n  }\n}\n"
+    "text": "mutation CaseStudyTreatmentManageDeleteMutation(\n  $input: DeleteCaseStudyTreatmentInput!\n) {\n  deleteCaseStudyTreatment(input: $input) {\n    clientMutationId\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0797d1580cadf3b78ca2fbb08ca5bfc8';
+(node as any).hash = 'aefc6027258a607d8665a842c069ae8d';
 export default node;

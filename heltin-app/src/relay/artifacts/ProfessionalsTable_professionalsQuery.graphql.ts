@@ -13,7 +13,7 @@ export type ProfessionalsTable_professionalsQuery = {
                 readonly " $fragmentRefs": FragmentRefs<"ProfessionalsTableRow_item">;
             };
         }>;
-    };
+    } | null;
     readonly " $refType": "ProfessionalsTable_professionalsQuery";
 };
 export type ProfessionalsTable_professionalsQuery$data = ProfessionalsTable_professionalsQuery;

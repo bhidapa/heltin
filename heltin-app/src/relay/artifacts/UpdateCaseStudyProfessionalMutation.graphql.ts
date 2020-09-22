@@ -5,8 +5,8 @@
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyMentalHealthProfessionalInput = {
     clientMutationId?: string | null;
-    primary: boolean;
     rowId: string;
+    primary: boolean;
 };
 export type UpdateCaseStudyProfessionalMutationVariables = {
     input: UpdateCaseStudyMentalHealthProfessionalInput;

@@ -5,10 +5,10 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyConclusionFileInput = {
-    caseStudyConclusionRowId: string;
     clientMutationId?: string | null;
-    fileData: string;
+    caseStudyConclusionRowId: string;
     fileName: string;
+    fileData: string;
 };
 export type CaseStudyConclusionFilesManageCreateMutationVariables = {
     input: CreateCaseStudyConclusionFileInput;

@@ -4,59 +4,53 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type Gender = "FEMALE" | "MALE";
-export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type UpdateMentalHealthProfessionalInput = {
+export type UpdateCaseStudyTreatmentInput = {
     clientMutationId?: string | null;
     rowId: string;
-    type: MentalHealthProfessionalType;
-    email: string;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    gender: Gender;
-    title?: string | null;
-    userRowId?: string | null;
+    external: boolean;
+    startedAt: string;
+    endedAt: string;
+    title: string;
+    description?: string | null;
+    score?: number | null;
 };
-export type ProfessionalEditUpdateMutationVariables = {
-    input: UpdateMentalHealthProfessionalInput;
+export type CaseStudyTreatmentManageUpdateMutationVariables = {
+    input: UpdateCaseStudyTreatmentInput;
 };
-export type ProfessionalEditUpdateMutationResponse = {
-    readonly updateMentalHealthProfessional: {
-        readonly mentalHealthProfessional: {
-            readonly " $fragmentRefs": FragmentRefs<"ProfessionalEdit_professional">;
+export type CaseStudyTreatmentManageUpdateMutationResponse = {
+    readonly updateCaseStudyTreatment: {
+        readonly caseStudyTreatment: {
+            readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentManage_caseStudyTreatment">;
         } | null;
     } | null;
 };
-export type ProfessionalEditUpdateMutation = {
-    readonly response: ProfessionalEditUpdateMutationResponse;
-    readonly variables: ProfessionalEditUpdateMutationVariables;
+export type CaseStudyTreatmentManageUpdateMutation = {
+    readonly response: CaseStudyTreatmentManageUpdateMutationResponse;
+    readonly variables: CaseStudyTreatmentManageUpdateMutationVariables;
 };
 
 
 
 /*
-mutation ProfessionalEditUpdateMutation(
-  $input: UpdateMentalHealthProfessionalInput!
+mutation CaseStudyTreatmentManageUpdateMutation(
+  $input: UpdateCaseStudyTreatmentInput!
 ) {
-  updateMentalHealthProfessional(input: $input) {
-    mentalHealthProfessional {
-      ...ProfessionalEdit_professional
+  updateCaseStudyTreatment(input: $input) {
+    caseStudyTreatment {
+      ...CaseStudyTreatmentManage_caseStudyTreatment
       id
     }
   }
 }
 
-fragment ProfessionalEdit_professional on MentalHealthProfessional {
+fragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {
   rowId
-  dateOfBirth
-  email
   title
-  firstName
-  gender
-  lastName
-  fullName
-  type
+  description
+  score
+  startedAt
+  endedAt
+  external
 }
 */
 
@@ -80,28 +74,28 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ProfessionalEditUpdateMutation",
+    "name": "CaseStudyTreatmentManageUpdateMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateMentalHealthProfessionalPayload",
+        "concreteType": "UpdateCaseStudyTreatmentPayload",
         "kind": "LinkedField",
-        "name": "updateMentalHealthProfessional",
+        "name": "updateCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "MentalHealthProfessional",
+            "concreteType": "CaseStudyTreatment",
             "kind": "LinkedField",
-            "name": "mentalHealthProfessional",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "ProfessionalEdit_professional"
+                "name": "CaseStudyTreatmentManage_caseStudyTreatment"
               }
             ],
             "storageKey": null
@@ -117,22 +111,22 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ProfessionalEditUpdateMutation",
+    "name": "CaseStudyTreatmentManageUpdateMutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "UpdateMentalHealthProfessionalPayload",
+        "concreteType": "UpdateCaseStudyTreatmentPayload",
         "kind": "LinkedField",
-        "name": "updateMentalHealthProfessional",
+        "name": "updateCaseStudyTreatment",
         "plural": false,
         "selections": [
           {
             "alias": null,
             "args": null,
-            "concreteType": "MentalHealthProfessional",
+            "concreteType": "CaseStudyTreatment",
             "kind": "LinkedField",
-            "name": "mentalHealthProfessional",
+            "name": "caseStudyTreatment",
             "plural": false,
             "selections": [
               {
@@ -146,20 +140,6 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "dateOfBirth",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "email",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
                 "name": "title",
                 "storageKey": null
               },
@@ -167,35 +147,35 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "firstName",
+                "name": "description",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "gender",
+                "name": "score",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "lastName",
+                "name": "startedAt",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "fullName",
+                "name": "endedAt",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "type",
+                "name": "external",
                 "storageKey": null
               },
               {
@@ -214,14 +194,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0bcf5aa8da1abcd21a3530dff12df288",
+    "cacheID": "397459d9ae73ecf1d882f9011785f7d0",
     "id": null,
     "metadata": {},
-    "name": "ProfessionalEditUpdateMutation",
+    "name": "CaseStudyTreatmentManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n}\n"
+    "text": "mutation CaseStudyTreatmentManageUpdateMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      ...CaseStudyTreatmentManage_caseStudyTreatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {\n  rowId\n  title\n  description\n  score\n  startedAt\n  endedAt\n  external\n}\n"
   }
 };
 })();
-(node as any).hash = '0138c344d73574cade901088967dbe30';
+(node as any).hash = 'cbb416b0807fbfa304d098b362818d8f';
 export default node;

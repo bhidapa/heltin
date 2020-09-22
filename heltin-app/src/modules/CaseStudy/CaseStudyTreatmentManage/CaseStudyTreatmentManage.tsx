@@ -11,14 +11,15 @@ import { makeLink } from 'lib/makeLink';
 import { addHours, isEqual } from 'date-fns';
 import { history } from 'lib/history';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
+import { usePromiseMutation } from 'relay/hooks';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyTreatmentManage_caseStudy } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudy.graphql';
-import { CaseStudyTreatmentManage_caseStudyTreatment } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudyTreatment.graphql';
-import { createCaseStudyTreatmentMutation } from 'relay/mutations/CreateCaseStudyTreatment';
-import { updateCaseStudyTreatmentMutation } from 'relay/mutations/UpdateCaseStudyTreatment';
-import { deleteCaseStudyTreatmentMutation } from 'relay/mutations/DeleteCaseStudyTreatment';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { CaseStudyTreatmentManage_caseStudy$key } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudy.graphql';
+import { CaseStudyTreatmentManage_caseStudyTreatment$key } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudyTreatment.graphql';
+import { CaseStudyTreatmentManageCreateMutation } from 'relay/artifacts/CaseStudyTreatmentManageCreateMutation.graphql';
+import { CaseStudyTreatmentManageUpdateMutation } from 'relay/artifacts/CaseStudyTreatmentManageUpdateMutation.graphql';
+import { CaseStudyTreatmentManageDeleteMutation } from 'relay/artifacts/CaseStudyTreatmentManageDeleteMutation.graphql';
 
 // ui
 import { Flex, Button, Text, Input } from '@domonda/ui';
@@ -44,8 +45,8 @@ interface FormValues {
 }
 
 export interface CaseStudyTreatmentManageProps {
-  caseStudy: CaseStudyTreatmentManage_caseStudy;
-  caseStudyTreatment: CaseStudyTreatmentManage_caseStudyTreatment | null;
+  caseStudy: CaseStudyTreatmentManage_caseStudy$key;
+  caseStudyTreatment: CaseStudyTreatmentManage_caseStudyTreatment$key | null;
 }
 
 const defaultCreateTreatmentValues: FormValues = {
@@ -59,34 +60,100 @@ const defaultCreateTreatmentValues: FormValues = {
 
 let previousFormValues: FormValues | null = null;
 
-const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props) => {
-  const { caseStudy, caseStudyTreatment } = props;
+export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props) => {
+  const { caseStudy: caseStudyKey, caseStudyTreatment: caseStudyTreatmentKey } = props;
+
+  const caseStudy = useFragment(
+    graphql`
+      fragment CaseStudyTreatmentManage_caseStudy on CaseStudy {
+        rowId
+        title
+        client: clientByClientRowId {
+          rowId
+          fullName
+        }
+      }
+    `,
+    caseStudyKey,
+  );
+  const caseStudyTreatment = useFragment(
+    graphql`
+      fragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {
+        rowId
+        title
+        description
+        score
+        startedAt
+        endedAt
+        external
+      }
+    `,
+    caseStudyTreatmentKey,
+  );
+
+  const createCaseStudyTreatment = usePromiseMutation<
+    CaseStudyTreatmentManageCreateMutation
+  >(graphql`
+    mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
+      createCaseStudyTreatment(input: $input) {
+        caseStudyTreatment {
+          rowId
+        }
+      }
+    }
+  `);
+
+  const updateCaseStudyTreatment = usePromiseMutation<
+    CaseStudyTreatmentManageUpdateMutation
+  >(graphql`
+    mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
+      updateCaseStudyTreatment(input: $input) {
+        caseStudyTreatment {
+          ...CaseStudyTreatmentManage_caseStudyTreatment
+        }
+      }
+    }
+  `);
+
+  const deleteCaseStudyTreatment = usePromiseMutation<
+    CaseStudyTreatmentManageDeleteMutation
+  >(graphql`
+    mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
+      deleteCaseStudyTreatment(input: $input) {
+        clientMutationId
+      }
+    }
+  `);
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     async ({ startedAt, endedAt, ...rest }) => {
       if (caseStudyTreatment) {
-        return updateCaseStudyTreatmentMutation({
+        return updateCaseStudyTreatment({
+          variables: {
+            input: {
+              rowId: caseStudyTreatment.rowId,
+              startedAt: startedAt instanceof Date ? startedAt.toUTCString() : startedAt,
+              endedAt: endedAt instanceof Date ? endedAt.toUTCString() : endedAt,
+              ...rest,
+            },
+          },
+        });
+      }
+      const result = await createCaseStudyTreatment({
+        variables: {
           input: {
-            rowId: caseStudyTreatment.rowId,
+            caseStudyRowId: caseStudy.rowId,
             startedAt: startedAt instanceof Date ? startedAt.toUTCString() : startedAt,
             endedAt: endedAt instanceof Date ? endedAt.toUTCString() : endedAt,
             ...rest,
           },
-        });
-      }
-      const { createCaseStudyTreatment } = await createCaseStudyTreatmentMutation({
-        input: {
-          caseStudyRowId: caseStudy.rowId,
-          startedAt: startedAt instanceof Date ? startedAt.toUTCString() : startedAt,
-          endedAt: endedAt instanceof Date ? endedAt.toUTCString() : endedAt,
-          ...rest,
         },
       });
-      if (!createCaseStudyTreatment || !createCaseStudyTreatment.caseStudyTreatment) {
+      if (!result.createCaseStudyTreatment || !result.createCaseStudyTreatment.caseStudyTreatment) {
         throw new Error('Malformed CreateCaseStudyTreatment response!');
       }
       history.push(
-        `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/${createCaseStudyTreatment.caseStudyTreatment.rowId}`,
+        `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/${result.createCaseStudyTreatment.caseStudyTreatment.rowId}`,
       );
     },
     [caseStudy, caseStudyTreatment],
@@ -145,8 +212,10 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
             <ResolveOnTrigger
               params={undefined}
               promise={async () => {
-                await deleteCaseStudyTreatmentMutation({
-                  input: { rowId: caseStudyTreatment.rowId },
+                await deleteCaseStudyTreatment({
+                  variables: {
+                    input: { rowId: caseStudyTreatment.rowId },
+                  },
                 });
                 history.push(`${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`);
               }}
@@ -281,28 +350,3 @@ const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props
     </Flex>
   );
 };
-
-const ComposedCaseStudyTreatmentManage = createFragmentContainer(CaseStudyTreatmentManage, {
-  caseStudy: graphql`
-    fragment CaseStudyTreatmentManage_caseStudy on CaseStudy {
-      rowId
-      title
-      client: clientByClientRowId {
-        rowId
-        fullName
-      }
-    }
-  `,
-  caseStudyTreatment: graphql`
-    fragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {
-      rowId
-      title
-      description
-      score
-      startedAt
-      endedAt
-      external
-    }
-  `,
-});
-export { ComposedCaseStudyTreatmentManage as CaseStudyTreatmentManage };
