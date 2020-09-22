@@ -16,7 +16,7 @@
     "yarn": ">=1.22.4"
   },
   "scripts": {
-    "get-schema": "get-graphql-schema http://localhost:5000/graphql --json > ./schema.json && node scripts/graphql/fix-schema.js ./schema.json",
+    "get-schema": "get-graphql-schema http://localhost:5000/graphql > ./schema.graphql",
     "relay": "relay-compiler",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "type-check": "tsc --noEmit",
