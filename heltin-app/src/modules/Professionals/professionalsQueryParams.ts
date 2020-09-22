@@ -4,7 +4,7 @@
  *
  */
 
-import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
+import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 import { QueryModel, UseQueryParamsProps, useQueryParams } from '@domonda/query-params';
 
 export interface CompaniesQueryParams {
@@ -28,6 +28,6 @@ export function useProfessionalsQueryParams<S = CompaniesQueryParams>(
 ) {
   return useQueryParams(companiesQueryModel, {
     ...props,
-    onPathname: CLIENTS_PAGE_ROUTE,
+    onPathname: PROFESSIONALS_PAGE_ROUTE,
   });
 }
