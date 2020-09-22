@@ -8,3 +8,6 @@
 **/.yarn/*
 !**/.yarn/releases
 !**/.yarn/plugins
+.gitsecret/keys/random_seed
+secrets/*
+!secrets/*.secret
