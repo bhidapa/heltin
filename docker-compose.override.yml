@@ -4,17 +4,17 @@ services:
   postgres:
     build:
       context: .
-      dockerfile: ./heltin-postgres/Dockerfile
+      dockerfile: ./packages/postgres/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
-      - ./heltin-postgres:/docker-entrypoint-initdb.d
+      - ./packages/postgres:/docker-entrypoint-initdb.d
   graphql:
     build:
       context: .
-      dockerfile: ./heltin-graphql/Dockerfile
+      dockerfile: ./cmd/graphql/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - JWT_SECRET=a347988782164b20856e28aa2e4d63b2
@@ -24,6 +24,6 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./heltin-app/Dockerfile
+      dockerfile: ./web/Dockerfile # TODO
     ports:
       - 6002:80

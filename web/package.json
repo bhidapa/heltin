@@ -2,18 +2,10 @@
   "name": "heltin-app",
   "version": "0.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bhidapa/heltin.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bhidapa/heltin/issues"
-  },
-  "homepage": "https://github.com/bhidapa/heltin#readme",
   "license": "SEE LICENSE IN LICENSE.md",
   "engines": {
     "node": ">=12",
-    "yarn": ">=1.22.4"
+    "yarn": ">=1.22.0"
   },
   "scripts": {
     "get-schema": "get-graphql-schema http://localhost:5000/graphql > ./schema.graphql",
@@ -21,13 +13,32 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "type-check": "tsc --noEmit",
     "build:dll": "webpack --config webpack.dll.config.js --hide-modules --display-chunks --color --progress",
-    "build": "webpack -p --config webpack.prod.config.js --display-optimization-bailout --profile --progress",
+    "build": "webpack -p --config webpack.prod.config.js --profile --progress",
     "start:hot": "webpack-dev-server --config webpack.dev.config.js --progress",
     "start": "yarn build:dll && yarn start:hot"
   },
   "dll": {
     "name": "vendors",
     "path": "node_modules/.dll"
+  },
+  "dependencies": {
+    "@domonda/query-params": "^2.0.0",
+    "@domonda/react-form": "^2.8.7",
+    "@domonda/react-plumb": "^2.0.16",
+    "@domonda/ui": "^9.0.2",
+    "clsx": "^1.1.1",
+    "history": "^4.10.1",
+    "jwt-decode": "^3.0.0-beta.2",
+    "lodash": "^4.17.20",
+    "react": "0.0.0-experimental-94c0244ba",
+    "react-dom": "0.0.0-experimental-94c0244ba",
+    "react-helmet-async": "^1.0.7",
+    "react-intl": "^5.8.2",
+    "react-relay": "0.0.0-experimental-183bdd28",
+    "react-router-dom": "^5.2.0",
+    "relay-runtime": "^10.0.1",
+    "reselect": "^4.0.0",
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -79,24 +90,5 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.1.4"
-  },
-  "dependencies": {
-    "@domonda/query-params": "^2.0.0",
-    "@domonda/react-form": "^2.8.7",
-    "@domonda/react-plumb": "^2.0.16",
-    "@domonda/ui": "^9.0.2",
-    "clsx": "^1.1.1",
-    "history": "^4.10.1",
-    "jwt-decode": "^3.0.0-beta.2",
-    "lodash": "^4.17.20",
-    "react": "0.0.0-experimental-94c0244ba",
-    "react-dom": "0.0.0-experimental-94c0244ba",
-    "react-helmet-async": "^1.0.7",
-    "react-intl": "^5.8.2",
-    "react-relay": "0.0.0-experimental-183bdd28",
-    "react-router-dom": "^5.2.0",
-    "relay-runtime": "^10.0.1",
-    "reselect": "^4.0.0",
-    "store": "^2.0.12"
   }
 }

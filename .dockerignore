@@ -2,9 +2,9 @@
 **
 
 # Allow files and directories
-!/heltin-graphql/**
-!/heltin-postgres/**
-!/heltin-app/**
+!/cmd/**
+!/packages/postgres/**
+!/web/**
 
 # Ignore unnecessary files inside allowed directories
 **/*~

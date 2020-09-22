@@ -1,7 +1,7 @@
 {
   "name": "heltin-graphql",
-  "description": "GraphQL server for heltin using PostGraphile",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "license": "SEE LICENSE IN LICENSE.md",
   "engines": {
     "node": ">=13",
