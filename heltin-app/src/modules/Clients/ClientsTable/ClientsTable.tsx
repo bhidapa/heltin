@@ -34,14 +34,14 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
   } = usePaginationFragment(
     graphql`
       fragment ClientsTable_clientsQuery on Query
-        @refetchable(queryName: "ClientsTableRefetchQuery")
-        @argumentDefinitions(
-          # pagination
-          count: { type: "Int!" }
-          cursor: { type: "Cursor" }
-          # filters
-          searchText: { type: "String" }
-        ) {
+      @refetchable(queryName: "ClientsTableRefetchQuery")
+      @argumentDefinitions(
+        # pagination
+        count: { type: "Int!" }
+        cursor: { type: "Cursor" }
+        # filters
+        searchText: { type: "String" }
+      ) {
         filterClients(
           # pagination
           first: $count

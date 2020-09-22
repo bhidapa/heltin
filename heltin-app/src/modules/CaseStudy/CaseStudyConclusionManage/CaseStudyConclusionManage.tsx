@@ -51,7 +51,7 @@ export interface CaseStudyConclusionManageProps {
 const defaultCreateConclusionValues: FormValues = {
   type: CaseStudyConclusionType.TreatmentCompletion,
   concludedAt: new Date(),
-  description: (null as any) as string,
+  description: (null as unknown) as string,
 };
 
 const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (props) => {

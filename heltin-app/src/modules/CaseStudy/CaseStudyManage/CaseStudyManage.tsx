@@ -134,7 +134,7 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
         <Form<FormValues>
           defaultValues={{
             rowId: caseStudy ? caseStudy.rowId : null,
-            title: caseStudy ? caseStudy.title : ((null as any) as string), // field is required
+            title: caseStudy ? caseStudy.title : ((null as unknown) as string), // field is required
           }}
           onSubmit={submit}
         >

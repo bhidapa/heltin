@@ -13,7 +13,7 @@ import { setSession } from 'relay/client/session';
 import { Flex } from '@domonda/ui/Flex';
 import { Text } from '@domonda/ui/Text';
 
-export type LogoutPageProps = {};
+export interface LogoutPageProps {}
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
   useEffect(() => setSession(null), []);

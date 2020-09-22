@@ -14,21 +14,16 @@ import {
   FormInputFieldProps,
 } from '@domonda/react-form/FormInputField';
 
-export const FormInputField: React.FC<
-  Omit<FormInputFieldProps, 'children'> & InputProps
-> = ({ children, path, required, transformer, ...rest }) => (
-  <ReactFormInputField
-    path={path}
-    required={required}
-    transformer={transformer}
-  >
+export const FormInputField: React.FC<Omit<FormInputFieldProps, 'children'> & InputProps> = ({
+  children,
+  path,
+  required,
+  transformer,
+  ...rest
+}) => (
+  <ReactFormInputField path={path} required={required} transformer={transformer}>
     {({ inputProps, state }) => (
-      <Input
-        {...inputProps}
-        disabled={state.disabled}
-        readOnly={state.readOnly}
-        {...rest}
-      />
+      <Input {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest} />
     )}
   </ReactFormInputField>
 );
@@ -41,22 +36,9 @@ import {
 } from '@domonda/react-form/FormTextAreaField';
 
 export const FormTextAreaField: React.FC<
-  Omit<FormTextAreaFieldProps, 'children'> &
-    TextAreaProps & { submitOnEnter?: boolean }
-> = ({
-  children,
-  path,
-  required,
-  transformer,
-  submitOnEnter,
-  onKeyPress,
-  ...rest
-}) => (
-  <ReactFormTextAreaField
-    path={path}
-    required={required}
-    transformer={transformer}
-  >
+  Omit<FormTextAreaFieldProps, 'children'> & TextAreaProps & { submitOnEnter?: boolean }
+> = ({ children, path, required, transformer, submitOnEnter, onKeyPress, ...rest }) => (
+  <ReactFormTextAreaField path={path} required={required} transformer={transformer}>
     {({ textAreaProps, state }) => (
       <TextArea
         {...textAreaProps}
@@ -64,12 +46,10 @@ export const FormTextAreaField: React.FC<
           submitOnEnter
             ? (event) => {
                 // `form` does indeed exist on the target when the TextArea is wrapped by a form
-                const form: HTMLFormElement | undefined = (event.target as any)
-                  .form;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const form: HTMLFormElement | undefined = (event.target as any).form;
                 if (!form) {
-                  throw new Error(
-                    'TextArea component must wrapped by a Form element!',
-                  );
+                  throw new Error('TextArea component must wrapped by a Form element!');
                 }
 
                 if (event.which === 13 && !event.shiftKey) {
@@ -97,9 +77,7 @@ import {
   FormNumberFieldProps,
 } from '@domonda/react-form/FormNumberField';
 
-export const FormNumberField: React.FC<
-  Omit<FormNumberFieldProps, 'children'> & InputProps
-> = ({
+export const FormNumberField: React.FC<Omit<FormNumberFieldProps, 'children'> & InputProps> = ({
   children,
   // NumberField
   path,
@@ -123,12 +101,8 @@ export const FormNumberField: React.FC<
     transformer={transformer}
     scale={scale !== undefined ? scale : 2} // default 2 decimal positions
     signed={signed !== undefined ? signed : false} // disallow negative values by default
-    thousandsSeparator={
-      thousandsSeparator !== undefined ? thousandsSeparator : '.'
-    }
-    padFractionalZeros={
-      thousandsSeparator !== undefined ? padFractionalZeros : false
-    }
+    thousandsSeparator={thousandsSeparator !== undefined ? thousandsSeparator : '.'}
+    padFractionalZeros={thousandsSeparator !== undefined ? padFractionalZeros : false}
     normalizeZeros={normalizeZeros !== undefined ? normalizeZeros : true}
     radix={radix !== undefined ? radix : ','} // default decimal separator is comma
     mapToRadix={mapToRadix !== undefined ? mapToRadix : ['.']} // dots might be a decimal separator
@@ -136,12 +110,7 @@ export const FormNumberField: React.FC<
     max={max}
   >
     {({ inputProps, state }) => (
-      <Input
-        {...inputProps}
-        disabled={state.disabled}
-        readOnly={state.readOnly}
-        {...rest}
-      />
+      <Input {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest} />
     )}
   </ReactFormNumberField>
 );
@@ -153,21 +122,16 @@ import {
   FormSelectFieldProps,
 } from '@domonda/react-form/FormSelectField';
 
-export const FormSelectField: React.FC<
-  Omit<FormSelectFieldProps, 'children'> & SelectProps
-> = ({ children, path, required, transformer, ...rest }) => (
-  <ReactFormSelectField
-    path={path}
-    required={required}
-    transformer={transformer}
-  >
+export const FormSelectField: React.FC<Omit<FormSelectFieldProps, 'children'> & SelectProps> = ({
+  children,
+  path,
+  required,
+  transformer,
+  ...rest
+}) => (
+  <ReactFormSelectField path={path} required={required} transformer={transformer}>
     {({ selectProps, state }) => (
-      <Select
-        {...selectProps}
-        disabled={state.disabled}
-        readOnly={state.readOnly}
-        {...rest}
-      >
+      <Select {...selectProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
         {children}
       </Select>
     )}
@@ -184,18 +148,9 @@ import {
 export const FormCheckboxField: React.FC<
   Omit<FormCheckboxFieldProps, 'children'> & CheckboxProps
 > = ({ children, path, required, transformer, ...rest }) => (
-  <ReactFormCheckboxField
-    path={path}
-    required={required}
-    transformer={transformer}
-  >
+  <ReactFormCheckboxField path={path} required={required} transformer={transformer}>
     {({ inputProps, state }) => (
-      <Checkbox
-        {...inputProps}
-        disabled={state.disabled}
-        readOnly={state.readOnly}
-        {...rest}
-      >
+      <Checkbox {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
         {children}
       </Checkbox>
     )}

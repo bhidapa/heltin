@@ -9,26 +9,28 @@ declare type Time = string;
 declare type Date = string;
 
 declare module '*.png' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.json' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.svg' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module 'store/storages/localStorage' {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const content: any;
   export default content;
 }
 
 declare module 'store/storages/sessionStorage' {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const content: any;
   export default content;
 }
@@ -107,7 +109,7 @@ declare module 'react-intl' {
     formatTime(value: number | Date, opts?: Intl.DateTimeFormatOptions): string;
     formatRelativeTime(value: number, unit: Unit, opts?: RelativeTimeFormatOptions): string;
     formatNumber(value: number, opts?: Intl.NumberFormatOptions): string;
-    formatMessage(descriptor: MessageDescriptor, values?: Record<string, any>): string;
+    formatMessage(descriptor: MessageDescriptor, values?: Record<string, unknown>): string;
   }
 
   export type IntlShape = IntlConfig & IntlFormatters;
@@ -115,8 +117,8 @@ declare module 'react-intl' {
   export function useIntl(): IntlShape;
 
   export interface FormattedMessageProps extends MessageDescriptor {
-    values?: Record<string, any>;
-    tagName?: React.ElementType<any>;
+    values?: Record<string, unknown>;
+    tagName?: React.ElementType<unknown> | string;
     children?: (...formattedParts: string[]) => React.ReactNode;
   }
   export const FormattedMessage: React.FC<FormattedMessageProps>;

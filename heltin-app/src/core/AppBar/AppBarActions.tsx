@@ -20,7 +20,7 @@ import { SignOutAltIcon } from 'lib/icons';
 // ui
 import { Loading, Err, Flex, Text, Button } from '@domonda/ui';
 
-export type AppBarActionsProps = {};
+export interface AppBarActionsProps {}
 
 export const AppBarActions: React.FC<AppBarActionsProps> = () => {
   return (

@@ -68,8 +68,9 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
           return agg;
         }
         if (Array.isArray(val)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           val = (val as any[]).filter((el) => !!el);
-          if ((val as any[]).length === 0) {
+          if ((val as unknown[]).length === 0) {
             val = null;
           }
         }
@@ -254,7 +255,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Flex>
             </Flex>
             <Flex item>
-              <FormField<any[] | null> path="referral">
+              <FormField<unknown[] | null> path="referral">
                 {({ value }) => {
                   if (!value || value.every((val) => !val)) {
                     return null;
@@ -270,7 +271,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </FormField>
             </Flex>
             <Flex item>
-              <FormField<any[] | null> path="referral">
+              <FormField<unknown[] | null> path="referral">
                 {({ value }) => {
                   if (!value || value.every((val) => !val)) {
                     return null;
@@ -413,7 +414,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Flex>
             </Flex>
             <Flex item maxWidth={292}>
-              <FormField<any[] | null> path="lossOfCloseIndividual">
+              <FormField<unknown[] | null> path="lossOfCloseIndividual">
                 {({ value }) => {
                   if (!value || value.every((val) => !val)) {
                     return null;
@@ -608,7 +609,7 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               </Flex>
             </Flex>
             <Flex item>
-              <FormField<any[] | null> path="furtherAbuses">
+              <FormField<unknown[] | null> path="furtherAbuses">
                 {({ value }) => {
                   if (!value || value.every((val) => !val)) {
                     return null;

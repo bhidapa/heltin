@@ -19,7 +19,7 @@ import { DismissableAlert } from 'lib/DismissableAlert';
 // assets
 import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
 
-export type LoginPageProps = {};
+export interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
   useEffect(() => setSession(null), []);

@@ -18,13 +18,14 @@ import {
 import { lookupSession } from './client/session';
 import { environment } from './environment';
 
-interface Sink<T = any> {
+interface Sink<T = unknown> {
   next(value: T): void;
   error(error: Error, isUncaughtThrownError?: boolean): void;
   complete(): void;
   readonly closed: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function handleGraphqlError(data: any): Error | null {
   if (typeof data !== 'object') {
     throw new Error('Malformed data argument passed to `handleGraphqlError`');
@@ -50,7 +51,8 @@ function makeQueryMapKey(query: string, variables: Variables) {
 let timeMutated = 0;
 export function remoteDatabaseMutated(timestamp: number = Date.now()) {
   timeMutated = timestamp;
-  environment.commitUpdate((store) => (store as any).invalidateStore()); // not typed yet
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  environment.commitUpdate((store) => (store as any).invalidateStore());
 }
 
 async function fetchQuery(
@@ -82,14 +84,14 @@ async function fetchQuery(
     }
 
     // prepare headers
-    const headers = new Headers({
+    const headers: { [header: string]: string } = {
       'Content-Type': 'application/json',
-    });
+    };
 
     // get token and set header if the token exists
     const session = lookupSession();
     if (session) {
-      headers.set('Authorization', `Bearer ${session.token}`);
+      headers['Authorization'] = `Bearer ${session.token}`;
     }
 
     // otherwise, fetch data from server
@@ -148,10 +150,8 @@ async function fetchQuery(
 }
 
 // provides methods for fetching query data from and executing mutations against an external data source
-export const network = Network.create(
-  (operation, variables, cacheConfig) => {
-    return Observable.create((sink) => {
-      fetchQuery(operation, variables, cacheConfig, sink);
-    });
-  },
-);
+export const network = Network.create((operation, variables, cacheConfig) => {
+  return Observable.create((sink) => {
+    fetchQuery(operation, variables, cacheConfig, sink);
+  });
+});

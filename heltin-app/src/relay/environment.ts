@@ -57,8 +57,10 @@ export const environment = new Environment({
         ) {
           const arg = field.args[0];
           if (arg.kind === 'Literal') {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return (arg as any).value; // value does exist on literal arguments
           }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           return variables[(arg as any).variableName]; // variableName does exist on variable arguments
         }
         return undefined;

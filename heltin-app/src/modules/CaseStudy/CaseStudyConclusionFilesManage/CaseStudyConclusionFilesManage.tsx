@@ -148,7 +148,7 @@ const ComposedCaseStudyConclusionFilesManage = createFragmentContainer(
   {
     caseStudyConclusionFiles: graphql`
       fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile
-        @relay(plural: true) {
+      @relay(plural: true) {
         id
         rowId
         file: fileByFileRowId {

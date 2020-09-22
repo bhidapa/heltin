@@ -49,7 +49,7 @@ export interface CaseStudyTreatmentManageProps {
 }
 
 const defaultCreateTreatmentValues: FormValues = {
-  title: (null as any) as string,
+  title: (null as unknown) as string,
   description: null,
   score: null,
   startedAt: new Date(),

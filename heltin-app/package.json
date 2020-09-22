@@ -57,6 +57,7 @@
     "css-loader": "^3.6.0",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-compat": "^3.8.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",

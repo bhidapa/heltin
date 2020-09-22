@@ -2431,6 +2431,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ast-metadata-inferer@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "ast-metadata-inferer@npm:0.4.0"
+  checksum: 3/aa77b23670ef1084072400254fb500c1ce9f09a57f126b6d345979d37bc4badb2cb50f4216baa435e7ed811fc94644faf24a9dcffcaab278ed6806620888425f
+  languageName: node
+  linkType: hard
+
 "astral-regex@npm:^1.0.0":
   version: 1.0.0
   resolution: "astral-regex@npm:1.0.0"
@@ -2841,7 +2848,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.12.0, browserslist@npm:^4.8.5":
+"browserslist@npm:^4.12.0, browserslist@npm:^4.12.2, browserslist@npm:^4.8.5":
   version: 4.14.3
   resolution: "browserslist@npm:4.14.3"
   dependencies:
@@ -3035,6 +3042,13 @@ __metadata:
   version: 5.3.1
   resolution: "camelcase@npm:5.3.1"
   checksum: 3/6a3350c4ea8ab6e5109e0b443cfaf43dc40abfad7b2d79dcafbbafbe9b6b4059b4365b17ad822e24cf08e6627c1ffb65a9651d05cef9fcc6f64b6a0c2f327feb
+  languageName: node
+  linkType: hard
+
+"caniuse-db@npm:^1.0.30001090":
+  version: 1.0.30001135
+  resolution: "caniuse-db@npm:1.0.30001135"
+  checksum: 3/1172b78f0efd5f688b1fd85bee49655c48a49ba41066d5734e8d94c11945c61e81a59b08d55b8d54593e8029a1651f6d9ab2c82f1a1792e924c5cdec6ee2bba5
   languageName: node
   linkType: hard
 
@@ -3494,6 +3508,13 @@ __metadata:
   version: 2.6.11
   resolution: "core-js@npm:2.6.11"
   checksum: 3/39ad00b46deaecf344470ef940949b58c4b15e71608a98e8ac7429cd16e485b829f9720d44a44b5f4dee966ff04a18baf5283feb8aaba2cb59ce2c25fa72b88c
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.6.5":
+  version: 3.6.5
+  resolution: "core-js@npm:3.6.5"
+  checksum: 3/9283348dd5be2f1d07feaf90e2336b3f00a2316e3d3c6d4f789c9a67bdd4d7b08ce1c88dca4e591340130056c6b412b0b74fae039f8e259206f1073f542e4e85
   languageName: node
   linkType: hard
 
@@ -4320,6 +4341,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-plugin-compat@npm:^3.8.0":
+  version: 3.8.0
+  resolution: "eslint-plugin-compat@npm:3.8.0"
+  dependencies:
+    ast-metadata-inferer: ^0.4.0
+    browserslist: ^4.12.2
+    caniuse-db: ^1.0.30001090
+    core-js: ^3.6.5
+    find-up: ^4.1.0
+    lodash.memoize: 4.1.2
+    mdn-browser-compat-data: ^1.0.28
+    semver: 7.3.2
+  peerDependencies:
+    eslint: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 3/e63c870155d6e4548a73a54453390db9c57cce29a8cd4720b9bb8c2d03d1ec2a03d1d338e9d54365fdd490b0edfe98f8030fc685305212fce1447091553d5219
+  languageName: node
+  linkType: hard
+
 "eslint-plugin-prettier@npm:^3.1.4":
   version: 3.1.4
   resolution: "eslint-plugin-prettier@npm:3.1.4"
@@ -4658,7 +4697,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"extend@npm:~3.0.2":
+"extend@npm:3.0.2, extend@npm:~3.0.2":
   version: 3.0.2
   resolution: "extend@npm:3.0.2"
   checksum: 3/1406da1f0c4b00b839497e4cdd0ec4303ce2ae349144b7c28064a5073c93ce8c08da4e8fb1bc5cb459ffcdff30a35fc0fe54344eb88320e70100c1baea6f195c
@@ -5567,6 +5606,7 @@ fsevents@~2.1.2:
     css-loader: ^3.6.0
     eslint: ^7.9.0
     eslint-config-prettier: ^6.11.0
+    eslint-plugin-compat: ^3.8.0
     eslint-plugin-prettier: ^3.1.4
     eslint-plugin-react: ^7.20.6
     eslint-plugin-react-hooks: ^4.1.2
@@ -6884,6 +6924,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lodash.memoize@npm:4.1.2":
+  version: 4.1.2
+  resolution: "lodash.memoize@npm:4.1.2"
+  checksum: 3/080c1095b7795b293a06078737550dc0c8138192cadbafb4e4b1303357d367ac589a1a570fad8de154175b008ca7b2b48d6a7f1755a143e13b764e20a7104080
+  languageName: node
+  linkType: hard
+
 "lodash.setwith@npm:^4.3.2":
   version: 4.3.2
   resolution: "lodash.setwith@npm:4.3.2"
@@ -6993,6 +7040,15 @@ fsevents@~2.1.2:
     inherits: ^2.0.1
     safe-buffer: ^5.1.2
   checksum: 3/ca0b260ea29746f1017ad16bc0e164299ae453d2d6a24d635cc6ec03e280f350b09faa4899bfed9387c81457ca55981e9a684336d89faa94b1d2a01903fae2ec
+  languageName: node
+  linkType: hard
+
+"mdn-browser-compat-data@npm:^1.0.28":
+  version: 1.0.38
+  resolution: "mdn-browser-compat-data@npm:1.0.38"
+  dependencies:
+    extend: 3.0.2
+  checksum: 3/137bffed36b3d65fa2f58b7d7c58a238ff0a7de9d942517a280a04f817f06681354b62825c70966a2920d6efd666da86795942762d64c7b209eea7e543097a09
   languageName: node
   linkType: hard
 
@@ -9283,6 +9339,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"semver@npm:7.3.2, semver@npm:^7.2.1, semver@npm:^7.3.2":
+  version: 7.3.2
+  resolution: "semver@npm:7.3.2"
+  bin:
+    semver: bin/semver.js
+  checksum: 3/bceb46d396d039afb5be2b2860bce1b0a43ecbadc72dde7ebe9c56dd9035ca50d9b8e086208ff9bbe53773ebde0bcfc6fc0842d7358398bca7054bb9ced801e3
+  languageName: node
+  linkType: hard
+
 "semver@npm:^5.4.1, semver@npm:^5.5.0, semver@npm:^5.5.1, semver@npm:^5.6.0":
   version: 5.7.1
   resolution: "semver@npm:5.7.1"
@@ -9298,15 +9363,6 @@ fsevents@~2.1.2:
   bin:
     semver: ./bin/semver.js
   checksum: 3/f0d155c06a67cc7e500c92d929339f1c6efd4ce9fe398aee6acc00a2333489cca0f5b4e76ee7292beba237fcca4b5a3d4a6153471f105f56299801bdab37289f
-  languageName: node
-  linkType: hard
-
-"semver@npm:^7.2.1, semver@npm:^7.3.2":
-  version: 7.3.2
-  resolution: "semver@npm:7.3.2"
-  bin:
-    semver: bin/semver.js
-  checksum: 3/bceb46d396d039afb5be2b2860bce1b0a43ecbadc72dde7ebe9c56dd9035ca50d9b8e086208ff9bbe53773ebde0bcfc6fc0842d7358398bca7054bb9ced801e3
   languageName: node
   linkType: hard
 

@@ -54,9 +54,7 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
 
   return (
     <>
-      <FormattedMessage id="CLIENTS">
-        {(msg: string) => <Helmet title={msg} />}
-      </FormattedMessage>
+      <FormattedMessage id="CLIENTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
@@ -65,10 +63,7 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
             </Text>
           </Flex>
           <Flex item>
-            <Button
-              variant="primary"
-              component={makeLink({ to: match.url + '/create' })}
-            >
+            <Button variant="primary" component={makeLink({ to: match.url + '/create' })}>
               <FormattedMessage id="CREATE" />
             </Button>
           </Flex>

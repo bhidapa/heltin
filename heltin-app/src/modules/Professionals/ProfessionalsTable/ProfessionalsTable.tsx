@@ -68,13 +68,13 @@ const ComposedProfessionalsTable = createPaginationContainer(
   {
     professionalsQuery: graphql`
       fragment ProfessionalsTable_professionalsQuery on Query
-        @argumentDefinitions(
-          # pagination
-          count: { type: "Int!" }
-          cursor: { type: "Cursor" }
-          # filters
-          searchText: { type: "String" }
-        ) {
+      @argumentDefinitions(
+        # pagination
+        count: { type: "Int!" }
+        cursor: { type: "Cursor" }
+        # filters
+        searchText: { type: "String" }
+      ) {
         filterMentalHealthProfessionals(
           # pagination
           first: $count
