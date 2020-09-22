@@ -6,65 +6,44 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 
 // relay
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql, useLazyLoadQuery } from 'react-relay/hooks';
 import { ProfessionalsDetailPageQuery } from 'relay/artifacts/ProfessionalsDetailPageQuery.graphql';
-
-// ui
-import { Err, Loading } from '@domonda/ui';
 
 // modules
 import { ProfessionalEdit } from 'modules/Professional/ProfessionalEdit';
 
 export type ProfessionalsDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
-const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (props) => {
+export const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (props) => {
   const {
     match: {
       params: { rowId },
     },
   } = props;
 
+  const { professional } = useLazyLoadQuery<ProfessionalsDetailPageQuery>(
+    graphql`
+      query ProfessionalsDetailPageQuery($rowId: UUID!) {
+        professional: mentalHealthProfessionalByRowId(rowId: $rowId) {
+          fullName
+          ...ProfessionalEdit_professional
+        }
+      }
+    `,
+    { rowId },
+  );
+
+  if (!professional) {
+    return <FourOhFourPage />;
+  }
   return (
     <>
-      <Helmet title="Professional" />
-      <QueryRenderer<ProfessionalsDetailPageQuery>
-        environment={environment}
-        query={graphql`
-          query ProfessionalsDetailPageQuery($rowId: UUID!) {
-            professional: mentalHealthProfessionalByRowId(rowId: $rowId) {
-              fullName
-              ...ProfessionalEdit_professional
-            }
-          }
-        `}
-        variables={{ rowId }}
-        render={({ props, error, retry }) => {
-          if (error) {
-            return <Err error={error} onRetry={retry} />;
-          }
-          if (!props) {
-            return <Loading />;
-          }
-          const { professional } = props;
-          if (!professional) {
-            return <FourOhFourPage />;
-          }
-          return (
-            <>
-              <Helmet title={professional.fullName} />
-              <ProfessionalEdit professional={professional} />
-            </>
-          );
-        }}
-      />
+      <Helmet title={professional.fullName} />
+      <ProfessionalEdit professional={professional} />
     </>
   );
 };
-
-const ComposedProfessionalsDetailPage = ProfessionalsDetailPage;
-export { ComposedProfessionalsDetailPage as ProfessionalsDetailPage };

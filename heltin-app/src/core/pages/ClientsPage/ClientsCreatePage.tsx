@@ -7,7 +7,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 // modules
 import { ClientCreate } from 'modules/Client/ClientCreate';
@@ -17,9 +17,7 @@ export type ClientsCreatePageProps = RouteComponentProps;
 const ClientsCreatePage: React.FC<ClientsCreatePageProps> = () => {
   return (
     <>
-      <FormattedMessage id="CREATE_CLIENT">
-        {(msg: string) => <Helmet title={msg} />}
-      </FormattedMessage>
+      <FormattedMessage id="CREATE_CLIENT">{([msg]) => <Helmet title={msg} />}</FormattedMessage>
       <ClientCreate />
     </>
   );

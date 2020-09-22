@@ -12,11 +12,12 @@ import { CLIENTS_PAGE_ROUTE, CASE_STUDIES_PAGE_ROUTE } from 'lib/routes';
 import { history } from 'lib/history';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyManage_client } from 'relay/artifacts/CaseStudyManage_client.graphql';
-import { CaseStudyManage_caseStudy } from 'relay/artifacts/CaseStudyManage_caseStudy.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { usePromiseMutation } from 'relay/hooks';
+import { CaseStudyManage_client$key } from 'relay/artifacts/CaseStudyManage_client.graphql';
+import { CaseStudyManage_caseStudy$key } from 'relay/artifacts/CaseStudyManage_caseStudy.graphql';
+import { CaseStudyManageCreateMutation } from 'relay/artifacts/CaseStudyManageCreateMutation.graphql';
 import { createCaseStudyMutation } from 'relay/mutations/CreateCaseStudy';
-import { createCaseHistoryMutation } from 'relay/mutations/CreateCaseHistory';
 import { updateCaseStudyMutation } from 'relay/mutations/UpdateCaseStudy';
 import { deleteCaseStudyMutation } from 'relay/mutations/DeleteCaseStudy';
 
@@ -39,12 +40,41 @@ interface FormValues {
 }
 
 export interface CaseStudyManageProps {
-  client: CaseStudyManage_client;
-  caseStudy: CaseStudyManage_caseStudy | null;
+  client: CaseStudyManage_client$key;
+  caseStudy: CaseStudyManage_caseStudy$key | null;
 }
 
-const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
-  const { client, caseStudy } = props;
+export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
+  const { client: clientKey, caseStudy: caseStudyKey } = props;
+
+  const client = useFragment(
+    graphql`
+      fragment CaseStudyManage_client on Client {
+        rowId
+        fullName
+      }
+    `,
+    clientKey,
+  );
+  const caseStudy = useFragment(
+    graphql`
+      fragment CaseStudyManage_caseStudy on CaseStudy {
+        rowId
+        title
+      }
+    `,
+    caseStudyKey,
+  );
+
+  const createCaseHistory = usePromiseMutation<CaseStudyManageCreateMutation>(graphql`
+    mutation CaseStudyManageCreateMutation($input: CreateCaseHistoryInput!) {
+      createCaseHistory(input: $input) {
+        caseHistory {
+          ...CaseHistoryManage_caseHistory
+        }
+      }
+    }
+  `);
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(async ({ rowId, title }) => {
     if (rowId) {
@@ -66,7 +96,9 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
       throw new Error('Malformed CreateCaseStudyMutation response!');
     }
 
-    await createCaseHistoryMutation({ input: { caseStudyRowId: createCaseStudy.caseStudy.rowId } });
+    await createCaseHistory({
+      variables: { input: { caseStudyRowId: createCaseStudy.caseStudy.rowId } },
+    });
 
     history.push(`${CASE_STUDIES_PAGE_ROUTE}/${createCaseStudy.caseStudy.rowId}`);
   }, []);
@@ -186,19 +218,3 @@ const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     </Flex>
   );
 };
-
-const ComposedCaseStudyManage = createFragmentContainer(CaseStudyManage, {
-  client: graphql`
-    fragment CaseStudyManage_client on Client {
-      rowId
-      fullName
-    }
-  `,
-  caseStudy: graphql`
-    fragment CaseStudyManage_caseStudy on CaseStudy {
-      rowId
-      title
-    }
-  `,
-});
-export { ComposedCaseStudyManage as CaseStudyManage };

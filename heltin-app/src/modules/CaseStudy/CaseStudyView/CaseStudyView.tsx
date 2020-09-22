@@ -10,8 +10,8 @@ import { CASE_STUDIES_PAGE_ROUTE } from 'lib/routes';
 import clsx from 'clsx';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyView_caseStudy } from 'relay/artifacts/CaseStudyView_caseStudy.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { CaseStudyView_caseStudy$key } from 'relay/artifacts/CaseStudyView_caseStudy.graphql';
 
 // ui
 import { Flex, Text, Button, Svg } from '@domonda/ui';
@@ -32,12 +32,36 @@ const styles = createStyles(({ shape, palette, spacing }) => ({
 }));
 
 export interface CaseStudyViewProps {
-  caseStudy: CaseStudyView_caseStudy;
+  caseStudy: CaseStudyView_caseStudy$key;
 }
 
 const CaseStudyView: React.FC<CaseStudyViewProps & WithStyles<typeof styles>> = (props) => {
-  const { classes, caseStudy } = props;
+  const { classes, caseStudy: caseStudyKey } = props;
+
+  const caseStudy = useFragment(
+    graphql`
+      fragment CaseStudyView_caseStudy on CaseStudy {
+        rowId
+        title
+        caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
+          nodes {
+            rowId
+            ...CaseStudyTreatmentRow_item
+          }
+        }
+        caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {
+          nodes {
+            rowId
+            type
+          }
+        }
+      }
+    `,
+    caseStudyKey,
+  );
+
   const conclusion = caseStudy.caseStudyConclusions.nodes[0] || null;
+
   return (
     <div className={clsx(conclusion && classes.concluded)}>
       <Flex container spacing="small" direction="column">
@@ -114,14 +138,7 @@ const CaseStudyView: React.FC<CaseStudyViewProps & WithStyles<typeof styles>> = 
               <>
                 <CaseStudyTreatmentRowHeader />
                 {caseStudy.caseStudyTreatments.nodes.map((node) => (
-                  <CaseStudyTreatmentRow
-                    key={node.rowId}
-                    item={node}
-                    component={makeLink({
-                      to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/${node.rowId}`,
-                      omit: ['item'],
-                    })}
-                  />
+                  <CaseStudyTreatmentRow key={node.rowId} item={node} />
                 ))}
               </>
             ) : (
@@ -136,24 +153,5 @@ const CaseStudyView: React.FC<CaseStudyViewProps & WithStyles<typeof styles>> = 
   );
 };
 
-const ComposedCaseStudyView = createFragmentContainer(withStyles(styles)(CaseStudyView), {
-  caseStudy: graphql`
-    fragment CaseStudyView_caseStudy on CaseStudy {
-      rowId
-      title
-      caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {
-        nodes {
-          rowId
-          ...CaseStudyTreatmentRow_item
-        }
-      }
-      caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {
-        nodes {
-          rowId
-          type
-        }
-      }
-    }
-  `,
-});
+const ComposedCaseStudyView = withStyles(styles)(CaseStudyView);
 export { ComposedCaseStudyView as CaseStudyView };

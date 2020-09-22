@@ -9,8 +9,8 @@ import { FormattedMessage } from 'react-intl';
 import { toBase64 } from 'lib/file';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles } from 'relay/artifacts/CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles$key } from 'relay/artifacts/CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles.graphql';
 import { createCaseStudyTreatmentFileMutation } from 'relay/mutations/CreateCaseStudyTreatmentFile';
 import { deleteCaseStudyTreatmentFileMutation } from 'relay/mutations/DeleteCaseStudyTreatmentFile';
 
@@ -34,13 +34,32 @@ import { FileDownloadButton } from 'modules/File/FileDownloadButton';
 
 export interface CaseStudyTreatmentFilesManageProps {
   caseStudyTreatmentRowId: UUID;
-  caseStudyTreatmentFiles: CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles;
+  caseStudyTreatmentFiles: CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles$key;
 }
 
 const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps & Decorate> = (
   props,
 ) => {
-  const { classes, caseStudyTreatmentFiles, caseStudyTreatmentRowId } = props;
+  const {
+    classes,
+    caseStudyTreatmentFiles: caseStudyTreatmentFilesKey,
+    caseStudyTreatmentRowId,
+  } = props;
+
+  const caseStudyTreatmentFiles = useFragment(
+    graphql`
+      fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile
+      @relay(plural: true) {
+        id
+        rowId
+        file: fileByFileRowId {
+          rowId
+          name
+        }
+      }
+    `,
+    caseStudyTreatmentFilesKey,
+  );
 
   return (
     <Flex container direction="column" spacing="small">
@@ -143,20 +162,5 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
   );
 };
 
-const ComposedCaseStudyTreatmentFilesManage = createFragmentContainer(
-  decorate(CaseStudyTreatmentFilesManage),
-  {
-    caseStudyTreatmentFiles: graphql`
-      fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile
-      @relay(plural: true) {
-        id
-        rowId
-        file: fileByFileRowId {
-          rowId
-          name
-        }
-      }
-    `,
-  },
-);
+const ComposedCaseStudyTreatmentFilesManage = decorate(CaseStudyTreatmentFilesManage);
 export { ComposedCaseStudyTreatmentFilesManage as CaseStudyTreatmentFilesManage };

@@ -14,7 +14,7 @@ import { ProfessionalsOverviewPage } from './ProfessionalsOverviewPage';
 
 export type ProfessionalsPageProps = RouteComponentProps;
 
-const ProfessionalsPage: React.FC<ProfessionalsPageProps> = (props) => {
+export const ProfessionalsPage: React.FC<ProfessionalsPageProps> = (props) => {
   const { match } = props;
   return (
     <Switch>
@@ -24,6 +24,3 @@ const ProfessionalsPage: React.FC<ProfessionalsPageProps> = (props) => {
     </Switch>
   );
 };
-
-const ComposedProfessionalsPage = ProfessionalsPage;
-export { ComposedProfessionalsPage as ProfessionalsPage };

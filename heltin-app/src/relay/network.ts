@@ -12,11 +12,9 @@ import {
   Variables,
   CacheConfig,
   Observable,
-  QueryResponseCache,
   GraphQLResponse,
 } from 'relay-runtime';
 import { lookupSession } from './client/session';
-import { environment } from './environment';
 
 interface Sink<T = unknown> {
   next(value: T): void;
@@ -39,47 +37,16 @@ function handleGraphqlError(data: any): Error | null {
   return null;
 }
 
-const oneMinute = 60 * 1000;
-const cache = new QueryResponseCache({ size: 250, ttl: oneMinute });
-
-const queryMap: { [key: string]: number } = {};
-function makeQueryMapKey(query: string, variables: Variables) {
-  return query + JSON.stringify(variables);
-}
-
-let timeMutated = 0;
-export function remoteDatabaseMutated(timestamp: number = Date.now()) {
-  timeMutated = timestamp;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  environment.commitUpdate((store) => (store as any).invalidateStore());
-}
-
 async function fetchQuery(
   operation: RequestParameters,
   variables: Variables,
-  cacheConfig: CacheConfig,
+  _0: CacheConfig,
   sink: Sink<GraphQLResponse>,
 ) {
   try {
-    const isMutation = operation.operationKind === 'mutation';
-    const isQuery = operation.operationKind === 'query';
     const query = operation.text;
     if (!query) {
       throw new Error('query is not defined');
-    }
-
-    const timestamp = Date.now();
-
-    // try to get data from cache on queries if not flagged for force fetching
-    const fromCache = cache.get(query, variables);
-    if (isQuery && fromCache !== null) {
-      sink.next(fromCache);
-
-      const forceFetch = cacheConfig && cacheConfig.force;
-      if (!forceFetch && queryMap[makeQueryMapKey(query, variables)] >= timeMutated) {
-        sink.complete();
-        return;
-      }
     }
 
     // prepare headers
@@ -128,17 +95,6 @@ async function fetchQuery(
     const err = handleGraphqlError(data);
     if (err) {
       throw err;
-    }
-
-    // update cache on queries
-    if (isQuery) {
-      // eslint-disable-next-line require-atomic-updates
-      queryMap[makeQueryMapKey(query, variables)] = timestamp;
-      cache.set(query, variables, data);
-    }
-
-    if (isMutation) {
-      timeMutated = timestamp;
     }
 
     sink.next(data);

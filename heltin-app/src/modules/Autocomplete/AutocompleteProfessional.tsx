@@ -61,7 +61,7 @@ export const AutocompleteProfessional: React.FC<AutocompleteProfessionalProps> =
       variables={{ searchText }}
       render={({ props: data }) => (
         <Autocomplete<AutocompleteProfessionalItem>
-          items={data ? data.filterMentalHealthProfessionals.nodes : []}
+          items={data ? data.filterMentalHealthProfessionals!.nodes : []}
           label={<FormattedMessage id="THERAPIST" />}
           getItemId={getItemId}
           itemToString={itemToString}

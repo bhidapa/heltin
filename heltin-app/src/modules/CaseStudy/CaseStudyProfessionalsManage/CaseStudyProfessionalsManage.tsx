@@ -11,8 +11,8 @@ import { makeLink } from 'lib/makeLink';
 import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyProfessionalsManage_caseStudy } from 'relay/artifacts/CaseStudyProfessionalsManage_caseStudy.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { CaseStudyProfessionalsManage_caseStudy$key } from 'relay/artifacts/CaseStudyProfessionalsManage_caseStudy.graphql';
 import { createCaseStudyProfessionalMutation } from 'relay/mutations/CreateCaseStudyProfessional';
 import { updateCaseStudyProfessionalMutation } from 'relay/mutations/UpdateCaseStudyProfessional';
 import { deleteCaseStudyProfessionalMutation } from 'relay/mutations/DeleteCaseStudyProfessional';
@@ -34,14 +34,34 @@ import {
 import { decorate, Decorate } from './decorate';
 
 export interface CaseStudyProfessionalsManageProps {
-  caseStudy: CaseStudyProfessionalsManage_caseStudy;
+  caseStudy: CaseStudyProfessionalsManage_caseStudy$key;
 }
 
 const CaseStudyProfessionalsManage: React.FC<CaseStudyProfessionalsManageProps & Decorate> = (
   props,
 ) => {
-  const { classes, caseStudy } = props;
-
+  const { classes, caseStudy: caseStudyKey } = props;
+  const caseStudy = useFragment(
+    graphql`
+      fragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {
+        rowId
+        caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(
+          orderBy: [CREATED_AT_ASC]
+        ) {
+          nodes {
+            rowId
+            professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+              rowId
+              type
+              fullName
+            }
+            primary
+          }
+        }
+      }
+    `,
+    caseStudyKey,
+  );
   return (
     <Flex container spacing="small" direction="column">
       <Flex item>
@@ -191,27 +211,5 @@ const CaseStudyProfessionalsManage: React.FC<CaseStudyProfessionalsManageProps &
   );
 };
 
-const ComposedCaseStudyProfessionalsManage = createFragmentContainer(
-  decorate(CaseStudyProfessionalsManage),
-  {
-    caseStudy: graphql`
-      fragment CaseStudyProfessionalsManage_caseStudy on CaseStudy {
-        rowId
-        caseStudyProfessionals: caseStudyMentalHealthProfessionalsByCaseStudyRowId(
-          orderBy: [CREATED_AT_ASC]
-        ) {
-          nodes {
-            rowId
-            professional: mentalHealthProfessionalByMentalHealthProfessionalRowId {
-              rowId
-              type
-              fullName
-            }
-            primary
-          }
-        }
-      }
-    `,
-  },
-);
+const ComposedCaseStudyProfessionalsManage = decorate(CaseStudyProfessionalsManage);
 export { ComposedCaseStudyProfessionalsManage as CaseStudyProfessionalsManage };

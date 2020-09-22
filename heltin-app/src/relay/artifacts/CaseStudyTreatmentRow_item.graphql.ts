@@ -5,6 +5,8 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyTreatmentRow_item = {
+    readonly rowId: string;
+    readonly caseStudyRowId: string;
     readonly title: string;
     readonly startedAt: string;
     readonly endedAt: string;
@@ -24,6 +26,20 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "CaseStudyTreatmentRow_item",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rowId",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "caseStudyRowId",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -49,5 +65,5 @@ const node: ReaderFragment = {
   "type": "CaseStudyTreatment",
   "abstractKey": null
 };
-(node as any).hash = '02d694411e614a43638b118ceb021274';
+(node as any).hash = '1da4493a29fd4b75224a2f5162baa714';
 export default node;

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 import { FormattedMessage } from 'react-intl';
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
@@ -65,7 +65,13 @@ export const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
         <Flex item>
           <Divider />
         </Flex>
-        <Flex item container spacing="tiny" justify="space-between" align="center">
+        <Flex
+          item
+          container
+          spacing="tiny"
+          justify="space-between"
+          align="center"
+        >
           <Flex item>
             <Text size="large" weight="medium">
               <FormattedMessage id="CASE_STUDIES" />

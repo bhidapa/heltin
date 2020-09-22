@@ -13,7 +13,7 @@ export type ProfessionalsTable_professionalsQuery = {
                 readonly " $fragmentRefs": FragmentRefs<"ProfessionalsTableRow_item">;
             };
         }>;
-    };
+    } | null;
     readonly " $refType": "ProfessionalsTable_professionalsQuery";
 };
 export type ProfessionalsTable_professionalsQuery$data = ProfessionalsTable_professionalsQuery;
@@ -24,7 +24,11 @@ export type ProfessionalsTable_professionalsQuery$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  "filterMentalHealthProfessionals"
+];
+return {
   "argumentDefinitions": [
     {
       "defaultValue": null,
@@ -49,11 +53,21 @@ const node: ReaderFragment = {
         "count": "count",
         "cursor": "cursor",
         "direction": "forward",
-        "path": [
-          "filterMentalHealthProfessionals"
-        ]
+        "path": (v0/*: any*/)
       }
-    ]
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [],
+      "operation": require('./ProfessionalsTableRefetchQuery.graphql.ts')
+    }
   },
   "name": "ProfessionalsTable_professionalsQuery",
   "selections": [
@@ -158,5 +172,6 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'dc0d422f6bbc7850847c55e07b79f6f1';
+})();
+(node as any).hash = '8a3e6dc603b0a8dbe2d0dca0ff440599';
 export default node;

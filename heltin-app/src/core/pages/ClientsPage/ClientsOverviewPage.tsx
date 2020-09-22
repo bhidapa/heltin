@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 
 // relay
@@ -21,12 +21,10 @@ import { Flex, Text, Button } from '@domonda/ui';
 import { useClientsQueryParams } from 'modules/Clients/clientsQueryParams';
 import { ClientsTable } from 'modules/Clients/ClientsTable';
 import { makeLink } from 'lib/makeLink';
-import { ClientsTableFilter } from 'modules/Clients/ClientsTableFilter';
-import { Boundary } from 'lib/Boundary';
 
 export type ClientsOverviewPageProps = RouteComponentProps;
 
-const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
+export const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
   const { match } = props;
   const [params] = useClientsQueryParams({ once: true });
 
@@ -54,7 +52,7 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
 
   return (
     <>
-      <FormattedMessage id="CLIENTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
+      <FormattedMessage id="CLIENTS">{([msg]) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
@@ -69,17 +67,9 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
           </Flex>
         </Flex>
         <Flex item>
-          <ClientsTableFilter />
-        </Flex>
-        <Flex item>
-          <Boundary>
-            <ClientsTable clientsQuery={data} />
-          </Boundary>
+          <ClientsTable clientsQuery={data} />
         </Flex>
       </Flex>
     </>
   );
 };
-
-const ComposedClientsOverviewPage = ClientsOverviewPage;
-export { ComposedClientsOverviewPage as ClientsOverviewPage };

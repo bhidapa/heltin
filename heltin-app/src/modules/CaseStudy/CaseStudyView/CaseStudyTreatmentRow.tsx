@@ -8,11 +8,16 @@ import React from 'react';
 import { FormattedMessage, FormattedDate, FormattedTime } from 'react-intl';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyTreatmentRow_item } from 'relay/artifacts/CaseStudyTreatmentRow_item.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import {
+  CaseStudyTreatmentRow_item,
+  CaseStudyTreatmentRow_item$key,
+} from 'relay/artifacts/CaseStudyTreatmentRow_item.graphql';
 
 // ui
 import { makeRow } from '@domonda/ui/Row';
+import { makeLink } from 'lib/makeLink';
+import { CASE_STUDIES_PAGE_ROUTE } from 'lib/routes';
 
 const { RowHeader: CaseStudyTreatmentRowHeader, RowItem } = makeRow<CaseStudyTreatmentRow_item>({
   columns: [
@@ -55,12 +60,31 @@ const { RowHeader: CaseStudyTreatmentRowHeader, RowItem } = makeRow<CaseStudyTre
 
 export { CaseStudyTreatmentRowHeader };
 
-export const CaseStudyTreatmentRow = createFragmentContainer(RowItem, {
-  item: graphql`
-    fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
-      title
-      startedAt
-      endedAt
-    }
-  `,
-});
+export interface CaseStudyTreatmentRowProps {
+  item: CaseStudyTreatmentRow_item$key;
+}
+
+export const CaseStudyTreatmentRow: React.FC<CaseStudyTreatmentRowProps> = (props) => {
+  const item = useFragment(
+    graphql`
+      fragment CaseStudyTreatmentRow_item on CaseStudyTreatment {
+        rowId
+        caseStudyRowId
+        title
+        startedAt
+        endedAt
+      }
+    `,
+    props.item,
+  );
+
+  return (
+    <RowItem
+      item={item}
+      component={makeLink({
+        to: `${CASE_STUDIES_PAGE_ROUTE}/${item.caseStudyRowId}/treatments/${item.rowId}`,
+        omit: ['item'],
+      })}
+    />
+  );
+};

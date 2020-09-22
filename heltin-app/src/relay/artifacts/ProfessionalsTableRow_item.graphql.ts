@@ -6,6 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type ProfessionalsTableRow_item = {
+    readonly rowId: string;
     readonly type: MentalHealthProfessionalType;
     readonly title: string | null;
     readonly firstName: string;
@@ -26,6 +27,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "ProfessionalsTableRow_item",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "rowId",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -58,5 +66,5 @@ const node: ReaderFragment = {
   "type": "MentalHealthProfessional",
   "abstractKey": null
 };
-(node as any).hash = '3039c39d6872f5c72866ad309e4205be';
+(node as any).hash = '12eeb0695ad080f68984025715f18b42';
 export default node;

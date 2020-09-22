@@ -12,12 +12,13 @@ import { history } from 'lib/history';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseStudyConclusionManage_caseStudy } from 'relay/artifacts/CaseStudyConclusionManage_caseStudy.graphql';
-import { CaseStudyConclusionManage_caseStudyConclusion } from 'relay/artifacts/CaseStudyConclusionManage_caseStudyConclusion.graphql';
-import { createCaseStudyConclusionMutation } from 'relay/mutations/CreateCaseStudyConclusion';
-import { updateCaseStudyConclusionMutation } from 'relay/mutations/UpdateCaseStudyConclusion';
-import { deleteCaseStudyConclusionMutation } from 'relay/mutations/DeleteCaseStudyConclusion';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { usePromiseMutation } from 'relay/hooks';
+import { CaseStudyConclusionManage_caseStudy$key } from 'relay/artifacts/CaseStudyConclusionManage_caseStudy.graphql';
+import { CaseStudyConclusionManage_caseStudyConclusion$key } from 'relay/artifacts/CaseStudyConclusionManage_caseStudyConclusion.graphql';
+import { CaseStudyConclusionManageCreateMutation } from 'relay/artifacts/CaseStudyConclusionManageCreateMutation.graphql';
+import { CaseStudyConclusionManageUpdateMutation } from 'relay/artifacts/CaseStudyConclusionManageUpdateMutation.graphql';
+import { CaseStudyConclusionManageDeleteMutation } from 'relay/artifacts/CaseStudyConclusionManageDeleteMutation.graphql';
 
 // ui
 import { Flex, Button, Text, Input } from '@domonda/ui';
@@ -44,8 +45,8 @@ interface FormValues {
 }
 
 export interface CaseStudyConclusionManageProps {
-  caseStudy: CaseStudyConclusionManage_caseStudy;
-  caseStudyConclusion: CaseStudyConclusionManage_caseStudyConclusion | null;
+  caseStudy: CaseStudyConclusionManage_caseStudy$key;
+  caseStudyConclusion: CaseStudyConclusionManage_caseStudyConclusion$key | null;
 }
 
 const defaultCreateConclusionValues: FormValues = {
@@ -54,32 +55,99 @@ const defaultCreateConclusionValues: FormValues = {
   description: (null as unknown) as string,
 };
 
-const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (props) => {
-  const { caseStudy, caseStudyConclusion } = props;
+export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (props) => {
+  const { caseStudy: caseStudyKey, caseStudyConclusion: caseStudyConclusionKey } = props;
+
+  const caseStudy = useFragment(
+    graphql`
+      fragment CaseStudyConclusionManage_caseStudy on CaseStudy {
+        rowId
+        title
+        client: clientByClientRowId {
+          rowId
+          fullName
+        }
+      }
+    `,
+    caseStudyKey,
+  );
+
+  const caseStudyConclusion = useFragment(
+    graphql`
+      fragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {
+        rowId
+        type
+        concludedAt
+        description
+      }
+    `,
+    caseStudyConclusionKey,
+  );
+
+  const createCaseStudyConclusion = usePromiseMutation<
+    CaseStudyConclusionManageCreateMutation
+  >(graphql`
+    mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
+      createCaseStudyConclusion(input: $input) {
+        caseStudyConclusion {
+          rowId
+        }
+      }
+    }
+  `);
+
+  const updateCaseStudyConclusion = usePromiseMutation<
+    CaseStudyConclusionManageUpdateMutation
+  >(graphql`
+    mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
+      updateCaseStudyConclusion(input: $input) {
+        caseStudyConclusion {
+          ...CaseStudyConclusionManage_caseStudyConclusion @relay(mask: false)
+        }
+      }
+    }
+  `);
+
+  const deleteCaseStudyConclusion = usePromiseMutation<
+    CaseStudyConclusionManageDeleteMutation
+  >(graphql`
+    mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
+      deleteCaseStudyConclusion(input: $input) {
+        clientMutationId
+      }
+    }
+  `);
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     async ({ concludedAt, ...rest }) => {
       if (caseStudyConclusion) {
-        return updateCaseStudyConclusionMutation({
-          input: {
-            rowId: caseStudyConclusion.rowId,
-            concludedAt: concludedAt instanceof Date ? concludedAt.toISOString() : concludedAt,
-            ...rest,
+        return updateCaseStudyConclusion({
+          variables: {
+            input: {
+              rowId: caseStudyConclusion.rowId,
+              concludedAt: concludedAt instanceof Date ? concludedAt.toISOString() : concludedAt,
+              ...rest,
+            },
           },
         });
       }
-      const { createCaseStudyConclusion } = await createCaseStudyConclusionMutation({
-        input: {
-          caseStudyRowId: caseStudy.rowId,
-          concludedAt: concludedAt instanceof Date ? concludedAt.toISOString() : concludedAt,
-          ...rest,
+      const result = await createCaseStudyConclusion({
+        variables: {
+          input: {
+            caseStudyRowId: caseStudy.rowId,
+            concludedAt: concludedAt instanceof Date ? concludedAt.toISOString() : concludedAt,
+            ...rest,
+          },
         },
       });
-      if (!createCaseStudyConclusion || !createCaseStudyConclusion.caseStudyConclusion) {
+      if (
+        !result.createCaseStudyConclusion ||
+        !result.createCaseStudyConclusion.caseStudyConclusion
+      ) {
         throw new Error('Malformed CreateCaseStudyConclusion response!');
       }
       history.push(
-        `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/conclusions/${createCaseStudyConclusion.caseStudyConclusion.rowId}`,
+        `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/conclusions/${result.createCaseStudyConclusion.caseStudyConclusion.rowId}`,
       );
     },
     [caseStudy, caseStudyConclusion],
@@ -138,8 +206,10 @@ const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (pro
             <ResolveOnTrigger
               params={undefined}
               promise={async () => {
-                await deleteCaseStudyConclusionMutation({
-                  input: { rowId: caseStudyConclusion.rowId },
+                await deleteCaseStudyConclusion({
+                  variables: {
+                    input: { rowId: caseStudyConclusion.rowId },
+                  },
                 });
                 history.push(`${CLIENTS_PAGE_ROUTE}/${caseStudy.client!.rowId}`);
               }}
@@ -227,25 +297,3 @@ const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (pro
     </Flex>
   );
 };
-
-const ComposedCaseStudyConclusionManage = createFragmentContainer(CaseStudyConclusionManage, {
-  caseStudy: graphql`
-    fragment CaseStudyConclusionManage_caseStudy on CaseStudy {
-      rowId
-      title
-      client: clientByClientRowId {
-        rowId
-        fullName
-      }
-    }
-  `,
-  caseStudyConclusion: graphql`
-    fragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {
-      rowId
-      type
-      concludedAt
-      description
-    }
-  `,
-});
-export { ComposedCaseStudyConclusionManage as CaseStudyConclusionManage };

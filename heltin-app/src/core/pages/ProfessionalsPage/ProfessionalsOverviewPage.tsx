@@ -6,16 +6,15 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql, useLazyLoadQuery } from 'react-relay/hooks';
 import { ProfessionalsOverviewPageQuery } from 'relay/artifacts/ProfessionalsOverviewPageQuery.graphql';
 
 // ui
-import { Flex, Err, Loading, Text, Button } from '@domonda/ui';
+import { Flex, Text, Button } from '@domonda/ui';
 
 // modules
 import { useProfessionalsQueryParams } from 'modules/Professionals/professionalsQueryParams';
@@ -24,13 +23,36 @@ import { makeLink } from 'lib/makeLink';
 
 export type ProfessionalsOverviewPageProps = RouteComponentProps;
 
-const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (props) => {
+export const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (props) => {
   const { match } = props;
+
   const [params] = useProfessionalsQueryParams({ once: true });
+
+  const query = useLazyLoadQuery<ProfessionalsOverviewPageQuery>(
+    graphql`
+      query ProfessionalsOverviewPageQuery(
+        # pagination
+        $count: Int!
+        $cursor: Cursor
+        # filters
+        $searchText: String
+      ) {
+        ...ProfessionalsTable_professionalsQuery
+          @arguments(
+            # pagination
+            count: $count
+            cursor: $cursor
+            # filters
+            searchText: $searchText
+          )
+      }
+    `,
+    params,
+  );
 
   return (
     <>
-      <FormattedMessage id="THERAPISTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
+      <FormattedMessage id="THERAPISTS">{([msg]) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
@@ -45,42 +67,9 @@ const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (pro
           </Flex>
         </Flex>
         <Flex item>
-          <QueryRenderer<ProfessionalsOverviewPageQuery>
-            environment={environment}
-            query={graphql`
-              query ProfessionalsOverviewPageQuery(
-                # pagination
-                $count: Int!
-                $cursor: Cursor
-                # filters
-                $searchText: String
-              ) {
-                ...ProfessionalsTable_professionalsQuery
-                  @arguments(
-                    # pagination
-                    count: $count
-                    cursor: $cursor
-                    # filters
-                    searchText: $searchText
-                  )
-              }
-            `}
-            variables={params}
-            render={({ props, error, retry }) => {
-              if (error) {
-                return <Err error={error} onRetry={retry} />;
-              }
-              if (!props) {
-                return <Loading />;
-              }
-              return <ProfessionalsTable professionalsQuery={props} />;
-            }}
-          />
+          <ProfessionalsTable professionalsQuery={query} />
         </Flex>
       </Flex>
     </>
   );
 };
-
-const ComposedProfessionalsOverviewPage = ProfessionalsOverviewPage;
-export { ComposedProfessionalsOverviewPage as ProfessionalsOverviewPage };

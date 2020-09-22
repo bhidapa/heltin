@@ -1,0 +1,5322 @@
+type Assistant implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  userRowId: UUID
+  email: EmailAddress!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  gender: Gender!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `User` that is related to this `Assistant`."""
+  userByUserRowId: User
+}
+
+"""
+A condition to be used against `Assistant` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input AssistantCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `userRowId` field."""
+  userRowId: UUID
+
+  """Checks for equality with the object’s `email` field."""
+  email: EmailAddress
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `dateOfBirth` field."""
+  dateOfBirth: Date
+
+  """Checks for equality with the object’s `gender` field."""
+  gender: Gender
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `Assistant` values."""
+type AssistantsConnection {
+  """A list of `Assistant` objects."""
+  nodes: [Assistant!]!
+
+  """
+  A list of edges which contains the `Assistant` and cursor to aid in pagination.
+  """
+  edges: [AssistantsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Assistant` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Assistant` edge in the connection."""
+type AssistantsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Assistant` at the end of the edge."""
+  node: Assistant!
+}
+
+"""Methods to use when ordering `Assistant`."""
+enum AssistantsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  DATE_OF_BIRTH_ASC
+  DATE_OF_BIRTH_DESC
+  GENDER_ASC
+  GENDER_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `authenticate` mutation."""
+input AuthenticateInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  email: String!
+  password: String!
+}
+
+"""The output of our `authenticate` mutation."""
+type AuthenticatePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  jwtToken: JwtToken
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+}
+
+"""Binary data encoded using Base64"""
+scalar Base64EncodedBinary
+
+"""A connection to a list of `CaseHistory` values."""
+type CaseHistoriesConnection {
+  """A list of `CaseHistory` objects."""
+  nodes: [CaseHistory!]!
+
+  """
+  A list of edges which contains the `CaseHistory` and cursor to aid in pagination.
+  """
+  edges: [CaseHistoriesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `CaseHistory` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `CaseHistory` edge in the connection."""
+type CaseHistoriesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseHistory` at the end of the edge."""
+  node: CaseHistory!
+}
+
+"""Methods to use when ordering `CaseHistory`."""
+enum CaseHistoriesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  CASE_STUDY_TREATMENT_ID_ASC
+  CASE_STUDY_TREATMENT_ID_DESC
+  ACCOMPANIED_BY_ASC
+  ACCOMPANIED_BY_DESC
+  LIVES_WITH_ASC
+  LIVES_WITH_DESC
+  DIVORCED_PARENTS_ASC
+  DIVORCED_PARENTS_DESC
+  DIVORCE_OUTCOME_ASC
+  DIVORCE_OUTCOME_DESC
+  ADOPTION_AGE_ASC
+  ADOPTION_AGE_DESC
+  NUMBER_OF_ADOPTIONS_ASC
+  NUMBER_OF_ADOPTIONS_DESC
+  REASON_OF_MULTIPLE_ADOPTIONS_ASC
+  REASON_OF_MULTIPLE_ADOPTIONS_DESC
+  ARRIVAL_REASON_ASC
+  ARRIVAL_REASON_DESC
+  EARLIER_PROFESSIONAL_HELP_ASC
+  EARLIER_PROFESSIONAL_HELP_DESC
+  REFERRAL_DIAGNOSIS_ASC
+  REFERRAL_DIAGNOSIS_DESC
+  REFERRAL_ASC
+  REFERRAL_DESC
+  INVOLVED_REFERRAL_ASC
+  INVOLVED_REFERRAL_DESC
+  PREVIOUS_TREATMENT_ASC
+  PREVIOUS_TREATMENT_DESC
+  ATTENDS_KINDERGARTEN_ASC
+  ATTENDS_KINDERGARTEN_DESC
+  SCHOOL_MARK_ASC
+  SCHOOL_MARK_DESC
+  ADAPTED_EDUCATION_PROGRAM_ASC
+  ADAPTED_EDUCATION_PROGRAM_DESC
+  INDIVIDUALIZED_EDUCATION_PROGRAM_ASC
+  INDIVIDUALIZED_EDUCATION_PROGRAM_DESC
+  DIAGNOSED_INTELECTUAL_DEVELOPMENT_PROBLEMS_ASC
+  DIAGNOSED_INTELECTUAL_DEVELOPMENT_PROBLEMS_DESC
+  FURTHER_ABUSES_ASC
+  FURTHER_ABUSES_DESC
+  REPORTED_FURTHER_ABUSES_ASC
+  REPORTED_FURTHER_ABUSES_DESC
+  LOSS_OF_CLOSE_INDIVIDUAL_ASC
+  LOSS_OF_CLOSE_INDIVIDUAL_DESC
+  AGE_DURING_LOSS_OF_CLOSE_INDIVIDUAL_ASC
+  AGE_DURING_LOSS_OF_CLOSE_INDIVIDUAL_DESC
+  FAMILY_HEREDITY_ASC
+  FAMILY_HEREDITY_DESC
+  PTSP_ASC
+  PTSP_DESC
+  PARENTS_IN_JAIL_ASC
+  PARENTS_IN_JAIL_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type CaseHistory implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  caseStudyTreatmentRowId: UUID
+
+  """With whom was the patient accopanied by."""
+  accompaniedBy: CaseHistoryAccompaniedByType
+
+  """With whom does the patient live with."""
+  livesWith: [CaseHistoryLivesWithType]
+  divorcedParents: CaseHistoryDivorcedParentsType
+  divorceOutcome: CaseHistoryDivorceOutcomeType
+  adoptionAge: Float
+  numberOfAdoptions: Int
+  reasonOfMultipleAdoptions: [CaseHistoryReasonOfMultipleAdoptionsType]
+  arrivalReason: [CaseHistoryArrivalReasonType]
+  earlierProfessionalHelp: [MentalHealthProfessionalType]
+  referralDiagnosis: String
+  referral: [CaseHistoryReferralType]
+  involvedReferral: Boolean
+  previousTreatment: String
+  attendsKindergarten: Boolean
+  schoolMark: Int
+  adaptedEducationProgram: Boolean
+  individualizedEducationProgram: Boolean
+  diagnosedIntelectualDevelopmentProblems: Boolean
+  furtherAbuses: [CaseHistoryAbuseType]
+  reportedFurtherAbuses: CaseHistoryReportedAbuseType
+  lossOfCloseIndividual: [CaseHistoryIndividualType]
+  ageDuringLossOfCloseIndividual: Float
+  familyHeredity: String
+  ptsp: String
+  parentsInJail: CaseHistoryParentsInJailType
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `CaseStudy` that is related to this `CaseHistory`."""
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseHistory`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """Reads and enables pagination through a set of `CaseHistoryFile`."""
+  caseHistoryFilesByCaseHistoryRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistoryFile`."""
+    orderBy: [CaseHistoryFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryFileCondition
+  ): CaseHistoryFilesConnection!
+}
+
+enum CaseHistoryAbuseType {
+  SEXUAL_ABUSE
+  PHYSICAL_ABUSE
+  EMOTIONAL_ABUSE
+  BULLYING
+  CYBER_BULLYING
+  NEGLECTION
+  ABUSE_WITNESS
+  PARENT_MANIPULATION
+  OTHER
+}
+
+enum CaseHistoryAccompaniedByType {
+  NO_ONE
+  FATHER
+  MOTHER
+  FAMILY
+}
+
+enum CaseHistoryArrivalReasonType {
+  EMOTIONAL_PROBLEMS
+  ANXIETY
+  LEARNING_PROBLEMS
+  ATTENTION_PROBLEMS
+  SUICIDAL_THOUGHTS
+  DEPRESION_SYMPTOMS
+  GRIEVE
+  LOSS
+  DIVORCE
+  COMMUNICATION_PROBLEMS
+  ADDICTION
+  SLEEP_DEFICIENCY
+  BEHAVIOURAL_PROBLEMS
+  TRAUMA
+  SEXUAL_ABUSE
+  PHYSICAL_ABUSE
+  EMOTIONAL_ABUSE
+  BULLYING
+  CYBER_BULLYING
+  NEGLECTION
+  ABUSE_WITNESS
+  ADHD
+  TALKING_ISSUES
+  NEURO_DEVELOPMENT_DISORDER
+  DYSLEXIA
+  DYSGRAPHIA
+  PARENT_MANIPULATION
+  COUPLE_PROBLEMS
+  OTHER
+}
+
+"""
+A condition to be used against `CaseHistory` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input CaseHistoryCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `caseStudyTreatmentRowId` field."""
+  caseStudyTreatmentRowId: UUID
+
+  """Checks for equality with the object’s `accompaniedBy` field."""
+  accompaniedBy: CaseHistoryAccompaniedByType
+
+  """Checks for equality with the object’s `livesWith` field."""
+  livesWith: [CaseHistoryLivesWithType]
+
+  """Checks for equality with the object’s `divorcedParents` field."""
+  divorcedParents: CaseHistoryDivorcedParentsType
+
+  """Checks for equality with the object’s `divorceOutcome` field."""
+  divorceOutcome: CaseHistoryDivorceOutcomeType
+
+  """Checks for equality with the object’s `adoptionAge` field."""
+  adoptionAge: Float
+
+  """Checks for equality with the object’s `numberOfAdoptions` field."""
+  numberOfAdoptions: Int
+
+  """
+  Checks for equality with the object’s `reasonOfMultipleAdoptions` field.
+  """
+  reasonOfMultipleAdoptions: [CaseHistoryReasonOfMultipleAdoptionsType]
+
+  """Checks for equality with the object’s `arrivalReason` field."""
+  arrivalReason: [CaseHistoryArrivalReasonType]
+
+  """Checks for equality with the object’s `earlierProfessionalHelp` field."""
+  earlierProfessionalHelp: [MentalHealthProfessionalType]
+
+  """Checks for equality with the object’s `referralDiagnosis` field."""
+  referralDiagnosis: String
+
+  """Checks for equality with the object’s `referral` field."""
+  referral: [CaseHistoryReferralType]
+
+  """Checks for equality with the object’s `involvedReferral` field."""
+  involvedReferral: Boolean
+
+  """Checks for equality with the object’s `previousTreatment` field."""
+  previousTreatment: String
+
+  """Checks for equality with the object’s `attendsKindergarten` field."""
+  attendsKindergarten: Boolean
+
+  """Checks for equality with the object’s `schoolMark` field."""
+  schoolMark: Int
+
+  """Checks for equality with the object’s `adaptedEducationProgram` field."""
+  adaptedEducationProgram: Boolean
+
+  """
+  Checks for equality with the object’s `individualizedEducationProgram` field.
+  """
+  individualizedEducationProgram: Boolean
+
+  """
+  Checks for equality with the object’s `diagnosedIntelectualDevelopmentProblems` field.
+  """
+  diagnosedIntelectualDevelopmentProblems: Boolean
+
+  """Checks for equality with the object’s `furtherAbuses` field."""
+  furtherAbuses: [CaseHistoryAbuseType]
+
+  """Checks for equality with the object’s `reportedFurtherAbuses` field."""
+  reportedFurtherAbuses: CaseHistoryReportedAbuseType
+
+  """Checks for equality with the object’s `lossOfCloseIndividual` field."""
+  lossOfCloseIndividual: [CaseHistoryIndividualType]
+
+  """
+  Checks for equality with the object’s `ageDuringLossOfCloseIndividual` field.
+  """
+  ageDuringLossOfCloseIndividual: Float
+
+  """Checks for equality with the object’s `familyHeredity` field."""
+  familyHeredity: String
+
+  """Checks for equality with the object’s `ptsp` field."""
+  ptsp: String
+
+  """Checks for equality with the object’s `parentsInJail` field."""
+  parentsInJail: CaseHistoryParentsInJailType
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+enum CaseHistoryDivorcedParentsType {
+  IN_PROCESS
+  YES
+  NO
+}
+
+enum CaseHistoryDivorceOutcomeType {
+  HIGH_CONFLICT
+  MEDIUM_CONFLICT
+  LOW_CONFLICT
+  NO_CONFLICT
+  UNKNOWN
+}
+
+type CaseHistoryFile implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseHistoryRowId: UUID!
+  fileRowId: UUID!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseHistory` that is related to this `CaseHistoryFile`.
+  """
+  caseHistoryByCaseHistoryRowId: CaseHistory!
+
+  """Reads a single `File` that is related to this `CaseHistoryFile`."""
+  fileByFileRowId: File!
+}
+
+"""
+A condition to be used against `CaseHistoryFile` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CaseHistoryFileCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseHistoryRowId` field."""
+  caseHistoryRowId: UUID
+
+  """Checks for equality with the object’s `fileRowId` field."""
+  fileRowId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `CaseHistoryFile` values."""
+type CaseHistoryFilesConnection {
+  """A list of `CaseHistoryFile` objects."""
+  nodes: [CaseHistoryFile!]!
+
+  """
+  A list of edges which contains the `CaseHistoryFile` and cursor to aid in pagination.
+  """
+  edges: [CaseHistoryFilesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseHistoryFile` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseHistoryFile` edge in the connection."""
+type CaseHistoryFilesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseHistoryFile` at the end of the edge."""
+  node: CaseHistoryFile!
+}
+
+"""Methods to use when ordering `CaseHistoryFile`."""
+enum CaseHistoryFilesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_HISTORY_ID_ASC
+  CASE_HISTORY_ID_DESC
+  FILE_ID_ASC
+  FILE_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum CaseHistoryIndividualType {
+  FATHER
+  MOTHER
+  GRANDFATHER
+  GRANDMOTHER
+  UNCLE
+  AUNT
+  COUSIN
+  SISTER
+  BROTHER
+  STEP_FATHER
+  STEP_MOTHER
+  STEP_SISTER
+  STEP_BROTHER
+  FOSTER_MOTHER
+  FOSTER_FATHER
+  FRIEND
+  LOVER
+}
+
+enum CaseHistoryLivesWithType {
+  ALONE
+  FATHER
+  MOTHER
+  GRANDFATHER
+  GRANDMOTHER
+  UNCLE
+  AUNT
+  COUSIN
+  SISTER
+  BROTHER
+  STEP_FATHER
+  STEP_MOTHER
+  STEP_SISTER
+  STEP_BROTHER
+  FOSTER_MOTHER
+  FOSTER_FATHER
+  FOSTER_HOUSE
+}
+
+enum CaseHistoryParentsInJailType {
+  FATHER
+  MOTHER
+  FATHER_AND_MOTHER
+}
+
+enum CaseHistoryReasonOfMultipleAdoptionsType {
+  ABUSE
+  NEGLECTION
+  LOSS_OF_FOSTER_PARENT
+  OTHER
+}
+
+enum CaseHistoryReferralType {
+  SELF
+  KINDERGARTEN
+  SCHOOL
+  SOCIAL_WORK_CENTER
+  POLICE
+  HOSPITAL
+  PSYCHIATRIST
+  PEDIATRIST
+  COURT
+  MENTAL_HEALTH_CENTER
+  OTHER
+}
+
+enum CaseHistoryReportedAbuseType {
+  SOCIAL_WORK_CENTER
+  COURT
+  NOT_REPORTED
+}
+
+"""A connection to a list of `CaseStudy` values."""
+type CaseStudiesConnection {
+  """A list of `CaseStudy` objects."""
+  nodes: [CaseStudy!]!
+
+  """
+  A list of edges which contains the `CaseStudy` and cursor to aid in pagination.
+  """
+  edges: [CaseStudiesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `CaseStudy` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `CaseStudy` edge in the connection."""
+type CaseStudiesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudy` at the end of the edge."""
+  node: CaseStudy!
+}
+
+"""Methods to use when ordering `CaseStudy`."""
+enum CaseStudiesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CLIENT_ID_ASC
+  CLIENT_ID_DESC
+  GROUP_ID_ASC
+  GROUP_ID_DESC
+  TITLE_ASC
+  TITLE_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type CaseStudy implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  clientRowId: UUID
+  groupRowId: UUID
+  title: String!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `Client` that is related to this `CaseStudy`."""
+  clientByClientRowId: Client
+
+  """Reads a single `Group` that is related to this `CaseStudy`."""
+  groupByGroupRowId: Group
+
+  """Reads and enables pagination through a set of `CaseStudyRelation`."""
+  caseStudyRelationsByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyRelation`."""
+    orderBy: [CaseStudyRelationsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyRelationCondition
+  ): CaseStudyRelationsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyRelation`."""
+  caseStudyRelationsByRelatedCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyRelation`."""
+    orderBy: [CaseStudyRelationsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyRelationCondition
+  ): CaseStudyRelationsConnection!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyMentalHealthProfessionalsByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyMentalHealthProfessionalCondition
+  ): CaseStudyMentalHealthProfessionalsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyTreatment`."""
+  caseStudyTreatmentsByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentCondition
+  ): CaseStudyTreatmentsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyConclusion`."""
+  caseStudyConclusionsByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionCondition
+  ): CaseStudyConclusionsConnection!
+
+  """Reads and enables pagination through a set of `CaseHistory`."""
+  caseHistoriesByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryCondition
+  ): CaseHistoriesConnection!
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnostic`.
+  """
+  multidisciplinaryDiagnosticsByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnostic`."""
+    orderBy: [MultidisciplinaryDiagnosticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticCondition
+  ): MultidisciplinaryDiagnosticsConnection!
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryTherapy`.
+  """
+  multidisciplinaryTherapiesByCaseStudyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryTherapy`."""
+    orderBy: [MultidisciplinaryTherapiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryTherapyCondition
+  ): MultidisciplinaryTherapiesConnection!
+}
+
+type CaseStudyConclusion implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  type: CaseStudyConclusionType!
+  description: String!
+  concludedAt: Datetime!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyConclusion`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyConclusionFile`.
+  """
+  caseStudyConclusionFilesByCaseStudyConclusionRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusionFile`."""
+    orderBy: [CaseStudyConclusionFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionFileCondition
+  ): CaseStudyConclusionFilesConnection!
+}
+
+"""
+A condition to be used against `CaseStudyConclusion` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyConclusionCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `type` field."""
+  type: CaseStudyConclusionType
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `concludedAt` field."""
+  concludedAt: Datetime
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+type CaseStudyConclusionFile implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyConclusionRowId: UUID!
+  fileRowId: UUID!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudyConclusion` that is related to this `CaseStudyConclusionFile`.
+  """
+  caseStudyConclusionByCaseStudyConclusionRowId: CaseStudyConclusion!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyConclusionFile`.
+  """
+  fileByFileRowId: File!
+}
+
+"""
+A condition to be used against `CaseStudyConclusionFile` object types. All
+fields are tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyConclusionFileCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """
+  Checks for equality with the object’s `caseStudyConclusionRowId` field.
+  """
+  caseStudyConclusionRowId: UUID
+
+  """Checks for equality with the object’s `fileRowId` field."""
+  fileRowId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `CaseStudyConclusionFile` values."""
+type CaseStudyConclusionFilesConnection {
+  """A list of `CaseStudyConclusionFile` objects."""
+  nodes: [CaseStudyConclusionFile!]!
+
+  """
+  A list of edges which contains the `CaseStudyConclusionFile` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyConclusionFilesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyConclusionFile` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyConclusionFile` edge in the connection."""
+type CaseStudyConclusionFilesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyConclusionFile` at the end of the edge."""
+  node: CaseStudyConclusionFile!
+}
+
+"""Methods to use when ordering `CaseStudyConclusionFile`."""
+enum CaseStudyConclusionFilesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_CONCLUSION_ID_ASC
+  CASE_STUDY_CONCLUSION_ID_DESC
+  FILE_ID_ASC
+  FILE_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""A connection to a list of `CaseStudyConclusion` values."""
+type CaseStudyConclusionsConnection {
+  """A list of `CaseStudyConclusion` objects."""
+  nodes: [CaseStudyConclusion!]!
+
+  """
+  A list of edges which contains the `CaseStudyConclusion` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyConclusionsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyConclusion` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyConclusion` edge in the connection."""
+type CaseStudyConclusionsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyConclusion` at the end of the edge."""
+  node: CaseStudyConclusion!
+}
+
+"""Methods to use when ordering `CaseStudyConclusion`."""
+enum CaseStudyConclusionsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  TYPE_ASC
+  TYPE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CONCLUDED_AT_ASC
+  CONCLUDED_AT_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum CaseStudyConclusionType {
+  TREATMENT_COMPLETION
+  CANCELLATION_BY_CLIENT
+  CANCELLATION_BY_PARENT
+  FURTHER_REFERRAL
+}
+
+"""
+A condition to be used against `CaseStudy` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input CaseStudyCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `clientRowId` field."""
+  clientRowId: UUID
+
+  """Checks for equality with the object’s `groupRowId` field."""
+  groupRowId: UUID
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+type CaseStudyMentalHealthProfessional implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  mentalHealthProfessionalRowId: UUID!
+  primary: Boolean!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
+}
+
+"""
+A condition to be used against `CaseStudyMentalHealthProfessional` object types.
+All fields are tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyMentalHealthProfessionalCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """
+  Checks for equality with the object’s `mentalHealthProfessionalRowId` field.
+  """
+  mentalHealthProfessionalRowId: UUID
+
+  """Checks for equality with the object’s `primary` field."""
+  primary: Boolean
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `CaseStudyMentalHealthProfessional` values."""
+type CaseStudyMentalHealthProfessionalsConnection {
+  """A list of `CaseStudyMentalHealthProfessional` objects."""
+  nodes: [CaseStudyMentalHealthProfessional!]!
+
+  """
+  A list of edges which contains the `CaseStudyMentalHealthProfessional` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyMentalHealthProfessionalsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyMentalHealthProfessional` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyMentalHealthProfessional` edge in the connection."""
+type CaseStudyMentalHealthProfessionalsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyMentalHealthProfessional` at the end of the edge."""
+  node: CaseStudyMentalHealthProfessional!
+}
+
+"""Methods to use when ordering `CaseStudyMentalHealthProfessional`."""
+enum CaseStudyMentalHealthProfessionalsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  MENTAL_HEALTH_PROFESSIONAL_ID_ASC
+  MENTAL_HEALTH_PROFESSIONAL_ID_DESC
+  PRIMARY_ASC
+  PRIMARY_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type CaseStudyRelation {
+  caseStudyRowId: UUID!
+  relatedCaseStudyRowId: UUID!
+  description: String
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyRelation`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyRelation`.
+  """
+  caseStudyByRelatedCaseStudyRowId: CaseStudy!
+}
+
+"""
+A condition to be used against `CaseStudyRelation` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyRelationCondition {
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `relatedCaseStudyRowId` field."""
+  relatedCaseStudyRowId: UUID
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `CaseStudyRelation` values."""
+type CaseStudyRelationsConnection {
+  """A list of `CaseStudyRelation` objects."""
+  nodes: [CaseStudyRelation!]!
+
+  """
+  A list of edges which contains the `CaseStudyRelation` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyRelationsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyRelation` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyRelation` edge in the connection."""
+type CaseStudyRelationsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyRelation` at the end of the edge."""
+  node: CaseStudyRelation!
+}
+
+"""Methods to use when ordering `CaseStudyRelation`."""
+enum CaseStudyRelationsOrderBy {
+  NATURAL
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  RELATED_CASE_STUDY_ID_ASC
+  RELATED_CASE_STUDY_ID_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+}
+
+type CaseStudyTreatment implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  external: Boolean!
+  startedAt: Datetime!
+  endedAt: Datetime!
+  title: String!
+  description: String
+  score: Int
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyTreatmentFile`.
+  """
+  caseStudyTreatmentFilesByCaseStudyTreatmentRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatmentFile`."""
+    orderBy: [CaseStudyTreatmentFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentFileCondition
+  ): CaseStudyTreatmentFilesConnection!
+
+  """Reads and enables pagination through a set of `CaseHistory`."""
+  caseHistoriesByCaseStudyTreatmentRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryCondition
+  ): CaseHistoriesConnection!
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnostic`.
+  """
+  multidisciplinaryDiagnosticsByCaseStudyTreatmentRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnostic`."""
+    orderBy: [MultidisciplinaryDiagnosticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticCondition
+  ): MultidisciplinaryDiagnosticsConnection!
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryTherapy`.
+  """
+  multidisciplinaryTherapiesByCaseStudyTreatmentRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryTherapy`."""
+    orderBy: [MultidisciplinaryTherapiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryTherapyCondition
+  ): MultidisciplinaryTherapiesConnection!
+}
+
+"""
+A condition to be used against `CaseStudyTreatment` object types. All fields are
+tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyTreatmentCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `external` field."""
+  external: Boolean
+
+  """Checks for equality with the object’s `startedAt` field."""
+  startedAt: Datetime
+
+  """Checks for equality with the object’s `endedAt` field."""
+  endedAt: Datetime
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `score` field."""
+  score: Int
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+type CaseStudyTreatmentFile implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyTreatmentRowId: UUID!
+  fileRowId: UUID!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseStudyTreatmentFile`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyTreatmentFile`.
+  """
+  fileByFileRowId: File!
+}
+
+"""
+A condition to be used against `CaseStudyTreatmentFile` object types. All fields
+are tested for equality and combined with a logical ‘and.’
+"""
+input CaseStudyTreatmentFileCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyTreatmentRowId` field."""
+  caseStudyTreatmentRowId: UUID
+
+  """Checks for equality with the object’s `fileRowId` field."""
+  fileRowId: UUID
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `CaseStudyTreatmentFile` values."""
+type CaseStudyTreatmentFilesConnection {
+  """A list of `CaseStudyTreatmentFile` objects."""
+  nodes: [CaseStudyTreatmentFile!]!
+
+  """
+  A list of edges which contains the `CaseStudyTreatmentFile` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyTreatmentFilesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyTreatmentFile` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyTreatmentFile` edge in the connection."""
+type CaseStudyTreatmentFilesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyTreatmentFile` at the end of the edge."""
+  node: CaseStudyTreatmentFile!
+}
+
+"""Methods to use when ordering `CaseStudyTreatmentFile`."""
+enum CaseStudyTreatmentFilesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_TREATMENT_ID_ASC
+  CASE_STUDY_TREATMENT_ID_DESC
+  FILE_ID_ASC
+  FILE_ID_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""A connection to a list of `CaseStudyTreatment` values."""
+type CaseStudyTreatmentsConnection {
+  """A list of `CaseStudyTreatment` objects."""
+  nodes: [CaseStudyTreatment!]!
+
+  """
+  A list of edges which contains the `CaseStudyTreatment` and cursor to aid in pagination.
+  """
+  edges: [CaseStudyTreatmentsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `CaseStudyTreatment` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `CaseStudyTreatment` edge in the connection."""
+type CaseStudyTreatmentsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `CaseStudyTreatment` at the end of the edge."""
+  node: CaseStudyTreatment!
+}
+
+"""Methods to use when ordering `CaseStudyTreatment`."""
+enum CaseStudyTreatmentsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  EXTERNAL_ASC
+  EXTERNAL_DESC
+  STARTED_AT_ASC
+  STARTED_AT_DESC
+  ENDED_AT_ASC
+  ENDED_AT_DESC
+  TITLE_ASC
+  TITLE_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  SCORE_ASC
+  SCORE_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type Client implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  number: Int!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  telephone: String!
+  email: EmailAddress
+  gender: Gender!
+  city: String!
+  address: String!
+  sentBy: ClientSentBy!
+  createdBy: UUID!
+  discrete: Boolean!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByCreatedBy: User!
+
+  """Reads and enables pagination through a set of `GroupClient`."""
+  groupClientsByClientRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `GroupClient`."""
+    orderBy: [GroupClientsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: GroupClientCondition
+  ): GroupClientsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudy`."""
+  caseStudiesByClientRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyCondition
+  ): CaseStudiesConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyTreatment`."""
+  caseStudyTreatmentsByCaseStudiesClientRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): CaseStudyTreatmentsConnection!
+  fullName: String!
+}
+
+"""
+A condition to be used against `Client` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input ClientCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `number` field."""
+  number: Int
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `dateOfBirth` field."""
+  dateOfBirth: Date
+
+  """Checks for equality with the object’s `telephone` field."""
+  telephone: String
+
+  """Checks for equality with the object’s `email` field."""
+  email: EmailAddress
+
+  """Checks for equality with the object’s `gender` field."""
+  gender: Gender
+
+  """Checks for equality with the object’s `city` field."""
+  city: String
+
+  """Checks for equality with the object’s `address` field."""
+  address: String
+
+  """Checks for equality with the object’s `sentBy` field."""
+  sentBy: ClientSentBy
+
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
+  """Checks for equality with the object’s `discrete` field."""
+  discrete: Boolean
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `Client` values."""
+type ClientsConnection {
+  """A list of `Client` objects."""
+  nodes: [Client!]!
+
+  """
+  A list of edges which contains the `Client` and cursor to aid in pagination.
+  """
+  edges: [ClientsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Client` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Client` edge in the connection."""
+type ClientsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Client` at the end of the edge."""
+  node: Client!
+}
+
+enum ClientSentBy {
+  SCHOOL
+  KINDERGARTEN
+  SOCIAL_WORK_CENTER
+  CLINIC
+  SELF_INITIATIVE
+  POLICE
+  COURT
+  MENTAL_HEALTH_CENTER
+  REFERAL
+  PEDIATRICIAN
+  PSYCHIATRIST
+}
+
+"""Methods to use when ordering `Client`."""
+enum ClientsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NUMBER_ASC
+  NUMBER_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  DATE_OF_BIRTH_ASC
+  DATE_OF_BIRTH_DESC
+  TELEPHONE_ASC
+  TELEPHONE_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  GENDER_ASC
+  GENDER_DESC
+  CITY_ASC
+  CITY_DESC
+  ADDRESS_ASC
+  ADDRESS_DESC
+  SENT_BY_ASC
+  SENT_BY_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
+  DISCRETE_ASC
+  DISCRETE_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""All input for the `createCaseHistoryFile` mutation."""
+input CreateCaseHistoryFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseHistoryRowId: UUID!
+  fileName: String!
+  fileData: Base64EncodedBinary!
+}
+
+"""The output of our `createCaseHistoryFile` mutation."""
+type CreateCaseHistoryFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseHistoryFile: CaseHistoryFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseHistory` that is related to this `CaseHistoryFile`.
+  """
+  caseHistoryByCaseHistoryRowId: CaseHistory!
+
+  """Reads a single `File` that is related to this `CaseHistoryFile`."""
+  fileByFileRowId: File!
+
+  """An edge for our `CaseHistoryFile`. May be used by Relay 1."""
+  caseHistoryFileEdge(
+    """The method to use when ordering `CaseHistoryFile`."""
+    orderBy: [CaseHistoryFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseHistoryFilesEdge
+}
+
+"""All input for the `createCaseHistory` mutation."""
+input CreateCaseHistoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyRowId: UUID!
+  caseStudyTreatmentRowId: UUID
+  accompaniedBy: CaseHistoryAccompaniedByType
+  livesWith: [CaseHistoryLivesWithType]
+  divorcedParents: CaseHistoryDivorcedParentsType
+  divorceOutcome: CaseHistoryDivorceOutcomeType
+  adoptionAge: Float
+  numberOfAdoptions: Int
+  reasonOfMultipleAdoptions: [CaseHistoryReasonOfMultipleAdoptionsType]
+  arrivalReason: [CaseHistoryArrivalReasonType]
+  earlierProfessionalHelp: [MentalHealthProfessionalType]
+  referralDiagnosis: String
+  referral: [CaseHistoryReferralType]
+  involvedReferral: Boolean
+  previousTreatment: String
+  attendsKindergarten: Boolean
+  schoolMark: Int
+  adaptedEducationProgram: Boolean
+  individualizedEducationProgram: Boolean
+  diagnosedIntelectualDevelopmentProblems: Boolean
+  furtherAbuses: [CaseHistoryAbuseType]
+  reportedFurtherAbuses: CaseHistoryReportedAbuseType
+  lossOfCloseIndividual: [CaseHistoryIndividualType]
+  ageDuringLossOfCloseIndividual: Float
+  familyHeredity: String
+  ptsp: String
+  parentsInJail: CaseHistoryParentsInJailType
+}
+
+"""The output of our `createCaseHistory` mutation."""
+type CreateCaseHistoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseHistory: CaseHistory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `CaseStudy` that is related to this `CaseHistory`."""
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseHistory`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """An edge for our `CaseHistory`. May be used by Relay 1."""
+  caseHistoryEdge(
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseHistoriesEdge
+}
+
+"""All input for the `createCaseStudyConclusionFile` mutation."""
+input CreateCaseStudyConclusionFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyConclusionRowId: UUID!
+  fileName: String!
+  fileData: Base64EncodedBinary!
+}
+
+"""The output of our `createCaseStudyConclusionFile` mutation."""
+type CreateCaseStudyConclusionFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyConclusionFile: CaseStudyConclusionFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudyConclusion` that is related to this `CaseStudyConclusionFile`.
+  """
+  caseStudyConclusionByCaseStudyConclusionRowId: CaseStudyConclusion!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyConclusionFile`.
+  """
+  fileByFileRowId: File!
+
+  """An edge for our `CaseStudyConclusionFile`. May be used by Relay 1."""
+  caseStudyConclusionFileEdge(
+    """The method to use when ordering `CaseStudyConclusionFile`."""
+    orderBy: [CaseStudyConclusionFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyConclusionFilesEdge
+}
+
+"""All input for the `createCaseStudyConclusion` mutation."""
+input CreateCaseStudyConclusionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyRowId: UUID!
+  type: CaseStudyConclusionType!
+  concludedAt: Datetime!
+  description: String!
+}
+
+"""The output of our `createCaseStudyConclusion` mutation."""
+type CreateCaseStudyConclusionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyConclusion: CaseStudyConclusion
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyConclusion`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
+  caseStudyConclusionEdge(
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyConclusionsEdge
+}
+
+"""All input for the `createCaseStudy` mutation."""
+input CreateCaseStudyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  title: String!
+  clientRowId: UUID
+  groupRowId: UUID
+}
+
+"""All input for the `createCaseStudyMentalHealthProfessional` mutation."""
+input CreateCaseStudyMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyRowId: UUID!
+  mentalHealthProfessionalRowId: UUID!
+  primary: Boolean!
+}
+
+"""The output of our `createCaseStudyMentalHealthProfessional` mutation."""
+type CreateCaseStudyMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyMentalHealthProfessional: CaseStudyMentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
+
+  """
+  An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
+  """
+  caseStudyMentalHealthProfessionalEdge(
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyMentalHealthProfessionalsEdge
+}
+
+"""The output of our `createCaseStudy` mutation."""
+type CreateCaseStudyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudy: CaseStudy
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `CaseStudy`."""
+  clientByClientRowId: Client
+
+  """Reads a single `Group` that is related to this `CaseStudy`."""
+  groupByGroupRowId: Group
+
+  """An edge for our `CaseStudy`. May be used by Relay 1."""
+  caseStudyEdge(
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudiesEdge
+}
+
+"""All input for the `createCaseStudyTreatmentFile` mutation."""
+input CreateCaseStudyTreatmentFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyTreatmentRowId: UUID!
+  fileName: String!
+  fileData: Base64EncodedBinary!
+}
+
+"""The output of our `createCaseStudyTreatmentFile` mutation."""
+type CreateCaseStudyTreatmentFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyTreatmentFile: CaseStudyTreatmentFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseStudyTreatmentFile`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyTreatmentFile`.
+  """
+  fileByFileRowId: File!
+
+  """An edge for our `CaseStudyTreatmentFile`. May be used by Relay 1."""
+  caseStudyTreatmentFileEdge(
+    """The method to use when ordering `CaseStudyTreatmentFile`."""
+    orderBy: [CaseStudyTreatmentFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyTreatmentFilesEdge
+}
+
+"""All input for the `createCaseStudyTreatment` mutation."""
+input CreateCaseStudyTreatmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  caseStudyRowId: UUID!
+  external: Boolean!
+  startedAt: Datetime!
+  endedAt: Datetime!
+  title: String!
+  description: String
+  score: Int
+}
+
+"""The output of our `createCaseStudyTreatment` mutation."""
+type CreateCaseStudyTreatmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyTreatment: CaseStudyTreatment
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
+  caseStudyTreatmentEdge(
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyTreatmentsEdge
+}
+
+"""All input for the `createClient` mutation."""
+input CreateClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  number: Int!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  telephone: String!
+  gender: Gender!
+  city: String!
+  address: String!
+  sentBy: ClientSentBy!
+  email: EmailAddress
+  discrete: Boolean
+}
+
+"""The output of our `createClient` mutation."""
+type CreateClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  client: Client
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByCreatedBy: User!
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""UTC timestamp representing the time at which a node is created."""
+scalar CreatedTimestamptz
+
+"""All input for the `createMentalHealthProfessional` mutation."""
+input CreateMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  type: MentalHealthProfessionalType!
+  email: EmailAddress!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  gender: Gender!
+  title: String
+  userRowId: UUID
+}
+
+"""The output of our `createMentalHealthProfessional` mutation."""
+type CreateMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  mentalHealthProfessional: MentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `User` that is related to this `MentalHealthProfessional`.
+  """
+  userByUserRowId: User
+
+  """An edge for our `MentalHealthProfessional`. May be used by Relay 1."""
+  mentalHealthProfessionalEdge(
+    """The method to use when ordering `MentalHealthProfessional`."""
+    orderBy: [MentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MentalHealthProfessionalsEdge
+}
+
+"""A location in a connection that can be used for resuming pagination."""
+scalar Cursor
+
+"""The day, does not include a time."""
+scalar Date
+
+"""
+A point in time as described by the [ISO
+8601](https://en.wikipedia.org/wiki/ISO_8601) standard. May or may not include a timezone.
+"""
+scalar Datetime
+
+"""All input for the `deleteCaseHistoryFile` mutation."""
+input DeleteCaseHistoryFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseHistoryFile` mutation."""
+type DeleteCaseHistoryFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseHistoryFile: CaseHistoryFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseHistory` that is related to this `CaseHistoryFile`.
+  """
+  caseHistoryByCaseHistoryRowId: CaseHistory!
+
+  """Reads a single `File` that is related to this `CaseHistoryFile`."""
+  fileByFileRowId: File!
+
+  """An edge for our `CaseHistoryFile`. May be used by Relay 1."""
+  caseHistoryFileEdge(
+    """The method to use when ordering `CaseHistoryFile`."""
+    orderBy: [CaseHistoryFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseHistoryFilesEdge
+}
+
+"""All input for the `deleteCaseHistory` mutation."""
+input DeleteCaseHistoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseHistory` mutation."""
+type DeleteCaseHistoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseHistory: CaseHistory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `CaseStudy` that is related to this `CaseHistory`."""
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseHistory`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """An edge for our `CaseHistory`. May be used by Relay 1."""
+  caseHistoryEdge(
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseHistoriesEdge
+}
+
+"""All input for the `deleteCaseStudyConclusionFile` mutation."""
+input DeleteCaseStudyConclusionFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseStudyConclusionFile` mutation."""
+type DeleteCaseStudyConclusionFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyConclusionFile: CaseStudyConclusionFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudyConclusion` that is related to this `CaseStudyConclusionFile`.
+  """
+  caseStudyConclusionByCaseStudyConclusionRowId: CaseStudyConclusion!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyConclusionFile`.
+  """
+  fileByFileRowId: File!
+
+  """An edge for our `CaseStudyConclusionFile`. May be used by Relay 1."""
+  caseStudyConclusionFileEdge(
+    """The method to use when ordering `CaseStudyConclusionFile`."""
+    orderBy: [CaseStudyConclusionFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyConclusionFilesEdge
+}
+
+"""All input for the `deleteCaseStudyConclusion` mutation."""
+input DeleteCaseStudyConclusionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseStudyConclusion` mutation."""
+type DeleteCaseStudyConclusionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyConclusion: CaseStudyConclusion
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyConclusion`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
+  caseStudyConclusionEdge(
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyConclusionsEdge
+}
+
+"""All input for the `deleteCaseStudy` mutation."""
+input DeleteCaseStudyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""All input for the `deleteCaseStudyMentalHealthProfessional` mutation."""
+input DeleteCaseStudyMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseStudyMentalHealthProfessional` mutation."""
+type DeleteCaseStudyMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyMentalHealthProfessional: CaseStudyMentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
+
+  """
+  An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
+  """
+  caseStudyMentalHealthProfessionalEdge(
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyMentalHealthProfessionalsEdge
+}
+
+"""The output of our `deleteCaseStudy` mutation."""
+type DeleteCaseStudyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudy: CaseStudy
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `CaseStudy`."""
+  clientByClientRowId: Client
+
+  """Reads a single `Group` that is related to this `CaseStudy`."""
+  groupByGroupRowId: Group
+
+  """An edge for our `CaseStudy`. May be used by Relay 1."""
+  caseStudyEdge(
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudiesEdge
+}
+
+"""All input for the `deleteCaseStudyTreatmentFile` mutation."""
+input DeleteCaseStudyTreatmentFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseStudyTreatmentFile` mutation."""
+type DeleteCaseStudyTreatmentFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyTreatmentFile: CaseStudyTreatmentFile
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseStudyTreatmentFile`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment!
+
+  """
+  Reads a single `File` that is related to this `CaseStudyTreatmentFile`.
+  """
+  fileByFileRowId: File!
+
+  """An edge for our `CaseStudyTreatmentFile`. May be used by Relay 1."""
+  caseStudyTreatmentFileEdge(
+    """The method to use when ordering `CaseStudyTreatmentFile`."""
+    orderBy: [CaseStudyTreatmentFilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyTreatmentFilesEdge
+}
+
+"""All input for the `deleteCaseStudyTreatment` mutation."""
+input DeleteCaseStudyTreatmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteCaseStudyTreatment` mutation."""
+type DeleteCaseStudyTreatmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyTreatment: CaseStudyTreatment
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
+  caseStudyTreatmentEdge(
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyTreatmentsEdge
+}
+
+"""All input for the `deleteClient` mutation."""
+input DeleteClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteClient` mutation."""
+type DeleteClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  client: Client
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByCreatedBy: User!
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""All input for the `deleteFile` mutation."""
+input DeleteFileInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteFile` mutation."""
+type DeleteFilePayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  file: File
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """An edge for our `File`. May be used by Relay 1."""
+  fileEdge(
+    """The method to use when ordering `File`."""
+    orderBy: [FilesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): FilesEdge
+}
+
+"""All input for the `deleteMentalHealthProfessional` mutation."""
+input DeleteMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+}
+
+"""The output of our `deleteMentalHealthProfessional` mutation."""
+type DeleteMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  mentalHealthProfessional: MentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `User` that is related to this `MentalHealthProfessional`.
+  """
+  userByUserRowId: User
+
+  """An edge for our `MentalHealthProfessional`. May be used by Relay 1."""
+  mentalHealthProfessionalEdge(
+    """The method to use when ordering `MentalHealthProfessional`."""
+    orderBy: [MentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MentalHealthProfessionalsEdge
+}
+
+"""E-Mail address with simple plausability check."""
+scalar EmailAddress
+
+type File implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  name: String!
+  data: Base64EncodedBinary!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyTreatmentFile`.
+  """
+  caseStudyTreatmentFilesByFileRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatmentFile`."""
+    orderBy: [CaseStudyTreatmentFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentFileCondition
+  ): CaseStudyTreatmentFilesConnection!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyConclusionFile`.
+  """
+  caseStudyConclusionFilesByFileRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusionFile`."""
+    orderBy: [CaseStudyConclusionFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionFileCondition
+  ): CaseStudyConclusionFilesConnection!
+
+  """Reads and enables pagination through a set of `CaseHistoryFile`."""
+  caseHistoryFilesByFileRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistoryFile`."""
+    orderBy: [CaseHistoryFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryFileCondition
+  ): CaseHistoryFilesConnection!
+}
+
+"""
+A condition to be used against `File` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input FileCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `name` field."""
+  name: String
+
+  """Checks for equality with the object’s `data` field."""
+  data: Base64EncodedBinary
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `File` values."""
+type FilesConnection {
+  """A list of `File` objects."""
+  nodes: [File!]!
+
+  """
+  A list of edges which contains the `File` and cursor to aid in pagination.
+  """
+  edges: [FilesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `File` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `File` edge in the connection."""
+type FilesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `File` at the end of the edge."""
+  node: File!
+}
+
+"""Methods to use when ordering `File`."""
+enum FilesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NAME_ASC
+  NAME_DESC
+  DATA_ASC
+  DATA_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+type Group implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  number: Int!
+  description: String
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads and enables pagination through a set of `GroupClient`."""
+  groupClientsByGroupRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `GroupClient`."""
+    orderBy: [GroupClientsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: GroupClientCondition
+  ): GroupClientsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudy`."""
+  caseStudiesByGroupRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyCondition
+  ): CaseStudiesConnection!
+}
+
+type GroupClient {
+  groupRowId: UUID!
+  clientRowId: UUID!
+
+  """Reads a single `Group` that is related to this `GroupClient`."""
+  groupByGroupRowId: Group!
+
+  """Reads a single `Client` that is related to this `GroupClient`."""
+  clientByClientRowId: Client!
+}
+
+"""
+A condition to be used against `GroupClient` object types. All fields are tested
+for equality and combined with a logical ‘and.’
+"""
+input GroupClientCondition {
+  """Checks for equality with the object’s `groupRowId` field."""
+  groupRowId: UUID
+
+  """Checks for equality with the object’s `clientRowId` field."""
+  clientRowId: UUID
+}
+
+"""A connection to a list of `GroupClient` values."""
+type GroupClientsConnection {
+  """A list of `GroupClient` objects."""
+  nodes: [GroupClient!]!
+
+  """
+  A list of edges which contains the `GroupClient` and cursor to aid in pagination.
+  """
+  edges: [GroupClientsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `GroupClient` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `GroupClient` edge in the connection."""
+type GroupClientsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `GroupClient` at the end of the edge."""
+  node: GroupClient!
+}
+
+"""Methods to use when ordering `GroupClient`."""
+enum GroupClientsOrderBy {
+  NATURAL
+  GROUP_ID_ASC
+  GROUP_ID_DESC
+  CLIENT_ID_ASC
+  CLIENT_ID_DESC
+}
+
+"""
+A condition to be used against `Group` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input GroupCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `number` field."""
+  number: Int
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `Group` values."""
+type GroupsConnection {
+  """A list of `Group` objects."""
+  nodes: [Group!]!
+
+  """
+  A list of edges which contains the `Group` and cursor to aid in pagination.
+  """
+  edges: [GroupsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `Group` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `Group` edge in the connection."""
+type GroupsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `Group` at the end of the edge."""
+  node: Group!
+}
+
+"""Methods to use when ordering `Group`."""
+enum GroupsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  NUMBER_ASC
+  NUMBER_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A JSON Web Token defined by [RFC 7519](https://tools.ietf.org/html/rfc7519)
+which securely represents claims between two parties.
+"""
+scalar JwtToken
+
+type MentalHealthProfessional implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  userRowId: UUID
+  type: MentalHealthProfessionalType!
+  email: EmailAddress!
+  title: String
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  gender: Gender!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `User` that is related to this `MentalHealthProfessional`.
+  """
+  userByUserRowId: User
+
+  """
+  Reads and enables pagination through a set of `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyMentalHealthProfessionalsByMentalHealthProfessionalRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyMentalHealthProfessionalCondition
+  ): CaseStudyMentalHealthProfessionalsConnection!
+  fullName: String!
+}
+
+"""
+A condition to be used against `MentalHealthProfessional` object types. All
+fields are tested for equality and combined with a logical ‘and.’
+"""
+input MentalHealthProfessionalCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `userRowId` field."""
+  userRowId: UUID
+
+  """Checks for equality with the object’s `type` field."""
+  type: MentalHealthProfessionalType
+
+  """Checks for equality with the object’s `email` field."""
+  email: EmailAddress
+
+  """Checks for equality with the object’s `title` field."""
+  title: String
+
+  """Checks for equality with the object’s `firstName` field."""
+  firstName: String
+
+  """Checks for equality with the object’s `lastName` field."""
+  lastName: String
+
+  """Checks for equality with the object’s `dateOfBirth` field."""
+  dateOfBirth: Date
+
+  """Checks for equality with the object’s `gender` field."""
+  gender: Gender
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `MentalHealthProfessional` values."""
+type MentalHealthProfessionalsConnection {
+  """A list of `MentalHealthProfessional` objects."""
+  nodes: [MentalHealthProfessional!]!
+
+  """
+  A list of edges which contains the `MentalHealthProfessional` and cursor to aid in pagination.
+  """
+  edges: [MentalHealthProfessionalsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `MentalHealthProfessional` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `MentalHealthProfessional` edge in the connection."""
+type MentalHealthProfessionalsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `MentalHealthProfessional` at the end of the edge."""
+  node: MentalHealthProfessional!
+}
+
+"""Methods to use when ordering `MentalHealthProfessional`."""
+enum MentalHealthProfessionalsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  USER_ID_ASC
+  USER_ID_DESC
+  TYPE_ASC
+  TYPE_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  TITLE_ASC
+  TITLE_DESC
+  FIRST_NAME_ASC
+  FIRST_NAME_DESC
+  LAST_NAME_ASC
+  LAST_NAME_DESC
+  DATE_OF_BIRTH_ASC
+  DATE_OF_BIRTH_DESC
+  GENDER_ASC
+  GENDER_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MentalHealthProfessionalType {
+  PSYCHOTHERAPIST
+  PSYCHOLOGIST
+  PSYCHIATRIST
+  NEUROLOGIST
+  PEDIATRIST
+  SOCIAL_WORKER
+  PEDAGOGUE
+  DEFECTOLOGIST
+  PHONETICIAN
+  OTHER
+}
+
+type MultidisciplinaryDiagnostic implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  caseStudyTreatmentRowId: UUID
+
+  """
+  If the diagnostics hasP been performed outside the institution in focus.
+  """
+  external: Boolean!
+  description: String
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+  multidisciplinaryTherapyRowId: UUID
+
+  """
+  Reads a single `CaseStudy` that is related to this `MultidisciplinaryDiagnostic`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `MultidisciplinaryDiagnostic`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """
+  Reads a single `MultidisciplinaryTherapy` that is related to this `MultidisciplinaryDiagnostic`.
+  """
+  multidisciplinaryTherapyByMultidisciplinaryTherapyRowId: MultidisciplinaryTherapy
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnosticReport`.
+  """
+  multidisciplinaryDiagnosticReportsByMultidisciplinaryDiagnosticRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnosticReport`."""
+    orderBy: [MultidisciplinaryDiagnosticReportsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticReportCondition
+  ): MultidisciplinaryDiagnosticReportsConnection!
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryTherapy`.
+  """
+  multidisciplinaryTherapiesByMultidisciplinaryDiagnosticRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryTherapy`."""
+    orderBy: [MultidisciplinaryTherapiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryTherapyCondition
+  ): MultidisciplinaryTherapiesConnection!
+}
+
+"""
+A condition to be used against `MultidisciplinaryDiagnostic` object types. All
+fields are tested for equality and combined with a logical ‘and.’
+"""
+input MultidisciplinaryDiagnosticCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `caseStudyTreatmentRowId` field."""
+  caseStudyTreatmentRowId: UUID
+
+  """Checks for equality with the object’s `external` field."""
+  external: Boolean
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+
+  """
+  Checks for equality with the object’s `multidisciplinaryTherapyRowId` field.
+  """
+  multidisciplinaryTherapyRowId: UUID
+}
+
+type MultidisciplinaryDiagnosticReport implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  multidisciplinaryDiagnosticRowId: UUID!
+  reportType: MultidisciplinaryDiagnosticReportType!
+  reportUrl: String!
+  issuedTo: [MultidisciplinaryDiagnosticReportIssuedToType]
+  issuedAt: Datetime
+  description: String
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `MultidisciplinaryDiagnostic` that is related to this `MultidisciplinaryDiagnosticReport`.
+  """
+  multidisciplinaryDiagnosticByMultidisciplinaryDiagnosticRowId: MultidisciplinaryDiagnostic!
+}
+
+"""
+A condition to be used against `MultidisciplinaryDiagnosticReport` object types.
+All fields are tested for equality and combined with a logical ‘and.’
+"""
+input MultidisciplinaryDiagnosticReportCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """
+  Checks for equality with the object’s `multidisciplinaryDiagnosticRowId` field.
+  """
+  multidisciplinaryDiagnosticRowId: UUID
+
+  """Checks for equality with the object’s `reportType` field."""
+  reportType: MultidisciplinaryDiagnosticReportType
+
+  """Checks for equality with the object’s `reportUrl` field."""
+  reportUrl: String
+
+  """Checks for equality with the object’s `issuedTo` field."""
+  issuedTo: [MultidisciplinaryDiagnosticReportIssuedToType]
+
+  """Checks for equality with the object’s `issuedAt` field."""
+  issuedAt: Datetime
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+enum MultidisciplinaryDiagnosticReportIssuedToType {
+  CLIENT
+  PARENT
+  KINDERGARTEN
+  SCHOOL
+  SOCIAL_WORK_CENTER
+  POLICE
+  HOSPITAL
+  PSYCHIATRIST
+  PEDIATRIST
+  COURT
+  MENTAL_HEALTH_CENTER
+  FOSTER_HOUSE
+}
+
+"""A connection to a list of `MultidisciplinaryDiagnosticReport` values."""
+type MultidisciplinaryDiagnosticReportsConnection {
+  """A list of `MultidisciplinaryDiagnosticReport` objects."""
+  nodes: [MultidisciplinaryDiagnosticReport!]!
+
+  """
+  A list of edges which contains the `MultidisciplinaryDiagnosticReport` and cursor to aid in pagination.
+  """
+  edges: [MultidisciplinaryDiagnosticReportsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `MultidisciplinaryDiagnosticReport` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `MultidisciplinaryDiagnosticReport` edge in the connection."""
+type MultidisciplinaryDiagnosticReportsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `MultidisciplinaryDiagnosticReport` at the end of the edge."""
+  node: MultidisciplinaryDiagnosticReport!
+}
+
+"""Methods to use when ordering `MultidisciplinaryDiagnosticReport`."""
+enum MultidisciplinaryDiagnosticReportsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  MULTIDISCIPLINARY_DIAGNOSTIC_ID_ASC
+  MULTIDISCIPLINARY_DIAGNOSTIC_ID_DESC
+  REPORT_TYPE_ASC
+  REPORT_TYPE_DESC
+  REPORT_URL_ASC
+  REPORT_URL_DESC
+  ISSUED_TO_ASC
+  ISSUED_TO_DESC
+  ISSUED_AT_ASC
+  ISSUED_AT_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+enum MultidisciplinaryDiagnosticReportType {
+  MULTIDISCIPLINARY_REPORT
+  PSYCHOTHERAPEUTIC_REPORT
+  PSYCHOLOGICAL_REPORT
+  PSYCHIATRIC_REPORT
+  NEUROLOGIC_REPORT
+  PEDIATRIC_REPORT
+  SOCIAL_WORKER_REPORT
+  DEFECTOLOGICAL_REPORT
+  T_O_V_A
+}
+
+"""A connection to a list of `MultidisciplinaryDiagnostic` values."""
+type MultidisciplinaryDiagnosticsConnection {
+  """A list of `MultidisciplinaryDiagnostic` objects."""
+  nodes: [MultidisciplinaryDiagnostic!]!
+
+  """
+  A list of edges which contains the `MultidisciplinaryDiagnostic` and cursor to aid in pagination.
+  """
+  edges: [MultidisciplinaryDiagnosticsEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `MultidisciplinaryDiagnostic` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `MultidisciplinaryDiagnostic` edge in the connection."""
+type MultidisciplinaryDiagnosticsEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `MultidisciplinaryDiagnostic` at the end of the edge."""
+  node: MultidisciplinaryDiagnostic!
+}
+
+"""Methods to use when ordering `MultidisciplinaryDiagnostic`."""
+enum MultidisciplinaryDiagnosticsOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  CASE_STUDY_TREATMENT_ID_ASC
+  CASE_STUDY_TREATMENT_ID_DESC
+  EXTERNAL_ASC
+  EXTERNAL_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  MULTIDISCIPLINARY_THERAPY_ID_ASC
+  MULTIDISCIPLINARY_THERAPY_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""A connection to a list of `MultidisciplinaryTherapy` values."""
+type MultidisciplinaryTherapiesConnection {
+  """A list of `MultidisciplinaryTherapy` objects."""
+  nodes: [MultidisciplinaryTherapy!]!
+
+  """
+  A list of edges which contains the `MultidisciplinaryTherapy` and cursor to aid in pagination.
+  """
+  edges: [MultidisciplinaryTherapiesEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """
+  The count of *all* `MultidisciplinaryTherapy` you could get from the connection.
+  """
+  totalCount: Int!
+}
+
+"""A `MultidisciplinaryTherapy` edge in the connection."""
+type MultidisciplinaryTherapiesEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `MultidisciplinaryTherapy` at the end of the edge."""
+  node: MultidisciplinaryTherapy!
+}
+
+"""Methods to use when ordering `MultidisciplinaryTherapy`."""
+enum MultidisciplinaryTherapiesOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  CASE_STUDY_ID_ASC
+  CASE_STUDY_ID_DESC
+  CASE_STUDY_TREATMENT_ID_ASC
+  CASE_STUDY_TREATMENT_ID_DESC
+  MULTIDISCIPLINARY_DIAGNOSTIC_ID_ASC
+  MULTIDISCIPLINARY_DIAGNOSTIC_ID_DESC
+  TYPE_ASC
+  TYPE_DESC
+  EXTERNAL_ASC
+  EXTERNAL_DESC
+  DESCRIPTION_ASC
+  DESCRIPTION_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+type MultidisciplinaryTherapy implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  caseStudyRowId: UUID!
+  caseStudyTreatmentRowId: UUID
+  multidisciplinaryDiagnosticRowId: UUID
+  type: MultidisciplinaryTherapyType!
+
+  """If the therapy has been performed outside the institution in focus."""
+  external: Boolean!
+  description: String
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """
+  Reads a single `CaseStudy` that is related to this `MultidisciplinaryTherapy`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `MultidisciplinaryTherapy`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """
+  Reads a single `MultidisciplinaryDiagnostic` that is related to this `MultidisciplinaryTherapy`.
+  """
+  multidisciplinaryDiagnosticByMultidisciplinaryDiagnosticRowId: MultidisciplinaryDiagnostic
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnostic`.
+  """
+  multidisciplinaryDiagnosticsByMultidisciplinaryTherapyRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnostic`."""
+    orderBy: [MultidisciplinaryDiagnosticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticCondition
+  ): MultidisciplinaryDiagnosticsConnection!
+}
+
+"""
+A condition to be used against `MultidisciplinaryTherapy` object types. All
+fields are tested for equality and combined with a logical ‘and.’
+"""
+input MultidisciplinaryTherapyCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `caseStudyRowId` field."""
+  caseStudyRowId: UUID
+
+  """Checks for equality with the object’s `caseStudyTreatmentRowId` field."""
+  caseStudyTreatmentRowId: UUID
+
+  """
+  Checks for equality with the object’s `multidisciplinaryDiagnosticRowId` field.
+  """
+  multidisciplinaryDiagnosticRowId: UUID
+
+  """Checks for equality with the object’s `type` field."""
+  type: MultidisciplinaryTherapyType
+
+  """Checks for equality with the object’s `external` field."""
+  external: Boolean
+
+  """Checks for equality with the object’s `description` field."""
+  description: String
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+enum MultidisciplinaryTherapyType {
+  INDIVIDUAL_INTEGRATIVE_THERAPY
+  INDIVIDUAL_GESTALT_THERAPY
+  INDIVIDUAL_COGNITIVE_BEHAVIOURAL_THERAPY
+  INDIVIDUAL_PSYCHOANALYTIC_THERAPY
+  COUPLE_THERAPY
+  FAMILY_THERAPY
+  GROUP_THERAPY
+  OCUPATIONAL_THERAPY
+  COUNSELING_THERAPY
+  PSYCHOEDUCATIONAL_THERAPY
+  ATTACHMENT_THERAPY
+  ATTACHMENT_BASIC_FAMILY_THERAPY
+  EYE_MOVEMENT_DESENSITIZATION_AND_REPROCESSING_THERAPY
+  TRAUMA_FOCUS_COGNITIVE_BEHAVIOURAL_THERAPY
+  FORENSICALLY_SENSITIVE_THERAPY
+  ANTIPSYCHOTIC_PSYCHOPHARMACOTHERAPY
+  ANTIDEPRESIVE_PSYCHOPHARMACOTHERAPY
+  ANXIOLYTIC_PSYCHOPHARMACOTHERAPY
+  MOOD_STABILIZER_PSYCHOPHARMACOTHERAPY
+  ANTIEPILEPTIC_PHARMACOTHERAPY
+  PHARMACOTHERAPY
+  PLAY_ATTENTION_THERAPY
+  DEFECTOLOGY_THERAPY
+  PHONETIC_THERAPY
+  PARENTAL_THERAPY
+  SCHOOL_EDUCATION
+  KINDERGARTEN_EDUCATION
+  SOCIAL_CENTER_EDUCATION
+  COURT_EDUCATION
+}
+
+"""
+The root mutation type which contains root level fields which mutate data.
+"""
+type Mutation {
+  """Authenticates a `User`."""
+  authenticate(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: AuthenticateInput!
+  ): AuthenticatePayload!
+  createCaseHistory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseHistoryInput!
+  ): CreateCaseHistoryPayload
+  createCaseHistoryFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseHistoryFileInput!
+  ): CreateCaseHistoryFilePayload
+  createCaseStudy(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyInput!
+  ): CreateCaseStudyPayload
+  createCaseStudyConclusion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyConclusionInput!
+  ): CreateCaseStudyConclusionPayload
+  createCaseStudyConclusionFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyConclusionFileInput!
+  ): CreateCaseStudyConclusionFilePayload
+  createCaseStudyMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyMentalHealthProfessionalInput!
+  ): CreateCaseStudyMentalHealthProfessionalPayload
+  createCaseStudyTreatment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyTreatmentInput!
+  ): CreateCaseStudyTreatmentPayload
+  createCaseStudyTreatmentFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateCaseStudyTreatmentFileInput!
+  ): CreateCaseStudyTreatmentFilePayload
+  createClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateClientInput!
+  ): CreateClientPayload
+  createMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: CreateMentalHealthProfessionalInput!
+  ): CreateMentalHealthProfessionalPayload
+  deleteCaseHistory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseHistoryInput!
+  ): DeleteCaseHistoryPayload
+  deleteCaseHistoryFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseHistoryFileInput!
+  ): DeleteCaseHistoryFilePayload
+  deleteCaseStudy(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyInput!
+  ): DeleteCaseStudyPayload
+  deleteCaseStudyConclusion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyConclusionInput!
+  ): DeleteCaseStudyConclusionPayload
+  deleteCaseStudyConclusionFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyConclusionFileInput!
+  ): DeleteCaseStudyConclusionFilePayload
+  deleteCaseStudyMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyMentalHealthProfessionalInput!
+  ): DeleteCaseStudyMentalHealthProfessionalPayload
+  deleteCaseStudyTreatment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyTreatmentInput!
+  ): DeleteCaseStudyTreatmentPayload
+  deleteCaseStudyTreatmentFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteCaseStudyTreatmentFileInput!
+  ): DeleteCaseStudyTreatmentFilePayload
+  deleteClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteClientInput!
+  ): DeleteClientPayload
+  deleteFile(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteFileInput!
+  ): DeleteFilePayload
+  deleteMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteMentalHealthProfessionalInput!
+  ): DeleteMentalHealthProfessionalPayload
+  updateCaseHistory(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCaseHistoryInput!
+  ): UpdateCaseHistoryPayload
+  updateCaseStudy(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCaseStudyInput!
+  ): UpdateCaseStudyPayload
+  updateCaseStudyConclusion(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCaseStudyConclusionInput!
+  ): UpdateCaseStudyConclusionPayload
+  updateCaseStudyMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCaseStudyMentalHealthProfessionalInput!
+  ): UpdateCaseStudyMentalHealthProfessionalPayload
+  updateCaseStudyTreatment(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateCaseStudyTreatmentInput!
+  ): UpdateCaseStudyTreatmentPayload
+  updateClient(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateClientInput!
+  ): UpdateClientPayload
+  updateMentalHealthProfessional(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateMentalHealthProfessionalInput!
+  ): UpdateMentalHealthProfessionalPayload
+}
+
+"""An object with a globally unique `ID`."""
+interface Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: Cursor
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: Cursor
+}
+
+"""The root query type which gives access points into the data universe."""
+type Query implements Node {
+  """
+  Exposes the root query type nested one level down. This is helpful for Relay 1
+  which can only query top level fields if they are in a particular form.
+  """
+  query: Query!
+
+  """
+  The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
+  """
+  id: ID!
+
+  """Fetches an object given its globally unique `ID`."""
+  node(
+    """The globally unique `ID`."""
+    id: ID!
+  ): Node
+
+  """Reads and enables pagination through a set of `Assistant`."""
+  allAssistants(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Assistant`."""
+    orderBy: [AssistantsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AssistantCondition
+  ): AssistantsConnection
+
+  """Reads and enables pagination through a set of `CaseHistory`."""
+  allCaseHistories(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryCondition
+  ): CaseHistoriesConnection
+
+  """Reads and enables pagination through a set of `CaseHistoryFile`."""
+  allCaseHistoryFiles(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistoryFile`."""
+    orderBy: [CaseHistoryFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryFileCondition
+  ): CaseHistoryFilesConnection
+
+  """Reads and enables pagination through a set of `CaseStudy`."""
+  allCaseStudies(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyCondition
+  ): CaseStudiesConnection
+
+  """Reads and enables pagination through a set of `CaseStudyConclusion`."""
+  allCaseStudyConclusions(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionCondition
+  ): CaseStudyConclusionsConnection
+
+  """
+  Reads and enables pagination through a set of `CaseStudyConclusionFile`.
+  """
+  allCaseStudyConclusionFiles(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusionFile`."""
+    orderBy: [CaseStudyConclusionFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionFileCondition
+  ): CaseStudyConclusionFilesConnection
+
+  """
+  Reads and enables pagination through a set of `CaseStudyMentalHealthProfessional`.
+  """
+  allCaseStudyMentalHealthProfessionals(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyMentalHealthProfessionalCondition
+  ): CaseStudyMentalHealthProfessionalsConnection
+
+  """Reads and enables pagination through a set of `CaseStudyRelation`."""
+  allCaseStudyRelations(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyRelation`."""
+    orderBy: [CaseStudyRelationsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyRelationCondition
+  ): CaseStudyRelationsConnection
+
+  """Reads and enables pagination through a set of `CaseStudyTreatment`."""
+  allCaseStudyTreatments(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentCondition
+  ): CaseStudyTreatmentsConnection
+
+  """
+  Reads and enables pagination through a set of `CaseStudyTreatmentFile`.
+  """
+  allCaseStudyTreatmentFiles(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatmentFile`."""
+    orderBy: [CaseStudyTreatmentFilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentFileCondition
+  ): CaseStudyTreatmentFilesConnection
+
+  """Reads and enables pagination through a set of `Client`."""
+  allClients(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ClientCondition
+  ): ClientsConnection
+
+  """Reads and enables pagination through a set of `File`."""
+  allFiles(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `File`."""
+    orderBy: [FilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FileCondition
+  ): FilesConnection
+
+  """Reads and enables pagination through a set of `Group`."""
+  allGroups(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Group`."""
+    orderBy: [GroupsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: GroupCondition
+  ): GroupsConnection
+
+  """Reads and enables pagination through a set of `GroupClient`."""
+  allGroupClients(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `GroupClient`."""
+    orderBy: [GroupClientsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: GroupClientCondition
+  ): GroupClientsConnection
+
+  """
+  Reads and enables pagination through a set of `MentalHealthProfessional`.
+  """
+  allMentalHealthProfessionals(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MentalHealthProfessional`."""
+    orderBy: [MentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MentalHealthProfessionalCondition
+  ): MentalHealthProfessionalsConnection
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnostic`.
+  """
+  allMultidisciplinaryDiagnostics(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnostic`."""
+    orderBy: [MultidisciplinaryDiagnosticsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticCondition
+  ): MultidisciplinaryDiagnosticsConnection
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryDiagnosticReport`.
+  """
+  allMultidisciplinaryDiagnosticReports(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryDiagnosticReport`."""
+    orderBy: [MultidisciplinaryDiagnosticReportsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryDiagnosticReportCondition
+  ): MultidisciplinaryDiagnosticReportsConnection
+
+  """
+  Reads and enables pagination through a set of `MultidisciplinaryTherapy`.
+  """
+  allMultidisciplinaryTherapies(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MultidisciplinaryTherapy`."""
+    orderBy: [MultidisciplinaryTherapiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MultidisciplinaryTherapyCondition
+  ): MultidisciplinaryTherapiesConnection
+
+  """Reads and enables pagination through a set of `User`."""
+  allUsers(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `User`."""
+    orderBy: [UsersOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: UserCondition
+  ): UsersConnection
+  assistantByRowId(rowId: UUID!): Assistant
+  assistantByUserRowId(userRowId: UUID!): Assistant
+  assistantByEmail(email: EmailAddress!): Assistant
+  assistantByFirstNameAndLastNameAndDateOfBirth(firstName: String!, lastName: String!, dateOfBirth: Date!): Assistant
+  caseHistoryByRowId(rowId: UUID!): CaseHistory
+  caseHistoryFileByRowId(rowId: UUID!): CaseHistoryFile
+  caseStudyByRowId(rowId: UUID!): CaseStudy
+  caseStudyConclusionByRowId(rowId: UUID!): CaseStudyConclusion
+  caseStudyConclusionFileByRowId(rowId: UUID!): CaseStudyConclusionFile
+  caseStudyMentalHealthProfessionalByRowId(rowId: UUID!): CaseStudyMentalHealthProfessional
+  caseStudyMentalHealthProfessionalByCaseStudyRowIdAndMentalHealthProfessionalRowId(caseStudyRowId: UUID!, mentalHealthProfessionalRowId: UUID!): CaseStudyMentalHealthProfessional
+  caseStudyTreatmentByRowId(rowId: UUID!): CaseStudyTreatment
+  caseStudyTreatmentFileByRowId(rowId: UUID!): CaseStudyTreatmentFile
+  clientByRowId(rowId: UUID!): Client
+  clientByNumber(number: Int!): Client
+  clientByFirstNameAndLastNameAndDateOfBirth(firstName: String!, lastName: String!, dateOfBirth: Date!): Client
+  fileByRowId(rowId: UUID!): File
+  groupByRowId(rowId: UUID!): Group
+  mentalHealthProfessionalByRowId(rowId: UUID!): MentalHealthProfessional
+  mentalHealthProfessionalByUserRowId(userRowId: UUID!): MentalHealthProfessional
+  mentalHealthProfessionalByEmail(email: EmailAddress!): MentalHealthProfessional
+  mentalHealthProfessionalByFirstNameAndLastNameAndDateOfBirth(firstName: String!, lastName: String!, dateOfBirth: Date!): MentalHealthProfessional
+  multidisciplinaryDiagnosticByRowId(rowId: UUID!): MultidisciplinaryDiagnostic
+  multidisciplinaryDiagnosticReportByRowId(rowId: UUID!): MultidisciplinaryDiagnosticReport
+  multidisciplinaryTherapyByRowId(rowId: UUID!): MultidisciplinaryTherapy
+  userByRowId(rowId: UUID!): User
+  userByEmail(email: EmailAddress!): User
+
+  """Reads and enables pagination through a set of `Client`."""
+  filterClients(
+    searchText: String
+    gender: Gender
+    sentBy: ClientSentBy
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): ClientsConnection
+
+  """
+  Reads and enables pagination through a set of `MentalHealthProfessional`.
+  """
+  filterMentalHealthProfessionals(
+    searchText: String
+    gender: Gender
+
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+  ): MentalHealthProfessionalsConnection
+
+  """Next auto-generated available `Client` number."""
+  nextAvailableClientNumber: Int!
+
+  """Currently authenticated `User`."""
+  viewer: User
+
+  """Reads a single `Assistant` using its globally unique `ID`."""
+  assistant(
+    """The globally unique `ID` to be used in selecting a single `Assistant`."""
+    id: ID!
+  ): Assistant
+
+  """Reads a single `CaseHistory` using its globally unique `ID`."""
+  caseHistory(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseHistory`.
+    """
+    id: ID!
+  ): CaseHistory
+
+  """Reads a single `CaseHistoryFile` using its globally unique `ID`."""
+  caseHistoryFile(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseHistoryFile`.
+    """
+    id: ID!
+  ): CaseHistoryFile
+
+  """Reads a single `CaseStudy` using its globally unique `ID`."""
+  caseStudy(
+    """The globally unique `ID` to be used in selecting a single `CaseStudy`."""
+    id: ID!
+  ): CaseStudy
+
+  """Reads a single `CaseStudyConclusion` using its globally unique `ID`."""
+  caseStudyConclusion(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseStudyConclusion`.
+    """
+    id: ID!
+  ): CaseStudyConclusion
+
+  """
+  Reads a single `CaseStudyConclusionFile` using its globally unique `ID`.
+  """
+  caseStudyConclusionFile(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseStudyConclusionFile`.
+    """
+    id: ID!
+  ): CaseStudyConclusionFile
+
+  """
+  Reads a single `CaseStudyMentalHealthProfessional` using its globally unique `ID`.
+  """
+  caseStudyMentalHealthProfessional(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseStudyMentalHealthProfessional`.
+    """
+    id: ID!
+  ): CaseStudyMentalHealthProfessional
+
+  """Reads a single `CaseStudyTreatment` using its globally unique `ID`."""
+  caseStudyTreatment(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseStudyTreatment`.
+    """
+    id: ID!
+  ): CaseStudyTreatment
+
+  """
+  Reads a single `CaseStudyTreatmentFile` using its globally unique `ID`.
+  """
+  caseStudyTreatmentFile(
+    """
+    The globally unique `ID` to be used in selecting a single `CaseStudyTreatmentFile`.
+    """
+    id: ID!
+  ): CaseStudyTreatmentFile
+
+  """Reads a single `Client` using its globally unique `ID`."""
+  client(
+    """The globally unique `ID` to be used in selecting a single `Client`."""
+    id: ID!
+  ): Client
+
+  """Reads a single `File` using its globally unique `ID`."""
+  file(
+    """The globally unique `ID` to be used in selecting a single `File`."""
+    id: ID!
+  ): File
+
+  """Reads a single `Group` using its globally unique `ID`."""
+  group(
+    """The globally unique `ID` to be used in selecting a single `Group`."""
+    id: ID!
+  ): Group
+
+  """
+  Reads a single `MentalHealthProfessional` using its globally unique `ID`.
+  """
+  mentalHealthProfessional(
+    """
+    The globally unique `ID` to be used in selecting a single `MentalHealthProfessional`.
+    """
+    id: ID!
+  ): MentalHealthProfessional
+
+  """
+  Reads a single `MultidisciplinaryDiagnostic` using its globally unique `ID`.
+  """
+  multidisciplinaryDiagnostic(
+    """
+    The globally unique `ID` to be used in selecting a single `MultidisciplinaryDiagnostic`.
+    """
+    id: ID!
+  ): MultidisciplinaryDiagnostic
+
+  """
+  Reads a single `MultidisciplinaryDiagnosticReport` using its globally unique `ID`.
+  """
+  multidisciplinaryDiagnosticReport(
+    """
+    The globally unique `ID` to be used in selecting a single `MultidisciplinaryDiagnosticReport`.
+    """
+    id: ID!
+  ): MultidisciplinaryDiagnosticReport
+
+  """
+  Reads a single `MultidisciplinaryTherapy` using its globally unique `ID`.
+  """
+  multidisciplinaryTherapy(
+    """
+    The globally unique `ID` to be used in selecting a single `MultidisciplinaryTherapy`.
+    """
+    id: ID!
+  ): MultidisciplinaryTherapy
+
+  """Reads a single `User` using its globally unique `ID`."""
+  user(
+    """The globally unique `ID` to be used in selecting a single `User`."""
+    id: ID!
+  ): User
+}
+
+"""All input for the `updateCaseHistory` mutation."""
+input UpdateCaseHistoryInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  caseStudyTreatmentRowId: UUID
+  accompaniedBy: CaseHistoryAccompaniedByType
+  livesWith: [CaseHistoryLivesWithType]
+  divorcedParents: CaseHistoryDivorcedParentsType
+  divorceOutcome: CaseHistoryDivorceOutcomeType
+  adoptionAge: Float
+  numberOfAdoptions: Int
+  reasonOfMultipleAdoptions: [CaseHistoryReasonOfMultipleAdoptionsType]
+  arrivalReason: [CaseHistoryArrivalReasonType]
+  earlierProfessionalHelp: [MentalHealthProfessionalType]
+  referralDiagnosis: String
+  referral: [CaseHistoryReferralType]
+  involvedReferral: Boolean
+  previousTreatment: String
+  attendsKindergarten: Boolean
+  schoolMark: Int
+  adaptedEducationProgram: Boolean
+  individualizedEducationProgram: Boolean
+  diagnosedIntelectualDevelopmentProblems: Boolean
+  furtherAbuses: [CaseHistoryAbuseType]
+  reportedFurtherAbuses: CaseHistoryReportedAbuseType
+  lossOfCloseIndividual: [CaseHistoryIndividualType]
+  ageDuringLossOfCloseIndividual: Float
+  familyHeredity: String
+  ptsp: String
+  parentsInJail: CaseHistoryParentsInJailType
+}
+
+"""The output of our `updateCaseHistory` mutation."""
+type UpdateCaseHistoryPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseHistory: CaseHistory
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `CaseStudy` that is related to this `CaseHistory`."""
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `CaseStudyTreatment` that is related to this `CaseHistory`.
+  """
+  caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """An edge for our `CaseHistory`. May be used by Relay 1."""
+  caseHistoryEdge(
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseHistoriesEdge
+}
+
+"""All input for the `updateCaseStudyConclusion` mutation."""
+input UpdateCaseStudyConclusionInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  type: CaseStudyConclusionType!
+  concludedAt: Datetime!
+  description: String!
+}
+
+"""The output of our `updateCaseStudyConclusion` mutation."""
+type UpdateCaseStudyConclusionPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyConclusion: CaseStudyConclusion
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyConclusion`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
+  caseStudyConclusionEdge(
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyConclusionsEdge
+}
+
+"""All input for the `updateCaseStudy` mutation."""
+input UpdateCaseStudyInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  title: String!
+}
+
+"""All input for the `updateCaseStudyMentalHealthProfessional` mutation."""
+input UpdateCaseStudyMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  primary: Boolean!
+}
+
+"""The output of our `updateCaseStudyMentalHealthProfessional` mutation."""
+type UpdateCaseStudyMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyMentalHealthProfessional: CaseStudyMentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """
+  Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
+
+  """
+  An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
+  """
+  caseStudyMentalHealthProfessionalEdge(
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyMentalHealthProfessionalsEdge
+}
+
+"""The output of our `updateCaseStudy` mutation."""
+type UpdateCaseStudyPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudy: CaseStudy
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Client` that is related to this `CaseStudy`."""
+  clientByClientRowId: Client
+
+  """Reads a single `Group` that is related to this `CaseStudy`."""
+  groupByGroupRowId: Group
+
+  """An edge for our `CaseStudy`. May be used by Relay 1."""
+  caseStudyEdge(
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudiesEdge
+}
+
+"""All input for the `updateCaseStudyTreatment` mutation."""
+input UpdateCaseStudyTreatmentInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  external: Boolean!
+  startedAt: Datetime!
+  endedAt: Datetime!
+  title: String!
+  description: String
+  score: Int
+}
+
+"""The output of our `updateCaseStudyTreatment` mutation."""
+type UpdateCaseStudyTreatmentPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  caseStudyTreatment: CaseStudyTreatment
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
+  """
+  caseStudyByCaseStudyRowId: CaseStudy!
+
+  """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
+  caseStudyTreatmentEdge(
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): CaseStudyTreatmentsEdge
+}
+
+"""All input for the `updateClient` mutation."""
+input UpdateClientInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  number: Int!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  telephone: String!
+  gender: Gender!
+  city: String!
+  address: String!
+  sentBy: ClientSentBy!
+  email: EmailAddress
+  discrete: Boolean
+}
+
+"""The output of our `updateClient` mutation."""
+type UpdateClientPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  client: Client
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByCreatedBy: User!
+
+  """An edge for our `Client`. May be used by Relay 1."""
+  clientEdge(
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): ClientsEdge
+}
+
+"""UTC timestamp representing the time at which a node is updated."""
+scalar UpdatedTimestamptz
+
+"""All input for the `updateMentalHealthProfessional` mutation."""
+input UpdateMentalHealthProfessionalInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: UUID!
+  type: MentalHealthProfessionalType!
+  email: EmailAddress!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: Date!
+  gender: Gender!
+  title: String
+  userRowId: UUID
+}
+
+"""The output of our `updateMentalHealthProfessional` mutation."""
+type UpdateMentalHealthProfessionalPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+  mentalHealthProfessional: MentalHealthProfessional
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `User` that is related to this `MentalHealthProfessional`.
+  """
+  userByUserRowId: User
+
+  """An edge for our `MentalHealthProfessional`. May be used by Relay 1."""
+  mentalHealthProfessionalEdge(
+    """The method to use when ordering `MentalHealthProfessional`."""
+    orderBy: [MentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+  ): MentalHealthProfessionalsEdge
+}
+
+type User implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
+  rowId: UUID!
+  email: EmailAddress!
+  createdAt: CreatedTimestamptz!
+  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `Assistant` that is related to this `User`."""
+  assistantByUserRowId: Assistant
+
+  """Reads and enables pagination through a set of `Assistant`."""
+  assistantsByUserRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Assistant`."""
+    orderBy: [AssistantsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: AssistantCondition
+  ): AssistantsConnection! @deprecated(reason: "Please use assistantByUserRowId instead")
+
+  """
+  Reads a single `MentalHealthProfessional` that is related to this `User`.
+  """
+  mentalHealthProfessionalByUserRowId: MentalHealthProfessional
+
+  """
+  Reads and enables pagination through a set of `MentalHealthProfessional`.
+  """
+  mentalHealthProfessionalsByUserRowId(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `MentalHealthProfessional`."""
+    orderBy: [MentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: MentalHealthProfessionalCondition
+  ): MentalHealthProfessionalsConnection! @deprecated(reason: "Please use mentalHealthProfessionalByUserRowId instead")
+
+  """Reads and enables pagination through a set of `Client`."""
+  clientsByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ClientCondition
+  ): ClientsConnection!
+  isAdmin: Boolean!
+}
+
+"""
+A condition to be used against `User` object types. All fields are tested for equality and combined with a logical ‘and.’
+"""
+input UserCondition {
+  """Checks for equality with the object’s `rowId` field."""
+  rowId: UUID
+
+  """Checks for equality with the object’s `email` field."""
+  email: EmailAddress
+
+  """Checks for equality with the object’s `createdAt` field."""
+  createdAt: CreatedTimestamptz
+
+  """Checks for equality with the object’s `updatedAt` field."""
+  updatedAt: UpdatedTimestamptz
+}
+
+"""A connection to a list of `User` values."""
+type UsersConnection {
+  """A list of `User` objects."""
+  nodes: [User!]!
+
+  """
+  A list of edges which contains the `User` and cursor to aid in pagination.
+  """
+  edges: [UsersEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """The count of *all* `User` you could get from the connection."""
+  totalCount: Int!
+}
+
+"""A `User` edge in the connection."""
+type UsersEdge {
+  """A cursor for use in pagination."""
+  cursor: Cursor
+
+  """The `User` at the end of the edge."""
+  node: User!
+}
+
+"""Methods to use when ordering `User`."""
+enum UsersOrderBy {
+  NATURAL
+  ID_ASC
+  ID_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+  CREATED_AT_ASC
+  CREATED_AT_DESC
+  UPDATED_AT_ASC
+  UPDATED_AT_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
+}
+
+"""
+A universally unique identifier as defined by [RFC 4122](https://tools.ietf.org/html/rfc4122).
+"""
+scalar UUID
+

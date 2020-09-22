@@ -4,16 +4,16 @@
  *
  */
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { history } from 'lib/history';
 import { CLIENTS_PAGE_ROUTE } from 'lib/routes';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { ClientEdit_client } from 'relay/artifacts/ClientEdit_client.graphql';
-import { updateClientMutation } from 'relay/mutations/UpdateClient';
-import { deleteClientMutation } from 'relay/mutations/DeleteClient';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { ClientEdit_client$key } from 'relay/artifacts/ClientEdit_client.graphql';
+import { ClientEditUpdateMutation } from 'relay/artifacts/ClientEditUpdateMutation.graphql';
+import { ClientEditDeleteMutation } from 'relay/artifacts/ClientEditDeleteMutation.graphql';
 
 // ui
 import { Flex, Text, Button, Input, Select } from '@domonda/ui';
@@ -27,56 +27,61 @@ import {
   FormLockedState,
   FormNumberField,
   FormSubmitErrorState,
-  FormSubmitHandler,
   FormDateField,
 } from '@domonda/react-form';
 import { ClientSentBySelectOptions } from '../ClientSentBySelectOptions';
 import { GenderSelectOptions } from '../../GenderSelectOptions';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { makeLink } from 'lib/makeLink';
+import { usePromiseMutation } from 'relay/hooks';
 
 export interface ClientEditProps {
-  client: ClientEdit_client;
+  client: ClientEdit_client$key;
 }
 
-const ClientEdit: React.FC<ClientEditProps> = (props) => {
-  const { client } = props;
+export const ClientEdit: React.FC<ClientEditProps> = (props) => {
+  const { client: clientKey } = props;
 
-  const submit = useCallback<
-    FormSubmitHandler<Omit<ClientEdit_client, 'dateOfBirth'> & { dateOfBirth: Date }>
-  >(
-    ({
-      rowId,
-      address,
-      city,
-      dateOfBirth,
-      discrete,
-      email,
-      firstName,
-      gender,
-      lastName,
-      number,
-      sentBy,
-      telephone,
-    }) =>
-      updateClientMutation({
-        input: {
-          rowId,
-          address,
-          city,
-          dateOfBirth: dateOfBirth.toISOString(),
-          discrete,
-          email,
-          firstName,
-          gender,
-          lastName,
-          number,
-          sentBy,
-          telephone,
-        },
-      }),
-    [],
+  const client = useFragment(
+    graphql`
+      fragment ClientEdit_client on Client {
+        rowId
+        fullName
+        number
+        firstName
+        lastName
+        dateOfBirth
+        telephone
+        gender
+        city
+        address
+        sentBy
+        email
+        discrete
+      }
+    `,
+    clientKey,
   );
+
+  const updateClient = usePromiseMutation<ClientEditUpdateMutation>(graphql`
+    mutation ClientEditUpdateMutation($input: UpdateClientInput!) {
+      updateClient(input: $input) {
+        client {
+          ...ClientEdit_client
+        }
+      }
+    }
+  `);
+
+  const deleteClient = usePromiseMutation<ClientEditDeleteMutation>(graphql`
+    mutation ClientEditDeleteMutation($input: DeleteClientInput!) {
+      deleteClient(input: $input) {
+        client {
+          id
+        }
+      }
+    }
+  `);
 
   return (
     <Flex container direction="column" spacing="small">
@@ -94,8 +99,8 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
         </Flex>
         <Flex item>
           <ResolveOnTrigger
-            promise={deleteClientMutation}
-            params={{ input: { rowId: client.rowId } }}
+            promise={deleteClient}
+            params={{ variables: { input: { rowId: client.rowId } } }}
             onResolve={() => history.push(CLIENTS_PAGE_ROUTE)}
           >
             {({ trigger, loading, error, clearError }) =>
@@ -116,7 +121,39 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
             ...client,
             dateOfBirth: new Date(client.dateOfBirth),
           }}
-          onSubmit={submit}
+          onSubmit={({
+            rowId,
+            address,
+            city,
+            dateOfBirth,
+            discrete,
+            email,
+            firstName,
+            gender,
+            lastName,
+            number,
+            sentBy,
+            telephone,
+          }) =>
+            updateClient({
+              variables: {
+                input: {
+                  rowId,
+                  address,
+                  city,
+                  dateOfBirth: dateOfBirth.toISOString(),
+                  discrete,
+                  email,
+                  firstName,
+                  gender,
+                  lastName,
+                  number,
+                  sentBy,
+                  telephone,
+                },
+              },
+            })
+          }
         >
           <Flex container spacing="tiny" direction="column">
             <Flex item>
@@ -232,24 +269,3 @@ const ClientEdit: React.FC<ClientEditProps> = (props) => {
     </Flex>
   );
 };
-
-const ComposedClientEdit = createFragmentContainer(ClientEdit, {
-  client: graphql`
-    fragment ClientEdit_client on Client {
-      rowId
-      fullName
-      number
-      firstName
-      lastName
-      dateOfBirth
-      telephone
-      gender
-      city
-      address
-      sentBy
-      email
-      discrete
-    }
-  `,
-});
-export { ComposedClientEdit as ClientEdit };

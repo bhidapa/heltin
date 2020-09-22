@@ -7,18 +7,18 @@ import { FragmentRefs } from "relay-runtime";
 export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
 export type CreateClientInput = {
-    address: string;
-    city: string;
     clientMutationId?: string | null;
-    dateOfBirth: string;
-    discrete?: boolean | null;
-    email?: string | null;
-    firstName: string;
-    gender: Gender;
-    lastName: string;
     number: number;
-    sentBy: ClientSentBy;
+    firstName: string;
+    lastName: string;
+    dateOfBirth: string;
     telephone: string;
+    gender: Gender;
+    city: string;
+    address: string;
+    sentBy: ClientSentBy;
+    email?: string | null;
+    discrete?: boolean | null;
 };
 export type CreateClientMutationVariables = {
     input: CreateClientInput;

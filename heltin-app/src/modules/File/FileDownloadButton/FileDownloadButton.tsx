@@ -4,12 +4,11 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql, LazyLoadQuery } from 'relay/components';
 import { FileDownloadButtonQuery } from 'relay/artifacts/FileDownloadButtonQuery.graphql';
 
 // ui
@@ -32,60 +31,47 @@ export const FileDownloadButton: React.FC<FileDownloadButtonProps> = (props) => 
   }
 
   return (
-    <QueryRenderer<FileDownloadButtonQuery>
-      environment={environment}
-      query={graphql`
-        query FileDownloadButtonQuery($rowId: UUID!) {
-          file: fileByRowId(rowId: $rowId) {
-            name
-            data
+    <Suspense
+      fallback={
+        <Button {...rest} disabled>
+          <FormattedMessage id="DOWNLOADING" />
+          ...
+        </Button>
+      }
+    >
+      <LazyLoadQuery<FileDownloadButtonQuery>
+        query={graphql`
+          query FileDownloadButtonQuery($rowId: UUID!) {
+            file: fileByRowId(rowId: $rowId) {
+              name
+              data
+            }
           }
-        }
-      `}
-      variables={{ rowId: fileRowId }}
-      render={({ props: data, error, retry }) => {
-        if (error) {
+        `}
+        variables={{ rowId: fileRowId }}
+      >
+        {(data) => {
+          if (!data.file) {
+            throw new Error('File not found');
+          }
           return (
-            <Button variant="link" color="danger" onClick={retry!}>
-              {error.message}
-              &nbsp;
-              <FormattedMessage id="TRY_AGAIN" />?
+            <Button
+              {...rest}
+              component={({ children, ...rest }) => (
+                <a
+                  {...rest}
+                  href={`data:application/octet-stream;base64,${data.file!.data}`}
+                  download={data.file!.name}
+                >
+                  {children}
+                </a>
+              )}
+            >
+              <FormattedMessage id="SAVE" />
             </Button>
           );
-        }
-        if (!data) {
-          return (
-            <Button {...rest} disabled>
-              <FormattedMessage id="DOWNLOADING" />
-              ...
-            </Button>
-          );
-        }
-        if (!data.file) {
-          return (
-            <Button variant="link" color="danger" onClick={retry!}>
-              File not found. &nbsp;
-              <FormattedMessage id="TRY_AGAIN" />?
-            </Button>
-          );
-        }
-        return (
-          <Button
-            {...rest}
-            component={({ children, ...rest }) => (
-              <a
-                {...rest}
-                href={`data:application/octet-stream;base64,${data.file!.data}`}
-                download={data.file!.name}
-              >
-                {children}
-              </a>
-            )}
-          >
-            <FormattedMessage id="SAVE" />
-          </Button>
-        );
-      }}
-    />
+        }}
+      </LazyLoadQuery>
+    </Suspense>
   );
 };

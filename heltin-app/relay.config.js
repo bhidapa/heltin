@@ -2,7 +2,7 @@ const typescript = require('relay-compiler-language-typescript');
 
 module.exports = {
   language: typescript,
-  schema: './schema.json',
+  schema: './schema.graphql',
   src: './src',
   artifactDirectory: './src/relay/artifacts',
   noFutureProofEnums: true,
