@@ -1,3 +1,7 @@
+/** React experimental */
+/// <reference types="react/experimental" />
+/// <reference types="react-dom/experimental" />
+
 declare type Base64 = string;
 
 declare type UUID = string;

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 
 // relay
@@ -26,7 +26,9 @@ export type CaseStudiesTreatmentDetailPageProps = RouteComponentProps<{
   caseStudyRowId: UUID;
 }>;
 
-const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPageProps> = (props) => {
+const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPageProps> = (
+  props,
+) => {
   const {
     match: {
       params: { caseStudyTreatmentRowId },
@@ -71,7 +73,9 @@ const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPagePro
           }
           return (
             <>
-              {caseStudyTreatment.description && <Helmet title={caseStudyTreatment.description} />}
+              {caseStudyTreatment.description && (
+                <Helmet title={caseStudyTreatment.description} />
+              )}
               <Flex container direction="column" spacing="small">
                 <Flex item>
                   <CaseStudyTreatmentManage
@@ -82,7 +86,9 @@ const CaseStudiesTreatmentDetailPage: React.FC<CaseStudiesTreatmentDetailPagePro
                 <Flex item>
                   <CaseStudyTreatmentFilesManage
                     caseStudyTreatmentRowId={caseStudyTreatment.rowId}
-                    caseStudyTreatmentFiles={caseStudyTreatment.caseStudyTreatmentFiles.nodes}
+                    caseStudyTreatmentFiles={
+                      caseStudyTreatment.caseStudyTreatmentFiles.nodes
+                    }
                   />
                 </Flex>
               </Flex>

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 
 // relay
@@ -22,7 +22,9 @@ import { ProfessionalEdit } from 'modules/Professional/ProfessionalEdit';
 
 export type ProfessionalsDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
 
-const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (props) => {
+const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (
+  props,
+) => {
   const {
     match: {
       params: { rowId },

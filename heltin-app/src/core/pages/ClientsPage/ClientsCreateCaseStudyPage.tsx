@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 import { FormattedMessage } from 'react-intl';
 
@@ -22,7 +22,9 @@ import { ExclamationTriangleIcon } from 'lib/icons';
 // modules
 import { CaseStudyManage } from 'modules/CaseStudy/CaseStudyManage';
 
-export type ClientsCreateCaseStudyPageProps = RouteComponentProps<{ rowId: UUID }>;
+export type ClientsCreateCaseStudyPageProps = RouteComponentProps<{
+  rowId: UUID;
+}>;
 
 const ClientsCreateCaseStudyPage: React.FC<ClientsCreateCaseStudyPageProps> = (props) => {
   const {
@@ -34,7 +36,7 @@ const ClientsCreateCaseStudyPage: React.FC<ClientsCreateCaseStudyPageProps> = (p
   return (
     <>
       <FormattedMessage id="CREATE_CASE_STUDY">
-        {(msg: string) => <Helmet title={msg} />}
+        {([msg]) => <Helmet title={msg} />}
       </FormattedMessage>
       <QueryRenderer<ClientsCreateCaseStudyPageQuery>
         environment={environment}

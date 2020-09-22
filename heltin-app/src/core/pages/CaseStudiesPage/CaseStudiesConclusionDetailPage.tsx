@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 
 // relay
@@ -26,7 +26,9 @@ export type CaseStudiesConclusionDetailPageProps = RouteComponentProps<{
   caseStudyRowId: UUID;
 }>;
 
-const CaseStudiesConclusionDetailPage: React.FC<CaseStudiesConclusionDetailPageProps> = (props) => {
+const CaseStudiesConclusionDetailPage: React.FC<CaseStudiesConclusionDetailPageProps> = (
+  props,
+) => {
   const {
     match: {
       params: { caseStudyConclusionRowId },
@@ -84,7 +86,9 @@ const CaseStudiesConclusionDetailPage: React.FC<CaseStudiesConclusionDetailPageP
                 <Flex item>
                   <CaseStudyConclusionFilesManage
                     caseStudyConclusionRowId={caseStudyConclusion.rowId}
-                    caseStudyConclusionFiles={caseStudyConclusion.caseStudyConclusionFiles.nodes}
+                    caseStudyConclusionFiles={
+                      caseStudyConclusion.caseStudyConclusionFiles.nodes
+                    }
                   />
                 </Flex>
               </Flex>

@@ -7,7 +7,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RestoreScroll } from 'lib/RestoreScroll';
-import { Helmet } from 'react-helmet';
 
 // relay
 import { graphql } from 'relay/hooks';
@@ -86,40 +85,37 @@ const Root: React.FC<Decorate> = (props) => {
   const isAuthorized = (session && checkIsAuthorized(session)) || false;
 
   return (
-    <>
-      <Helmet titleTemplate="%s | heltin" />
-      <Flex container direction="column">
-        {isAuthorized && (
-          <div className={classes.header}>
-            <Flex container className={classes.content}>
-              <AppBar />
-            </Flex>
-          </div>
+    <Flex container direction="column">
+      {isAuthorized && (
+        <div className={classes.header}>
+          <Flex container className={classes.content}>
+            <AppBar />
+          </Flex>
+        </div>
+      )}
+      <RestoreScroll>
+        {(ref) => (
+          <Flex ref={ref} item container flex={1} className={classes.main} component="main">
+            <div className={classes.content}>
+              <Boundary>
+                <Switch>
+                  {/* Removes trailing slashes */}
+                  <Route
+                    path="/:url*(/+)"
+                    exact
+                    strict
+                    render={({ location }) => (
+                      <Redirect to={location.pathname.replace(/\/+$/, '')} />
+                    )}
+                  />
+                  <RootRoutes isAuthorized={isAuthorized} />
+                </Switch>
+              </Boundary>
+            </div>
+          </Flex>
         )}
-        <RestoreScroll>
-          {(ref) => (
-            <Flex ref={ref} item container flex={1} className={classes.main} component="main">
-              <div className={classes.content}>
-                <Boundary>
-                  <Switch>
-                    {/* Removes trailing slashes */}
-                    <Route
-                      path="/:url*(/+)"
-                      exact
-                      strict
-                      render={({ location }) => (
-                        <Redirect to={location.pathname.replace(/\/+$/, '')} />
-                      )}
-                    />
-                    <RootRoutes isAuthorized={isAuthorized} />
-                  </Switch>
-                </Boundary>
-              </div>
-            </Flex>
-          )}
-        </RestoreScroll>
-      </Flex>
-    </>
+      </RestoreScroll>
+    </Flex>
   );
 };
 

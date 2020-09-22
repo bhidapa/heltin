@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 
 // relay
@@ -45,7 +45,9 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                 nodes {
                   rowId
                   ...CaseHistoryManage_caseHistory
-                  caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+                  caseHistoryFiles: caseHistoryFilesByCaseHistoryRowId(
+                    orderBy: [CREATED_AT_ASC]
+                  ) {
                     nodes {
                       ...CaseHistoryFilesManage_caseHistoryFiles
                     }
@@ -79,13 +81,19 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
               <Flex container direction="column" spacing="small">
                 <Flex item>
                   {/* Must exist until groups are created. */}
-                  <CaseStudyManage client={caseStudy.client!} caseStudy={caseStudy} />
+                  <CaseStudyManage
+                    client={caseStudy.client!}
+                    caseStudy={caseStudy}
+                  />
                 </Flex>
                 <Flex item>
                   <CaseStudyProfessionalsManage caseStudy={caseStudy} />
                 </Flex>
                 <Flex item>
-                  <CaseHistoryManage caseStudyRowId={rowId} caseHistory={caseHistory} />
+                  <CaseHistoryManage
+                    caseStudyRowId={rowId}
+                    caseHistory={caseHistory}
+                  />
                 </Flex>
                 <Flex item>
                   {caseHistory ? (
@@ -95,7 +103,8 @@ const CaseStudiesDetailPage: React.FC<CaseStudiesDetailPageProps> = (props) => {
                     />
                   ) : (
                     <Text color="warning">
-                      To upload earlier medical reports please create the case history first.
+                      To upload earlier medical reports please create the case
+                      history first.
                     </Text>
                   )}
                 </Flex>

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 
 // relay
@@ -30,7 +30,7 @@ const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (pro
 
   return (
     <>
-      <FormattedMessage id="THERAPISTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
+      <FormattedMessage id="THERAPISTS">{([msg]) => <Helmet title={msg} />}</FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>

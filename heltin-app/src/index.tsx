@@ -11,7 +11,9 @@ import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
 import { QueryParamsProvider } from '@domonda/query-params';
 import { history } from 'lib/history';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
+// relay
 import { RelayEnvironmentProvider } from 'react-relay/hooks';
 import { environment } from 'relay/environment';
 
@@ -28,20 +30,28 @@ import { theme } from 'theme';
 import { Boundary } from 'lib/Boundary';
 import { Root } from 'core/Root';
 
-ReactDOM.render(
+// find root and add class
+const root = document.getElementById('root');
+if (!root) {
+  throw new Error('root mountpoint not found');
+}
+
+ReactDOM.unstable_createRoot(root).render(
   <Router history={history}>
-    <QueryParamsProvider history={history}>
-      <RelayEnvironmentProvider environment={environment}>
-        <IntlProvider defaultLocale="hr" messages={messages}>
-          <ThemeProvider theme={theme}>
-            <Boundary>
-              <Baseline />
-              <Root />
-            </Boundary>
-          </ThemeProvider>
-        </IntlProvider>
-      </RelayEnvironmentProvider>
-    </QueryParamsProvider>
+    <HelmetProvider>
+      <Helmet titleTemplate="%s | domonda" />
+      <QueryParamsProvider history={history}>
+        <RelayEnvironmentProvider environment={environment}>
+          <IntlProvider defaultLocale="hr" messages={messages}>
+            <ThemeProvider theme={theme}>
+              <Boundary>
+                <Baseline />
+                <Root />
+              </Boundary>
+            </ThemeProvider>
+          </IntlProvider>
+        </RelayEnvironmentProvider>
+      </QueryParamsProvider>
+    </HelmetProvider>
   </Router>,
-  document.getElementById('root'),
 );

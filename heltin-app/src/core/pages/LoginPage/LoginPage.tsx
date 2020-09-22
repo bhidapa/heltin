@@ -5,7 +5,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 // relay
 import { authenticateMutation } from 'relay/mutations/Authenticate';
@@ -13,7 +13,11 @@ import { handleJwtToken, setSession } from 'relay/client/session';
 
 // ui
 import { Flex, Button, Input } from '@domonda/ui';
-import { Form, FormInputField, FormSubmitErrorState } from '@domonda/react-form';
+import {
+  Form,
+  FormInputField,
+  FormSubmitErrorState,
+} from '@domonda/react-form';
 import { DismissableAlert } from 'lib/DismissableAlert';
 
 // assets
@@ -47,30 +51,53 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
               handleJwtToken(jwtToken);
             }}
           >
-            <Flex container direction="column" spacing="tiny" style={{ width: 256 }}>
+            <Flex
+              container
+              direction="column"
+              spacing="tiny"
+              style={{ width: 256 }}
+            >
               <Flex item style={{ textAlign: 'center' }}>
                 <img src={BHIDAPALogo} alt="BHIDAPA" />
               </Flex>
               <Flex item>
                 <FormInputField path="email" required>
                   {({ inputProps }) => (
-                    <Input {...inputProps} label="E-Mail" type="email" autoFocus />
+                    <Input
+                      {...inputProps}
+                      label="E-Mail"
+                      type="email"
+                      autoFocus
+                    />
                   )}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormInputField path="password" required>
-                  {({ inputProps }) => <Input {...inputProps} label="Password" type="password" />}
+                  {({ inputProps }) => (
+                    <Input {...inputProps} label="Password" type="password" />
+                  )}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormSubmitErrorState>
                   {(error, { resetSubmitError }) =>
-                    error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
+                    error && (
+                      <DismissableAlert
+                        message={error}
+                        onDismiss={resetSubmitError}
+                      />
+                    )
                   }
                 </FormSubmitErrorState>
               </Flex>
-              <Flex item container justify="flex-end" align="center" spacing="tiny">
+              <Flex
+                item
+                container
+                justify="flex-end"
+                align="center"
+                spacing="tiny"
+              >
                 <Flex item>
                   <Button type="submit" variant="primary">
                     Login

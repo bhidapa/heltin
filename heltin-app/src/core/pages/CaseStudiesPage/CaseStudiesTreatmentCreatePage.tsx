@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { FourOhFourPage } from '../FourOhFourPage';
 import { FormattedMessage } from 'react-intl';
 
@@ -22,9 +22,13 @@ import { ExclamationTriangleIcon } from 'lib/icons';
 // modules
 import { CaseStudyTreatmentManage } from 'modules/CaseStudy/CaseStudyTreatmentManage';
 
-export type CaseStudiesTreatmentCreatePageProps = RouteComponentProps<{ rowId: UUID }>;
+export type CaseStudiesTreatmentCreatePageProps = RouteComponentProps<{
+  rowId: UUID;
+}>;
 
-const CaseStudiesTreatmentCreatePage: React.FC<CaseStudiesTreatmentCreatePageProps> = (props) => {
+const CaseStudiesTreatmentCreatePage: React.FC<CaseStudiesTreatmentCreatePageProps> = (
+  props,
+) => {
   const {
     match: {
       params: { rowId },
@@ -59,7 +63,10 @@ const CaseStudiesTreatmentCreatePage: React.FC<CaseStudiesTreatmentCreatePagePro
             <>
               <Flex container direction="column" spacing="small">
                 <Flex item>
-                  <CaseStudyTreatmentManage caseStudy={caseStudy} caseStudyTreatment={null} />
+                  <CaseStudyTreatmentManage
+                    caseStudy={caseStudy}
+                    caseStudyTreatment={null}
+                  />
                 </Flex>
                 <Flex item container spacing="tiny" align="center">
                   <Flex item>

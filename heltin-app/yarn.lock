@@ -1290,7 +1290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.11.2, @babel/runtime@npm:^7.3.1, @babel/runtime@npm:^7.5.5, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.3, @babel/runtime@npm:^7.8.4":
   version: 7.11.2
   resolution: "@babel/runtime@npm:7.11.2"
   dependencies:
@@ -1671,15 +1671,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: 3/53a223c0266178bca9161301d18ee6199e8f75f88caed5c4601c5aaedaf4c68f03bd72f6aafa979254beb20759f0b68a542ce04295d704eb67ae179769c50813
-  languageName: node
-  linkType: hard
-
-"@types/react-helmet@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@types/react-helmet@npm:6.1.0"
-  dependencies:
-    "@types/react": "*"
-  checksum: 3/b7aaa3aa2d81cd3b14a0e77a858de86934a3400f4ec35945117edb3979b8a41130e70b8a27241de295195e365962a9b5bc149a2a029d23795fd0f6c740d1de77
   languageName: node
   linkType: hard
 
@@ -5590,7 +5581,6 @@ fsevents@~2.1.2:
     "@types/lodash": ^4.14.161
     "@types/react": ^16.9.49
     "@types/react-dom": ^16.9.8
-    "@types/react-helmet": ^6.1.0
     "@types/react-relay": ^7.0.11
     "@types/react-router-dom": ^5.1.5
     "@types/relay-runtime": ^10.0.4
@@ -5620,11 +5610,11 @@ fsevents@~2.1.2:
     jwt-decode: ^3.0.0-beta.2
     lodash: ^4.17.20
     prettier: ^2.1.2
-    react: ^16.13.1
-    react-dom: ^16.13.1
-    react-helmet: ^6.1.0
+    react: 0.0.0-experimental-94c0244ba
+    react-dom: 0.0.0-experimental-94c0244ba
+    react-helmet-async: ^1.0.7
     react-intl: ^5.8.2
-    react-relay: 0.0.0-experimental-895a6fe0
+    react-relay: 0.0.0-experimental-183bdd28
     react-router-dom: ^5.2.0
     relay-compiler: ^10.0.1
     relay-compiler-language-typescript: ^13.0.1
@@ -8584,38 +8574,39 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^16.13.1":
-  version: 16.13.1
-  resolution: "react-dom@npm:16.13.1"
+"react-dom@npm:0.0.0-experimental-94c0244ba":
+  version: 0.0.0-experimental-94c0244ba
+  resolution: "react-dom@npm:0.0.0-experimental-94c0244ba"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.19.1
+    scheduler: 0.0.0-experimental-94c0244ba
   peerDependencies:
-    react: ^16.13.1
-  checksum: 3/fb5c3ad41360c6a8674f33916aa895d05e79d063d31a6963074220c1cda9e07e880799d01670b4ebd570b4d3457584f13cc898b5033a05641e8e801f5611607e
+    react: 0.0.0-experimental-94c0244ba
+  checksum: 3/ef3dd58e0384960cea872073c662631a521c7394fc3f0f82cbd228c7319d283b0c7aebec90e4d3c2ef298987393b4b20b04bb5a9e551b42352c9fafadb6df43e
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:^3.1.1":
+"react-fast-compare@npm:^3.2.0":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 3/6fe65c889eb4f326e97769135f97b3d63ac68737866f9c37f9625c9de4f5eaa9abed6f748eb3fd6a66808392118842916309cab7cfa99c67991f0c837433d6d2
   languageName: node
   linkType: hard
 
-"react-helmet@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "react-helmet@npm:6.1.0"
+"react-helmet-async@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "react-helmet-async@npm:1.0.7"
   dependencies:
-    object-assign: ^4.1.1
+    "@babel/runtime": ^7.11.2
+    invariant: ^2.2.4
     prop-types: ^15.7.2
-    react-fast-compare: ^3.1.1
-    react-side-effect: ^2.1.0
+    react-fast-compare: ^3.2.0
+    shallowequal: ^1.1.0
   peerDependencies:
-    react: ">=16.3.0"
-  checksum: 3/56fd795b0aecc89bac8d2733268751f0ef463bf6764090f8a801778741d4a6eaf135234cdaa50188bbda29c8e2d3ec43e9a42d1ec06b60092645c8754c7bad81
+    react: ^16.6.0
+    react-dom: ^16.6.0
+  checksum: 3/4f42301e17bea201d1014caa526232727f3e2b09ea2acc6bade5f18b2c5c443d468332a862632faf0cd8b167fd73eb4076cf7064134763fbf6e269f8da6a085d
   languageName: node
   linkType: hard
 
@@ -8696,17 +8687,18 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-relay@npm:0.0.0-experimental-895a6fe0":
-  version: 0.0.0-experimental-895a6fe0
-  resolution: "react-relay@npm:0.0.0-experimental-895a6fe0"
+"react-relay@npm:0.0.0-experimental-183bdd28":
+  version: 0.0.0-experimental-183bdd28
+  resolution: "react-relay@npm:0.0.0-experimental-183bdd28"
   dependencies:
     "@babel/runtime": ^7.0.0
     fbjs: ^1.0.0
     nullthrows: ^1.1.1
-    relay-runtime: 9.1.0
+    relay-runtime: 10.0.1
+    scheduler: ^0.19.1
   peerDependencies:
     react: ^16.9.0
-  checksum: 3/4c18469402eb7290a9638624bc16f3e5ac0a0870675fdef63cac7e05581e826b3177bdcf1183516818fceedfcd309c3c0872a6816f02cd43a63fd75df40a04be
+  checksum: 3/f6dce528a303051057f629eacadc111346c7e1bb0100eb8beee2b896c43e7e93d74313bb27a892ebcfad6c9063d95fb0e384fe724084508b87ac5b9dae81cc4a
   languageName: node
   linkType: hard
 
@@ -8747,15 +8739,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react-side-effect@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "react-side-effect@npm:2.1.0"
-  peerDependencies:
-    react: ^16.3.0
-  checksum: 3/643a9898953776783515df3510a438f262f6dff059c3f880b7bbc180957cd0f9a0c4d7b3ae72c347d0f7c56bbd16466e850c5d9e213abad024df3b6c3a430564
-  languageName: node
-  linkType: hard
-
 "react-window@npm:^1.8.5":
   version: 1.8.5
   resolution: "react-window@npm:1.8.5"
@@ -8769,14 +8752,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"react@npm:^16.13.1":
-  version: 16.13.1
-  resolution: "react@npm:16.13.1"
+"react@npm:0.0.0-experimental-94c0244ba":
+  version: 0.0.0-experimental-94c0244ba
+  resolution: "react@npm:0.0.0-experimental-94c0244ba"
   dependencies:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
-    prop-types: ^15.6.2
-  checksum: 3/13dcc9ba8a7521ecc3d7e69998dbc5703ae9515308d06a94a474ad34b42f1fc109372265e924a8c9b11d20fa1828407c290b8f61617c36734c4ca907ae7e5f45
+  checksum: 3/197e6db98e820034e6c4c5c450d4482ab62755e18e2f247aa7807cc6bbd6b5f9230d0df47632e6d85bedd51421766e3c09ea33998bdd61fd463883b3f7862a1c
   languageName: node
   linkType: hard
 
@@ -8986,16 +8968,6 @@ fsevents@~2.1.2:
     "@babel/runtime": ^7.0.0
     fbjs: ^1.0.0
   checksum: 3/03249ccbd0d0eb71787bdd8db1e696bd89ce8372095338683f5fd1b166a2cc65ef3bf7f171160bb376adf88ccfd6786198b8ad35aa87efd3c9993af7c0fb8726
-  languageName: node
-  linkType: hard
-
-"relay-runtime@npm:9.1.0":
-  version: 9.1.0
-  resolution: "relay-runtime@npm:9.1.0"
-  dependencies:
-    "@babel/runtime": ^7.0.0
-    fbjs: ^1.0.0
-  checksum: 3/d69139683a9bb2cbd613f4a4f5f9b98e7cd28e1723d607db5e56cdb34521b151d5016ea0be956b28fd561603651c5a3f8ea0e77795e7523bfa48736a30a65116
   languageName: node
   linkType: hard
 
@@ -9271,6 +9243,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"scheduler@npm:0.0.0-experimental-94c0244ba":
+  version: 0.0.0-experimental-94c0244ba
+  resolution: "scheduler@npm:0.0.0-experimental-94c0244ba"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: 3/ea439817038bd70bc0369dfae985c2e65d6eb54604f03d2db5bc0eab40891581f37c435132f914f2f9fccef152c6d3815f23c03c1de08dbb521f7a5aa5646738
+  languageName: node
+  linkType: hard
+
 "scheduler@npm:^0.19.1":
   version: 0.19.1
   resolution: "scheduler@npm:0.19.1"
@@ -9497,6 +9479,13 @@ fsevents@~2.1.2:
   version: 1.2.1
   resolution: "shallow-equal@npm:1.2.1"
   checksum: 3/5002ac4a3639e35782d3cb21073d48e1e4f85321cc54608f48b2331f6db6d54e4f4b44ed81ec4d75385ebe893e8286752b1e29595381e6adad72dd836f001b7f
+  languageName: node
+  linkType: hard
+
+"shallowequal@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "shallowequal@npm:1.1.0"
+  checksum: 3/15820dd544ce15521565c366940a46dcbe0f093c1336f6259c7b3e2490ca10135645ee262778f555d3ccc38283207f2f0a41e9a0f26888b5d5159f2904c4ac68
   languageName: node
   linkType: hard
 
