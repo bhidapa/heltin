@@ -12,7 +12,7 @@ COPY ./web/.yarnrc.yml .
 # install deps
 COPY ./cmd/graphql/yarn.lock .
 COPY ./cmd/graphql/package.json .
-RUN yarn install --immutable && yarn cache clean --all
+RUN yarn install --immutable
 
 # build
 COPY ./cmd/graphql/tsconfig.json .

@@ -3,7 +3,7 @@ version: "3"
 services:
   graphql:
     environment:
-      - JWT_SECRET=${JWT_SECRET}
+      - SESSION_SECRET=${SESSION_SECRET}
       - WATCH=true
   app:
     ports:
