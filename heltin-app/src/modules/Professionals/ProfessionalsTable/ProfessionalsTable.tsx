@@ -8,14 +8,15 @@ import React from 'react';
 import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 import { makeLink } from 'lib/makeLink';
 import { Sentinel } from 'lib/Sentinel';
+import { useOnValueChange } from 'lib/useOnValueChange';
 
 // relay
-import { graphql, createPaginationContainer, WithRelayPaginationProp } from 'react-relay';
-import { ProfessionalsTable_professionalsQuery } from 'relay/artifacts/ProfessionalsTable_professionalsQuery.graphql';
-import { useValueForPagination } from 'relay/hooks';
+import { graphql, useLoadablePaginationFragment } from 'relay/hooks';
+import { ProfessionalsTable_professionalsQuery$key } from 'relay/artifacts/ProfessionalsTable_professionalsQuery.graphql';
+import { ProfessionalsTableRefetchQuery } from 'relay/artifacts/ProfessionalsTableRefetchQuery.graphql';
 
 // ui
-import { Flex, Err, Loading } from '@domonda/ui';
+import { Flex, Loading } from '@domonda/ui';
 
 // parts
 import { useProfessionalsQueryParams } from '../professionalsQueryParams';
@@ -25,49 +26,23 @@ import { ProfessionalsTableFilter } from './ProfessionalsTableFilter';
 import { ProfessionalsTableRowHeader, ProfessionalsTableRow } from './ProfessionalsTableRow';
 
 export interface ProfessionalsTableProps {
-  professionalsQuery: ProfessionalsTable_professionalsQuery;
+  professionalsQuery: ProfessionalsTable_professionalsQuery$key;
 }
 
-const ProfessionalsTable: React.FC<ProfessionalsTableProps & WithRelayPaginationProp> = (props) => {
-  const { relay, professionalsQuery } = props;
+export const ProfessionalsTable: React.FC<ProfessionalsTableProps> = (props) => {
+  const { professionalsQuery: professionalsQueryKey } = props;
 
-  const [params] = useProfessionalsQueryParams();
-
-  const [loadMore, loading, error] = useValueForPagination(params, relay);
-
-  return (
-    <Flex container direction="column" spacing="tiny">
-      <Flex item>
-        <ProfessionalsTableFilter />
-      </Flex>
-      <Flex item>
-        <ProfessionalsTableRowHeader />
-        {error ? (
-          <Err error={error} />
-        ) : (
-          professionalsQuery.filterMentalHealthProfessionals.edges.map(({ node }) => (
-            <ProfessionalsTableRow
-              key={node.rowId}
-              item={node}
-              component={makeLink({
-                to: `${PROFESSIONALS_PAGE_ROUTE}/${node.rowId}`,
-                omit: ['item'],
-              })}
-            />
-          ))
-        )}
-      </Flex>
-      <Flex item>{loading && <Loading />}</Flex>
-      {!error && !loading && <Sentinel onReached={loadMore} />}
-    </Flex>
-  );
-};
-
-const ComposedProfessionalsTable = createPaginationContainer(
-  ProfessionalsTable,
-  {
-    professionalsQuery: graphql`
+  const {
+    data: { filterMentalHealthProfessionals },
+    refetch,
+    isRefetching,
+    isLoadingNext,
+    hasNext,
+    loadNext,
+  } = useLoadablePaginationFragment<ProfessionalsTableRefetchQuery, typeof professionalsQueryKey>(
+    graphql`
       fragment ProfessionalsTable_professionalsQuery on Query
+      @refetchable(queryName: "ProfessionalsTableRefetchQuery")
       @argumentDefinitions(
         # pagination
         count: { type: "Int!" }
@@ -92,32 +67,33 @@ const ComposedProfessionalsTable = createPaginationContainer(
         }
       }
     `,
-  },
-  {
-    direction: 'forward',
-    getVariables: (_0, { count, cursor }, fragmentVariables) => ({
-      ...fragmentVariables,
-      count,
-      cursor,
-    }),
-    query: graphql`
-      query ProfessionalsTablePaginationQuery(
-        # pagination
-        $count: Int!
-        $cursor: Cursor
-        # filters
-        $searchText: String
-      ) {
-        ...ProfessionalsTable_professionalsQuery
-          @arguments(
-            # pagination
-            count: $count
-            cursor: $cursor
-            # filters
-            searchText: $searchText
-          )
-      }
-    `,
-  },
-);
-export { ComposedProfessionalsTable as ProfessionalsTable };
+    professionalsQueryKey,
+  );
+
+  const [params] = useProfessionalsQueryParams();
+  useOnValueChange(params, refetch);
+
+  return (
+    <Flex container direction="column" spacing="tiny">
+      <Flex item>
+        <ProfessionalsTableFilter />
+      </Flex>
+      {isRefetching && <Loading />}
+      <Flex item>
+        <ProfessionalsTableRowHeader />
+        {filterMentalHealthProfessionals.edges.map(({ node }) => (
+          <ProfessionalsTableRow
+            key={node.rowId}
+            item={node}
+            component={makeLink({
+              to: `${PROFESSIONALS_PAGE_ROUTE}/${node.rowId}`,
+              omit: ['item'],
+            })}
+          />
+        ))}
+      </Flex>
+      {hasNext && !isLoadingNext && <Sentinel onReached={() => loadNext(params.count)} />}
+      {isLoadingNext && <Loading />}
+    </Flex>
+  );
+};

@@ -24,7 +24,7 @@ import { makeLink } from 'lib/makeLink';
 
 export type ProfessionalsOverviewPageProps = RouteComponentProps;
 
-const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (props) => {
+export const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (props) => {
   const { match } = props;
   const [params] = useProfessionalsQueryParams({ once: true });
 
@@ -81,6 +81,3 @@ const ProfessionalsOverviewPage: React.FC<ProfessionalsOverviewPageProps> = (pro
     </>
   );
 };
-
-const ComposedProfessionalsOverviewPage = ProfessionalsOverviewPage;
-export { ComposedProfessionalsOverviewPage as ProfessionalsOverviewPage };
