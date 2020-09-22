@@ -11,12 +11,11 @@ import { FourOhFourPage } from '../FourOhFourPage';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql, useLazyLoadQuery } from 'react-relay/hooks';
 import { ClientsCreateCaseStudyPageQuery } from 'relay/artifacts/ClientsCreateCaseStudyPageQuery.graphql';
 
 // ui
-import { Err, Loading, Flex, Text, Svg } from '@domonda/ui';
+import { Flex, Text, Svg } from '@domonda/ui';
 import { ExclamationTriangleIcon } from 'lib/icons';
 
 // modules
@@ -26,63 +25,49 @@ export type ClientsCreateCaseStudyPageProps = RouteComponentProps<{
   rowId: UUID;
 }>;
 
-const ClientsCreateCaseStudyPage: React.FC<ClientsCreateCaseStudyPageProps> = (props) => {
+export const ClientsCreateCaseStudyPage: React.FC<ClientsCreateCaseStudyPageProps> = (props) => {
   const {
     match: {
       params: { rowId },
     },
   } = props;
 
+  const { client } = useLazyLoadQuery<ClientsCreateCaseStudyPageQuery>(
+    graphql`
+      query ClientsCreateCaseStudyPageQuery($rowId: UUID!) {
+        client: clientByRowId(rowId: $rowId) {
+          ...CaseStudyManage_client
+        }
+      }
+    `,
+    { rowId },
+  );
+
+  if (!client) {
+    return <FourOhFourPage />;
+  }
   return (
     <>
       <FormattedMessage id="CREATE_CASE_STUDY">
         {([msg]) => <Helmet title={msg} />}
       </FormattedMessage>
-      <QueryRenderer<ClientsCreateCaseStudyPageQuery>
-        environment={environment}
-        query={graphql`
-          query ClientsCreateCaseStudyPageQuery($rowId: UUID!) {
-            client: clientByRowId(rowId: $rowId) {
-              ...CaseStudyManage_client
-            }
-          }
-        `}
-        variables={{ rowId }}
-        render={({ props, error, retry }) => {
-          if (error) {
-            return <Err error={error} onRetry={retry} />;
-          }
-          if (!props) {
-            return <Loading />;
-          }
-          const { client } = props;
-          if (!client) {
-            return <FourOhFourPage />;
-          }
-          return (
-            <Flex container direction="column" spacing="small">
-              <Flex item>
-                <CaseStudyManage client={client} caseStudy={null} />
-              </Flex>
-              <Flex item container spacing="tiny" align="center">
-                <Flex item>
-                  <Svg>
-                    <ExclamationTriangleIcon />
-                  </Svg>
-                </Flex>
-                <Flex item>
-                  <Text>
-                    <FormattedMessage id="TO_ADD_OTHER_INFO_FINISH_CREATING_CASE_STUDY" />
-                  </Text>
-                </Flex>
-              </Flex>
-            </Flex>
-          );
-        }}
-      />
+      <Flex container direction="column" spacing="small">
+        <Flex item>
+          <CaseStudyManage client={client} caseStudy={null} />
+        </Flex>
+        <Flex item container spacing="tiny" align="center">
+          <Flex item>
+            <Svg>
+              <ExclamationTriangleIcon />
+            </Svg>
+          </Flex>
+          <Flex item>
+            <Text>
+              <FormattedMessage id="TO_ADD_OTHER_INFO_FINISH_CREATING_CASE_STUDY" />
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
     </>
   );
 };
-
-const ComposedClientsCreateCaseStudyPage = ClientsCreateCaseStudyPage;
-export { ComposedClientsCreateCaseStudyPage as ClientsCreateCaseStudyPage };

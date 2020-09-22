@@ -4,14 +4,13 @@
  *
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RestoreScroll } from 'lib/RestoreScroll';
 
 // relay
 import { graphql } from 'relay/hooks';
 import { useLazyLoadQuery } from 'react-relay/hooks';
-import { checkIsAuthorized } from 'relay/client/session';
 import { RootSessionQuery } from 'relay/artifacts/RootSessionQuery.graphql';
 
 // ui
@@ -40,7 +39,6 @@ import { Boundary } from 'lib/Boundary';
 // decorate
 import { decorate, Decorate } from './decorate';
 
-// eslint-disable-next-line react/display-name
 const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
   const { isAuthorized } = props;
   if (!isAuthorized) {
@@ -82,21 +80,24 @@ const Root: React.FC<Decorate> = (props) => {
     {},
   );
 
-  const isAuthorized = (session && checkIsAuthorized(session)) || false;
+  const isAuthorized = useMemo(
+    () => (session?.token && new Date().getTime() < (session?.expiresAt || 0)) || false,
+    [session],
+  );
 
   return (
     <Flex container direction="column">
       {isAuthorized && (
-        <div className={classes.header}>
+        <header className={classes.header}>
           <Flex container className={classes.content}>
             <AppBar />
           </Flex>
-        </div>
+        </header>
       )}
       <RestoreScroll>
         {(ref) => (
           <Flex ref={ref} item container flex={1} className={classes.main} component="main">
-            <div className={classes.content}>
+            <main className={classes.content}>
               <Boundary>
                 <Switch>
                   {/* Removes trailing slashes */}
@@ -111,7 +112,7 @@ const Root: React.FC<Decorate> = (props) => {
                   <RootRoutes isAuthorized={isAuthorized} />
                 </Switch>
               </Boundary>
-            </div>
+            </main>
           </Flex>
         )}
       </RestoreScroll>

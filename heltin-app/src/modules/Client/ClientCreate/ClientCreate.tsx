@@ -11,12 +11,11 @@ import { FormattedMessage } from 'react-intl';
 
 // relay
 import { createClientMutation, CreateClientMutation } from 'relay/mutations/CreateClient';
-import { graphql, QueryRenderer } from 'react-relay';
-import { environment } from 'relay/environment';
+import { graphql, LazyLoadQuery } from 'relay/components';
 import { ClientCreateQuery } from 'relay/artifacts/ClientCreateQuery.graphql';
 
 // ui
-import { Flex, Text, Button, Input, Select, Err, Loading } from '@domonda/ui';
+import { Flex, Text, Button, Input, Select } from '@domonda/ui';
 import { DismissableAlert } from 'lib/DismissableAlert';
 
 // form
@@ -81,25 +80,19 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
         </Text>
       </Flex>
       <Flex item>
-        <QueryRenderer<ClientCreateQuery>
-          environment={environment}
+        <LazyLoadQuery<ClientCreateQuery>
           query={graphql`
             query ClientCreateQuery {
               nextAvailableClientNumber
             }
           `}
           variables={{}}
-          render={({ props, error, retry }) => {
-            if (error) {
-              return <Err error={error} onRetry={retry} />;
-            }
-            if (!props) {
-              return <Loading />;
-            }
+        >
+          {(data) => {
             return (
               <Form
                 defaultValues={{
-                  number: props.nextAvailableClientNumber,
+                  number: data.nextAvailableClientNumber,
                   address: '',
                   city: '',
                   dateOfBirth: '',
@@ -224,7 +217,7 @@ export const ClientCreate: React.FC<ClientCreateProps> = () => {
               </Form>
             );
           }}
-        />
+        </LazyLoadQuery>
       </Flex>
     </Flex>
   );

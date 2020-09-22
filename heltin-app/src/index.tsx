@@ -37,21 +37,21 @@ if (!root) {
 }
 
 ReactDOM.unstable_createRoot(root).render(
-  <Router history={history}>
-    <HelmetProvider>
-      <Helmet titleTemplate="%s | domonda" />
-      <QueryParamsProvider history={history}>
-        <RelayEnvironmentProvider environment={environment}>
-          <IntlProvider defaultLocale="hr" messages={messages}>
-            <ThemeProvider theme={theme}>
-              <Boundary>
+  <ThemeProvider theme={theme}>
+    <Boundary>
+      <Router history={history}>
+        <HelmetProvider>
+          <Helmet titleTemplate="%s | domonda" />
+          <QueryParamsProvider history={history}>
+            <RelayEnvironmentProvider environment={environment}>
+              <IntlProvider defaultLocale="hr" messages={messages}>
                 <Baseline />
                 <Root />
-              </Boundary>
-            </ThemeProvider>
-          </IntlProvider>
-        </RelayEnvironmentProvider>
-      </QueryParamsProvider>
-    </HelmetProvider>
-  </Router>,
+              </IntlProvider>
+            </RelayEnvironmentProvider>
+          </QueryParamsProvider>
+        </HelmetProvider>
+      </Router>
+    </Boundary>
+  </ThemeProvider>,
 );
