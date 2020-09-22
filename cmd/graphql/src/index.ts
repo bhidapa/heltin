@@ -6,9 +6,9 @@
 
 import express from "express";
 import session from "express-session";
+const PgSession = require("connect-pg-simple")(session);
 import { Pool } from "pg";
 import { postgraphile } from "postgraphile";
-import connectPgSimple from "connect-pg-simple";
 
 // plugins
 import PgNonNullRelationsPlugin from "@graphile-contrib/pg-non-null/relations";
@@ -67,24 +67,15 @@ const app = express();
 
 app.use(
   session({
-    store: new (connectPgSimple(session))({
-      pgPromise: {
-        query: async (query: any, params: any) => {
-          if (config.sessionTableSchema) {
-            await pgPool.query("begin;set local search_path to private;");
-          }
-          const { rows } = await pgPool.query(query, params);
-          if (config.sessionTableSchema) {
-            await pgPool.query("end;");
-          }
-          return rows;
-        },
-      },
+    store: new PgSession({
+      pool: pgPool,
+      schemaName: config.sessionTableSchema,
       tableName: config.sessionTable,
     }),
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
+    rolling: true,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
   })
 );
