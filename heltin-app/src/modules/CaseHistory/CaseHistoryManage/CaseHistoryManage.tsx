@@ -5,12 +5,14 @@
  */
 
 import React, { useCallback } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { CaseHistoryManage_caseHistory } from 'relay/artifacts/CaseHistoryManage_caseHistory.graphql';
-import { createCaseHistoryMutation } from 'relay/mutations/CreateCaseHistory';
-import { updateCaseHistoryMutation } from 'relay/mutations/UpdateCaseHistory';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { usePromiseMutation } from 'relay/hooks';
+import { CaseHistoryManage_caseHistory$key } from 'relay/artifacts/CaseHistoryManage_caseHistory.graphql';
+import { CaseHistoryManageCreateMutation } from 'relay/artifacts/CaseHistoryManageCreateMutation.graphql';
+import { CaseHistoryManageUpdateMutation } from 'relay/artifacts/CaseHistoryManageUpdateMutation.graphql';
 
 // ui
 import { Flex, Button, Text, Label, Divider } from '@domonda/ui';
@@ -34,30 +36,145 @@ import {
 } from 'lib/FormFields';
 import { CaseHistoryAccompaniedByTypeSelectOptions } from '../CaseHistoryAccompaniedByType';
 import { CaseHistoryLivesWithTypeSelectOptions } from '../CaseHistoryLivesWithType';
+import { CaseHistoryDivorceOutcomeTypeSelectOptions } from '../CaseHistoryDivorceOutcomeType';
+import { CaseHistoryAbuseType, CaseHistoryAbuseTypeSelectOptions } from '../CaseHistoryAbuseType';
+import { CaseHistoryAccompaniedByType } from '../CaseHistoryAccompaniedByType';
+import {
+  CaseHistoryArrivalReasonType,
+  CaseHistoryArrivalReasonTypeSelectOptions,
+} from '../CaseHistoryArrivalReasonType';
+import { CaseHistoryDivorceOutcomeType } from '../CaseHistoryDivorceOutcomeType';
 import {
   CaseHistoryDivorcedParentsType,
   CaseHistoryDivorcedParentsTypeSelectOptions,
 } from '../CaseHistoryDivorcedParentsType';
-import { CaseHistoryDivorceOutcomeTypeSelectOptions } from '../CaseHistoryDivorceOutcomeType';
-
-// selectors
-import { deriveFormValues, FormValues } from './selectors';
-import { FormattedMessage } from 'react-intl';
-import { CaseHistoryArrivalReasonTypeSelectOptions } from '../CaseHistoryArrivalReasonType';
-import { CaseHistoryReferralTypeSelectOptions } from '../CaseHistoryReferralType';
+import {
+  CaseHistoryIndividualType,
+  CaseHistoryIndividualTypeSelectOptions,
+} from '../CaseHistoryIndividualType';
+import { CaseHistoryLivesWithType } from '../CaseHistoryLivesWithType';
+import {
+  CaseHistoryParentsInJailType,
+  CaseHistoryParentsInJailTypeSelectOptions,
+} from '../CaseHistoryParentsInJailType';
+import {
+  CaseHistoryReasonOfMultipleAdoptionsType,
+  CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions,
+} from '../CaseHistoryReasonOfMultipleAdoptionsType';
+import {
+  CaseHistoryReferralType,
+  CaseHistoryReferralTypeSelectOptions,
+} from '../CaseHistoryReferralType';
+import {
+  CaseHistoryReportedAbuseType,
+  CaseHistoryReportedAbuseTypeSelectOptions,
+} from '../CaseHistoryReportedAbuseType';
+import { ProfessionalType } from 'modules/Professional/ProfessionalType';
 import { ProfessionalTypeSelectOptions } from 'modules/Professional/ProfessionalTypeSelectOptions';
-import { CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions } from '../CaseHistoryReasonOfMultipleAdoptionsType';
-import { CaseHistoryReportedAbuseTypeSelectOptions } from '../CaseHistoryReportedAbuseType';
-import { CaseHistoryAbuseTypeSelectOptions } from '../CaseHistoryAbuseType';
-import { CaseHistoryParentsInJailTypeSelectOptions } from '../CaseHistoryParentsInJailType';
-import { CaseHistoryIndividualTypeSelectOptions } from '../CaseHistoryIndividualType';
+
+export interface FormValues {
+  caseStudyRowId: string;
+  caseHistoryRowId: string | null; // when null, its getting created
+  // arrival
+  accompaniedBy: CaseHistoryAccompaniedByType | null;
+  arrivalReason: CaseHistoryArrivalReasonType[] | null;
+  // earlier treatments
+  previousTreatment: string | null;
+  earlierProfessionalHelp: ProfessionalType[] | null;
+  referral: CaseHistoryReferralType[] | null;
+  referralDiagnosis: string | null;
+  involvedReferral: boolean | null;
+  // parents
+  divorcedParents: CaseHistoryDivorcedParentsType | null;
+  divorceOutcome: CaseHistoryDivorceOutcomeType | null;
+  parentsInJail: CaseHistoryParentsInJailType | null;
+  // lives with
+  livesWith: CaseHistoryLivesWithType[] | null;
+  // death
+  lossOfCloseIndividual: CaseHistoryIndividualType[] | null;
+  ageDuringLossOfCloseIndividual: number | null;
+  // adoption
+  adoptionAge: number | null;
+  numberOfAdoptions: number | null;
+  reasonOfMultipleAdoptions: CaseHistoryReasonOfMultipleAdoptionsType[] | null;
+  // education
+  schoolMark: number | null;
+  attendsKindergarten: boolean | null;
+  diagnosedIntelectualDevelopmentProblems: boolean | null;
+  adaptedEducationProgram: boolean | null;
+  individualizedEducationProgram: boolean | null;
+  // abuses
+  furtherAbuses: CaseHistoryAbuseType[] | null;
+  reportedFurtherAbuses: CaseHistoryReportedAbuseType | null;
+  // other
+  familyHeredity: string | null;
+  ptsp: string | null;
+}
 
 export interface CaseHistoryManageProps {
   caseStudyRowId: UUID;
-  caseHistory: CaseHistoryManage_caseHistory | null;
+  caseHistory: CaseHistoryManage_caseHistory$key | null;
 }
 
-const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
+export const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
+  const { caseStudyRowId, caseHistory: caseHistoryKey } = props;
+
+  const caseHistory = useFragment(
+    graphql`
+      fragment CaseHistoryManage_caseHistory on CaseHistory {
+        id
+        rowId
+        caseStudyRowId
+        accompaniedBy
+        adaptedEducationProgram
+        adoptionAge
+        ageDuringLossOfCloseIndividual
+        arrivalReason
+        attendsKindergarten
+        diagnosedIntelectualDevelopmentProblems
+        divorceOutcome
+        divorcedParents
+        earlierProfessionalHelp
+        familyHeredity
+        furtherAbuses
+        individualizedEducationProgram
+        involvedReferral
+        livesWith
+        lossOfCloseIndividual
+        numberOfAdoptions
+        parentsInJail
+        previousTreatment
+        ptsp
+        reasonOfMultipleAdoptions
+        referral
+        referralDiagnosis
+        reportedFurtherAbuses
+        schoolMark
+      }
+    `,
+    caseHistoryKey,
+  );
+
+  const createCaseHistory = usePromiseMutation<CaseHistoryManageCreateMutation>(graphql`
+    mutation CaseHistoryManageCreateMutation($input: CreateCaseHistoryInput!) {
+      createCaseHistory(input: $input) {
+        caseHistory {
+          ...CaseHistoryManage_caseHistory @relay(mask: false)
+        }
+      }
+    }
+  `);
+
+  const updateCaseHistory = usePromiseMutation<CaseHistoryManageUpdateMutation>(graphql`
+    mutation CaseHistoryManageUpdateMutation($input: UpdateCaseHistoryInput!) {
+      updateCaseHistory(input: $input) {
+        caseHistory {
+          ...CaseHistoryManage_caseHistory @relay(mask: false)
+        }
+      }
+    }
+  `);
+
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     ({ caseHistoryRowId, caseStudyRowId, ...rest }, { state }) => {
       // extracts only values which are present on the screen
@@ -77,17 +194,21 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
       }, {});
 
       if (caseHistoryRowId) {
-        return updateCaseHistoryMutation({
-          input: {
-            rowId: caseHistoryRowId,
-            ...input,
+        return updateCaseHistory({
+          variables: {
+            input: {
+              rowId: caseHistoryRowId,
+              ...input,
+            },
           },
         });
       } else {
-        return createCaseHistoryMutation({
-          input: {
-            ...input,
-            caseStudyRowId,
+        return createCaseHistory({
+          variables: {
+            input: {
+              ...input,
+              caseStudyRowId,
+            },
           },
         });
       }
@@ -103,7 +224,74 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
         </Text>
       </Flex>
       <Flex item>
-        <Form defaultValues={deriveFormValues(props)} resetOnDefaultValuesChange onSubmit={submit}>
+        <Form<FormValues>
+          defaultValues={{
+            caseStudyRowId,
+            caseHistoryRowId: caseHistory ? caseHistory.rowId : null,
+            // arival
+            accompaniedBy: caseHistory
+              ? (caseHistory.accompaniedBy as CaseHistoryAccompaniedByType)
+              : CaseHistoryAccompaniedByType.NoOne,
+            arrivalReason: caseHistory
+              ? (caseHistory.arrivalReason as CaseHistoryArrivalReasonType[])
+              : null,
+            // earlier treatments
+            previousTreatment: caseHistory ? caseHistory.previousTreatment : null,
+            earlierProfessionalHelp: caseHistory
+              ? (caseHistory.earlierProfessionalHelp as ProfessionalType[])
+              : null,
+            referral: caseHistory ? (caseHistory.referral as CaseHistoryReferralType[]) : null,
+            referralDiagnosis: caseHistory ? caseHistory.referralDiagnosis : null,
+            involvedReferral: caseHistory ? caseHistory.involvedReferral : null,
+            // parents
+            divorcedParents: caseHistory
+              ? (caseHistory.divorcedParents as CaseHistoryDivorcedParentsType)
+              : null,
+            divorceOutcome: caseHistory
+              ? (caseHistory.divorceOutcome as CaseHistoryDivorceOutcomeType)
+              : null,
+            parentsInJail: caseHistory
+              ? (caseHistory.parentsInJail as CaseHistoryParentsInJailType)
+              : null,
+            // lives with
+            livesWith: caseHistory ? (caseHistory.livesWith as CaseHistoryLivesWithType[]) : null,
+            // death
+            lossOfCloseIndividual: caseHistory
+              ? (caseHistory.lossOfCloseIndividual as CaseHistoryIndividualType[])
+              : null,
+            ageDuringLossOfCloseIndividual: caseHistory
+              ? caseHistory.ageDuringLossOfCloseIndividual
+              : null,
+            // adoption
+            adoptionAge: caseHistory ? caseHistory.adoptionAge : null,
+            numberOfAdoptions: caseHistory ? caseHistory.numberOfAdoptions : null,
+            reasonOfMultipleAdoptions: caseHistory
+              ? (caseHistory.reasonOfMultipleAdoptions as CaseHistoryReasonOfMultipleAdoptionsType[])
+              : null,
+            // education
+            schoolMark: caseHistory ? caseHistory.schoolMark : null,
+            attendsKindergarten: caseHistory ? caseHistory.attendsKindergarten : null,
+            diagnosedIntelectualDevelopmentProblems: caseHistory
+              ? caseHistory.diagnosedIntelectualDevelopmentProblems
+              : null,
+            adaptedEducationProgram: caseHistory ? caseHistory.adaptedEducationProgram : null,
+            individualizedEducationProgram: caseHistory
+              ? caseHistory.individualizedEducationProgram
+              : null,
+            // abuses
+            furtherAbuses: caseHistory
+              ? (caseHistory.furtherAbuses as CaseHistoryAbuseType[])
+              : null,
+            reportedFurtherAbuses: caseHistory
+              ? (caseHistory.reportedFurtherAbuses as CaseHistoryReportedAbuseType)
+              : null,
+            // other
+            familyHeredity: caseHistory ? caseHistory.familyHeredity : null,
+            ptsp: caseHistory ? caseHistory.ptsp : null,
+          }}
+          resetOnDefaultValuesChange
+          onSubmit={submit}
+        >
           <Flex container direction="column" spacing="tiny">
             <Flex item>
               <FormSubmitErrorState>
@@ -655,39 +843,3 @@ const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
     </Flex>
   );
 };
-
-const ComposedCaseHistoryManage = createFragmentContainer(CaseHistoryManage, {
-  caseHistory: graphql`
-    fragment CaseHistoryManage_caseHistory on CaseHistory {
-      id
-      rowId
-      caseStudyRowId
-      accompaniedBy
-      adaptedEducationProgram
-      adoptionAge
-      ageDuringLossOfCloseIndividual
-      arrivalReason
-      attendsKindergarten
-      diagnosedIntelectualDevelopmentProblems
-      divorceOutcome
-      divorcedParents
-      earlierProfessionalHelp
-      familyHeredity
-      furtherAbuses
-      individualizedEducationProgram
-      involvedReferral
-      livesWith
-      lossOfCloseIndividual
-      numberOfAdoptions
-      parentsInJail
-      previousTreatment
-      ptsp
-      reasonOfMultipleAdoptions
-      referral
-      referralDiagnosis
-      reportedFurtherAbuses
-      schoolMark
-    }
-  `,
-});
-export { ComposedCaseHistoryManage as CaseHistoryManage };

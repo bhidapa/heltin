@@ -10,10 +10,10 @@ export type CreateCaseHistoryFileInput = {
     fileData: string;
     fileName: string;
 };
-export type CreateCaseHistoryFileMutationVariables = {
+export type CaseHistoryFilesManageCreateMutationVariables = {
     input: CreateCaseHistoryFileInput;
 };
-export type CreateCaseHistoryFileMutationResponse = {
+export type CaseHistoryFilesManageCreateMutationResponse = {
     readonly createCaseHistoryFile: {
         readonly caseHistoryByCaseHistoryRowId: {
             readonly caseHistoryFilesByCaseHistoryRowId: {
@@ -24,15 +24,15 @@ export type CreateCaseHistoryFileMutationResponse = {
         };
     } | null;
 };
-export type CreateCaseHistoryFileMutation = {
-    readonly response: CreateCaseHistoryFileMutationResponse;
-    readonly variables: CreateCaseHistoryFileMutationVariables;
+export type CaseHistoryFilesManageCreateMutation = {
+    readonly response: CaseHistoryFilesManageCreateMutationResponse;
+    readonly variables: CaseHistoryFilesManageCreateMutationVariables;
 };
 
 
 
 /*
-mutation CreateCaseHistoryFileMutation(
+mutation CaseHistoryFilesManageCreateMutation(
   $input: CreateCaseHistoryFileInput!
 ) {
   createCaseHistoryFile(input: $input) {
@@ -102,7 +102,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -161,7 +161,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageCreateMutation",
     "selections": [
       {
         "alias": null,
@@ -233,14 +233,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1d58f49a3841af322214fad8309a400a",
+    "cacheID": "21626f5da67f541f4460f3f49c835cb6",
     "id": null,
     "metadata": {},
-    "name": "CreateCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseHistoryFileMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CaseHistoryFilesManageCreateMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e886354db494b2308a2888bd31fe2ac5';
+(node as any).hash = 'dad22f383f5484dfc322948c034baeab';
 export default node;

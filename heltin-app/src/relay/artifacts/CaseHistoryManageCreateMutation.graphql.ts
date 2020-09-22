@@ -45,10 +45,10 @@ export type CreateCaseHistoryInput = {
     reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null;
     schoolMark?: number | null;
 };
-export type CreateCaseHistoryMutationVariables = {
+export type CaseHistoryManageCreateMutationVariables = {
     input: CreateCaseHistoryInput;
 };
-export type CreateCaseHistoryMutationResponse = {
+export type CaseHistoryManageCreateMutationResponse = {
     readonly createCaseHistory: {
         readonly caseHistory: {
             readonly id: string;
@@ -82,15 +82,15 @@ export type CreateCaseHistoryMutationResponse = {
         } | null;
     } | null;
 };
-export type CreateCaseHistoryMutation = {
-    readonly response: CreateCaseHistoryMutationResponse;
-    readonly variables: CreateCaseHistoryMutationVariables;
+export type CaseHistoryManageCreateMutation = {
+    readonly response: CaseHistoryManageCreateMutationResponse;
+    readonly variables: CaseHistoryManageCreateMutationVariables;
 };
 
 
 
 /*
-mutation CreateCaseHistoryMutation(
+mutation CaseHistoryManageCreateMutation(
   $input: CreateCaseHistoryInput!
 ) {
   createCaseHistory(input: $input) {
@@ -367,7 +367,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "CreateCaseHistoryMutation",
+    "name": "CaseHistoryManageCreateMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -376,18 +376,18 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "CreateCaseHistoryMutation",
+    "name": "CaseHistoryManageCreateMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "d8bb4961d5b8651b7bbc05efac9c600c",
+    "cacheID": "e7f7bbb31ca0f1c0c73ec98038829ad0",
     "id": null,
     "metadata": {},
-    "name": "CreateCaseHistoryMutation",
+    "name": "CaseHistoryManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseHistoryMutation(\n  $input: CreateCaseHistoryInput!\n) {\n  createCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n"
+    "text": "mutation CaseHistoryManageCreateMutation(\n  $input: CreateCaseHistoryInput!\n) {\n  createCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'cec72ec24f9ac59fb07e126cdaef138e';
+(node as any).hash = '60d72c9f7143ed805886312f2d493003';
 export default node;

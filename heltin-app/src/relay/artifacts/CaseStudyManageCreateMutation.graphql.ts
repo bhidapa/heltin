@@ -15,13 +15,14 @@ export type CaseHistoryReasonOfMultipleAdoptionsType = "ABUSE" | "LOSS_OF_FOSTER
 export type CaseHistoryReferralType = "COURT" | "HOSPITAL" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "OTHER" | "PEDIATRIST" | "POLICE" | "PSYCHIATRIST" | "SCHOOL" | "SELF" | "SOCIAL_WORK_CENTER";
 export type CaseHistoryReportedAbuseType = "COURT" | "NOT_REPORTED" | "SOCIAL_WORK_CENTER";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
-export type UpdateCaseHistoryInput = {
+export type CreateCaseHistoryInput = {
     accompaniedBy?: CaseHistoryAccompaniedByType | null;
     adaptedEducationProgram?: boolean | null;
     adoptionAge?: number | null;
     ageDuringLossOfCloseIndividual?: number | null;
     arrivalReason?: Array<CaseHistoryArrivalReasonType | null> | null;
     attendsKindergarten?: boolean | null;
+    caseStudyRowId: string;
     caseStudyTreatmentRowId?: string | null;
     clientMutationId?: string | null;
     diagnosedIntelectualDevelopmentProblems?: boolean | null;
@@ -42,14 +43,13 @@ export type UpdateCaseHistoryInput = {
     referral?: Array<CaseHistoryReferralType | null> | null;
     referralDiagnosis?: string | null;
     reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null;
-    rowId: string;
     schoolMark?: number | null;
 };
-export type UpdateCaseHistoryMutationVariables = {
-    input: UpdateCaseHistoryInput;
+export type CaseStudyManageCreateMutationVariables = {
+    input: CreateCaseHistoryInput;
 };
-export type UpdateCaseHistoryMutationResponse = {
-    readonly updateCaseHistory: {
+export type CaseStudyManageCreateMutationResponse = {
+    readonly createCaseHistory: {
         readonly caseHistory: {
             readonly id: string;
             readonly rowId: string;
@@ -82,18 +82,18 @@ export type UpdateCaseHistoryMutationResponse = {
         } | null;
     } | null;
 };
-export type UpdateCaseHistoryMutation = {
-    readonly response: UpdateCaseHistoryMutationResponse;
-    readonly variables: UpdateCaseHistoryMutationVariables;
+export type CaseStudyManageCreateMutation = {
+    readonly response: CaseStudyManageCreateMutationResponse;
+    readonly variables: CaseStudyManageCreateMutationVariables;
 };
 
 
 
 /*
-mutation UpdateCaseHistoryMutation(
-  $input: UpdateCaseHistoryInput!
+mutation CaseStudyManageCreateMutation(
+  $input: CreateCaseHistoryInput!
 ) {
-  updateCaseHistory(input: $input) {
+  createCaseHistory(input: $input) {
     caseHistory {
       id
       rowId
@@ -146,9 +146,9 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "UpdateCaseHistoryPayload",
+    "concreteType": "CreateCaseHistoryPayload",
     "kind": "LinkedField",
-    "name": "updateCaseHistory",
+    "name": "createCaseHistory",
     "plural": false,
     "selections": [
       {
@@ -367,7 +367,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UpdateCaseHistoryMutation",
+    "name": "CaseStudyManageCreateMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -376,18 +376,18 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UpdateCaseHistoryMutation",
+    "name": "CaseStudyManageCreateMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "7f11b462dec80bc6f322bb8571166b29",
+    "cacheID": "ef15e96e65eecb55821a0a724b6e4b39",
     "id": null,
     "metadata": {},
-    "name": "UpdateCaseHistoryMutation",
+    "name": "CaseStudyManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateCaseHistoryMutation(\n  $input: UpdateCaseHistoryInput!\n) {\n  updateCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n"
+    "text": "mutation CaseStudyManageCreateMutation(\n  $input: CreateCaseHistoryInput!\n) {\n  createCaseHistory(input: $input) {\n    caseHistory {\n      id\n      rowId\n      caseStudyRowId\n      accompaniedBy\n      adaptedEducationProgram\n      adoptionAge\n      ageDuringLossOfCloseIndividual\n      arrivalReason\n      attendsKindergarten\n      diagnosedIntelectualDevelopmentProblems\n      divorceOutcome\n      divorcedParents\n      earlierProfessionalHelp\n      familyHeredity\n      furtherAbuses\n      individualizedEducationProgram\n      involvedReferral\n      livesWith\n      lossOfCloseIndividual\n      numberOfAdoptions\n      parentsInJail\n      previousTreatment\n      ptsp\n      reasonOfMultipleAdoptions\n      referral\n      referralDiagnosis\n      reportedFurtherAbuses\n      schoolMark\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'dead2ff4629ea7ea19100a6efcb2bc7d';
+(node as any).hash = '3e0cc95844bedd4236400dfe768dc8cb';
 export default node;

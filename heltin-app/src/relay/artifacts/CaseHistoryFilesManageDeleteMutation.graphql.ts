@@ -7,10 +7,10 @@ export type DeleteCaseHistoryFileInput = {
     clientMutationId?: string | null;
     rowId: string;
 };
-export type DeleteCaseHistoryFileMutationVariables = {
+export type CaseHistoryFilesManageDeleteMutationVariables = {
     input: DeleteCaseHistoryFileInput;
 };
-export type DeleteCaseHistoryFileMutationResponse = {
+export type CaseHistoryFilesManageDeleteMutationResponse = {
     readonly deleteCaseHistoryFile: {
         readonly caseHistoryByCaseHistoryRowId: {
             readonly caseHistoryFilesByCaseHistoryRowId: {
@@ -21,15 +21,15 @@ export type DeleteCaseHistoryFileMutationResponse = {
         };
     } | null;
 };
-export type DeleteCaseHistoryFileMutation = {
-    readonly response: DeleteCaseHistoryFileMutationResponse;
-    readonly variables: DeleteCaseHistoryFileMutationVariables;
+export type CaseHistoryFilesManageDeleteMutation = {
+    readonly response: CaseHistoryFilesManageDeleteMutationResponse;
+    readonly variables: CaseHistoryFilesManageDeleteMutationVariables;
 };
 
 
 
 /*
-mutation DeleteCaseHistoryFileMutation(
+mutation CaseHistoryFilesManageDeleteMutation(
   $input: DeleteCaseHistoryFileInput!
 ) {
   deleteCaseHistoryFile(input: $input) {
@@ -103,7 +103,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageDeleteMutation",
     "selections": [
       {
         "alias": null,
@@ -136,7 +136,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageDeleteMutation",
     "selections": [
       {
         "alias": null,
@@ -165,14 +165,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b2afbc4be9dc37fb9d2e5d8a18dbe947",
+    "cacheID": "08807da1ec25b86ee9083b7b672409f5",
     "id": null,
     "metadata": {},
-    "name": "DeleteCaseHistoryFileMutation",
+    "name": "CaseHistoryFilesManageDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteCaseHistoryFileMutation(\n  $input: DeleteCaseHistoryFileInput!\n) {\n  deleteCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
+    "text": "mutation CaseHistoryFilesManageDeleteMutation(\n  $input: DeleteCaseHistoryFileInput!\n) {\n  deleteCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          id\n        }\n      }\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'c7eeb987e038b672e36102ed28e883cb';
+(node as any).hash = '201099cbea151b8fb061960adcb4233c';
 export default node;
