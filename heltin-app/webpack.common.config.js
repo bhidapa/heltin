@@ -5,14 +5,13 @@
  */
 
 const path = require('path');
-const { publicUrl } = require('./paths.config');
 
 module.exports = {
   context: __dirname,
   target: 'web',
   output: {
-    publicPath: publicUrl,
-    path: path.join(__dirname, 'build'),
+    publicPath: process.env.PUBLIC_PATH || '/',
+    path: path.join(__dirname, 'dist'),
     pathinfo: false,
   },
   resolve: {
@@ -27,10 +26,6 @@ module.exports = {
         sideEffects: true,
       },
       {
-        test: /\.(woff|woff2|eot|ttf)$/,
-        use: 'file-loader',
-      },
-      {
         test: /\.(png|jp(e*)g)$/,
         use: [
           {
@@ -41,10 +36,6 @@ module.exports = {
             },
           },
         ],
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader',
       },
     ],
   },

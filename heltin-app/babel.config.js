@@ -7,7 +7,6 @@ module.exports = {
     '@babel/proposal-optional-chaining',
     '@babel/proposal-nullish-coalescing-operator',
     '@babel/transform-runtime',
-    // libs
     'relay',
   ],
 };

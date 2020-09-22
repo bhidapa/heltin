@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type AutocompleteProfessionalQueryVariables = {
@@ -40,8 +41,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "searchText",
-    "type": "String"
+    "name": "searchText"
   }
 ],
 v1 = [
@@ -102,7 +102,8 @@ return {
     "metadata": null,
     "name": "AutocompleteProfessionalQuery",
     "selections": (v1/*: any*/),
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -112,6 +113,7 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
+    "cacheID": "0a00812761cba368ab889f1d059bdc70",
     "id": null,
     "metadata": {},
     "name": "AutocompleteProfessionalQuery",

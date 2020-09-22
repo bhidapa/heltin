@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateCaseStudyInput = {
@@ -44,8 +45,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "UpdateCaseStudyInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -101,7 +101,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -143,6 +144,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "bf0f0b19ff22e5d171ee704e825f37db",
     "id": null,
     "metadata": {},
     "name": "UpdateCaseStudyMutation",

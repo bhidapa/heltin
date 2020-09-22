@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -136,8 +137,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "rowId",
-    "type": "UUID!"
+    "name": "rowId"
   }
 ],
 v1 = [
@@ -285,7 +285,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -626,6 +627,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "f2ddb1fdb606947b8b5a61ffadef23cd",
     "id": null,
     "metadata": {},
     "name": "CaseStudiesDetailPageQuery",

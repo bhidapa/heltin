@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
@@ -67,8 +68,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "CreateCaseStudyMentalHealthProfessionalInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -191,7 +191,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -265,6 +266,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "2af0984483c7e268541ea654b58d4558",
     "id": null,
     "metadata": {},
     "name": "CreateCaseStudyProfessionalMutation",

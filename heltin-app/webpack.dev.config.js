@@ -4,11 +4,10 @@
  *
  */
 
-const merge = require('webpack-merge');
 const common = require('./webpack.common.config');
-const paths = require('./paths.config');
 const webpack = require('webpack');
 const path = require('path');
+const { merge } = require('webpack-merge');
 
 // package.json
 const pkg = require('./package.json');
@@ -21,13 +20,12 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'development',
-  entry: paths.appEntry,
-  devtool: 'eval-source-map',
+  entry: path.join(__dirname, 'src'),
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: [/node_modules/, /__tests__/, /(test|spec)\.tsx?$/],
+        exclude: [/node_modules/],
         use: [
           {
             loader: 'babel-loader',
@@ -55,12 +53,8 @@ module.exports = merge(common, {
   devServer: {
     host: '0.0.0.0',
     port: 6001,
-    contentBase: paths.appPublic,
+    contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    overlay: {
-      warnings: true,
-      errors: true,
-    },
     stats: 'minimal',
     headers: {
       'X-Content-Type-Options': 'nosniff',
@@ -74,30 +68,27 @@ module.exports = merge(common, {
     },
   },
   plugins: [
-    // injecting env constants
     new DefinePlugin({
-      // environment
       __DEV__: JSON.stringify(true),
-      // GraphQL WebSocket endpoint
       GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
-    // type-checking for typescript
     new ForkTsCheckerWebpackPlugin({
-      checkSyntacticErrors: true,
+      typescript: {
+        mode: 'write-references',
+        diagnosticsOptions: { syntactic: true },
+      },
     }),
-    // html transpiler
     new HtmlWebpackPlugin({
-      template: paths.appHtml,
+      template: path.join(__dirname, 'src', 'index.html'),
       templateParameters: (_0, { publicPath }) => ({ publicPath }),
     }),
-    // injecting the DLL
     new webpack.DllReferencePlugin({
       sourceType: 'var',
       context: __dirname,
-      manifest: path.join(paths.dll, `${pkg.dll.name}.manifest.json`),
+      manifest: path.join(pkg.dll.path, `${pkg.dll.name}.manifest.json`),
     }),
     new AddAssetHtmlPlugin({
-      filepath: path.join(paths.dll, '*.dll.js'),
+      filepath: path.join(pkg.dll.path, '*.dll.js'),
       includeSourcemap: false,
     }),
   ],

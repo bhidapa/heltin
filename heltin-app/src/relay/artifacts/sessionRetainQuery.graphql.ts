@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -61,7 +62,8 @@ return {
         ]
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -103,6 +105,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "9c81945247265d72e0b5c8e9ecba3ceb",
     "id": null,
     "metadata": {},
     "name": "sessionRetainQuery",

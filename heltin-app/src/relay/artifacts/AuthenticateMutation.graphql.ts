@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type AuthenticateInput = {
@@ -37,8 +38,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "AuthenticateInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -74,7 +74,8 @@ return {
     "metadata": null,
     "name": "AuthenticateMutation",
     "selections": (v1/*: any*/),
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -84,6 +85,7 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
+    "cacheID": "1c0fa51b66cd0ea79783af4a08e7f833",
     "id": null,
     "metadata": {},
     "name": "AuthenticateMutation",

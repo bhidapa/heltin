@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -59,20 +60,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "count",
-    "type": "Int!"
+    "name": "count"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "cursor",
-    "type": "Cursor"
+    "name": "cursor"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "searchText",
-    "type": "String"
+    "name": "searchText"
   }
 ],
 v1 = {
@@ -118,7 +116,8 @@ return {
         "name": "ProfessionalsTable_professionalsQuery"
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -261,6 +260,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "8588a417ad11202477b2b4d6f4cb39f2",
     "id": null,
     "metadata": {},
     "name": "ProfessionalsOverviewPageQuery",

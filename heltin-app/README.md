@@ -6,25 +6,20 @@
 
 ## Development (Available Scripts)
 
-In the project directory, you can run:
+After installing [yarn](https://yarnpkg.com/), you can run the following in the project directory:
 
-### `npm run build:dll`
-
-Pre-builds all dependencies. Webpack [DLLPlugin](https://webpack.js.org/plugins/dll-plugin/) and [DllReferencePlugin](https://webpack.js.org/plugins/dll-plugin/#dllreferenceplugin) provide means to split bundles in a way that can **drastically** improve build time performance.
-
-### `npm start`
+### `yarn start`
 
 Builds the DLL and runs the app in the development mode.<br>
 Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The page will reload if you make edits.
 
-### `npm run relay:start`
+### `yarn relay --watch`
 
-Runs the [Relay Modern compiler](https://relay.dev/docs/en/compiler-architecture). Whenever you are changing any GraphQL related code, you should have this compiler running.
+Runs the [Relay Modern compiler](https://relay.dev/docs/en/compiler-architecture) in _watch_ mode. Whenever you are changing any GraphQL related code, you should have this compiler running.
 
-### `npm run build`
+### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.

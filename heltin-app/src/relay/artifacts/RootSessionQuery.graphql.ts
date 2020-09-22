@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type RootSessionQueryVariables = {};
@@ -70,7 +71,8 @@ return {
     "metadata": null,
     "name": "RootSessionQuery",
     "selections": (v0/*: any*/),
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -80,6 +82,7 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
+    "cacheID": "1ec9fba06c1ba43f18b58b6066ab466a",
     "id": null,
     "metadata": {},
     "name": "RootSessionQuery",

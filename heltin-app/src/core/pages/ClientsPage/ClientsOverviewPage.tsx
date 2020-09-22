@@ -22,7 +22,7 @@ import { useClientsQueryParams } from 'modules/Clients/clientsQueryParams';
 import { ClientsTable } from 'modules/Clients/ClientsTable';
 import { makeLink } from 'lib/makeLink';
 import { ClientsTableFilter } from 'modules/Clients/ClientsTableFilter';
-import { Boundry } from 'lib/Boundry';
+import { Boundary } from 'lib/Boundary';
 
 export type ClientsOverviewPageProps = RouteComponentProps;
 
@@ -54,7 +54,9 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
 
   return (
     <>
-      <FormattedMessage id="CLIENTS">{(msg: string) => <Helmet title={msg} />}</FormattedMessage>
+      <FormattedMessage id="CLIENTS">
+        {(msg: string) => <Helmet title={msg} />}
+      </FormattedMessage>
       <Flex container spacing="small" direction="column">
         <Flex item container spacing="tiny" align="center">
           <Flex item flex={1}>
@@ -63,7 +65,10 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
             </Text>
           </Flex>
           <Flex item>
-            <Button variant="primary" component={makeLink({ to: match.url + '/create' })}>
+            <Button
+              variant="primary"
+              component={makeLink({ to: match.url + '/create' })}
+            >
               <FormattedMessage id="CREATE" />
             </Button>
           </Flex>
@@ -72,9 +77,9 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
           <ClientsTableFilter />
         </Flex>
         <Flex item>
-          <Boundry>
+          <Boundary>
             <ClientsTable clientsQuery={data} />
-          </Boundry>
+          </Boundary>
         </Flex>
       </Flex>
     </>

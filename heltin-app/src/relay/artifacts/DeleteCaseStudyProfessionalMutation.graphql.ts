@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteCaseStudyMentalHealthProfessionalInput = {
@@ -49,8 +50,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "DeleteCaseStudyMentalHealthProfessionalInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -129,7 +129,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -164,6 +165,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "90585bddd2e1041b85ebffb89c51382f",
     "id": null,
     "metadata": {},
     "name": "DeleteCaseStudyProfessionalMutation",

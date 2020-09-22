@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
@@ -45,8 +46,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "CreateCaseStudyConclusionInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -94,7 +94,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -135,6 +136,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "1b5396e014103ca260b31deaae2b3e3e",
     "id": null,
     "metadata": {},
     "name": "CreateCaseStudyConclusionMutation",

@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type FileDownloadButtonQueryVariables = {
@@ -35,8 +36,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "rowId",
-    "type": "UUID!"
+    "name": "rowId"
   }
 ],
 v1 = [
@@ -81,7 +81,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -112,6 +113,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "0a7a8cffa8c1f53b6efd30198d4dfd6f",
     "id": null,
     "metadata": {},
     "name": "FileDownloadButtonQuery",

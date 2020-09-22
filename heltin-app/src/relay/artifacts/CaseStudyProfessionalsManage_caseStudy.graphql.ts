@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -107,7 +108,8 @@ return {
       "storageKey": "caseStudyMentalHealthProfessionalsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
     }
   ],
-  "type": "CaseStudy"
+  "type": "CaseStudy",
+  "abstractKey": null
 };
 })();
 (node as any).hash = '510468170c17c69ad2a52de820ad447b';

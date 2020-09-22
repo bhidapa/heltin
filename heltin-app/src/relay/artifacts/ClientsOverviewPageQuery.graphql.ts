@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -62,20 +63,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "count",
-    "type": "Int!"
+    "name": "count"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "cursor",
-    "type": "Cursor"
+    "name": "cursor"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "searchText",
-    "type": "String"
+    "name": "searchText"
   }
 ],
 v1 = {
@@ -128,7 +126,8 @@ return {
         "name": "ClientsTable_clientsQuery"
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -270,6 +269,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "3c4f7b7c43ca3396b09f23e3c197ce6f",
     "id": null,
     "metadata": {},
     "name": "ClientsOverviewPageQuery",

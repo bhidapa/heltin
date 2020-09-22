@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -62,20 +63,17 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "count",
-    "type": "Int!"
+    "name": "count"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "cursor",
-    "type": "Cursor"
+    "name": "cursor"
   },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "searchText",
-    "type": "String"
+    "name": "searchText"
   }
 ],
 v1 = {
@@ -128,7 +126,8 @@ return {
         "name": "ClientsTable_clientsQuery"
       }
     ],
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -270,11 +269,9 @@ return {
     ]
   },
   "params": {
+    "cacheID": "ca31a5bc62fb97a529c30a24c3109771",
     "id": null,
-    "metadata": {
-      "derivedFrom": "ClientsTable_clientsQuery",
-      "isRefetchableQuery": true
-    },
+    "metadata": {},
     "name": "ClientsTableRefetchQuery",
     "operationKind": "query",
     "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"

@@ -4,9 +4,9 @@
  *
  */
 
-const merge = require('webpack-merge');
-const paths = require('./paths.config');
+const path = require('path');
 const common = require('./webpack.common.config');
+const { merge } = require('webpack-merge');
 
 // plugins
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -22,7 +22,7 @@ module.exports = merge(common, {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: [/node_modules/, /__tests__/, /(test|spec)\.tsx?$/],
+        exclude: [/node_modules/],
         use: [
           {
             loader: 'babel-loader',
@@ -34,7 +34,7 @@ module.exports = merge(common, {
   output: {
     filename: '[name].[contenthash:8].js',
     chunkFilename: '[name].[contenthash:8].chunk.js',
-    path: paths.appBuild,
+    path: path.join(__dirname, 'build'),
   },
   optimization: {
     runtimeChunk: true,
@@ -48,23 +48,13 @@ module.exports = merge(common, {
     ],
   },
   plugins: [
-    // clean build folder
     new CleanWebpackPlugin(),
-    // injecting env constants
     new DefinePlugin({
-      // environment
       __DEV__: JSON.stringify(false),
-      // GraphQL WebSocket endpoint
       GQL_WEBSOCKET_ENPOINT: JSON.stringify('ws://localhost/graphql'),
     }),
-    // type-checking for typescript
-    new ForkTsCheckerWebpackPlugin({
-      async: false, // we check types synchronously because transpilation is done by babel and we have no ts-loader
-      checkSyntacticErrors: true,
-    }),
-    // html transpiler
     new HtmlWebpackPlugin({
-      template: paths.appHtml,
+      template: path.join(__dirname, 'src', 'index.html'),
       templateParameters: (_0, { publicPath }) => ({ publicPath }),
       minify: {
         removeComments: true,
@@ -79,12 +69,11 @@ module.exports = merge(common, {
         minifyURLs: true,
       },
     }),
-    // simply copy everything from the public folder to the build
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: paths.appPublic,
-          to: paths.appBuild,
+          from: path.join(__dirname, 'public'),
+          to: path.join(__dirname, 'build'),
         },
       ],
     }),

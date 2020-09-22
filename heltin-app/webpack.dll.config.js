@@ -6,25 +6,24 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const merge = require('webpack-merge');
 const pullAll = require('lodash/pullAll');
-const paths = require('./paths.config');
-
-/** plugins */
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-
-/** package.json */
+const { merge } = require('webpack-merge');
 const pkg = require('./package.json');
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = merge(require('./webpack.common.config'), {
   mode: 'development',
   devtool: 'eval-source-map',
   entry: {
-    [pkg.dll.name]: pullAll(Object.keys(pkg.dependencies), pkg.dll.exclude || []),
+    [pkg.dll.name]: pullAll(
+      Object.keys(pkg.dependencies),
+      pkg.dll.exclude || [],
+    ),
   },
   output: {
     filename: '[name].dll.js',
-    path: paths.dll,
+    path: path.join(__dirname, pkg.dll.path),
     library: '[name]_[hash]',
     libraryTarget: 'var',
   },
@@ -33,10 +32,10 @@ module.exports = merge(require('./webpack.common.config'), {
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: [paths.dll],
+      cleanOnceBeforeBuildPatterns: [path.join(__dirname, pkg.dll.path)],
     }),
     new webpack.DllPlugin({
-      path: path.join(paths.dll, '[name].manifest.json'),
+      path: path.join(__dirname, pkg.dll.path, '[name].manifest.json'),
       name: '[name]_[hash]',
     }),
   ],

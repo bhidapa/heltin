@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -61,8 +62,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "DeleteCaseStudyTreatmentFileInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -152,7 +152,8 @@ return {
         "storageKey": null
       }
     ],
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -230,6 +231,7 @@ return {
     ]
   },
   "params": {
+    "cacheID": "ed0e3270f3928277706b9ad38a07b982",
     "id": null,
     "metadata": {},
     "name": "DeleteCaseStudyTreatmentFileMutation",

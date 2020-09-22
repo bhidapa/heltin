@@ -27,22 +27,32 @@ import {
   CLIENTS_PAGE_ROUTE,
   CASE_STUDIES_PAGE_ROUTE,
 } from 'lib/routes';
-const LazyFourOhFourPage = React.lazy(() => import('../pages/FourOhFourPage/default'));
+const LazyFourOhFourPage = React.lazy(
+  () => import('../pages/FourOhFourPage/default'),
+);
 const LazyLoginPage = React.lazy(() => import('../pages/LoginPage/default'));
 const LazyLogoutPage = React.lazy(() => import('../pages/LogoutPage/default'));
-const LazyProfessionalsPage = React.lazy(() => import('../pages/ProfessionalsPage/default'));
-const LazyClientsPage = React.lazy(() => import('../pages/ClientsPage/default'));
-const LazyCaseStudiesPage = React.lazy(() => import('../pages/CaseStudiesPage/default'));
+const LazyProfessionalsPage = React.lazy(
+  () => import('../pages/ProfessionalsPage/default'),
+);
+const LazyClientsPage = React.lazy(
+  () => import('../pages/ClientsPage/default'),
+);
+const LazyCaseStudiesPage = React.lazy(
+  () => import('../pages/CaseStudiesPage/default'),
+);
 
 // parts
 import { AppBar } from '../AppBar';
-import { Boundry } from 'lib/Boundry';
+import { Boundary } from 'lib/Boundary';
 
 // decorate
 import { decorate, Decorate } from './decorate';
 
 // eslint-disable-next-line react/display-name
-const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
+const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(
+  props,
+) {
   const { isAuthorized } = props;
   if (!isAuthorized) {
     return (
@@ -56,7 +66,10 @@ const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(pro
   return (
     <Switch>
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
-      <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />
+      <Route
+        path={PROFESSIONALS_PAGE_ROUTE}
+        component={LazyProfessionalsPage}
+      />
       <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
       <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
       <Redirect exact path="/" to={DEFAULT_ROUTE} />
@@ -98,9 +111,16 @@ const Root: React.FC<Decorate> = (props) => {
         )}
         <RestoreScroll>
           {(ref) => (
-            <Flex ref={ref} item container flex={1} className={classes.main} component="main">
+            <Flex
+              ref={ref}
+              item
+              container
+              flex={1}
+              className={classes.main}
+              component="main"
+            >
               <div className={classes.content}>
-                <Boundry>
+                <Boundary>
                   <Switch>
                     {/* Removes trailing slashes */}
                     <Route
@@ -113,7 +133,7 @@ const Root: React.FC<Decorate> = (props) => {
                     />
                     <RootRoutes isAuthorized={isAuthorized} />
                   </Switch>
-                </Boundry>
+                </Boundary>
               </div>
             </Flex>
           )}

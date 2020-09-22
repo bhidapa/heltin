@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
@@ -64,7 +65,8 @@ return {
       "storageKey": null
     }
   ],
-  "type": "CaseHistoryFile"
+  "type": "CaseHistoryFile",
+  "abstractKey": null
 };
 })();
 (node as any).hash = 'ebb1d827c44d2ba02482c7ce24d14bc0';

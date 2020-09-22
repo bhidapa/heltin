@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";
@@ -132,8 +133,7 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "input",
-    "type": "UpdateCaseHistoryInput!"
+    "name": "input"
   }
 ],
 v1 = [
@@ -369,7 +369,8 @@ return {
     "metadata": null,
     "name": "UpdateCaseHistoryMutation",
     "selections": (v1/*: any*/),
-    "type": "Mutation"
+    "type": "Mutation",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -379,6 +380,7 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
+    "cacheID": "7f11b462dec80bc6f322bb8571166b29",
     "id": null,
     "metadata": {},
     "name": "UpdateCaseHistoryMutation",

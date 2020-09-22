@@ -1,4 +1,5 @@
-version: "2.4"
+version: "3"
+
 volumes:
   postgres-data:
     driver: "local"
@@ -42,8 +43,7 @@ services:
       - JWT_POSTGRES_TYPE_IDENTIFIER=${JWT_POSTGRES_TYPE_IDENTIFIER}
       - PORT=${GRAPHQL_PORT}
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
     restart: unless-stopped
   app:
     image: bhidapa/heltin-app

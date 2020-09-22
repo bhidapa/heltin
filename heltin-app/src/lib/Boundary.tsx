@@ -1,17 +1,17 @@
 /**
  *
- * lib/Boundry
+ * lib/Boundary
  *
  */
 
 import React, { Suspense } from 'react';
-import { ErrBoundry } from '@domonda/ui/ErrBoundry';
+import { ErrBoundary } from '@domonda/ui/ErrBoundary';
 import { Loading } from '@domonda/ui/Loading';
 
-export const Boundry: React.FC = ({ children }) => {
+export const Boundary: React.FC = ({ children }) => {
   return (
-    <ErrBoundry>
+    <ErrBoundary>
       <Suspense fallback={<Loading />}>{children}</Suspense>
-    </ErrBoundry>
+    </ErrBoundary>
   );
 };

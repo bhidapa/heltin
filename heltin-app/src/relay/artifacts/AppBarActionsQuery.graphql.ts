@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type AppBarActionsQueryVariables = {};
@@ -60,7 +61,8 @@ return {
     "metadata": null,
     "name": "AppBarActionsQuery",
     "selections": (v0/*: any*/),
-    "type": "Query"
+    "type": "Query",
+    "abstractKey": null
   },
   "kind": "Request",
   "operation": {
@@ -70,6 +72,7 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
+    "cacheID": "c0659f915f0bd6307ea585a4a3ade0c3",
     "id": null,
     "metadata": {},
     "name": "AppBarActionsQuery",
