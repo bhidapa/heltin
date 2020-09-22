@@ -7,25 +7,25 @@ export type DeleteMentalHealthProfessionalInput = {
     clientMutationId?: string | null;
     rowId: string;
 };
-export type DeleteProfessionalMutationVariables = {
+export type ProfessionalEditDeleteMutationVariables = {
     input: DeleteMentalHealthProfessionalInput;
 };
-export type DeleteProfessionalMutationResponse = {
+export type ProfessionalEditDeleteMutationResponse = {
     readonly deleteMentalHealthProfessional: {
         readonly mentalHealthProfessional: {
             readonly id: string;
         } | null;
     } | null;
 };
-export type DeleteProfessionalMutation = {
-    readonly response: DeleteProfessionalMutationResponse;
-    readonly variables: DeleteProfessionalMutationVariables;
+export type ProfessionalEditDeleteMutation = {
+    readonly response: ProfessionalEditDeleteMutationResponse;
+    readonly variables: ProfessionalEditDeleteMutationVariables;
 };
 
 
 
 /*
-mutation DeleteProfessionalMutation(
+mutation ProfessionalEditDeleteMutation(
   $input: DeleteMentalHealthProfessionalInput!
 ) {
   deleteMentalHealthProfessional(input: $input) {
@@ -86,7 +86,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteProfessionalMutation",
+    "name": "ProfessionalEditDeleteMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -95,18 +95,18 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteProfessionalMutation",
+    "name": "ProfessionalEditDeleteMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "20a307c6517befc7b23f4133bde4a9f2",
+    "cacheID": "04bb27618bb2d3d85f85688b21fdc1ad",
     "id": null,
     "metadata": {},
-    "name": "DeleteProfessionalMutation",
+    "name": "ProfessionalEditDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteProfessionalMutation(\n  $input: DeleteMentalHealthProfessionalInput!\n) {\n  deleteMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ProfessionalEditDeleteMutation(\n  $input: DeleteMentalHealthProfessionalInput!\n) {\n  deleteMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '0d8c095eec73910d0e9c3fe91b555232';
+(node as any).hash = '5b7933314cb048db383fc15ac9d79c85';
 export default node;

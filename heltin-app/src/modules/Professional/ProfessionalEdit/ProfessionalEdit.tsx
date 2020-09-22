@@ -4,16 +4,16 @@
  *
  */
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { history } from 'lib/history';
 import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 import { FormattedMessage } from 'react-intl';
 
 // relay
-import { graphql, createFragmentContainer } from 'react-relay';
-import { ProfessionalEdit_professional } from 'relay/artifacts/ProfessionalEdit_professional.graphql';
-import { updateProfessionalMutation } from 'relay/mutations/UpdateProfessional';
-import { deleteProfessionalMutation } from 'relay/mutations/DeleteProfessional';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { ProfessionalEdit_professional$key } from 'relay/artifacts/ProfessionalEdit_professional.graphql';
+import { ProfessionalEditUpdateMutation } from 'relay/artifacts/ProfessionalEditUpdateMutation.graphql';
+import { ProfessionalEditDeleteMutation } from 'relay/artifacts/ProfessionalEditDeleteMutation.graphql';
 
 // ui
 import { Flex, Text, Button, Input, Select } from '@domonda/ui';
@@ -26,33 +26,57 @@ import {
   FormSelectField,
   FormLockedState,
   FormSubmitErrorState,
-  FormSubmitHandler,
   FormDateField,
 } from '@domonda/react-form';
 import { ProfessionalTypeSelectOptions } from '../ProfessionalTypeSelectOptions';
 import { GenderSelectOptions } from '../../GenderSelectOptions';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { makeLink } from 'lib/makeLink';
+import { usePromiseMutation } from 'relay/hooks';
 
 export interface ProfessionalEditProps {
-  professional: ProfessionalEdit_professional;
+  professional: ProfessionalEdit_professional$key;
 }
 
-const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
-  const { professional } = props;
+export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
+  const { professional: professionalKey } = props;
 
-  const submit = useCallback<
-    FormSubmitHandler<Omit<ProfessionalEdit_professional, 'dateOfBirth'> & { dateOfBirth: Date }>
-  >(
-    ({ fullName, dateOfBirth, ...rest }) =>
-      updateProfessionalMutation({
-        input: {
-          ...rest,
-          dateOfBirth: dateOfBirth.toISOString(),
-        },
-      }),
-    [],
+  const professional = useFragment(
+    graphql`
+      fragment ProfessionalEdit_professional on MentalHealthProfessional {
+        rowId
+        dateOfBirth
+        email
+        title
+        firstName
+        gender
+        lastName
+        fullName
+        type
+      }
+    `,
+    professionalKey,
   );
+
+  const updateMentalHealthProfessional = usePromiseMutation<ProfessionalEditUpdateMutation>(graphql`
+    mutation ProfessionalEditUpdateMutation($input: UpdateMentalHealthProfessionalInput!) {
+      updateMentalHealthProfessional(input: $input) {
+        mentalHealthProfessional {
+          ...ProfessionalEdit_professional
+        }
+      }
+    }
+  `);
+
+  const deleteMentalHealthProfessional = usePromiseMutation<ProfessionalEditDeleteMutation>(graphql`
+    mutation ProfessionalEditDeleteMutation($input: DeleteMentalHealthProfessionalInput!) {
+      deleteMentalHealthProfessional(input: $input) {
+        mentalHealthProfessional {
+          id
+        }
+      }
+    }
+  `);
 
   return (
     <Flex container direction="column" spacing="small">
@@ -67,8 +91,8 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
         </Flex>
         <Flex item>
           <ResolveOnTrigger
-            promise={deleteProfessionalMutation}
-            params={{ input: { rowId: professional.rowId } }}
+            promise={deleteMentalHealthProfessional}
+            params={{ variables: { input: { rowId: professional.rowId } } }}
             onResolve={() => history.push(PROFESSIONALS_PAGE_ROUTE)}
           >
             {({ trigger, loading, error, clearError }) =>
@@ -89,7 +113,16 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
             ...professional,
             dateOfBirth: new Date(professional.dateOfBirth),
           }}
-          onSubmit={submit}
+          onSubmit={({ fullName, dateOfBirth, ...rest }) =>
+            updateMentalHealthProfessional({
+              variables: {
+                input: {
+                  ...rest,
+                  dateOfBirth: dateOfBirth.toISOString(),
+                },
+              },
+            })
+          }
         >
           <Flex container spacing="tiny" direction="column">
             <Flex item>
@@ -184,20 +217,3 @@ const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
     </Flex>
   );
 };
-
-const ComposedProfessionalEdit = createFragmentContainer(ProfessionalEdit, {
-  professional: graphql`
-    fragment ProfessionalEdit_professional on MentalHealthProfessional {
-      rowId
-      dateOfBirth
-      email
-      title
-      firstName
-      gender
-      lastName
-      fullName
-      type
-    }
-  `,
-});
-export { ComposedProfessionalEdit as ProfessionalEdit };
