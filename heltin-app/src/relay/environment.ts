@@ -13,7 +13,7 @@ import { network } from './network';
 const recordSource = new RecordSource();
 
 // The source of truth for an instance of `RelayRuntime`, holding the canonical set of records in the form of a `RecordSource`.
-const store = new Store(recordSource, { gcReleaseBufferSize: 10 });
+const store = new Store(recordSource, { gcReleaseBufferSize: 25 });
 
 // Environment providing a high-level API for interacting with both the `Store` and the `Network`.
 export const environment = new Environment({
@@ -59,6 +59,7 @@ export const environment = new Environment({
           if (arg.kind === 'Literal') {
             return (arg as any).value; // value does exist on literal arguments
           }
+
           return variables[(arg as any).variableName]; // variableName does exist on variable arguments
         }
         return undefined;
@@ -66,6 +67,9 @@ export const environment = new Environment({
     },
   ],
 });
+
+// Enable the "precise type refinement" feature flag. Relay v10+ only.
+require('relay-runtime').RelayFeatureFlags.ENABLE_PRECISE_TYPE_REFINEMENT = true;
 
 // Initialization of client side states.
 import { init as sessionInit } from './client/session';

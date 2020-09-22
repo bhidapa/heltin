@@ -1,4 +1,6 @@
+export { graphql, fetchQuery, useRelayEnvironment } from 'react-relay/hooks';
 export * from './useValueForRefetch';
 export * from './useValueForPagination';
 export * from './useSubscription';
-export { graphql } from 'react-relay';
+export * from './useLoadableFragment';
+export * from './useSuspendMutation';

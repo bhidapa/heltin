@@ -12,12 +12,18 @@ import { useDeepMemoOnValue, useSafeState } from '@domonda/react-plumb';
 export function useValueForPagination<T extends { count: number }>(
   value: T,
   relay: RelayPaginationProp,
+  options: {
+    onRefetch?: (value: T) => void;
+    onLoadMore?: () => void;
+  } = {},
 ): [() => void, boolean, Error | null] {
   const memoValue = useDeepMemoOnValue(value);
   const [{ loading, error }, setState] = useSafeState<{ loading: boolean; error: Error | null }>({
     loading: false,
     error: null,
   });
+  const onRefetchRef = useRef(options.onRefetch);
+  const onLoadMoreRef = useRef(options.onLoadMore);
 
   // we ignore refetching on init because that is handled by the `QueryRenderer`
   const initRef = useRef(true);
@@ -35,6 +41,10 @@ export function useValueForPagination<T extends { count: number }>(
       memoValue,
     );
 
+    if (onRefetchRef.current) {
+      onRefetchRef.current(memoValue);
+    }
+
     return () => {
       if (disposable) {
         disposable.dispose();
@@ -46,6 +56,9 @@ export function useValueForPagination<T extends { count: number }>(
     if (relay.hasMore() && !relay.isLoading()) {
       setState({ loading: true, error: null });
       relay.loadMore(memoValue.count, (err) => setState({ loading: false, error: err || null }));
+      if (onLoadMoreRef.current) {
+        onLoadMoreRef.current();
+      }
     }
   }, [memoValue]);
 
