@@ -7,25 +7,25 @@ export type DeleteClientInput = {
     clientMutationId?: string | null;
     rowId: string;
 };
-export type DeleteClientMutationVariables = {
+export type ClientEditDeleteMutationVariables = {
     input: DeleteClientInput;
 };
-export type DeleteClientMutationResponse = {
+export type ClientEditDeleteMutationResponse = {
     readonly deleteClient: {
         readonly client: {
             readonly id: string;
         } | null;
     } | null;
 };
-export type DeleteClientMutation = {
-    readonly response: DeleteClientMutationResponse;
-    readonly variables: DeleteClientMutationVariables;
+export type ClientEditDeleteMutation = {
+    readonly response: ClientEditDeleteMutationResponse;
+    readonly variables: ClientEditDeleteMutationVariables;
 };
 
 
 
 /*
-mutation DeleteClientMutation(
+mutation ClientEditDeleteMutation(
   $input: DeleteClientInput!
 ) {
   deleteClient(input: $input) {
@@ -86,7 +86,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "DeleteClientMutation",
+    "name": "ClientEditDeleteMutation",
     "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -95,18 +95,18 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "DeleteClientMutation",
+    "name": "ClientEditDeleteMutation",
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "462dab62c4c7a909135a3eb3b9684a13",
+    "cacheID": "c5065d57ac681851597b8e6c32b05c21",
     "id": null,
     "metadata": {},
-    "name": "DeleteClientMutation",
+    "name": "ClientEditDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation DeleteClientMutation(\n  $input: DeleteClientInput!\n) {\n  deleteClient(input: $input) {\n    client {\n      id\n    }\n  }\n}\n"
+    "text": "mutation ClientEditDeleteMutation(\n  $input: DeleteClientInput!\n) {\n  deleteClient(input: $input) {\n    client {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'd13af78c5c980c7252794cde999ab5d2';
+(node as any).hash = '23fbe43dc56e80336b64b8b64bee3710';
 export default node;

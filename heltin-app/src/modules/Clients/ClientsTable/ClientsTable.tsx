@@ -4,11 +4,12 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Sentinel } from 'lib/Sentinel';
+import { useOnValueChange } from 'lib/useOnValueChange';
 
 // relay
-import { graphql, usePaginationFragment } from 'react-relay/hooks';
+import { graphql, useLoadablePaginationFragment } from 'relay/hooks';
 import { ClientsTable_clientsQuery$key } from 'relay/artifacts/ClientsTable_clientsQuery.graphql';
 
 // ui
@@ -19,6 +20,7 @@ import { useClientsQueryParams } from '../clientsQueryParams';
 
 // rows
 import { ClientsTableRowHeader, ClientsTableRow } from './ClientsTableRow';
+import { ClientsTableFilter } from '../ClientsTableFilter';
 
 export interface ClientsTableProps {
   clientsQuery: ClientsTable_clientsQuery$key;
@@ -28,10 +30,11 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
   const {
     data: { filterClients },
     hasNext,
+    isRefetching,
     refetch,
     loadNext,
     isLoadingNext,
-  } = usePaginationFragment(
+  } = useLoadablePaginationFragment(
     graphql`
       fragment ClientsTable_clientsQuery on Query
       @refetchable(queryName: "ClientsTableRefetchQuery")
@@ -63,10 +66,14 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
   );
 
   const [params] = useClientsQueryParams();
-  useEffect(() => refetch(params).dispose, [params]);
+  useOnValueChange(params, refetch);
 
   return (
     <Flex container direction="column" spacing="tiny">
+      <Flex item>
+        <ClientsTableFilter />
+      </Flex>
+      {isRefetching && <Loading />}
       <Flex item>
         <ClientsTableRowHeader />
         {filterClients.edges.map(({ node }) => (

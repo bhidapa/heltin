@@ -21,12 +21,10 @@ import { Flex, Text, Button } from '@domonda/ui';
 import { useClientsQueryParams } from 'modules/Clients/clientsQueryParams';
 import { ClientsTable } from 'modules/Clients/ClientsTable';
 import { makeLink } from 'lib/makeLink';
-import { ClientsTableFilter } from 'modules/Clients/ClientsTableFilter';
-import { Boundary } from 'lib/Boundary';
 
 export type ClientsOverviewPageProps = RouteComponentProps;
 
-const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
+export const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
   const { match } = props;
   const [params] = useClientsQueryParams({ once: true });
 
@@ -69,17 +67,9 @@ const ClientsOverviewPage: React.FC<ClientsOverviewPageProps> = (props) => {
           </Flex>
         </Flex>
         <Flex item>
-          <ClientsTableFilter />
-        </Flex>
-        <Flex item>
-          <Boundary>
-            <ClientsTable clientsQuery={data} />
-          </Boundary>
+          <ClientsTable clientsQuery={data} />
         </Flex>
       </Flex>
     </>
   );
 };
-
-const ComposedClientsOverviewPage = ClientsOverviewPage;
-export { ComposedClientsOverviewPage as ClientsOverviewPage };

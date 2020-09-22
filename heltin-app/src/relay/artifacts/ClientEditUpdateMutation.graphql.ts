@@ -20,10 +20,10 @@ export type UpdateClientInput = {
     sentBy: ClientSentBy;
     telephone: string;
 };
-export type UpdateClientMutationVariables = {
+export type ClientEditUpdateMutationVariables = {
     input: UpdateClientInput;
 };
-export type UpdateClientMutationResponse = {
+export type ClientEditUpdateMutationResponse = {
     readonly updateClient: {
         readonly client: {
             readonly rowId: string;
@@ -42,15 +42,15 @@ export type UpdateClientMutationResponse = {
         } | null;
     } | null;
 };
-export type UpdateClientMutation = {
-    readonly response: UpdateClientMutationResponse;
-    readonly variables: UpdateClientMutationVariables;
+export type ClientEditUpdateMutation = {
+    readonly response: ClientEditUpdateMutationResponse;
+    readonly variables: ClientEditUpdateMutationVariables;
 };
 
 
 
 /*
-mutation UpdateClientMutation(
+mutation ClientEditUpdateMutation(
   $input: UpdateClientInput!
 ) {
   updateClient(input: $input) {
@@ -185,7 +185,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UpdateClientMutation",
+    "name": "ClientEditUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -230,7 +230,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UpdateClientMutation",
+    "name": "ClientEditUpdateMutation",
     "selections": [
       {
         "alias": null,
@@ -277,14 +277,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b78a2a8d671d0ab34cbcd370382ba9df",
+    "cacheID": "928764c9c1d1a7b7d3056fd2de66df9f",
     "id": null,
     "metadata": {},
-    "name": "UpdateClientMutation",
+    "name": "ClientEditUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation UpdateClientMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      fullName\n      number\n      firstName\n      lastName\n      dateOfBirth\n      telephone\n      gender\n      city\n      address\n      sentBy\n      email\n      discrete\n      id\n    }\n  }\n}\n"
+    "text": "mutation ClientEditUpdateMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      fullName\n      number\n      firstName\n      lastName\n      dateOfBirth\n      telephone\n      gender\n      city\n      address\n      sentBy\n      email\n      discrete\n      id\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '6fa3cc3523b8e530f2194f5e73c509ea';
+(node as any).hash = '5d22febe09398679cdc73d5c3da390c0';
 export default node;
