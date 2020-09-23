@@ -38,6 +38,7 @@ if (!root) {
 
 ReactDOM.unstable_createRoot(root).render(
   <ThemeProvider theme={theme}>
+    <Baseline />
     <Boundary>
       <Router history={history}>
         <HelmetProvider>
@@ -45,7 +46,6 @@ ReactDOM.unstable_createRoot(root).render(
           <QueryParamsProvider history={history}>
             <RelayEnvironmentProvider environment={environment}>
               <IntlProvider defaultLocale="hr" messages={messages}>
-                <Baseline />
                 <Root />
               </IntlProvider>
             </RelayEnvironmentProvider>
