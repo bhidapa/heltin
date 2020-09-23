@@ -107,9 +107,14 @@ app.use(
     enhanceGraphiql: true,
     bodySizeLimit: "1GB",
     pgSettings(req: express.Request) {
+      if (config.noAuth) {
+        return { role: "viewer" };
+      }
+      if (req.session?.userId) {
+        return { role: "viewer", "session.user_id": req.session!.userId };
+      }
       return {
-        role: config.noAuth || req.session?.userId ? "viewer" : "anonymous",
-        "session.user_id": req.session?.userId,
+        role: "anonymous",
       };
     },
     async additionalGraphQLContextFromRequest(req: express.Request) {

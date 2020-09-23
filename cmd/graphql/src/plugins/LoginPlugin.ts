@@ -67,8 +67,17 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
         };
       },
       async logout(_parent, _args, context) {
-        const { destroySession } = context;
-        return await destroySession();
+        const { destroySession, pgClient } = context;
+
+        const somethingToDestroy = await destroySession();
+
+        // If there was a session to destroy, tell pg we've logged out
+        if (somethingToDestroy) {
+          await pgClient.query("set role anonymous;");
+          await pgClient.query("reset session.user_id;");
+        }
+
+        return somethingToDestroy;
       },
     },
   },
