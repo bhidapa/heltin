@@ -1,7 +1,7 @@
 create function public.viewer_user_id()
 returns uuid as $$
 begin
-  return current_setting('session.user_id', true)::uuid;
+  return nullif(current_setting('session.user_id', true), '')::uuid;
 end;
 $$ language plpgsql stable;
 
