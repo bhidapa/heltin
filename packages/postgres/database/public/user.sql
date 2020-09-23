@@ -31,9 +31,9 @@ declare
 begin
   if session_user = 'anonymous'
   or (session_user = 'viewer'
-    and not exists (select from public.viewer() where public.user_is_admin(viewer)))
+    and not public.user_is_admin(public.viewer()))
   then
-    raise exception 'Unauthorized!';
+    raise exception 'Unauthorized';
   end if;
 
   with new_private_user as (
