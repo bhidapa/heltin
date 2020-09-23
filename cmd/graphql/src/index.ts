@@ -58,18 +58,17 @@ console.debug(
 );
 console.log();
 
-const pgPool = new Pool({
-  connectionString: `postgres://${config.pgUser}${
-    config.pgPassword ? `:${config.pgPassword}` : ""
-  }@${config.pgHost}:${config.pgPort}/${config.pgDb}`,
-});
+const pgConnectionString = `postgres://${config.pgUser}${
+  config.pgPassword ? `:${config.pgPassword}` : ""
+}@${config.pgHost}:${config.pgPort}/${config.pgDb}`;
 
 const app = express();
 
 app.use(
   session({
     store: new PgSession({
-      pool: pgPool,
+      // we dont reuse the same pgPool as postgraphile as it can cause to mixes sessions
+      conString: pgConnectionString,
       schemaName: config.sessionTableSchema,
       tableName: config.sessionTable,
     }),
@@ -80,6 +79,9 @@ app.use(
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
   })
 );
+
+// a pool for executing privileged statements in postgraphile (mainly used for authentication)
+const pgPool = new Pool({ connectionString: pgConnectionString });
 
 app.use(
   postgraphile(pgPool, config.pgSchemas, {
