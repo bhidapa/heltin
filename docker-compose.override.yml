@@ -1,5 +1,11 @@
 version: "3"
 
+networks:
+  private:
+    driver: "bridge"
+  public:
+    driver: "bridge"
+
 services:
   postgres:
     build:
@@ -7,6 +13,8 @@ services:
       dockerfile: ./packages/postgres/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - private
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
@@ -19,11 +27,17 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - SESSION_SECRET=verysecret
       - WATCH=true
+    networks:
+      - private
+      - public
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
   app:
     build:
       context: .
       dockerfile: ./web/Dockerfile # TODO
+    networks:
+      - private
+      - public
     ports:
       - 6002:80

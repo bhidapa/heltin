@@ -3,16 +3,10 @@ version: "3"
 volumes:
   postgres-data:
     driver: "local"
-networks:
-  private:
-    driver: "bridge"
-  public:
-    driver: "bridge"
+
 services:
   postgres:
     image: bhidapa/heltin-postgres
-    networks:
-      - private
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
@@ -29,12 +23,9 @@ services:
       retries: 3
   graphql:
     image: bhidapa/heltin-graphql
-    networks:
-      - private
-      - public
     environment:
       - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
+      - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_SCHEMAS=${POSTGRES_SCHEMAS}
@@ -47,8 +38,6 @@ services:
     restart: unless-stopped
   app:
     image: bhidapa/heltin-app
-    networks:
-      - public
     environment:
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
     depends_on:

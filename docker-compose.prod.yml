@@ -1,10 +1,26 @@
 version: "3"
 
+networks:
+  private:
+    driver: "bridge"
+  public:
+    driver: "bridge"
+
 services:
+  postgres:
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - private
   graphql:
     environment:
       - SESSION_SECRET=${SESSION_SECRET}
       - WATCH=true
+    networks:
+      - private
   app:
+    networks:
+      - private
+      - public
     ports:
       - 80:80
