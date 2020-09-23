@@ -4,12 +4,12 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // relay
-import { authenticateMutation } from 'relay/mutations/Authenticate';
-import { handleJwtToken, setSession } from 'relay/client/session';
+import { graphql, usePromiseMutation } from 'relay/hooks';
+import { LoginPageMutation } from 'relay/artifacts/LoginPageMutation.graphql';
 
 // ui
 import { Flex, Button, Input } from '@domonda/ui';
@@ -17,6 +17,7 @@ import {
   Form,
   FormInputField,
   FormSubmitErrorState,
+  FormSubmittingState,
 } from '@domonda/react-form';
 import { DismissableAlert } from 'lib/DismissableAlert';
 
@@ -26,7 +27,26 @@ import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
 export interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
-  useEffect(() => setSession(null), []);
+  const login = usePromiseMutation<LoginPageMutation>(
+    graphql`
+      mutation LoginPageMutation($input: LoginInput!) {
+        login(input: $input) {
+          user {
+            ...Root_viewer
+          }
+        }
+      }
+    `,
+    {
+      // set the resulting user to the root viewer as an indication of successful authorization
+      updater: (store) => {
+        store
+          .getRoot()
+          .setLinkedRecord(store.getRootField('login').getLinkedRecord('user'), 'viewer');
+      },
+    },
+  );
+
   return (
     <>
       <Helmet title="Login" />
@@ -34,74 +54,49 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
         <Flex item>
           <Form<{ email: string | null; password: string | null }>
             defaultValues={{ email: null, password: null }}
-            onSubmit={async ({ email, password }) => {
-              const {
-                authenticate: { jwtToken },
-              } = await authenticateMutation({
-                input: {
-                  email: email || '',
-                  password: password || '',
+            onSubmit={({ email, password }) =>
+              login({
+                variables: {
+                  input: {
+                    email: email || '',
+                    password: password || '',
+                  },
                 },
-              });
-
-              if (!jwtToken) {
-                throw new Error('Malformed authenticate response.');
-              }
-
-              handleJwtToken(jwtToken);
-            }}
+              })
+            }
           >
-            <Flex
-              container
-              direction="column"
-              spacing="tiny"
-              style={{ width: 256 }}
-            >
+            <Flex container direction="column" spacing="tiny" style={{ width: 256 }}>
               <Flex item style={{ textAlign: 'center' }}>
                 <img src={BHIDAPALogo} alt="BHIDAPA" />
               </Flex>
               <Flex item>
                 <FormInputField path="email" required>
                   {({ inputProps }) => (
-                    <Input
-                      {...inputProps}
-                      label="E-Mail"
-                      type="email"
-                      autoFocus
-                    />
+                    <Input {...inputProps} label="E-Mail" type="email" autoFocus />
                   )}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormInputField path="password" required>
-                  {({ inputProps }) => (
-                    <Input {...inputProps} label="Password" type="password" />
-                  )}
+                  {({ inputProps }) => <Input {...inputProps} label="Password" type="password" />}
                 </FormInputField>
               </Flex>
               <Flex item>
                 <FormSubmitErrorState>
                   {(error, { resetSubmitError }) =>
-                    error && (
-                      <DismissableAlert
-                        message={error}
-                        onDismiss={resetSubmitError}
-                      />
-                    )
+                    error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
                   }
                 </FormSubmitErrorState>
               </Flex>
-              <Flex
-                item
-                container
-                justify="flex-end"
-                align="center"
-                spacing="tiny"
-              >
+              <Flex item container justify="flex-end" align="center" spacing="tiny">
                 <Flex item>
-                  <Button type="submit" variant="primary">
-                    Login
-                  </Button>
+                  <FormSubmittingState>
+                    {(submitting) => (
+                      <Button type="submit" variant="primary" disabled={submitting}>
+                        Login
+                      </Button>
+                    )}
+                  </FormSubmittingState>
                 </Flex>
               </Flex>
             </Flex>

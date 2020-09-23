@@ -10,6 +10,7 @@
     "target": "esnext",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "allowJs": true
+    "allowJs": true,
+    "esModuleInterop": true
   }
 }

@@ -20,6 +20,38 @@ grant select on table public.user to anonymous;
 
 ----
 
+create or replace function public.register(
+  email    text,
+  password text,
+  is_admin boolean = false,
+  id       uuid = null -- optional argument if you want a custom user id
+) returns public.user as
+$$
+declare
+  registered_user public.user;
+begin
+  with new_private_user as (
+    insert into private.user as u (id, password, admin)
+      values (coalesce(register.id, uuid_generate_v4()), crypt(register.password, gen_salt('bf')), is_admin)
+    returning u.id
+  )
+  insert into public.user as u (id, email)
+    values ((select new_private_user.id from new_private_user), register.email)
+  returning u.* into registered_user;
+
+  return registered_user;
+
+  -- catch unique violation and nicely report error
+  exception when unique_violation then
+    raise exception 'User already exists!';
+end;
+$$
+language plpgsql volatile;
+
+comment on function public.register is 'Creates a new `User` which can log in.';
+
+----
+
 create or replace function public.user_is_admin(
   "user" public.user
 ) returns boolean as

@@ -70,7 +70,3 @@ export const environment = new Environment({
 
 // Enable the "precise type refinement" feature flag. Relay v10+ only.
 require('relay-runtime').RelayFeatureFlags.ENABLE_PRECISE_TYPE_REFINEMENT = true;
-
-// Initialization of client side states.
-import { init as sessionInit } from './client/session';
-sessionInit(environment);

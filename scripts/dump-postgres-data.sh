@@ -11,7 +11,7 @@ fi
 
 echo "Dumping from $CONTAINER..."
 docker exec "$CONTAINER" \
-  pg_dump --verbose -U postgres --column-inserts --data-only -d heltin -f "$DUMP_NAME"
+  pg_dump --verbose -U postgres --data-only -d heltin -f "$DUMP_NAME"
 
 echo "Copying..."
 docker cp "$CONTAINER:$DUMP_NAME" .

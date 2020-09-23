@@ -1,14 +1,16 @@
 -- john@doe.com:password
-select private.register(
+select public.register(
   email =>'john@doe.com',
   password => 'password',
+  is_admin => true,
   id => '88bc02bf-000d-4120-8143-c0a095bb9192'
 );
 
 -- jane@doe.com:password
-select private.register(
+select public.register(
   email => 'jane@doe.com',
   password => 'password',
+  is_admin => false,
   id => '1d35ee19-e375-4a75-b855-76adda9d583e'
 );
 

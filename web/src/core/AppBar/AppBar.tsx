@@ -14,15 +14,17 @@ import { AppBarLink } from './AppBarLink';
 import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
 
 // parts
-import { AppBarActions } from './AppBarActions';
+import { AppBarActions, AppBarActionsProps } from './AppBarActions';
 
 // decorate
 import { decorate, Decorate } from './decorate';
 
-export interface AppBarProps {}
+export interface AppBarProps {
+  viewer: AppBarActionsProps['viewer'];
+}
 
 const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
-  const { classes } = props;
+  const { classes, viewer } = props;
 
   return (
     <Flex container spacing="small" align="center">
@@ -42,7 +44,7 @@ const AppBar: React.FC<AppBarProps & Decorate> = (props) => {
         </Flex>
       </Flex>
       <Flex item>
-        <AppBarActions />
+        <AppBarActions viewer={viewer} />
       </Flex>
     </Flex>
   );

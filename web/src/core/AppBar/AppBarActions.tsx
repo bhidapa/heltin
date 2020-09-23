@@ -7,12 +7,10 @@
 import React from 'react';
 import { LOGOUT_PAGE_ROUTE } from 'lib/routes';
 import { makeLink } from 'lib/makeLink';
-import { Redirect } from 'react-router-dom';
 
 // relay
-import { graphql, useLazyLoadQuery } from 'react-relay/hooks';
-
-import { AppBarActionsQuery } from 'relay/artifacts/AppBarActionsQuery.graphql';
+import { graphql, useFragment } from 'react-relay/hooks';
+import { AppBarActions_viewer$key } from 'relay/artifacts/AppBarActions_viewer.graphql';
 
 // icons
 import { SignOutAltIcon } from 'lib/icons';
@@ -20,24 +18,21 @@ import { SignOutAltIcon } from 'lib/icons';
 // ui
 import { Flex, Text, Button } from '@domonda/ui';
 
-export interface AppBarActionsProps {}
+export interface AppBarActionsProps {
+  viewer: AppBarActions_viewer$key;
+}
 
-export const AppBarActions: React.FC<AppBarActionsProps> = () => {
-  const { viewer } = useLazyLoadQuery<AppBarActionsQuery>(
+export const AppBarActions: React.FC<AppBarActionsProps> = ({ viewer: viewerKey }) => {
+  const viewer = useFragment(
     graphql`
-      query AppBarActionsQuery {
-        viewer {
-          id
-          email
-        }
+      fragment AppBarActions_viewer on User {
+        id
+        email
       }
     `,
-    {},
+    viewerKey,
   );
 
-  if (!viewer) {
-    return <Redirect to={LOGOUT_PAGE_ROUTE} />;
-  }
   return (
     <Flex container spacing="tiny" align="center">
       <Flex item>
