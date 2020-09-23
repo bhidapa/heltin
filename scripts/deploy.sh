@@ -23,14 +23,11 @@ docker-compose build
 echo "Pushing containers..."
 docker-compose push
 
-echo "Setting docker context..."
-export DOCKER_CONTEXT=$1
-
 echo "Pulling containers..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
 
 echo "Down..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
 
 echo "Up..."
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
