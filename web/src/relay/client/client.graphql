@@ -1,9 +1,0 @@
-# Current user session holding the authentication details.
-type Session {
-  token: String!
-  expiresAt: Int!
-}
-
-extend type Query {
-  session: Session
-}

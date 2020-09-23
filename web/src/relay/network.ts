@@ -14,7 +14,6 @@ import {
   Observable,
   GraphQLResponse,
 } from 'relay-runtime';
-import { lookupSession } from './client/session';
 
 interface Sink<T = unknown> {
   next(value: T): void;
@@ -49,17 +48,6 @@ async function fetchQuery(
       throw new Error('query is not defined');
     }
 
-    // prepare headers
-    const headers: { [header: string]: string } = {
-      'Content-Type': 'application/json',
-    };
-
-    // get token and set header if the token exists
-    const session = lookupSession();
-    if (session) {
-      headers['Authorization'] = `Bearer ${session.token}`;
-    }
-
     // otherwise, fetch data from server
     const response = await fetch(
       // Here we include the `operation.operationKind` and `operation.name` only
@@ -68,7 +56,9 @@ async function fetchQuery(
       `/api/graphql?${operation.operationKind}=${operation.name}`,
       {
         method: 'POST',
-        headers,
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           // `operation.text` holds properly formatted GraphQL query.
           query,

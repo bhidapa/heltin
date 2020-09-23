@@ -6,8 +6,8 @@
 
 import React, { useEffect } from 'react';
 
-// auth
-import { setSession } from 'relay/client/session';
+// relay
+import { graphql, useTransitionMutation } from 'relay/hooks';
 
 // ui
 import { Flex } from '@domonda/ui/Flex';
@@ -16,7 +16,24 @@ import { Text } from '@domonda/ui/Text';
 export interface LogoutPageProps {}
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
-  useEffect(() => setSession(null), []);
+  const [logout] = useTransitionMutation(
+    graphql`
+      mutation LogoutPageMutation {
+        logout
+      }
+    `,
+    {
+      // unset the root viewer as an indication of logout
+      updater: (store) => {
+        store.getRoot().setValue(null, 'viewer');
+      },
+    },
+  );
+
+  useEffect(() => {
+    logout({ variables: {} });
+  }, []);
+
   return (
     <Flex container justify="center" align="center">
       <Flex item>
@@ -27,5 +44,3 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
     </Flex>
   );
 };
-
-export const ComposedLogoutPage = LogoutPage;

@@ -4,14 +4,14 @@
  *
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RestoreScroll } from 'lib/RestoreScroll';
 
 // relay
 import { graphql } from 'relay/hooks';
 import { useLazyLoadQuery } from 'react-relay/hooks';
-import { RootSessionQuery } from 'relay/artifacts/RootSessionQuery.graphql';
+import { RootQuery } from 'relay/artifacts/RootQuery.graphql';
 
 // ui
 import { Flex } from '@domonda/ui/Flex';
@@ -39,9 +39,15 @@ import { Boundary } from 'lib/Boundary';
 // decorate
 import { decorate, Decorate } from './decorate';
 
-const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(props) {
-  const { isAuthorized } = props;
-  if (!isAuthorized) {
+graphql`
+  fragment Root_viewer on User {
+    ...AppBarActions_viewer
+  }
+`;
+
+const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
+  const { isLoggedIn } = props;
+  if (!isLoggedIn) {
     return (
       <Switch>
         <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
@@ -65,32 +71,23 @@ const RootRoutes = React.memo<{ isAuthorized: boolean }>(function RootRoutes(pro
 const Root: React.FC<Decorate> = (props) => {
   const { classes } = props;
 
-  const { session } = useLazyLoadQuery<RootSessionQuery>(
+  const { viewer } = useLazyLoadQuery<RootQuery>(
     graphql`
-      query RootSessionQuery {
-        ... on Query {
-          __typename
-        }
-        session {
-          token
-          expiresAt
+      query RootQuery {
+        viewer {
+          ...Root_viewer @relay(mask: false)
         }
       }
     `,
     {},
   );
 
-  const isAuthorized = useMemo(
-    () => (session?.token && new Date().getTime() < (session?.expiresAt || 0)) || false,
-    [session],
-  );
-
   return (
     <Flex container direction="column">
-      {isAuthorized && (
+      {viewer && (
         <header className={classes.header}>
           <Flex container className={classes.content}>
-            <AppBar />
+            <AppBar viewer={viewer} />
           </Flex>
         </header>
       )}
@@ -109,7 +106,7 @@ const Root: React.FC<Decorate> = (props) => {
                       <Redirect to={location.pathname.replace(/\/+$/, '')} />
                     )}
                   />
-                  <RootRoutes isAuthorized={isAuthorized} />
+                  <RootRoutes isLoggedIn={Boolean(viewer)} />
                 </Switch>
               </Boundary>
             </main>

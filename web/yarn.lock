@@ -1623,13 +1623,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jwt-decode@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "@types/jwt-decode@npm:2.2.1"
-  checksum: 3/7d0cce0a1906b1e90a410af2786964dc76b3c9641a5eb11ed2e12e09e07874361a15efbb0e2f8ac7553f097481cb668b21c7ad60ce89961fea854f2c7cdef764
-  languageName: node
-  linkType: hard
-
 "@types/lodash@npm:^4.14.161":
   version: 4.14.161
   resolution: "@types/lodash@npm:4.14.161"
@@ -5577,7 +5570,6 @@ fsevents@~2.1.2:
     "@domonda/react-form": ^2.8.7
     "@domonda/react-plumb": ^2.0.16
     "@domonda/ui": ^9.0.2
-    "@types/jwt-decode": ^2.2.1
     "@types/lodash": ^4.14.161
     "@types/react": ^16.9.49
     "@types/react-dom": ^16.9.8
@@ -5607,7 +5599,6 @@ fsevents@~2.1.2:
     graphql: ^15.3.0
     history: ^4.10.1
     html-webpack-plugin: ^4.5.0
-    jwt-decode: ^3.0.0-beta.2
     lodash: ^4.17.20
     prettier: ^2.1.2
     react: 0.0.0-experimental-94c0244ba
@@ -6777,13 +6768,6 @@ fsevents@~2.1.2:
     array-includes: ^3.1.1
     object.assign: ^4.1.0
   checksum: 3/36471d635b7e52aacaa8e926edcec2f6fdf5cfb4ccb945e87209b2bd0e4feac586293b465170b8287afbdff138ce4ff9cfc7ca2bd23900f6f3740423c29f49f5
-  languageName: node
-  linkType: hard
-
-"jwt-decode@npm:^3.0.0-beta.2":
-  version: 3.0.0-beta.2
-  resolution: "jwt-decode@npm:3.0.0-beta.2"
-  checksum: 3/ea1461f008db65d83d0ef21838b6c07ea7551850bd7a13297203405ebaf3a1cacca191c44f8fffe27220323e962e8654ec83c1a67166116adc3138c1d233cdd9
   languageName: node
   linkType: hard
 
