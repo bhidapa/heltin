@@ -1,8 +1,6 @@
 version: "3"
 
 networks:
-  private:
-    driver: "bridge"
   public:
     driver: "bridge"
 
@@ -14,7 +12,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - private
+      - public
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
@@ -28,7 +26,6 @@ services:
       - SESSION_SECRET=verysecret
       - WATCH=true
     networks:
-      - private
       - public
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
@@ -37,7 +34,6 @@ services:
       context: .
       dockerfile: ./web/Dockerfile # TODO
     networks:
-      - private
       - public
     ports:
       - 6002:80
