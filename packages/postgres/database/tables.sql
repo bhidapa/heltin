@@ -4,7 +4,6 @@
 \ir public/user.sql
 
 \ir private/session.sql
-\ir private/auth.sql
 
 \ir public/viewer.sql
 

@@ -11,6 +11,7 @@ import { Pool } from "pg";
 import { postgraphile } from "postgraphile";
 
 // plugins
+import { LoginPlugin } from "./plugins/LoginPlugin";
 import PgNonNullRelationsPlugin from "@graphile-contrib/pg-non-null/relations";
 import { PgIdToRowIdInflectorPlugin } from "./plugins/PgIdToRowIdInflectorPlugin";
 import PgBytea from "./plugins/PgBytea";
@@ -93,6 +94,7 @@ app.use(
       pgStrictFunctions: true,
     },
     appendPlugins: [
+      LoginPlugin,
       PgNonNullRelationsPlugin,
       PgIdToRowIdInflectorPlugin,
       PgBytea,
@@ -103,6 +105,19 @@ app.use(
     enhanceGraphiql: true,
     pgDefaultRole: config.noAuth ? "viewer" : "anonymous",
     bodySizeLimit: "1GB",
+    async additionalGraphQLContextFromRequest(req: express.Request) {
+      return {
+        // Let plugins call priviliged methods (e.g. login) if they need to
+        rootPgPool: pgPool,
+        // Save the authenticated/logged-in user ID in this session
+        async saveUserIdInSession(userId: string) {
+          req.session!.userId = userId;
+          return new Promise((resolve, reject) =>
+            req.session!.save((err) => (err ? reject(err) : resolve()))
+          );
+        },
+      };
+    },
   })
 );
 
