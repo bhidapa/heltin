@@ -6,6 +6,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   graphql:
     environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
       - WATCH=true
   app:
