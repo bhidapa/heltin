@@ -9,6 +9,11 @@ fi
 CONTAINER=$(docker ps -q -f volume=heltin_postgres-data)
 DUMP_NAME="$1"
 
+if [ -z "$CONTAINER" ]; then
+  echo "No matching container found, is it running?"
+  exit 1
+fi
+
 echo "Copying dump to $CONTAINER..."
 docker cp "$DUMP_NAME" "$CONTAINER:$DUMP_NAME"
 

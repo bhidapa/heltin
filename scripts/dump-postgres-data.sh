@@ -4,6 +4,11 @@ set -e
 CONTAINER=$(docker ps -q -f volume=heltin_postgres-data)
 DUMP_NAME=postgres_data_dump_$(date +%d-%m-%Y-%H-%M-%S).sql
 
+if [ -z "$CONTAINER" ]; then
+  echo "No matching container found, is it running?"
+  exit 1
+fi
+
 echo "Dumping from $CONTAINER..."
 docker exec "$CONTAINER" \
   pg_dump -U postgres --data-only -d heltin -f "$DUMP_NAME"
