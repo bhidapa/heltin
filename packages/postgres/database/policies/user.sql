@@ -16,14 +16,33 @@ create policy viewer_user_select_policy on public.user
 create policy viewer_user_update_policy on public.user
   for update
   to viewer
-  using (true) -- can see all users
+  using (true)
   with check (
-    -- can update only itself
-    "user".id = public.viewer_user_id()
+    -- viewer is admin
+    public.user_is_admin(public.viewer())
+    -- or himself
+    or "user".id = public.viewer_user_id()
   );
 
--- other policies are not required since functions
--- which create users are behind a `security definer`
+-- authenticated admin users can add new users
+create policy viewer_user_insert_policy on public.user
+  for insert
+  to viewer
+  with check (
+    -- viewer is admin
+    public.user_is_admin(public.viewer())
+  );
+
+-- authenticated admin users can add new users
+create policy viewer_user_delete_policy on public.user
+  for delete
+  to viewer
+  using (
+     -- viewer is admin
+    public.user_is_admin(public.viewer())
+    -- or himself
+    or "user".id = public.viewer_user_id()
+  );
 
 ----
 

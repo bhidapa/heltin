@@ -29,13 +29,6 @@ $$
 declare
   registered_user public.user;
 begin
-  if session_user = 'anonymous'
-  or (session_user = 'viewer'
-    and not public.user_is_admin(public.viewer()))
-  then
-    raise exception 'Unauthorized';
-  end if;
-
   with new_private_user as (
     insert into private.user as u (id, password)
       values (coalesce(register.id, uuid_generate_v4()), crypt(register.password, gen_salt('bf')))
@@ -52,8 +45,7 @@ begin
     raise exception 'User already exists!';
 end;
 $$
-language plpgsql volatile
-security definer;
+language plpgsql volatile;
 
 comment on function public.register is 'Creates a new `User` which can log in.';
 
