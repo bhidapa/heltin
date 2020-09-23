@@ -24,10 +24,10 @@ echo "Pushing containers..."
 docker-compose push
 
 echo "Pulling containers..."
-DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml pull
 
 echo "Down..."
-DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml down
+docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml down
 
 echo "Up..."
-DOCKER_CONTEXT=$1 docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml up -d
