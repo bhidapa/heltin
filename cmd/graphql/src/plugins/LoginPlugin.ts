@@ -11,6 +11,8 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
     }
     extend type Mutation {
       login(input: LoginInput!): LoginPayload
+      # Simply destroys the login session. Will return 'true' if there was a session in the first place.
+      logout: Boolean!
     }
   `,
   resolvers: {
@@ -36,14 +38,15 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
           and priv_user.password = crypt($2, priv_user.password)`,
           [email, password]
         );
-        if (!user) {
+        if (!user?.id) {
           throw new Error("Wrong login credentials");
         }
 
-        // Tell Passport.js we're logged in
+        // Save the successful login in the session
         await saveUserIdInSession(user.id);
 
         // Tell pg we're logged in
+        await pgClient.query("set role viewer;");
         await pgClient.query("select set_config($1, $2, true);", [
           "session.user_id",
           user.id,
@@ -62,6 +65,10 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
         return {
           data: row,
         };
+      },
+      async logout(_parent, _args, context) {
+        const { destroySession } = context;
+        return await destroySession();
       },
     },
   },

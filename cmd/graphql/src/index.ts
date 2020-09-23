@@ -103,8 +103,13 @@ app.use(
     graphiql: !!config.graphiqlRoute,
     graphiqlRoute: config.graphiqlRoute,
     enhanceGraphiql: true,
-    pgDefaultRole: config.noAuth ? "viewer" : "anonymous",
     bodySizeLimit: "1GB",
+    pgSettings(req: express.Request) {
+      return {
+        role: config.noAuth || req.session?.userId ? "viewer" : "anonymous",
+        "session.user_id": req.session?.userId,
+      };
+    },
     async additionalGraphQLContextFromRequest(req: express.Request) {
       return {
         // Let plugins call priviliged methods (e.g. login) if they need to
@@ -114,6 +119,15 @@ app.use(
           req.session!.userId = userId;
           return new Promise((resolve, reject) =>
             req.session!.save((err) => (err ? reject(err) : resolve()))
+          );
+        },
+        // Destroys the session/logs out
+        async destroySession(): Promise<boolean> {
+          if (!req.session!.userId) {
+            return Promise.resolve(false);
+          }
+          return new Promise((resolve, reject) =>
+            req.session!.destroy((err) => (err ? reject(err) : resolve(true)))
           );
         },
       };

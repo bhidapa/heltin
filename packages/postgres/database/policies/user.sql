@@ -19,7 +19,7 @@ create policy viewer_user_update_policy on public.user
   using (true) -- can see all users
   with check (
     -- can update only itself
-    "user".id = (select id from public.viewer())
+    "user".id = public.viewer_user_id()
   );
 
 -- other policies are not required since functions
