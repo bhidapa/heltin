@@ -23,6 +23,7 @@ grant select on table public.user to anonymous;
 create or replace function public.register(
   email    text,
   password text,
+  is_admin boolean = false,
   id       uuid = null -- optional argument if you want a custom user id
 ) returns public.user as
 $$
@@ -30,8 +31,8 @@ declare
   registered_user public.user;
 begin
   with new_private_user as (
-    insert into private.user as u (id, password)
-      values (coalesce(register.id, uuid_generate_v4()), crypt(register.password, gen_salt('bf')))
+    insert into private.user as u (id, password, admin)
+      values (coalesce(register.id, uuid_generate_v4()), crypt(register.password, gen_salt('bf')), is_admin)
     returning u.id
   )
   insert into public.user as u (id, email)
