@@ -10,17 +10,17 @@
     +
     <a href="https://www.postgresql.org/">Postgres</a>
     +
+    <a href="https://golang.org/">Go</a>
+    +
     <a href="https://www.typescriptlang.org/">TypeScript</a>
     +
     <a href="https://www.graphile.org/postgraphile/">PostGraphile</a>
     +
     <a href="https://webpack.js.org/">Webpack</a>
     +
-    <a href="https://babeljs.io/">Babel</a>
-    +
     <a href="https://reactjs.org/">React</a>
     +
-    <a href="http://facebook.github.io/relay/docs/en/thinking-in-relay.html">Relay Modern</a>
+    <a href="http://facebook.github.io/relay/docs/en/thinking-in-relay.html">Relay</a>
   </p>
 <br>
 
