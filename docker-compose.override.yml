@@ -25,5 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./cmd/server/Dockerfile
+    environment:
+      - PORT=${SERVER_PORT}
     ports:
-      - 6002:80
+      - ${SERVER_PORT}:${SERVER_PORT}
