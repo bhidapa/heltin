@@ -1,5 +1,9 @@
 version: "3"
 
+volumes:
+  server-certs:
+    driver: "local"
+
 services:
   postgres:
     environment:
@@ -8,7 +12,15 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
+      - SESSION_SECURE=true
       - WATCH=true
-  app:
+  server:
+    environment:
+      - APP_DOMAINS=${APP_DOMAINS}
+      - TLS=true
+      - CERT_DIR=/srv/certs
+    volumes:
+      - server-certs:/srv/certs
     ports:
       - 80:80
+      - 443:443

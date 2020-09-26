@@ -44,12 +44,11 @@ services:
     depends_on:
       - postgres
     restart: unless-stopped
-  app:
-    image: bhidapa/heltin-app
+  server:
+    image: bhidapa/heltin-server
     networks:
       - local
     environment:
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
     depends_on:
       - graphql
-    command: /bin/bash -c "envsubst '$$GRAPHQL_ENDPOINT' < /etc/nginx/conf.d/nginx.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"

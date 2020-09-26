@@ -17,13 +17,15 @@ services:
       dockerfile: ./cmd/graphql/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - SESSION_SECRET=verysecret
+      - SESSION_SECRET=${SESSION_SECRET}
       - WATCH=true
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
-  app:
+  server:
     build:
       context: .
-      dockerfile: ./web/Dockerfile # TODO
+      dockerfile: ./cmd/server/Dockerfile
+    environment:
+      - SERVER_PORT=${SERVER_PORT}
     ports:
-      - 6002:80
+      - ${SERVER_PORT}:${SERVER_PORT}

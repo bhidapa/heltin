@@ -29,6 +29,7 @@ const config = {
   sessionTableSchema: process.env.POSTGRES_SESSION_TABLE_SCHEMA,
   sessionTable: process.env.POSTGRES_SESSION_TABLE,
   sessionSecret: process.env.SESSION_SECRET,
+  sessionSecure: isTrue(process.env.SESSION_SECURE),
   noAuth: isTrue(process.env.NO_AUTH),
   port: process.env.PORT,
 };
@@ -63,6 +64,8 @@ const pgConnectionString = `postgres://${config.pgUser}${
 }@${config.pgHost}:${config.pgPort}/${config.pgDb}`;
 
 const app = express();
+app.set("trust proxy", 1);
+app.disable("x-powered-by");
 
 app.use(
   session({
@@ -72,11 +75,17 @@ app.use(
       schemaName: config.sessionTableSchema,
       tableName: config.sessionTable,
     }),
+    name: "heltin.sid",
+    proxy: true,
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
     rolling: true,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    cookie: {
+      secure: config.sessionSecure,
+      sameSite: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
   })
 );
 
