@@ -24,6 +24,7 @@ import (
 var config struct {
 	Port           int      `env:"SERVER_PORT"`
 	AppDomains     []string `env:"APP_DOMAINS"`
+	AllowedOrigins []string `env:"ALLOWED_ORIGINS"`
 	TLS            bool     `env:"TLS"`
 	CertDir        fs.File  `env:"CERT_DIR"`
 	CertEmail      string   `env:"CERT_EMAIL"`
@@ -93,10 +94,20 @@ func main() {
 	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request", "Referer"))
 
 	var allowedOrigins []string
-	if len(config.AppDomains) == 0 {
+	if len(config.AllowedOrigins) == 0 && len(config.AppDomains) == 0 {
 		allowedOrigins = []string{"*"}
-	} else {
-		allowedOrigins = config.AppDomains
+	} else if len(config.AllowedOrigins) > 0 {
+		allowedOrigins = config.AllowedOrigins
+	} else if len(config.AppDomains) > 0 {
+		if config.TLS {
+			for _, domain := range config.AppDomains {
+				allowedOrigins = append(allowedOrigins, "https://"+domain)
+			}
+		} else {
+			for _, domain := range config.AppDomains {
+				allowedOrigins = append(allowedOrigins, "http://"+domain)
+			}
+		}
 	}
 
 	server := &http.Server{
