@@ -14,8 +14,6 @@ RUN set -eux; \
   GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GODEBUG=cgocheck=0 \
   go build -v -a -ldflags='-s -w' -o /heltin-server
 
-RUN rm -r $GOPATH/*
-
 # build web
 FROM node:14 as web 
 
