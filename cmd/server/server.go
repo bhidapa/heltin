@@ -13,6 +13,7 @@ import (
 	"github.com/bhidapa/heltin/cmd/server/routes"
 	"github.com/caarlos0/env"
 	"github.com/domonda/golog/log"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/ungerik/go-fs"
@@ -76,6 +77,16 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
 
+	corsOpts := []handlers.CORSOption{
+		handlers.AllowedMethods([]string{"HEAD", "GET", "POST", "OPTIONS"}),
+		handlers.AllowedHeaders([]string{""}),
+	}
+	if len(config.AppDomains) == 0 {
+		corsOpts = append(corsOpts, handlers.AllowedOrigins([]string{"*"}))
+	} else {
+		corsOpts = append(corsOpts, handlers.AllowedOrigins(config.AppDomains))
+	}
+
 	err = routes.GraphQLProxy(router, config.GraphQLEndoint)
 	if err != nil {
 		log.Fatal("error during graphql proxy setup").
@@ -93,7 +104,7 @@ func main() {
 
 	server := &http.Server{
 		Addr:     fmt.Sprintf(":%d", config.Port),
-		Handler:  router,
+		Handler:  handlers.CORS(corsOpts...)(router),
 		ErrorLog: log.ErrorWriter().StdLogger(),
 	}
 

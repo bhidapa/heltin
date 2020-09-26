@@ -73,6 +73,7 @@ app.use(
       schemaName: config.sessionTableSchema,
       tableName: config.sessionTable,
     }),
+    name: "heltin.sid",
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
