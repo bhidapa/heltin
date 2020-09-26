@@ -29,6 +29,7 @@ const config = {
   sessionTableSchema: process.env.POSTGRES_SESSION_TABLE_SCHEMA,
   sessionTable: process.env.POSTGRES_SESSION_TABLE,
   sessionSecret: process.env.SESSION_SECRET,
+  sessionSecure: isTrue(process.env.SESSION_SECURE),
   noAuth: isTrue(process.env.NO_AUTH),
   port: process.env.PORT,
 };
@@ -78,7 +79,11 @@ app.use(
     resave: false,
     saveUninitialized: true,
     rolling: true,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
+    cookie: {
+      secure: config.sessionSecure,
+      sameSite: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
   })
 );
 

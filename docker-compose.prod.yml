@@ -12,6 +12,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
+      - SESSION_SECURE=true
       - WATCH=true
   server:
     environment:
