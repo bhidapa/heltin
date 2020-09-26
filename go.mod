@@ -8,6 +8,7 @@ require (
 	github.com/domonda/golog v0.0.0-20200821090036-7c35098b089a
 	github.com/google/go-cmp v0.5.2 // indirect
 	github.com/gorilla/mux v1.8.0
+	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/ungerik/go-fs v0.0.0-20200821085535-43255b165ff2
 	github.com/ungerik/go-httpx v0.0.0-20200827162627-9780958c2188
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a

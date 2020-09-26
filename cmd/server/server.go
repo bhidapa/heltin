@@ -5,29 +5,59 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"path"
+	"path/filepath"
+	"runtime"
 	"time"
 
 	"github.com/bhidapa/heltin/cmd/server/routes"
 	"github.com/caarlos0/env"
 	"github.com/domonda/golog/log"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-httpx"
 	"golang.org/x/crypto/acme/autocert"
 )
 
 var config struct {
-	Port           int      `env:"PORT"`
+	Port           int      `env:"SERVER_PORT"`
 	AppDomains     []string `env:"APP_DOMAINS"`
 	TLS            bool     `env:"TLS"`
 	CertDir        fs.File  `env:"CERT_DIR"`
 	CertEmail      string   `env:"CERT_EMAIL"`
-	AppDir         fs.File  `env:"APP_DIR,required"`
+	AppDir         fs.File  `env:"APP_DIR"`
 	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT,required"`
 }
 
 func main() {
-	err := env.Parse(&config)
+	// injects the .env file env variables from the root of the repository
+	// does NOT override existing/already defined environment variables
+	_, filename, _, ok := runtime.Caller(0)
+	if !ok {
+		return
+	}
+
+	path := filepath.Join(path.Dir(filename), "..", "..", ".env")
+	if !fs.File(path).Exists() {
+		return
+	}
+
+	if path == "" {
+		log.Debug("dotenv not found").Log()
+		return
+	}
+
+	err := godotenv.Load(path)
+	if err != nil {
+		panic(err)
+	}
+
+	log.Debug("dotenv loaded").
+		Str("path", path).
+		Log()
+
+	err = env.Parse(&config)
 	if err != nil {
 		panic(err)
 	}
@@ -53,7 +83,11 @@ func main() {
 			LogAndPanic()
 	}
 
-	routes.App(router, config.AppDir, "/", "index.html")
+	if config.AppDir != "" {
+		routes.App(router, config.AppDir, "/", "index.html")
+	} else {
+		log.Warn("app dir not specified, skipping SPA setup").Log()
+	}
 
 	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request", "Referer"))
 

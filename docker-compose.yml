@@ -49,7 +49,6 @@ services:
     networks:
       - local
     environment:
-      - SERVER_PORT=${SERVER_PORT}
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
     depends_on:
       - graphql

@@ -26,6 +26,6 @@ services:
       context: .
       dockerfile: ./cmd/server/Dockerfile
     environment:
-      - PORT=${SERVER_PORT}
+      - SERVER_PORT=${SERVER_PORT}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
