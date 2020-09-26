@@ -2,6 +2,8 @@
 **
 
 # Allow files and directories
+!go.mod
+!go.sum
 !/cmd/**
 !/packages/postgres/**
 !/web/**

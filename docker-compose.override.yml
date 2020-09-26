@@ -21,9 +21,9 @@ services:
       - WATCH=true
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
-  app:
+  server:
     build:
       context: .
-      dockerfile: ./web/Dockerfile # TODO
+      dockerfile: ./cmd/server/Dockerfile
     ports:
       - 6002:80
