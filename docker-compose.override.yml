@@ -17,7 +17,7 @@ services:
       dockerfile: ./cmd/graphql/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - SESSION_SECRET=verysecret
+      - SESSION_SECRET=${SESSION_SECRET}
       - WATCH=true
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
