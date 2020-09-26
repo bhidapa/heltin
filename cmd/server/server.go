@@ -77,16 +77,6 @@ func main() {
 
 	router := mux.NewRouter().StrictSlash(true)
 
-	corsOpts := []handlers.CORSOption{
-		handlers.AllowedMethods([]string{"HEAD", "GET", "POST", "OPTIONS"}),
-		handlers.AllowedHeaders([]string{""}),
-	}
-	if len(config.AppDomains) == 0 {
-		corsOpts = append(corsOpts, handlers.AllowedOrigins([]string{"*"}))
-	} else {
-		corsOpts = append(corsOpts, handlers.AllowedOrigins(config.AppDomains))
-	}
-
 	err = routes.GraphQLProxy(router, config.GraphQLEndoint)
 	if err != nil {
 		log.Fatal("error during graphql proxy setup").
@@ -102,9 +92,16 @@ func main() {
 
 	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request", "Referer"))
 
+	var allowedOrigins []string
+	if len(config.AppDomains) == 0 {
+		allowedOrigins = []string{"*"}
+	} else {
+		allowedOrigins = config.AppDomains
+	}
+
 	server := &http.Server{
 		Addr:     fmt.Sprintf(":%d", config.Port),
-		Handler:  handlers.CORS(corsOpts...)(router),
+		Handler:  handlers.CORS(handlers.AllowedOrigins(allowedOrigins))(router),
 		ErrorLog: log.ErrorWriter().StdLogger(),
 	}
 
