@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -35,7 +36,7 @@ func GraphQLProxy(router *mux.Router, endpoint string) error {
 	}
 	proxy.ErrorLog = log.ErrorWriter().StdLogger()
 
-	router.Handle(from, proxy)
+	router.Handle(from, handlers.ProxyHeaders(proxy))
 
 	log.Debug("proxying graphql").
 		Str("from", from).
