@@ -10,6 +10,8 @@
     +
     <a href="https://www.postgresql.org/">Postgres</a>
     +
+    <a href="https://graphql.org/">GraphQL</a>
+    +
     <a href="https://golang.org/">Go</a>
     +
     <a href="https://www.typescriptlang.org/">TypeScript</a>
