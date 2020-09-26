@@ -64,7 +64,7 @@ const pgConnectionString = `postgres://${config.pgUser}${
 }@${config.pgHost}:${config.pgPort}/${config.pgDb}`;
 
 const app = express();
-app.set("trust proxy", true);
+app.set("trust proxy", 1);
 app.disable("x-powered-by");
 
 app.use(
