@@ -64,6 +64,7 @@ const pgConnectionString = `postgres://${config.pgUser}${
 }@${config.pgHost}:${config.pgPort}/${config.pgDb}`;
 
 const app = express();
+app.set("trust proxy", true);
 app.disable("x-powered-by");
 
 app.use(
@@ -75,6 +76,7 @@ app.use(
       tableName: config.sessionTable,
     }),
     name: "heltin.sid",
+    proxy: true,
     secret: config.sessionSecret,
     resave: false,
     saveUninitialized: true,
