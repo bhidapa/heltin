@@ -1,21 +1,3 @@
-# build web
-FROM node:14 as web 
-
-WORKDIR /web
-
-COPY web/LICENSE.md .
-
-COPY web/.yarn/releases ./.yarn/releases
-COPY web/.yarn/plugins ./.yarn/plugins
-COPY web/.yarnrc.yml .
-
-COPY web/yarn.lock .
-COPY web/package.json .
-RUN yarn install --immutable
-
-COPY web .
-RUN yarn build
-
 # build server
 FROM golang:1-alpine as server
 
@@ -33,6 +15,24 @@ RUN set -eux; \
   go build -v -a -ldflags='-s -w' -o /heltin-server
 
 RUN rm -r $GOPATH/*
+
+# build web
+FROM node:14 as web 
+
+WORKDIR /web
+
+COPY web/LICENSE.md .
+
+COPY web/.yarn/releases ./.yarn/releases
+COPY web/.yarn/plugins ./.yarn/plugins
+COPY web/.yarnrc.yml .
+
+COPY web/yarn.lock .
+COPY web/package.json .
+RUN yarn install --immutable
+
+COPY web .
+RUN yarn build
 
 # server
 FROM alpine:3
