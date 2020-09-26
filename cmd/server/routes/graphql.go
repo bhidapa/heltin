@@ -20,10 +20,10 @@ func GraphQLProxy(router *mux.Router, endpoint string) error {
 	toQuery := to.RawQuery
 	proxy := &httputil.ReverseProxy{
 		Director: func(req *http.Request) {
+			req.Header.Set("X-Forwarded-Proto", req.URL.Scheme)
+			req.Header.Set("X-Forwarded-Host", req.URL.Host)
 			req.URL.Scheme = to.Scheme
 			req.URL.Host = to.Host
-			req.Header.Set("X-Forwarded-Host", req.URL.Host)
-			req.Header.Set("X-Forwarded-Proto", req.URL.Scheme)
 			req.URL.Path = strings.Replace(singleJoiningSlash(to.Path, req.URL.Path), from, "", 1)
 			if toQuery == "" || req.URL.RawQuery == "" {
 				req.URL.RawQuery = toQuery + req.URL.RawQuery
