@@ -32,7 +32,7 @@ var config struct {
 	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT,required"`
 }
 
-func main() {
+func init() {
 	// injects the .env file env variables from the root of the repository
 	// does NOT override existing/already defined environment variables
 	_, filename, _, ok := runtime.Caller(0)
@@ -58,8 +58,10 @@ func main() {
 	log.Debug("dotenv loaded").
 		Str("path", path).
 		Log()
+}
 
-	err = env.Parse(&config)
+func main() {
+	err := env.Parse(&config)
 	if err != nil {
 		panic(err)
 	}
