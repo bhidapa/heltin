@@ -63,6 +63,7 @@ const pgConnectionString = `postgres://${config.pgUser}${
 }@${config.pgHost}:${config.pgPort}/${config.pgDb}`;
 
 const app = express();
+app.disable("x-powered-by");
 
 app.use(
   session({
