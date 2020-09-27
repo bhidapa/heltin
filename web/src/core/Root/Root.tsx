@@ -4,9 +4,11 @@
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RestoreScroll } from 'lib/RestoreScroll';
+import { local } from 'lib/storage';
+import { LocationDescriptor } from 'history';
 
 // relay
 import { graphql } from 'relay/hooks';
@@ -45,15 +47,42 @@ graphql`
   }
 `;
 
+const RETURN_TO_KEY = '@heltin/returnTo';
+
 const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
   const { isLoggedIn } = props;
+
+  const [returnTo, setReturnTo] = useState<LocationDescriptor | null>(
+    local.get(RETURN_TO_KEY, null),
+  );
+
+  function saveReturnTo(location: LocationDescriptor | null) {
+    if (location) {
+      local.set(RETURN_TO_KEY, location);
+    } else {
+      local.remove(RETURN_TO_KEY);
+    }
+    setReturnTo(location);
+  }
+
   if (!isLoggedIn) {
     return (
       <Switch>
         <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
-        <Redirect path="*" to={LOGIN_PAGE_ROUTE} />
+        <Route
+          path="*"
+          render={({ location }) => {
+            setTimeout(() => saveReturnTo(location), 0);
+            return <Redirect to={LOGIN_PAGE_ROUTE} />;
+          }}
+        />
       </Switch>
     );
+  }
+
+  if (returnTo) {
+    setTimeout(() => saveReturnTo(null), 0);
+    return <Redirect to={returnTo} />;
   }
 
   return (
