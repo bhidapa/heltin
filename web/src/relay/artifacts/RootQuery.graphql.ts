@@ -7,7 +7,8 @@ import { FragmentRefs } from "relay-runtime";
 export type RootQueryVariables = {};
 export type RootQueryResponse = {
     readonly viewer: {
-        readonly " $fragmentRefs": FragmentRefs<"AppBarActions_viewer">;
+        readonly isAdmin: boolean;
+        readonly " $fragmentRefs": FragmentRefs<"AppBar_viewer">;
     } | null;
 };
 export type RootQuery = {
@@ -20,7 +21,8 @@ export type RootQuery = {
 /*
 query RootQuery {
   viewer {
-    ...AppBarActions_viewer
+    isAdmin
+    ...AppBar_viewer
     id
   }
 }
@@ -29,9 +31,22 @@ fragment AppBarActions_viewer on User {
   id
   email
 }
+
+fragment AppBar_viewer on User {
+  isAdmin
+  ...AppBarActions_viewer
+}
 */
 
-const node: ConcreteRequest = {
+const node: ConcreteRequest = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isAdmin",
+  "storageKey": null
+};
+return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -46,10 +61,11 @@ const node: ConcreteRequest = {
         "name": "viewer",
         "plural": false,
         "selections": [
+          (v0/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AppBarActions_viewer"
+            "name": "AppBar_viewer"
           }
         ],
         "storageKey": null
@@ -72,6 +88,7 @@ const node: ConcreteRequest = {
         "name": "viewer",
         "plural": false,
         "selections": [
+          (v0/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -92,13 +109,14 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "2c838b2eaaae3be8ae1823735a58b8eb",
+    "cacheID": "4eb9231a758e2e5dbb953b22e1a0e68e",
     "id": null,
     "metadata": {},
     "name": "RootQuery",
     "operationKind": "query",
-    "text": "query RootQuery {\n  viewer {\n    ...AppBarActions_viewer\n    id\n  }\n}\n\nfragment AppBarActions_viewer on User {\n  id\n  email\n}\n"
+    "text": "query RootQuery {\n  viewer {\n    isAdmin\n    ...AppBar_viewer\n    id\n  }\n}\n\nfragment AppBarActions_viewer on User {\n  id\n  email\n}\n\nfragment AppBar_viewer on User {\n  isAdmin\n  ...AppBarActions_viewer\n}\n"
   }
 };
-(node as any).hash = 'd30300ddf5631d2b0fffbb58be3ad87d';
+})();
+(node as any).hash = 'c8371a7a58f4711e1411adb2b347ec3b';
 export default node;

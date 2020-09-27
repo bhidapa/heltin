@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { RestoreScroll } from 'lib/RestoreScroll';
 import { local } from 'lib/storage';
-import { LocationDescriptor } from 'history';
+import { LocationDescriptorObject } from 'history';
 
 // relay
 import { graphql } from 'relay/hooks';
@@ -43,26 +43,32 @@ import { decorate, Decorate } from './decorate';
 
 graphql`
   fragment Root_viewer on User {
-    ...AppBarActions_viewer
+    ...AppBar_viewer
   }
 `;
 
 const RETURN_TO_KEY = '@heltin/returnTo';
 
-const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props) {
-  const { isLoggedIn } = props;
+const RootRoutes = React.memo<{ isLoggedIn: boolean; isAdmin: boolean }>(function RootRoutes(
+  props,
+) {
+  const { isLoggedIn, isAdmin } = props;
 
-  const [returnTo, setReturnTo] = useState<LocationDescriptor | null>(
+  const [returnTo, setReturnTo] = useState<LocationDescriptorObject | null>(
     local.get(RETURN_TO_KEY, null),
   );
 
-  function saveReturnTo(location: LocationDescriptor | null) {
-    if (location) {
-      local.set(RETURN_TO_KEY, location);
+  function saveReturnTo(location: LocationDescriptorObject | null) {
+    const nextLocation = location;
+    if (nextLocation?.pathname === '/login' || nextLocation?.pathname === '/logout') {
+      nextLocation.pathname = DEFAULT_ROUTE;
+    }
+    if (nextLocation) {
+      local.set(RETURN_TO_KEY, nextLocation);
     } else {
       local.remove(RETURN_TO_KEY);
     }
-    setReturnTo(location);
+    setReturnTo(nextLocation);
   }
 
   if (!isLoggedIn) {
@@ -88,7 +94,7 @@ const RootRoutes = React.memo<{ isLoggedIn: boolean }>(function RootRoutes(props
   return (
     <Switch>
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
-      <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />
+      {isAdmin && <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />}
       <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
       <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
       <Redirect exact path="/" to={DEFAULT_ROUTE} />
@@ -104,6 +110,7 @@ const Root: React.FC<Decorate> = (props) => {
     graphql`
       query RootQuery {
         viewer {
+          isAdmin
           ...Root_viewer @relay(mask: false)
         }
       }
@@ -135,7 +142,7 @@ const Root: React.FC<Decorate> = (props) => {
                       <Redirect to={location.pathname.replace(/\/+$/, '')} />
                     )}
                   />
-                  <RootRoutes isLoggedIn={Boolean(viewer)} />
+                  <RootRoutes isLoggedIn={Boolean(viewer)} isAdmin={viewer?.isAdmin ?? false} />
                 </Switch>
               </Boundary>
             </main>

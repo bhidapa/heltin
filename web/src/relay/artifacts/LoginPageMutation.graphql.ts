@@ -42,8 +42,13 @@ fragment AppBarActions_viewer on User {
   email
 }
 
-fragment Root_viewer on User {
+fragment AppBar_viewer on User {
+  isAdmin
   ...AppBarActions_viewer
+}
+
+fragment Root_viewer on User {
+  ...AppBar_viewer
 }
 */
 
@@ -126,6 +131,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "isAdmin",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "id",
                 "storageKey": null
               },
@@ -145,12 +157,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4878e6d2e6e2b7753367dd1a0c58a74a",
+    "cacheID": "be89de557979eea24b5d8e899c105266",
     "id": null,
     "metadata": {},
     "name": "LoginPageMutation",
     "operationKind": "mutation",
-    "text": "mutation LoginPageMutation(\n  $input: LoginInput!\n) {\n  login(input: $input) {\n    user {\n      ...Root_viewer\n      id\n    }\n  }\n}\n\nfragment AppBarActions_viewer on User {\n  id\n  email\n}\n\nfragment Root_viewer on User {\n  ...AppBarActions_viewer\n}\n"
+    "text": "mutation LoginPageMutation(\n  $input: LoginInput!\n) {\n  login(input: $input) {\n    user {\n      ...Root_viewer\n      id\n    }\n  }\n}\n\nfragment AppBarActions_viewer on User {\n  id\n  email\n}\n\nfragment AppBar_viewer on User {\n  isAdmin\n  ...AppBarActions_viewer\n}\n\nfragment Root_viewer on User {\n  ...AppBar_viewer\n}\n"
   }
 };
 })();
