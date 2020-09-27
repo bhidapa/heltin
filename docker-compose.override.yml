@@ -4,13 +4,13 @@ services:
   postgres:
     build:
       context: .
-      dockerfile: ./packages/postgres/Dockerfile
+      dockerfile: ./database/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - ${POSTGRES_PORT}:5432
     volumes:
-      - ./packages/postgres:/docker-entrypoint-initdb.d
+      - ./database:/docker-entrypoint-initdb.d
   graphql:
     build:
       context: .

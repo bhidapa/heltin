@@ -31,13 +31,13 @@ BEGIN;
 \echo 'Creating extensions...'
 \echo
 
-\i ${INIT_DIR}/database/extensions.sql
+\i ${INIT_DIR}/schema/extensions.sql
 
 \echo
 \echo 'Creating domains...'
 \echo
 
-\i ${INIT_DIR}/database/domains.sql
+\i ${INIT_DIR}/schema/domains.sql
 
 \echo
 \echo 'Creating roles...'
@@ -64,19 +64,19 @@ grant usage on schema private to anonymous;
 \echo 'Setting up enums...'
 \echo
 
-\i ${INIT_DIR}/database/enums.sql
+\i ${INIT_DIR}/schema/enums.sql
 
 \echo
 \echo 'Setting up tables...'
 \echo
 
-\i ${INIT_DIR}/database/tables.sql
+\i ${INIT_DIR}/schema/tables.sql
 
 \echo
 \echo 'Setting up policies...'
 \echo
 
-\i ${INIT_DIR}/database/policies.sql
+\i ${INIT_DIR}/schema/policies.sql
 commit;
 
 \echo
@@ -89,7 +89,7 @@ begin;
 \echo 'Applying seed...'
 \echo
 
-\i ${INIT_DIR}/database/seed.sql
+\i ${INIT_DIR}/schema/seed.sql
 
 commit;
 

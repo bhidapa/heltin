@@ -5,7 +5,7 @@
 !go.mod
 !go.sum
 !/cmd/**
-!/packages/postgres/**
+!/database/**
 !/web/**
 
 # Ignore unnecessary files inside allowed directories
