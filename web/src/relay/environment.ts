@@ -13,7 +13,7 @@ import { network } from './network';
 const recordSource = new RecordSource();
 
 // The source of truth for an instance of `RelayRuntime`, holding the canonical set of records in the form of a `RecordSource`.
-const store = new Store(recordSource, { gcReleaseBufferSize: 25 });
+const store = new Store(recordSource, { gcReleaseBufferSize: 0 });
 
 // Environment providing a high-level API for interacting with both the `Store` and the `Network`.
 export const environment = new Environment({
