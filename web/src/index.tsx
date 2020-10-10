@@ -42,7 +42,7 @@ ReactDOM.unstable_createRoot(root).render(
     <Boundary>
       <Router history={history}>
         <HelmetProvider>
-          <Helmet titleTemplate="%s | domonda" />
+          <Helmet titleTemplate="%s | heltin" />
           <QueryParamsProvider history={history}>
             <RelayEnvironmentProvider environment={environment}>
               <IntlProvider defaultLocale="hr" messages={messages}>
