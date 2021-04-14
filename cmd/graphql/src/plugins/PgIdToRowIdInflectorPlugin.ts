@@ -1,5 +1,7 @@
 /**
  *
+ * TODO-db-210414 @name and @fieldName should take precidence
+ *
  * PgIdToRowIdInflectorPlugin
  *
  * When using *Postgraphile* in combination with *Relay Modern* there must be a field
@@ -14,9 +16,15 @@
  * Ex:
  *  `user_id` -> `user_row_id`
  *  `article_id` -> `article_row_id`
+ *  `article_id_is_missing` -> `article_row_id_is_missing`
  *  `articleId` -> `articleRowId`
+ *  `articleIdIsMissing` -> `articleRowIdIsMissing`
  *  `user_row_id` -> `user_row_id` (will stay the same if `id` is prefixed with `row_`)
  *  `userRowId` -> `userRowId` (will stay the same if `Id` is prefixed with `Row`)
+ *  `paid_date` -> `paid_date` (will stay the same if `id` is prefixed **any** letter)
+ *  `lids_closed` -> `lids_closed` (will stay the same if `ids` is prefixed **any** letter)
+ *  `languageIdiomatics` -> `languageIdiomatics` (will stay the same if `Id` is suffixed with a lowercase letter)
+ *  `language_idiomatics` -> `language_idiomatics` (will stay the same if `id` is NOT suffixed with an underscore)
  */
 
 import { makeAddInflectorsPlugin } from "graphile-utils";
@@ -24,33 +32,36 @@ import { camelCase, PgAttribute, PgProc } from "graphile-build-pg";
 
 function replaceIdWithRowId(str: string) {
   return str
-    .replace(/(?<!(row_))(id)$/, "row_id")
-    .replace(/(?<!((R|r)ow))(Id)$/, "RowId")
-    .replace(/(?<!(row_))(ids)$/, "row_ids")
-    .replace(/(?<!((R|r)ow))(Ids)$/, "RowIds");
+    .replace(/(?<!(row_)|[a-zA-Z])(id)(?=_|$)/, "row_id")
+    .replace(/(?<!((R|r)ow))(Id)(?=[A-Z]|$)/, "RowId")
+    .replace(/(?<!(row_)|[a-zA-Z])(ids)(?=_|$)/, "row_ids")
+    .replace(/(?<!((R|r)ow))(Ids)(?=[A-Z]|$)/, "RowIds");
 }
 
 export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
   {
     // replace ids in all column
-    column(attr: PgAttribute) {
-      const name = attr.tags.name || attr.name;
-      if (typeof name !== "string") {
-        throw new Error(
-          "PgIdToRowIdInflectorPlugin: column name should be string but is not"
-        );
+    column({ tags, name }: PgAttribute) {
+      if (tags.name) {
+        if (typeof tags.name !== "string") {
+          throw new Error(
+            "PgIdToRowIdInflectorPlugin: column tag name should be string but is not"
+          );
+        }
+        return camelCase(tags.name);
       }
+
       return camelCase(replaceIdWithRowId(name));
     },
     // replace ids in all computed columns
-    computedColumn(pseudoColumnName: string, proc: PgProc) {
-      if (proc.tags.fieldName) {
-        if (typeof proc.tags.fieldName !== "string") {
+    computedColumn(pseudoColumnName: string, { tags }: PgProc) {
+      if (tags.fieldName) {
+        if (typeof tags.fieldName !== "string") {
           throw new Error(
-            "PgIdToRowIdInflectorPlugin: computedColumn fieldName should be string but is not"
+            "PgIdToRowIdInflectorPlugin: computedColumn tag name should be string but is not"
           );
         }
-        return replaceIdWithRowId(proc.tags.fieldName);
+        return tags.fieldName;
       }
       return camelCase(replaceIdWithRowId(pseudoColumnName));
     },
