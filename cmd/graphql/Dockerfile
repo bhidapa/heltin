@@ -5,9 +5,9 @@ WORKDIR /graphql
 COPY ./cmd/graphql/LICENSE.md .
 
 # yarn setup
-COPY ./web/.yarn/releases ./.yarn/releases
-COPY ./web/.yarn/plugins ./.yarn/plugins
-COPY ./web/.yarnrc.yml .
+COPY ./cmd/graphql/.yarn/releases ./.yarn/releases
+COPY ./cmd/graphql/.yarn/plugins ./.yarn/plugins
+COPY ./cmd/graphql/.yarnrc.yml .
 
 # install deps
 COPY ./cmd/graphql/yarn.lock .
