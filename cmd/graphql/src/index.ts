@@ -10,6 +10,12 @@ const PgSession = require("connect-pg-simple")(session);
 import { Pool } from "pg";
 import { postgraphile } from "postgraphile";
 
+declare module "express-session" {
+  interface SessionData {
+    userId: string;
+  }
+}
+
 // plugins
 import { LoginPlugin } from "./plugins/LoginPlugin";
 import PgNonNullRelationsPlugin from "@graphile-contrib/pg-non-null/relations";
@@ -103,6 +109,7 @@ app.use(
     watchPg: config.watch,
     graphileBuildOptions: {
       pgStrictFunctions: true,
+      disableIssue641Fix: true, // Connections are NonNullable
     },
     appendPlugins: [
       LoginPlugin,
@@ -133,7 +140,7 @@ app.use(
         // Save the authenticated/logged-in user ID in this session
         async saveUserIdInSession(userId: string) {
           req.session!.userId = userId;
-          return new Promise((resolve, reject) =>
+          return new Promise<void>((resolve, reject) =>
             req.session!.save((err) => (err ? reject(err) : resolve()))
           );
         },

@@ -1,4 +1,4 @@
-FROM node:14-alpine as build-stage
+FROM node:15-alpine as build-stage
 
 WORKDIR /graphql
 
@@ -19,7 +19,7 @@ COPY ./cmd/graphql/tsconfig.json .
 COPY ./cmd/graphql/src .
 RUN yarn build
 
-FROM node:14-alpine
+FROM node:15-alpine
 
 COPY --from=build-stage /graphql/node_modules /opt/graphql/node_modules
 COPY --from=build-stage /graphql/build /opt/graphql/dist
