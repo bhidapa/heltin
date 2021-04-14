@@ -35,6 +35,7 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
           from public.user as pub_user
             inner join private.user as priv_user on priv_user.id = pub_user.id
           where pub_user.email = $1
+          and not priv_user.disabled
           and priv_user.password = crypt($2, priv_user.password)`,
           [email, password]
         );
