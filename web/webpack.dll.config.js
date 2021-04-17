@@ -16,16 +16,12 @@ module.exports = merge(require('./webpack.common.config'), {
   mode: 'development',
   devtool: 'eval-source-map',
   entry: {
-    [pkg.dll.name]: pullAll(
-      Object.keys(pkg.dependencies),
-      pkg.dll.exclude || [],
-    ),
+    [pkg.dll.name]: pullAll(Object.keys(pkg.dependencies), pkg.dll.exclude || []),
   },
   output: {
     filename: '[name].dll.js',
     path: path.join(__dirname, pkg.dll.path),
-    library: '[name]_[hash]',
-    libraryTarget: 'var',
+    library: '[name]_[fullhash]',
   },
   optimization: {
     minimize: false,
@@ -35,8 +31,10 @@ module.exports = merge(require('./webpack.common.config'), {
       cleanOnceBeforeBuildPatterns: [path.join(__dirname, pkg.dll.path)],
     }),
     new webpack.DllPlugin({
-      path: path.join(__dirname, pkg.dll.path, '[name].manifest.json'),
-      name: '[name]_[hash]',
+      context: __dirname,
+      path: path.join(__dirname, pkg.dll.path, `${pkg.dll.name}.manifest.json`),
+      name: '[name]_[fullhash]',
+      entryOnly: false,
     }),
   ],
 });

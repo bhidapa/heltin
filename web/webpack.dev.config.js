@@ -83,9 +83,8 @@ module.exports = merge(common, {
       templateParameters: (_0, { publicPath }) => ({ publicPath }),
     }),
     new webpack.DllReferencePlugin({
-      sourceType: 'var',
       context: __dirname,
-      manifest: path.join(pkg.dll.path, `${pkg.dll.name}.manifest.json`),
+      manifest: path.join(__dirname, pkg.dll.path, `${pkg.dll.name}.manifest.json`),
     }),
     new AddAssetHtmlPlugin({
       filepath: path.join(pkg.dll.path, '*.dll.js'),

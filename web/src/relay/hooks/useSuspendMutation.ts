@@ -7,7 +7,7 @@
 import { unstable_useTransition, useCallback, DependencyList } from 'react';
 import { GraphQLTaggedNode, MutationParameters, Disposable, commitMutation } from 'relay-runtime';
 import { useMutation } from 'react-relay/hooks';
-import { UseMutationConfig } from 'react-relay/lib/relay-experimental/useMutation';
+import { UseMutationConfig } from 'react-relay';
 import { useSuspend } from 'lib/useSuspend';
 
 const noop = () => {
@@ -79,7 +79,7 @@ export function useTransitionMutation<M extends MutationParameters>(
   config?: Omit<UseSuspendMutationConfig<M>, 'variables'>,
   deps?: DependencyList,
 ): [(config: UseSuspendMutationConfig<M>) => Disposable, boolean] {
-  const [startTransition, isInFlight] = unstable_useTransition({ timeoutMs: Infinity });
+  const [startTransition, isInFlight] = unstable_useTransition({ busyMinDurationMs: Infinity });
   const commit = useSuspendMutation<M>(mutation, config);
   const transitionCommit = useCallback<(config: UseSuspendMutationConfig<M>) => Disposable>(
     (commitConfig) => {

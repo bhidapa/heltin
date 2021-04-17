@@ -21,7 +21,7 @@ export function useSuspend() {
   }
   return useCallback((promise: (() => Promise<void>) | ((sink: Sink) => void)) => {
     setPromise(
-      new Promise((resolve, reject) => {
+      new Promise<void>((resolve, reject) => {
         const maybePromise = promise({
           reject,
           resolve,
