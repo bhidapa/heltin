@@ -38,13 +38,7 @@ module.exports = merge(common, {
   optimization: {
     runtimeChunk: true,
     minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          parallel: true,
-        },
-      }),
-    ],
+    minimizer: [new TerserPlugin()],
   },
   plugins: [
     new CleanWebpackPlugin(),

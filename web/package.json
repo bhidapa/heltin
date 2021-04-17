@@ -13,7 +13,7 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "type-check": "tsc --noEmit",
     "build:dll": "webpack --config webpack.dll.config.js --progress",
-    "build": "webpack -p --config webpack.prod.config.js --profile --progress",
+    "build": "webpack --config webpack.prod.config.js --profile --progress",
     "start:hot": "webpack serve --config webpack.dev.config.js --progress",
     "start": "yarn build:dll && yarn start:hot"
   },
