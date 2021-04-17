@@ -44,6 +44,11 @@ const ClientAssignedProfessionalsManage: React.FC<
     graphql`
       fragment ClientAssignedProfessionalsManage_client on Client {
         rowId
+        latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+          therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+            fullName
+          }
+        }
         assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(
           orderBy: [CREATED_AT_ASC]
         ) {

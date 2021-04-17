@@ -33,6 +33,13 @@ fragment ClientsTableRow_item on Client {
   number
   firstName
   lastName
+  latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+      fullName
+      id
+    }
+    id
+  }
   treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
     totalCount
   }
@@ -99,6 +106,13 @@ v3 = {
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -189,6 +203,37 @@ return {
                     "storageKey": null
                   },
                   {
+                    "alias": "latestAssignedTherapist",
+                    "args": null,
+                    "concreteType": "ClientAssignedMentalHealthProfessional",
+                    "kind": "LinkedField",
+                    "name": "latestAssignedMentalHealthProfessional",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": "therapist",
+                        "args": null,
+                        "concreteType": "MentalHealthProfessional",
+                        "kind": "LinkedField",
+                        "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "fullName",
+                            "storageKey": null
+                          },
+                          (v4/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
                     "alias": "treatments",
                     "args": null,
                     "concreteType": "CaseStudyTreatmentsConnection",
@@ -200,13 +245,7 @@ return {
                     ],
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -269,12 +308,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ca31a5bc62fb97a529c30a24c3109771",
+    "cacheID": "2bacfec569d100305b958426fbfcc84e",
     "id": null,
     "metadata": {},
     "name": "ClientsTableRefetchQuery",
     "operationKind": "query",
-    "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ClientsTable_clientsQuery_4CrFSY\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment ClientsTable_clientsQuery_4CrFSY on Query {\n  filterClients(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

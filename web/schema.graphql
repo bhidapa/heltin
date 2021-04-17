@@ -1795,6 +1795,7 @@ type Client implements Node {
     after: Cursor
   ): CaseStudyTreatmentsConnection!
   fullName: String!
+  latestAssignedMentalHealthProfessional: ClientAssignedMentalHealthProfessional
 }
 
 type ClientAssignedMentalHealthProfessional implements Node {

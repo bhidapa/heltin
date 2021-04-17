@@ -9,6 +9,11 @@ export type ClientsTableRow_item = {
     readonly number: number;
     readonly firstName: string;
     readonly lastName: string;
+    readonly latestAssignedTherapist: {
+        readonly therapist: {
+            readonly fullName: string;
+        };
+    } | null;
     readonly treatments: {
         readonly totalCount: number;
     };
@@ -57,6 +62,35 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": "latestAssignedTherapist",
+      "args": null,
+      "concreteType": "ClientAssignedMentalHealthProfessional",
+      "kind": "LinkedField",
+      "name": "latestAssignedMentalHealthProfessional",
+      "plural": false,
+      "selections": [
+        {
+          "alias": "therapist",
+          "args": null,
+          "concreteType": "MentalHealthProfessional",
+          "kind": "LinkedField",
+          "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "fullName",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "alias": "treatments",
       "args": null,
       "concreteType": "CaseStudyTreatmentsConnection",
@@ -78,5 +112,5 @@ const node: ReaderFragment = {
   "type": "Client",
   "abstractKey": null
 };
-(node as any).hash = 'd6778520e27d6a2431831d2f3431e7c6';
+(node as any).hash = '489a5042a0ac0deda38be1f7e63a7bad';
 export default node;

@@ -40,6 +40,13 @@ mutation ClientAssignedProfessionalsManageCreateMutation(
 
 fragment ClientAssignedProfessionalsManage_client on Client {
   rowId
+  latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+      fullName
+      id
+    }
+    id
+  }
   assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {
     nodes {
       id
@@ -79,6 +86,13 @@ v2 = {
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -147,6 +161,31 @@ return {
             "selections": [
               (v2/*: any*/),
               {
+                "alias": "latestAssignedTherapist",
+                "args": null,
+                "concreteType": "ClientAssignedMentalHealthProfessional",
+                "kind": "LinkedField",
+                "name": "latestAssignedMentalHealthProfessional",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": "therapist",
+                    "args": null,
+                    "concreteType": "MentalHealthProfessional",
+                    "kind": "LinkedField",
+                    "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+                    "plural": false,
+                    "selections": [
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
                 "alias": "assignedTherapists",
                 "args": [
                   {
@@ -170,7 +209,7 @@ return {
                     "name": "nodes",
                     "plural": true,
                     "selections": [
-                      (v3/*: any*/),
+                      (v4/*: any*/),
                       (v2/*: any*/),
                       {
                         "alias": "therapist",
@@ -188,14 +227,8 @@ return {
                             "name": "type",
                             "storageKey": null
                           },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "fullName",
-                            "storageKey": null
-                          },
-                          (v3/*: any*/)
+                          (v3/*: any*/),
+                          (v4/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -212,7 +245,7 @@ return {
                 ],
                 "storageKey": "clientAssignedMentalHealthProfessionalsByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
               },
-              (v3/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -222,12 +255,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c58fb84f781c9d7586e6deb5caa51b96",
+    "cacheID": "5eab07e7202930b6bd4159ac2660eea9",
     "id": null,
     "metadata": {},
     "name": "ClientAssignedProfessionalsManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation ClientAssignedProfessionalsManageCreateMutation(\n  $input: CreateClientAssignedMentalHealthProfessionalInput!\n) {\n  createClientAssignedMentalHealthProfessional(input: $input) {\n    clientByClientRowId {\n      ...ClientAssignedProfessionalsManage_client\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n"
+    "text": "mutation ClientAssignedProfessionalsManageCreateMutation(\n  $input: CreateClientAssignedMentalHealthProfessionalInput!\n) {\n  createClientAssignedMentalHealthProfessional(input: $input) {\n    clientByClientRowId {\n      ...ClientAssignedProfessionalsManage_client\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n"
   }
 };
 })();

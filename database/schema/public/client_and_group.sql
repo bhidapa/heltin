@@ -112,6 +112,15 @@ $$
 $$
 language sql volatile;
 
+create function public.client_latest_assigned_mental_health_professional(
+  client public.client
+) returns public.client_assigned_mental_health_professional as $$
+  select * from public.client_assigned_mental_health_professional
+  where client_id = client.id
+  order by created_at desc
+  limit 1
+$$ language sql stable;
+
 ----
 
 -- groups multiple clients

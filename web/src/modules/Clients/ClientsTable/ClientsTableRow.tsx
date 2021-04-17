@@ -45,6 +45,14 @@ const { RowHeader: ClientsTableRowHeader, RowItem } = makeRow<ClientsTableRow_it
       },
     },
     {
+      width: 128,
+      flexGrow: 1,
+      HeaderCell: <FormattedMessage id="ASSIGNED_THERAPIST" />,
+      ItemCell: function ItemCell({ item }) {
+        return item.latestAssignedTherapist && item.latestAssignedTherapist.therapist.fullName;
+      },
+    },
+    {
       width: 92,
       textAlign: 'right',
       HeaderCell: <FormattedMessage id="NUMBER_OF_TREATMENTS" />,
@@ -69,6 +77,11 @@ export const ClientsTableRow: React.FC<ClientsTableRowProps> = (props) => {
         number
         firstName
         lastName
+        latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+          therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+            fullName
+          }
+        }
         treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
           totalCount
         }

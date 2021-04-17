@@ -76,6 +76,13 @@ fragment CaseStudyView_caseStudy on CaseStudy {
 
 fragment ClientAssignedProfessionalsManage_client on Client {
   rowId
+  latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+      fullName
+      id
+    }
+    id
+  }
   assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {
     nodes {
       id
@@ -323,6 +330,31 @@ return {
             "storageKey": null
           },
           {
+            "alias": "latestAssignedTherapist",
+            "args": null,
+            "concreteType": "ClientAssignedMentalHealthProfessional",
+            "kind": "LinkedField",
+            "name": "latestAssignedMentalHealthProfessional",
+            "plural": false,
+            "selections": [
+              {
+                "alias": "therapist",
+                "args": null,
+                "concreteType": "MentalHealthProfessional",
+                "kind": "LinkedField",
+                "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  (v5/*: any*/)
+                ],
+                "storageKey": null
+              },
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
             "alias": "assignedTherapists",
             "args": [
               {
@@ -487,12 +519,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "84d6160f7f82930d0598a64ca2768a30",
+    "cacheID": "c23749ff69e3e0dfb9866b1386e55b0a",
     "id": null,
     "metadata": {},
     "name": "ClientsDetailPageQuery",
     "operationKind": "query",
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    ...ClientAssignedProfessionalsManage_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  rowId\n  caseStudyRowId\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n"
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    ...ClientAssignedProfessionalsManage_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  rowId\n  caseStudyRowId\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n"
   }
 };
 })();

@@ -7,6 +7,11 @@ import { FragmentRefs } from "relay-runtime";
 export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
 export type ClientAssignedProfessionalsManage_client = {
     readonly rowId: string;
+    readonly latestAssignedTherapist: {
+        readonly therapist: {
+            readonly fullName: string;
+        };
+    } | null;
     readonly assignedTherapists: {
         readonly nodes: ReadonlyArray<{
             readonly id: string;
@@ -36,6 +41,13 @@ var v0 = {
   "kind": "ScalarField",
   "name": "rowId",
   "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -44,6 +56,29 @@ return {
   "name": "ClientAssignedProfessionalsManage_client",
   "selections": [
     (v0/*: any*/),
+    {
+      "alias": "latestAssignedTherapist",
+      "args": null,
+      "concreteType": "ClientAssignedMentalHealthProfessional",
+      "kind": "LinkedField",
+      "name": "latestAssignedMentalHealthProfessional",
+      "plural": false,
+      "selections": [
+        {
+          "alias": "therapist",
+          "args": null,
+          "concreteType": "MentalHealthProfessional",
+          "kind": "LinkedField",
+          "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+          "plural": false,
+          "selections": [
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": "assignedTherapists",
       "args": [
@@ -92,13 +127,7 @@ return {
                   "name": "type",
                   "storageKey": null
                 },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "fullName",
-                  "storageKey": null
-                }
+                (v1/*: any*/)
               ],
               "storageKey": null
             },
@@ -120,5 +149,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '877939926b2cdf2a144f2231ed88788f';
+(node as any).hash = '94e2434abe8ba63024459cc805b89a69';
 export default node;

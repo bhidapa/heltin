@@ -67,6 +67,13 @@ fragment ClientsTableRow_item on Client {
   number
   firstName
   lastName
+  latestAssignedTherapist: latestAssignedMentalHealthProfessional {
+    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {
+      fullName
+      id
+    }
+    id
+  }
   treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
     totalCount
   }
@@ -230,6 +237,37 @@ return {
                     "storageKey": null
                   },
                   {
+                    "alias": "latestAssignedTherapist",
+                    "args": null,
+                    "concreteType": "ClientAssignedMentalHealthProfessional",
+                    "kind": "LinkedField",
+                    "name": "latestAssignedMentalHealthProfessional",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": "therapist",
+                        "args": null,
+                        "concreteType": "MentalHealthProfessional",
+                        "kind": "LinkedField",
+                        "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "fullName",
+                            "storageKey": null
+                          },
+                          (v3/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  },
+                  {
                     "alias": "treatments",
                     "args": null,
                     "concreteType": "CaseStudyTreatmentsConnection",
@@ -260,12 +298,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "13521daa12edf36f8c991284991e31ea",
+    "cacheID": "6b53b163e74b4287ccd85eacf5e1914c",
     "id": null,
     "metadata": {},
     "name": "CreateClientMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n      }\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n"
+    "text": "mutation CreateClientMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientsTableRow_item\n        id\n      }\n    }\n  }\n}\n\nfragment ClientsTableRow_item on Client {\n  rowId\n  number\n  firstName\n  lastName\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n"
   }
 };
 })();

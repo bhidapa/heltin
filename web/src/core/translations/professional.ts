@@ -30,6 +30,10 @@ export const messages: Messages = {
     en: 'Assigned therapists',
     hr: 'Dodijeljeni terapeuti',
   },
+  ASSIGNED_THERAPIST: {
+    en: 'Assigned therapist',
+    hr: 'Dodijeljeni terapeut',
+  },
   ASSIGNED_THERAPISTS_DESCRIPTION: {
     en: 'Only assigned therapists can see this client',
     hr: 'Isključivo dodijeljeni terapeuti imaju pristup ovom klijentu',
