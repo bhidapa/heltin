@@ -5095,6 +5095,7 @@ fsevents@~2.3.1:
     react: 0.0.0-experimental-5027eb465
     react-dom: 0.0.0-experimental-5027eb465
     react-helmet-async: ^1.0.9
+    react-hook-form: ^7.1.1
     react-intl: ^5.15.8
     react-relay: 11.0.2
     react-router-dom: ^5.2.0
@@ -7863,6 +7864,15 @@ fsevents@~2.3.1:
     react: ^16.6.0 || ^17.0.0
     react-dom: ^16.6.0 || ^17.0.0
   checksum: 69d082670e7b09f2df1784d1d58f8361d7bd3f57f37f2f4155aaf4f6cace1c213bb25a4cea9e1bd4bfaeb56b1dc83f614f5f6e4713f9d2465cf3d716c0ec897b
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "react-hook-form@npm:7.1.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17
+  checksum: 6771367539d36a89be2fe83aaf9f1d565aa2af816575f2da19cf8cd619c65bff4de67884c5ea035177b637b3824d97afbb2a992404aefd67bf783f697760e991
   languageName: node
   linkType: hard
 
