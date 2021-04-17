@@ -74,6 +74,46 @@ comment on function public.next_available_client_number is E'@notNull\nNext auto
 
 ----
 
+create table public.client_assigned_mental_health_professional (
+  id uuid primary key default uuid_generate_v4(),
+
+  client_id                 uuid not null references public.client(id) on delete cascade,
+  mental_health_professional_id uuid not null references public.mental_health_professional(id),
+  unique(client_id, mental_health_professional_id),
+
+  created_at created_timestamptz not null
+);
+
+grant all on public.client_assigned_mental_health_professional to viewer;
+
+create function public.create_client_assigned_mental_health_professional(
+  client_id                     uuid,
+  mental_health_professional_id uuid
+) returns public.client_assigned_mental_health_professional as
+$$
+  insert into public.client_assigned_mental_health_professional (
+    client_id,
+    mental_health_professional_id
+  ) values (
+    create_client_assigned_mental_health_professional.client_id,
+    create_client_assigned_mental_health_professional.mental_health_professional_id
+  )
+  returning *
+$$
+language sql volatile;
+
+create function public.delete_client_assigned_mental_health_professional(
+  id uuid
+) returns public.client_assigned_mental_health_professional as
+$$
+  delete from public.client_assigned_mental_health_professional
+  where id = delete_client_assigned_mental_health_professional.id
+  returning *
+$$
+language sql volatile;
+
+----
+
 -- groups multiple clients
 create table public.group (
   id uuid primary key default uuid_generate_v4(),

@@ -13,7 +13,7 @@ export type AutocompleteProfessionalQueryResponse = {
             readonly rowId: string;
             readonly fullName: string;
         }>;
-    } | null;
+    };
 };
 export type AutocompleteProfessionalQuery = {
     readonly response: AutocompleteProfessionalQueryResponse;

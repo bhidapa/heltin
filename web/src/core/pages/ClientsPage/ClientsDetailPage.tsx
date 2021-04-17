@@ -21,6 +21,7 @@ import { Flex, Divider, Text, Button } from '@domonda/ui';
 
 // modules
 import { ClientEdit } from 'modules/Client/ClientEdit';
+import { ClientAssignedProfessionalsManage } from 'modules/Client/ClientAssignedProfessionalsManage';
 import { CaseStudyView } from 'modules/CaseStudy/CaseStudyView';
 
 export type ClientsDetailPageProps = RouteComponentProps<{ rowId: UUID }>;
@@ -39,6 +40,7 @@ export const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
           rowId
           fullName
           ...ClientEdit_client
+          ...ClientAssignedProfessionalsManage_client
           caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {
             nodes {
               rowId
@@ -63,15 +65,12 @@ export const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
           <ClientEdit client={client} />
         </Flex>
         <Flex item>
+          <ClientAssignedProfessionalsManage client={client} />
+        </Flex>
+        <Flex item>
           <Divider />
         </Flex>
-        <Flex
-          item
-          container
-          spacing="tiny"
-          justify="space-between"
-          align="center"
-        >
+        <Flex item container spacing="tiny" justify="space-between" align="center">
           <Flex item>
             <Text size="large" weight="medium">
               <FormattedMessage id="CASE_STUDIES" />

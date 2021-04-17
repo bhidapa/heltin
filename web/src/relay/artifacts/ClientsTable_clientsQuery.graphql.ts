@@ -13,7 +13,7 @@ export type ClientsTable_clientsQuery = {
                 readonly " $fragmentRefs": FragmentRefs<"ClientsTableRow_item">;
             };
         }>;
-    } | null;
+    };
     readonly " $refType": "ClientsTable_clientsQuery";
 };
 export type ClientsTable_clientsQuery$data = ClientsTable_clientsQuery;

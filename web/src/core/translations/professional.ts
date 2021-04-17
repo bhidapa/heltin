@@ -22,6 +22,18 @@ export const messages: Messages = {
     en: 'Therapists',
     hr: 'Terapeuti',
   },
+  ASSIGN_THERAPIST: {
+    en: 'Assign therapist',
+    hr: 'Dodijeli terapeuta',
+  },
+  ASSIGNED_THERAPISTS: {
+    en: 'Assigned therapists',
+    hr: 'Dodijeljeni terapeuti',
+  },
+  ASSIGNED_THERAPISTS_DESCRIPTION: {
+    en: 'Only assigned therapists can see this client',
+    hr: 'Isključivo dodijeljeni terapeuti imaju pristup ovom klijentu',
+  },
   CREATE_PROFESSIONAL: {
     en: 'Create professional',
     hr: 'Kreiraj profesionalca',
