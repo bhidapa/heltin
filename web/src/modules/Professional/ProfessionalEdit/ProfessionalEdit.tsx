@@ -28,6 +28,7 @@ import {
   FormSubmitErrorState,
   FormDateField,
 } from '@domonda/react-form';
+import { FormCheckboxField } from 'lib/FormFields';
 import { ProfessionalTypeSelectOptions } from '../ProfessionalTypeSelectOptions';
 import { GenderSelectOptions } from '../../GenderSelectOptions';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
@@ -35,11 +36,12 @@ import { makeLink } from 'lib/makeLink';
 import { usePromiseMutation } from 'relay/hooks';
 
 export interface ProfessionalEditProps {
+  viewerIsAdmin: boolean;
   professional: ProfessionalEdit_professional$key;
 }
 
 export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
-  const { professional: professionalKey } = props;
+  const { viewerIsAdmin, professional: professionalKey } = props;
 
   const professional = useFragment(
     graphql`
@@ -53,6 +55,7 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
         lastName
         fullName
         type
+        disabled
       }
     `,
     professionalKey,
@@ -132,6 +135,11 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
                 }
               </FormSubmitErrorState>
             </Flex>
+            {viewerIsAdmin && (
+              <Flex item>
+                <FormCheckboxField path="disabled" label={<FormattedMessage id="DISABLED" />} />
+              </Flex>
+            )}
             <Flex item>
               <FormSelectField path="type" required>
                 {({ selectProps }) => (

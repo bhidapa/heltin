@@ -29,14 +29,19 @@ import {
   FormSubmitHandler,
   FormDateField,
 } from '@domonda/react-form';
+import { FormCheckboxField } from 'lib/FormFields';
 import { ProfessionalTypeSelectOptions } from '../ProfessionalTypeSelectOptions';
 import { GenderSelectOptions } from '../../GenderSelectOptions';
 
 type FormValues = Omit<CreateProfessionalMutation['variables']['input'], 'userRowId'>;
 
-export interface ProfessionalCreateProps {}
+export interface ProfessionalCreateProps {
+  viewerIsAdmin: boolean;
+}
 
-export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
+export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = (props) => {
+  const { viewerIsAdmin } = props;
+
   const submit = useCallback<FormSubmitHandler<FormValues>>(async (values) => {
     const { createMentalHealthProfessional } = await createProfessionalMutation({
       input: values,
@@ -68,6 +73,7 @@ export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
             email: '',
             type: 'PSYCHOTHERAPIST',
             dateOfBirth: '',
+            disabled: false,
           }}
           onSubmit={submit}
         >
@@ -79,6 +85,11 @@ export const ProfessionalCreate: React.FC<ProfessionalCreateProps> = () => {
                 }
               </FormSubmitErrorState>
             </Flex>
+            {viewerIsAdmin && (
+              <Flex item>
+                <FormCheckboxField path="disabled" label={<FormattedMessage id="DISABLED" />} />
+              </Flex>
+            )}
             <Flex item>
               <FormSelectField path="type" required>
                 {({ selectProps }) => (

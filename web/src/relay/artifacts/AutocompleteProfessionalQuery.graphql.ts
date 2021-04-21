@@ -26,7 +26,7 @@ export type AutocompleteProfessionalQuery = {
 query AutocompleteProfessionalQuery(
   $searchText: String
 ) {
-  filterMentalHealthProfessionals(searchText: $searchText) {
+  filterMentalHealthProfessionals(searchText: $searchText, disabled: false) {
     nodes {
       id
       rowId
@@ -48,6 +48,11 @@ v1 = [
   {
     "alias": null,
     "args": [
+      {
+        "kind": "Literal",
+        "name": "disabled",
+        "value": false
+      },
       {
         "kind": "Variable",
         "name": "searchText",
@@ -113,14 +118,14 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "0a00812761cba368ab889f1d059bdc70",
+    "cacheID": "347bf275e02f1096d3ff57dab8841fc5",
     "id": null,
     "metadata": {},
     "name": "AutocompleteProfessionalQuery",
     "operationKind": "query",
-    "text": "query AutocompleteProfessionalQuery(\n  $searchText: String\n) {\n  filterMentalHealthProfessionals(searchText: $searchText) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n"
+    "text": "query AutocompleteProfessionalQuery(\n  $searchText: String\n) {\n  filterMentalHealthProfessionals(searchText: $searchText, disabled: false) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5c512b03299d7e7d4a9de195c8cef1d0';
+(node as any).hash = '1305720a7b12a7038192d04ea10d804e';
 export default node;

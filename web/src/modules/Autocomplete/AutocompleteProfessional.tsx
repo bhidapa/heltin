@@ -51,7 +51,7 @@ export const AutocompleteProfessional: React.FC<AutocompleteProfessionalProps> =
       environment={environment}
       query={graphql`
         query AutocompleteProfessionalQuery($searchText: String) {
-          filterMentalHealthProfessionals(searchText: $searchText) {
+          filterMentalHealthProfessionals(searchText: $searchText, disabled: false) {
             nodes {
               ...AutocompleteProfessional_item @relay(mask: false)
             }

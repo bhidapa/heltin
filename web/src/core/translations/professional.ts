@@ -86,6 +86,18 @@ export const messages: Messages = {
     en: 'Phonetician',
     hr: 'Fonetičar',
   },
+  [ProfessionalType.Neuropsychiatrist]: {
+    en: 'Neuropsychiatrist',
+    hr: 'Neuropsihijatar',
+  },
+  [ProfessionalType.ClinicalPsychologist]: {
+    en: 'Clinical psychologist',
+    hr: 'Klinički psiholog',
+  },
+  [ProfessionalType.Supervisor]: {
+    en: 'Supervisor',
+    hr: 'Supervizor',
+  },
   [ProfessionalType.Other]: {
     en: 'Other',
     hr: 'Ostalo',

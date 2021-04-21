@@ -96,6 +96,9 @@ create type public.mental_health_professional_type as enum (
   'PEDAGOGUE',
   'DEFECTOLOGIST',
   'PHONETICIAN',
+  'NEUROPSYCHIATRIST', -- neuropsihijatar
+  'CLINICAL_PSYCHOLOGIST',
+  'SUPERVISOR',
   'OTHER'
 );
 
@@ -115,6 +118,8 @@ create table public.mental_health_professional (
   unique(first_name, last_name, date_of_birth),
 
   gender public.gender not null,
+
+  disabled boolean not null default false,
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
@@ -146,6 +151,7 @@ create or replace function public.create_mental_health_professional(
   last_name     text,
   date_of_birth date,
   gender        public.gender,
+  disabled      boolean,
   title         text = null,
   user_id       uuid = null
 ) returns public.mental_health_professional as
@@ -158,6 +164,7 @@ $$
     last_name,
     date_of_birth,
     gender,
+    disabled,
     user_id
   ) values (
     create_mental_health_professional."type",
@@ -167,6 +174,7 @@ $$
     create_mental_health_professional.last_name,
     create_mental_health_professional.date_of_birth,
     create_mental_health_professional.gender,
+    create_mental_health_professional.disabled,
     create_mental_health_professional.user_id
   )
   returning *
@@ -183,6 +191,7 @@ create or replace function public.update_mental_health_professional(
   last_name     text,
   date_of_birth date,
   gender        public.gender,
+  disabled      boolean,
   title         text = null,
   user_id       uuid = null
 ) returns public.mental_health_professional as
@@ -196,6 +205,7 @@ $$
       last_name=update_mental_health_professional.last_name,
       date_of_birth=update_mental_health_professional.date_of_birth,
       gender=update_mental_health_professional.gender,
+      disabled=update_mental_health_professional.disabled,
       user_id=update_mental_health_professional.user_id,
       updated_at=now()
   where id = update_mental_health_professional.id

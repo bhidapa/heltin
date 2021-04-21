@@ -249,4 +249,8 @@ export const messages: Messages = {
     en: 'Files',
     hr: 'Fajlovi',
   },
+  DISABLED: {
+    en: 'Disabled',
+    hr: 'Onemogućen',
+  },
 };

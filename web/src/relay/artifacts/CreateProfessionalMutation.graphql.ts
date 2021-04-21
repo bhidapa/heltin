@@ -4,7 +4,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
-export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
+export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type CreateMentalHealthProfessionalInput = {
     clientMutationId?: string | null;
     type: MentalHealthProfessionalType;
@@ -13,6 +13,7 @@ export type CreateMentalHealthProfessionalInput = {
     lastName: string;
     dateOfBirth: string;
     gender: Gender;
+    disabled: boolean;
     title?: string | null;
     userRowId?: string | null;
 };

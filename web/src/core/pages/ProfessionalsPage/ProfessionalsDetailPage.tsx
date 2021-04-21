@@ -25,9 +25,12 @@ export const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (
     },
   } = props;
 
-  const { professional } = useLazyLoadQuery<ProfessionalsDetailPageQuery>(
+  const { viewer, professional } = useLazyLoadQuery<ProfessionalsDetailPageQuery>(
     graphql`
       query ProfessionalsDetailPageQuery($rowId: UUID!) {
+        viewer {
+          isAdmin
+        }
         professional: mentalHealthProfessionalByRowId(rowId: $rowId) {
           fullName
           ...ProfessionalEdit_professional
@@ -43,7 +46,7 @@ export const ProfessionalsDetailPage: React.FC<ProfessionalsDetailPageProps> = (
   return (
     <>
       <Helmet title={professional.fullName} />
-      <ProfessionalEdit professional={professional} />
+      <ProfessionalEdit viewerIsAdmin={viewer!.isAdmin} professional={professional} />
     </>
   );
 };

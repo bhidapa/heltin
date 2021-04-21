@@ -5,7 +5,7 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
-export type MentalHealthProfessionalType = "DEFECTOLOGIST" | "NEUROLOGIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER";
+export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type UpdateMentalHealthProfessionalInput = {
     clientMutationId?: string | null;
     rowId: string;
@@ -15,6 +15,7 @@ export type UpdateMentalHealthProfessionalInput = {
     lastName: string;
     dateOfBirth: string;
     gender: Gender;
+    disabled: boolean;
     title?: string | null;
     userRowId?: string | null;
 };
@@ -57,6 +58,7 @@ fragment ProfessionalEdit_professional on MentalHealthProfessional {
   lastName
   fullName
   type
+  disabled
 }
 */
 
@@ -202,6 +204,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "disabled",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "id",
                 "storageKey": null
               }
@@ -214,12 +223,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0bcf5aa8da1abcd21a3530dff12df288",
+    "cacheID": "a8c1da03aaf04a04e5276e813fbf5833",
     "id": null,
     "metadata": {},
     "name": "ProfessionalEditUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n}\n"
+    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n}\n"
   }
 };
 })();

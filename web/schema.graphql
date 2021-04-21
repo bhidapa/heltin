@@ -2478,6 +2478,7 @@ input CreateMentalHealthProfessionalInput {
   lastName: String!
   dateOfBirth: Date!
   gender: Gender!
+  disabled: Boolean!
   title: String
   userRowId: UUID
 }
@@ -3370,6 +3371,7 @@ type MentalHealthProfessional implements Node {
   lastName: String!
   dateOfBirth: Date!
   gender: Gender!
+  disabled: Boolean!
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -3476,6 +3478,9 @@ input MentalHealthProfessionalCondition {
   """Checks for equality with the object’s `gender` field."""
   gender: Gender
 
+  """Checks for equality with the object’s `disabled` field."""
+  disabled: Boolean
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
 
@@ -3532,6 +3537,8 @@ enum MentalHealthProfessionalsOrderBy {
   DATE_OF_BIRTH_DESC
   GENDER_ASC
   GENDER_DESC
+  DISABLED_ASC
+  DISABLED_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -3550,6 +3557,9 @@ enum MentalHealthProfessionalType {
   PEDAGOGUE
   DEFECTOLOGIST
   PHONETICIAN
+  NEUROPSYCHIATRIST
+  CLINICAL_PSYCHOLOGIST
+  SUPERVISOR
   OTHER
 }
 
@@ -4953,6 +4963,7 @@ type Query implements Node {
   filterMentalHealthProfessionals(
     searchText: String
     gender: Gender
+    disabled: Boolean
 
     """Only read the first `n` values of the set."""
     first: Int
@@ -5453,6 +5464,7 @@ input UpdateMentalHealthProfessionalInput {
   lastName: String!
   dateOfBirth: Date!
   gender: Gender!
+  disabled: Boolean!
   title: String
   userRowId: UUID
 }

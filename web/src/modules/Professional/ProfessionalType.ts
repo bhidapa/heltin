@@ -14,5 +14,8 @@ export enum ProfessionalType {
   Pedagogue = 'PEDAGOGUE',
   Defectologist = 'DEFECTOLOGIST',
   Phonetician = 'PHONETICIAN',
+  Neuropsychiatrist = 'NEUROPSYCHIATRIST',
+  ClinicalPsychologist = 'CLINICAL_PSYCHOLOGIST',
+  Supervisor = 'SUPERVISOR',
   Other = 'OTHER',
 }
