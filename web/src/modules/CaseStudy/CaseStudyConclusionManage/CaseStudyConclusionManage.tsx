@@ -84,9 +84,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     caseStudyConclusionKey,
   );
 
-  const createCaseStudyConclusion = usePromiseMutation<
-    CaseStudyConclusionManageCreateMutation
-  >(graphql`
+  const createCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageCreateMutation>(graphql`
     mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
       createCaseStudyConclusion(input: $input) {
         caseStudyConclusion {
@@ -96,9 +94,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     }
   `);
 
-  const updateCaseStudyConclusion = usePromiseMutation<
-    CaseStudyConclusionManageUpdateMutation
-  >(graphql`
+  const updateCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageUpdateMutation>(graphql`
     mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
       updateCaseStudyConclusion(input: $input) {
         caseStudyConclusion {
@@ -108,9 +104,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     }
   `);
 
-  const deleteCaseStudyConclusion = usePromiseMutation<
-    CaseStudyConclusionManageDeleteMutation
-  >(graphql`
+  const deleteCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageDeleteMutation>(graphql`
     mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
       deleteCaseStudyConclusion(input: $input) {
         clientMutationId

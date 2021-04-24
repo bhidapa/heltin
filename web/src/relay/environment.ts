@@ -69,4 +69,5 @@ export const environment = new Environment({
 });
 
 // Enable the "precise type refinement" feature flag. Relay v10+ only.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 require('relay-runtime').RelayFeatureFlags.ENABLE_PRECISE_TYPE_REFINEMENT = true;

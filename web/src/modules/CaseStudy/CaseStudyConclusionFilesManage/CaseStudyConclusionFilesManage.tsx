@@ -62,9 +62,7 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
     caseStudyConclusionFilesKey,
   );
 
-  const createCaseStudyConclusionFile = usePromiseMutation<
-    CaseStudyConclusionFilesManageCreateMutation
-  >(graphql`
+  const createCaseStudyConclusionFile = usePromiseMutation<CaseStudyConclusionFilesManageCreateMutation>(graphql`
     mutation CaseStudyConclusionFilesManageCreateMutation(
       $input: CreateCaseStudyConclusionFileInput!
     ) {
@@ -80,9 +78,7 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
     }
   `);
 
-  const deleteCaseStudyConclusionFile = usePromiseMutation<
-    CaseStudyConclusionFilesManageDeleteMutation
-  >(graphql`
+  const deleteCaseStudyConclusionFile = usePromiseMutation<CaseStudyConclusionFilesManageDeleteMutation>(graphql`
     mutation CaseStudyConclusionFilesManageDeleteMutation(
       $input: DeleteCaseStudyConclusionFileInput!
     ) {
