@@ -43,6 +43,7 @@ create table public.client (
 
 grant all on public.client to viewer;
 
+create index client_created_by_idx on public.client (created_by);
 create index client_fulltext_idx on public.client using gin(
   to_tsvector('english',
     "number" || ' ' ||
@@ -86,6 +87,11 @@ create table public.client_assigned_mental_health_professional (
 );
 
 grant select, insert, delete on public.client_assigned_mental_health_professional to viewer;
+
+create index client_assigned_mental_health_professional_client_id_idx on public.client_assigned_mental_health_professional (client_id);
+create index client_assigned_mental_health_professional_professional_id_idx on public.client_assigned_mental_health_professional (mental_health_professional_id);
+
+----
 
 create function public.create_client_assigned_mental_health_professional(
   client_id                     uuid,

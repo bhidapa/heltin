@@ -3,7 +3,8 @@ returns uuid as $$
 begin
   return nullif(current_setting('session.user_id', true), '')::uuid;
 end;
-$$ language plpgsql stable;
+$$ language plpgsql stable
+cost 100000; -- so that the planner calls the function as little as possible
 
 ----
 

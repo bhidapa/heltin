@@ -58,7 +58,7 @@ create or replace function public.user_is_admin(
 $$
   select admin from private.user as private_user where private_user.id = "user".id
 $$
-language sql stable;
+language sql stable strict;
 
 comment on function public.user_is_admin is '@notNull';
 
@@ -83,6 +83,18 @@ create table public.assistant (
 );
 
 grant select, update on table public.assistant to viewer;
+
+create index assistant_user_id_idx on public.assistant (user_id);
+
+----
+
+create or replace function public.user_is_assistant(
+  "user" public.user
+) returns boolean as $$
+  select exists(select from public.assistant where user_id = "user".id)
+$$ language sql stable strict;
+
+comment on function public.user_is_assistant is '@notNull';
 
 ----
 
@@ -126,6 +138,18 @@ create table public.mental_health_professional (
 );
 
 grant all on table public.mental_health_professional to viewer;
+
+create index mental_health_professional_user_id_idx on public.mental_health_professional (user_id);
+
+----
+
+create or replace function public.user_is_mental_health_professional(
+  "user" public.user
+) returns boolean as $$
+  select exists(select from public.mental_health_professional where user_id = "user".id)
+$$ language sql stable strict;
+
+comment on function public.user_is_mental_health_professional is '@notNull';
 
 ----
 

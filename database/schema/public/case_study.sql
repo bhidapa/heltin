@@ -16,6 +16,11 @@ create table public.case_study (
 
 grant all on public.case_study to viewer;
 
+create index case_study_client_id_idx on public.case_study (client_id);
+create index case_study_created_by_idx on public.case_study (created_by);
+
+----
+
 create or replace function public.update_case_study(
   id          uuid,
   title text
@@ -73,6 +78,11 @@ grant select, insert, delete on public.case_study_mental_health_professional to 
 
 -- only one primary mental health professional per case study
 create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id, "primary") where ("primary");
+
+create index case_study_mental_health_professional_case_study_id_idx on public.case_study_mental_health_professional (case_study_id);
+create index case_study_mental_health_professional_professional_id_idx on public.case_study_mental_health_professional (mental_health_professional_id);
+
+----
 
 create or replace function public.create_case_study_mental_health_professional(
   case_study_id                 uuid,
