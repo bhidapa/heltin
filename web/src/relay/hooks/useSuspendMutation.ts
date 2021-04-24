@@ -79,11 +79,12 @@ export function useTransitionMutation<M extends MutationParameters>(
   config?: Omit<UseSuspendMutationConfig<M>, 'variables'>,
   deps?: DependencyList,
 ): [(config: UseSuspendMutationConfig<M>) => Disposable, boolean] {
-  const [startTransition, isInFlight] = unstable_useTransition({ busyMinDurationMs: Infinity });
+  const [isInFlight, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
   const commit = useSuspendMutation<M>(mutation, config);
   const transitionCommit = useCallback<(config: UseSuspendMutationConfig<M>) => Disposable>(
     (commitConfig) => {
       const disposableRef = { current: null as Disposable | null };
+      // @ts-expect-error tuple order of useTransition has been flipped
       startTransition(() => {
         disposableRef.current = commit(commitConfig);
       });
@@ -97,7 +98,11 @@ export function useTransitionMutation<M extends MutationParameters>(
     },
     [commit, ...(deps ?? [])],
   );
-  return [transitionCommit, isInFlight];
+  return [
+    transitionCommit,
+    // @ts-expect-error tuple order of useTransition has been flipped
+    isInFlight,
+  ];
 }
 
 export function usePromiseMutation<M extends MutationParameters>(
