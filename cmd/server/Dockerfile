@@ -1,5 +1,5 @@
 # build server
-FROM golang:1-alpine as server
+FROM golang:1.16-alpine as server
 
 WORKDIR $GOPATH/src/github.com/bhidapa/heltin/cmd/server
 
@@ -15,7 +15,7 @@ RUN set -eux; \
   go build -v -a -ldflags='-s -w' -o /heltin-server
 
 # build web
-FROM node:14 as web 
+FROM node:15 as web 
 
 WORKDIR /web
 
@@ -33,7 +33,7 @@ COPY web .
 RUN yarn build
 
 # server
-FROM alpine:3
+FROM alpine:3.13
 
 COPY --from=server /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=server /heltin-server /usr/local/bin/
