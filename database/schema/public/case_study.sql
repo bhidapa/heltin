@@ -15,19 +15,6 @@ create table public.case_study (
 
 grant all on public.case_study to viewer;
 
-create or replace function public.create_case_study(
-  title text,
-  -- either client or group, but not both
-  client_id   uuid = null,
-  group_id    uuid = null
-) returns public.case_study as
-$$
-  insert into public.case_study (client_id, group_id, title)
-    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title)
-  returning *
-$$
-language sql volatile;
-
 create or replace function public.update_case_study(
   id          uuid,
   title text
@@ -119,6 +106,39 @@ $$
   returning *
 $$
 language sql volatile;
+
+----
+
+create or replace function public.create_case_study(
+  title text,
+  -- either client or group, but not both
+  client_id   uuid = null,
+  group_id    uuid = null
+) returns public.case_study as
+$$
+declare
+  added_case_study public.case_study;
+  mental_health_professional_id uuid;
+begin
+  select id into mental_health_professional_id
+  from public.mental_health_professional
+  where user_id = public.viewer_user_id();
+  if mental_health_professional_id is null then
+    raise exception 'Only mental health professionals can create case studies';
+  end if;
+
+  insert into public.case_study (client_id, group_id, title)
+    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title)
+  returning * into added_case_study;
+
+  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary")
+    -- only mental health professionals should be creating case studies
+    values (added_case_study.id, mental_health_professional_id, true);
+
+  return added_case_study;
+end
+$$
+language plpgsql volatile;
 
 ----
 
