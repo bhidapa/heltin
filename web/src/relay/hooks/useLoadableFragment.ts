@@ -6,7 +6,7 @@
 
 import { unstable_useTransition } from 'react';
 import { GraphQLTaggedNode, OperationType, FragmentReference } from 'relay-runtime';
-import { useRefetchableFragment, usePaginationFragment, RefetchFnDynamic } from 'react-relay/hooks';
+import { useRefetchableFragment, usePaginationFragment } from 'react-relay/hooks';
 
 // copied from relay
 type KeyType<TData = unknown> = Readonly<{
@@ -17,17 +17,15 @@ type KeyType<TData = unknown> = Readonly<{
 export function useLoadableRefetchableFragment<O extends OperationType, K extends KeyType>(
   fragmentInput: GraphQLTaggedNode,
   parentFragmentRef: K,
-): {
-  data: NonNullable<K[' $data']>;
-  isRefetching: boolean;
-  refetch: RefetchFnDynamic<O, K>;
-} {
-  const [startTransition, isRefetching] = unstable_useTransition({ busyMinDurationMs: Infinity });
+) {
+  const [isRefetching, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
   const [data, refetch] = useRefetchableFragment<O, K>(fragmentInput, parentFragmentRef);
   return {
     data: data as any,
-    isRefetching,
+    // @ts-expect-error tuple order of useTransition has been flipped
+    isRefetching: isRefetching as boolean,
     refetch: (((...args: any[]) =>
+      // @ts-expect-error tuple order of useTransition has been flipped
       startTransition(() => (refetch as any)(...args))) as any) as typeof refetch,
   };
 }
@@ -36,12 +34,14 @@ export function useLoadablePaginationFragment<O extends OperationType, K extends
   fragmentInput: GraphQLTaggedNode,
   parentFragmentRef: K,
 ) {
-  const [startTransition, isRefetching] = unstable_useTransition({ busyMinDurationMs: Infinity });
+  const [isRefetching, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
   const { refetch, ...fragment } = usePaginationFragment<O, K>(fragmentInput, parentFragmentRef);
   return {
     ...fragment,
-    isRefetching,
+    // @ts-expect-error tuple order of useTransition has been flipped
+    isRefetching: isRefetching as boolean,
     refetch: ((...args: any[]) => {
+      // @ts-expect-error tuple order of useTransition has been flipped
       startTransition(() => {
         (refetch as any)(...args);
       });
