@@ -8,6 +8,7 @@ export type CaseStudyTreatmentManage_caseStudyTreatment = {
     readonly rowId: string;
     readonly title: string;
     readonly description: string | null;
+    readonly privateDescription: string | null;
     readonly score: number | null;
     readonly startedAt: string;
     readonly endedAt: string;
@@ -53,6 +54,13 @@ const node: ReaderFragment = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "privateDescription",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "score",
       "storageKey": null
     },
@@ -81,5 +89,5 @@ const node: ReaderFragment = {
   "type": "CaseStudyTreatment",
   "abstractKey": null
 };
-(node as any).hash = '770296e01a2d5f187f80d9f7b11efff9';
+(node as any).hash = '9a03fc6438662ffd63e9d1be0f3c23ea';
 export default node;

@@ -195,6 +195,10 @@ enum CaseHistoriesOrderBy {
   PTSP_DESC
   PARENTS_IN_JAIL_ASC
   PARENTS_IN_JAIL_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
+  UPDATED_BY_ASC
+  UPDATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -240,6 +244,8 @@ type CaseHistory implements Node {
   familyHeredity: String
   ptsp: String
   parentsInJail: CaseHistoryParentsInJailType
+  createdBy: UUID!
+  updatedBy: UUID
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -250,6 +256,12 @@ type CaseHistory implements Node {
   Reads a single `CaseStudyTreatment` that is related to this `CaseHistory`.
   """
   caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
+
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByUpdatedBy: User
 
   """Reads and enables pagination through a set of `CaseHistoryFile`."""
   caseHistoryFilesByCaseHistoryRowId(
@@ -428,6 +440,12 @@ input CaseHistoryCondition {
 
   """Checks for equality with the object’s `parentsInJail` field."""
   parentsInJail: CaseHistoryParentsInJailType
+
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
+  """Checks for equality with the object’s `updatedBy` field."""
+  updatedBy: UUID
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
@@ -646,6 +664,10 @@ enum CaseStudiesOrderBy {
   GROUP_ID_DESC
   TITLE_ASC
   TITLE_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
+  UPDATED_BY_ASC
+  UPDATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -663,6 +685,8 @@ type CaseStudy implements Node {
   clientRowId: UUID
   groupRowId: UUID
   title: String!
+  createdBy: UUID!
+  updatedBy: UUID
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -671,6 +695,12 @@ type CaseStudy implements Node {
 
   """Reads a single `Group` that is related to this `CaseStudy`."""
   groupByGroupRowId: Group
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByUpdatedBy: User
 
   """Reads and enables pagination through a set of `CaseStudyRelation`."""
   caseStudyRelationsByCaseStudyRowId(
@@ -921,6 +951,8 @@ type CaseStudyConclusion implements Node {
   type: CaseStudyConclusionType!
   description: String!
   concludedAt: Datetime!
+  createdBy: UUID!
+  updatedBy: UUID
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -928,6 +960,12 @@ type CaseStudyConclusion implements Node {
   Reads a single `CaseStudy` that is related to this `CaseStudyConclusion`.
   """
   caseStudyByCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByUpdatedBy: User
 
   """
   Reads and enables pagination through a set of `CaseStudyConclusionFile`.
@@ -981,6 +1019,12 @@ input CaseStudyConclusionCondition {
   """Checks for equality with the object’s `concludedAt` field."""
   concludedAt: Datetime
 
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
+  """Checks for equality with the object’s `updatedBy` field."""
+  updatedBy: UUID
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
 
@@ -997,7 +1041,6 @@ type CaseStudyConclusionFile implements Node {
   caseStudyConclusionRowId: UUID!
   fileRowId: UUID!
   createdAt: CreatedTimestamptz!
-  updatedAt: UpdatedTimestamptz!
 
   """
   Reads a single `CaseStudyConclusion` that is related to this `CaseStudyConclusionFile`.
@@ -1028,9 +1071,6 @@ input CaseStudyConclusionFileCondition {
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: UpdatedTimestamptz
 }
 
 """A connection to a list of `CaseStudyConclusionFile` values."""
@@ -1072,8 +1112,6 @@ enum CaseStudyConclusionFilesOrderBy {
   FILE_ID_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1119,6 +1157,10 @@ enum CaseStudyConclusionsOrderBy {
   DESCRIPTION_DESC
   CONCLUDED_AT_ASC
   CONCLUDED_AT_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
+  UPDATED_BY_ASC
+  UPDATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -1151,6 +1193,12 @@ input CaseStudyCondition {
   """Checks for equality with the object’s `title` field."""
   title: String
 
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
+  """Checks for equality with the object’s `updatedBy` field."""
+  updatedBy: UUID
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
 
@@ -1167,8 +1215,8 @@ type CaseStudyMentalHealthProfessional implements Node {
   caseStudyRowId: UUID!
   mentalHealthProfessionalRowId: UUID!
   primary: Boolean!
+  createdBy: UUID!
   createdAt: CreatedTimestamptz!
-  updatedAt: UpdatedTimestamptz!
 
   """
   Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
@@ -1179,6 +1227,11 @@ type CaseStudyMentalHealthProfessional implements Node {
   Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
   """
   mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
+
+  """
+  Reads a single `User` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  userByCreatedBy: User!
 }
 
 """
@@ -1200,11 +1253,11 @@ input CaseStudyMentalHealthProfessionalCondition {
   """Checks for equality with the object’s `primary` field."""
   primary: Boolean
 
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: UpdatedTimestamptz
 }
 
 """A connection to a list of `CaseStudyMentalHealthProfessional` values."""
@@ -1246,10 +1299,10 @@ enum CaseStudyMentalHealthProfessionalsOrderBy {
   MENTAL_HEALTH_PROFESSIONAL_ID_DESC
   PRIMARY_ASC
   PRIMARY_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1258,8 +1311,8 @@ type CaseStudyRelation {
   caseStudyRowId: UUID!
   relatedCaseStudyRowId: UUID!
   description: String
+  createdBy: UUID!
   createdAt: CreatedTimestamptz!
-  updatedAt: UpdatedTimestamptz!
 
   """
   Reads a single `CaseStudy` that is related to this `CaseStudyRelation`.
@@ -1270,6 +1323,9 @@ type CaseStudyRelation {
   Reads a single `CaseStudy` that is related to this `CaseStudyRelation`.
   """
   caseStudyByRelatedCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyRelation`."""
+  userByCreatedBy: User!
 }
 
 """
@@ -1286,11 +1342,11 @@ input CaseStudyRelationCondition {
   """Checks for equality with the object’s `description` field."""
   description: String
 
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: UpdatedTimestamptz
 }
 
 """A connection to a list of `CaseStudyRelation` values."""
@@ -1330,10 +1386,10 @@ enum CaseStudyRelationsOrderBy {
   RELATED_CASE_STUDY_ID_DESC
   DESCRIPTION_ASC
   DESCRIPTION_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
 }
 
 type CaseStudyTreatment implements Node {
@@ -1348,7 +1404,10 @@ type CaseStudyTreatment implements Node {
   endedAt: Datetime!
   title: String!
   description: String
+  privateDescription: String
   score: Int
+  createdBy: UUID!
+  updatedBy: UUID
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -1356,6 +1415,12 @@ type CaseStudyTreatment implements Node {
   Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
   """
   caseStudyByCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByUpdatedBy: User
 
   """
   Reads and enables pagination through a set of `CaseStudyTreatmentFile`.
@@ -1506,8 +1571,17 @@ input CaseStudyTreatmentCondition {
   """Checks for equality with the object’s `description` field."""
   description: String
 
+  """Checks for equality with the object’s `privateDescription` field."""
+  privateDescription: String
+
   """Checks for equality with the object’s `score` field."""
   score: Int
+
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
+  """Checks for equality with the object’s `updatedBy` field."""
+  updatedBy: UUID
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
@@ -1525,7 +1599,6 @@ type CaseStudyTreatmentFile implements Node {
   caseStudyTreatmentRowId: UUID!
   fileRowId: UUID!
   createdAt: CreatedTimestamptz!
-  updatedAt: UpdatedTimestamptz!
 
   """
   Reads a single `CaseStudyTreatment` that is related to this `CaseStudyTreatmentFile`.
@@ -1554,9 +1627,6 @@ input CaseStudyTreatmentFileCondition {
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: UpdatedTimestamptz
 }
 
 """A connection to a list of `CaseStudyTreatmentFile` values."""
@@ -1598,8 +1668,6 @@ enum CaseStudyTreatmentFilesOrderBy {
   FILE_ID_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1649,8 +1717,14 @@ enum CaseStudyTreatmentsOrderBy {
   TITLE_DESC
   DESCRIPTION_ASC
   DESCRIPTION_DESC
+  PRIVATE_DESCRIPTION_ASC
+  PRIVATE_DESCRIPTION_DESC
   SCORE_ASC
   SCORE_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
+  UPDATED_BY_ASC
+  UPDATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -1676,12 +1750,16 @@ type Client implements Node {
   address: String!
   sentBy: ClientSentBy!
   createdBy: UUID!
+  updatedBy: UUID
   discrete: Boolean!
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
   """Reads a single `User` that is related to this `Client`."""
   userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByUpdatedBy: User
 
   """
   Reads and enables pagination through a set of `ClientAssignedMentalHealthProfessional`.
@@ -1924,6 +2002,9 @@ input ClientCondition {
   """Checks for equality with the object’s `createdBy` field."""
   createdBy: UUID
 
+  """Checks for equality with the object’s `updatedBy` field."""
+  updatedBy: UUID
+
   """Checks for equality with the object’s `discrete` field."""
   discrete: Boolean
 
@@ -2001,6 +2082,8 @@ enum ClientsOrderBy {
   SENT_BY_DESC
   CREATED_BY_ASC
   CREATED_BY_DESC
+  UPDATED_BY_ASC
+  UPDATED_BY_DESC
   DISCRETE_ASC
   DISCRETE_DESC
   CREATED_AT_ASC
@@ -2110,6 +2193,12 @@ type CreateCaseHistoryPayload {
   """
   caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
 
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseHistory`. May be used by Relay 1."""
   caseHistoryEdge(
     """The method to use when ordering `CaseHistory`."""
@@ -2192,6 +2281,12 @@ type CreateCaseStudyConclusionPayload {
   """
   caseStudyByCaseStudyRowId: CaseStudy!
 
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
   caseStudyConclusionEdge(
     """The method to use when ordering `CaseStudyConclusion`."""
@@ -2248,6 +2343,11 @@ type CreateCaseStudyMentalHealthProfessionalPayload {
   mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
 
   """
+  Reads a single `User` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  userByCreatedBy: User!
+
+  """
   An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
   """
   caseStudyMentalHealthProfessionalEdge(
@@ -2275,6 +2375,12 @@ type CreateCaseStudyPayload {
 
   """Reads a single `Group` that is related to this `CaseStudy`."""
   groupByGroupRowId: Group
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByUpdatedBy: User
 
   """An edge for our `CaseStudy`. May be used by Relay 1."""
   caseStudyEdge(
@@ -2339,6 +2445,7 @@ input CreateCaseStudyTreatmentInput {
   endedAt: Datetime!
   title: String!
   description: String
+  privateDescription: String
   score: Int
 }
 
@@ -2360,6 +2467,12 @@ type CreateCaseStudyTreatmentPayload {
   Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
   """
   caseStudyByCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByUpdatedBy: User
 
   """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
   caseStudyTreatmentEdge(
@@ -2454,6 +2567,9 @@ type CreateClientPayload {
 
   """Reads a single `User` that is related to this `Client`."""
   userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByUpdatedBy: User
 
   """An edge for our `Client`. May be used by Relay 1."""
   clientEdge(
@@ -2592,6 +2708,12 @@ type DeleteCaseHistoryPayload {
   """
   caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
 
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseHistory`. May be used by Relay 1."""
   caseHistoryEdge(
     """The method to use when ordering `CaseHistory`."""
@@ -2669,6 +2791,12 @@ type DeleteCaseStudyConclusionPayload {
   """
   caseStudyByCaseStudyRowId: CaseStudy!
 
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
   caseStudyConclusionEdge(
     """The method to use when ordering `CaseStudyConclusion`."""
@@ -2721,6 +2849,11 @@ type DeleteCaseStudyMentalHealthProfessionalPayload {
   mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
 
   """
+  Reads a single `User` that is related to this `CaseStudyMentalHealthProfessional`.
+  """
+  userByCreatedBy: User!
+
+  """
   An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
   """
   caseStudyMentalHealthProfessionalEdge(
@@ -2748,6 +2881,12 @@ type DeleteCaseStudyPayload {
 
   """Reads a single `Group` that is related to this `CaseStudy`."""
   groupByGroupRowId: Group
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByUpdatedBy: User
 
   """An edge for our `CaseStudy`. May be used by Relay 1."""
   caseStudyEdge(
@@ -2825,6 +2964,12 @@ type DeleteCaseStudyTreatmentPayload {
   Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
   """
   caseStudyByCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByUpdatedBy: User
 
   """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
   caseStudyTreatmentEdge(
@@ -2909,6 +3054,9 @@ type DeleteClientPayload {
   """Reads a single `User` that is related to this `Client`."""
   userByCreatedBy: User!
 
+  """Reads a single `User` that is related to this `Client`."""
+  userByUpdatedBy: User
+
   """An edge for our `Client`. May be used by Relay 1."""
   clientEdge(
     """The method to use when ordering `Client`."""
@@ -2939,6 +3087,9 @@ type DeleteFilePayload {
   Our root query field type. Allows us to run any query from our mutation payload.
   """
   query: Query
+
+  """Reads a single `User` that is related to this `File`."""
+  userByCreatedBy: User!
 
   """An edge for our `File`. May be used by Relay 1."""
   fileEdge(
@@ -2994,8 +3145,11 @@ type File implements Node {
   rowId: UUID!
   name: String!
   data: Base64EncodedBinary!
+  createdBy: UUID!
   createdAt: CreatedTimestamptz!
-  updatedAt: UpdatedTimestamptz!
+
+  """Reads a single `User` that is related to this `File`."""
+  userByCreatedBy: User!
 
   """
   Reads and enables pagination through a set of `CaseStudyTreatmentFile`.
@@ -3102,11 +3256,11 @@ input FileCondition {
   """Checks for equality with the object’s `data` field."""
   data: Base64EncodedBinary
 
+  """Checks for equality with the object’s `createdBy` field."""
+  createdBy: UUID
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
-
-  """Checks for equality with the object’s `updatedAt` field."""
-  updatedAt: UpdatedTimestamptz
 }
 
 """A connection to a list of `File` values."""
@@ -3144,10 +3298,10 @@ enum FilesOrderBy {
   NAME_DESC
   DATA_ASC
   DATA_DESC
+  CREATED_BY_ASC
+  CREATED_BY_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
-  UPDATED_AT_ASC
-  UPDATED_AT_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -4230,12 +4384,6 @@ type Mutation {
     """
     input: UpdateCaseStudyConclusionInput!
   ): UpdateCaseStudyConclusionPayload
-  updateCaseStudyMentalHealthProfessional(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateCaseStudyMentalHealthProfessionalInput!
-  ): UpdateCaseStudyMentalHealthProfessionalPayload
   updateCaseStudyTreatment(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -5232,6 +5380,12 @@ type UpdateCaseHistoryPayload {
   """
   caseStudyTreatmentByCaseStudyTreatmentRowId: CaseStudyTreatment
 
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseHistory`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseHistory`. May be used by Relay 1."""
   caseHistoryEdge(
     """The method to use when ordering `CaseHistory`."""
@@ -5271,6 +5425,12 @@ type UpdateCaseStudyConclusionPayload {
   """
   caseStudyByCaseStudyRowId: CaseStudy!
 
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyConclusion`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseStudyConclusion`. May be used by Relay 1."""
   caseStudyConclusionEdge(
     """The method to use when ordering `CaseStudyConclusion`."""
@@ -5287,50 +5447,6 @@ input UpdateCaseStudyInput {
   clientMutationId: String
   rowId: UUID!
   title: String!
-}
-
-"""All input for the `updateCaseStudyMentalHealthProfessional` mutation."""
-input UpdateCaseStudyMentalHealthProfessionalInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  rowId: UUID!
-  primary: Boolean!
-}
-
-"""The output of our `updateCaseStudyMentalHealthProfessional` mutation."""
-type UpdateCaseStudyMentalHealthProfessionalPayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  caseStudyMentalHealthProfessional: CaseStudyMentalHealthProfessional
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """
-  Reads a single `CaseStudy` that is related to this `CaseStudyMentalHealthProfessional`.
-  """
-  caseStudyByCaseStudyRowId: CaseStudy!
-
-  """
-  Reads a single `MentalHealthProfessional` that is related to this `CaseStudyMentalHealthProfessional`.
-  """
-  mentalHealthProfessionalByMentalHealthProfessionalRowId: MentalHealthProfessional!
-
-  """
-  An edge for our `CaseStudyMentalHealthProfessional`. May be used by Relay 1.
-  """
-  caseStudyMentalHealthProfessionalEdge(
-    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
-    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
-  ): CaseStudyMentalHealthProfessionalsEdge
 }
 
 """The output of our `updateCaseStudy` mutation."""
@@ -5353,6 +5469,12 @@ type UpdateCaseStudyPayload {
   """Reads a single `Group` that is related to this `CaseStudy`."""
   groupByGroupRowId: Group
 
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudy`."""
+  userByUpdatedBy: User
+
   """An edge for our `CaseStudy`. May be used by Relay 1."""
   caseStudyEdge(
     """The method to use when ordering `CaseStudy`."""
@@ -5373,6 +5495,7 @@ input UpdateCaseStudyTreatmentInput {
   endedAt: Datetime!
   title: String!
   description: String
+  privateDescription: String
   score: Int
 }
 
@@ -5394,6 +5517,12 @@ type UpdateCaseStudyTreatmentPayload {
   Reads a single `CaseStudy` that is related to this `CaseStudyTreatment`.
   """
   caseStudyByCaseStudyRowId: CaseStudy!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `CaseStudyTreatment`."""
+  userByUpdatedBy: User
 
   """An edge for our `CaseStudyTreatment`. May be used by Relay 1."""
   caseStudyTreatmentEdge(
@@ -5439,6 +5568,9 @@ type UpdateClientPayload {
 
   """Reads a single `User` that is related to this `Client`."""
   userByCreatedBy: User!
+
+  """Reads a single `User` that is related to this `Client`."""
+  userByUpdatedBy: User
 
   """An edge for our `Client`. May be used by Relay 1."""
   clientEdge(
@@ -5573,6 +5705,35 @@ type User implements Node {
     condition: MentalHealthProfessionalCondition
   ): MentalHealthProfessionalsConnection! @deprecated(reason: "Please use mentalHealthProfessionalByUserRowId instead")
 
+  """Reads and enables pagination through a set of `File`."""
+  filesByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `File`."""
+    orderBy: [FilesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: FileCondition
+  ): FilesConnection!
+
   """Reads and enables pagination through a set of `Client`."""
   clientsByCreatedBy(
     """Only read the first `n` values of the set."""
@@ -5601,6 +5762,327 @@ type User implements Node {
     """
     condition: ClientCondition
   ): ClientsConnection!
+
+  """Reads and enables pagination through a set of `Client`."""
+  clientsByUpdatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `Client`."""
+    orderBy: [ClientsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: ClientCondition
+  ): ClientsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudy`."""
+  caseStudiesByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyCondition
+  ): CaseStudiesConnection!
+
+  """Reads and enables pagination through a set of `CaseStudy`."""
+  caseStudiesByUpdatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudy`."""
+    orderBy: [CaseStudiesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyCondition
+  ): CaseStudiesConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyRelation`."""
+  caseStudyRelationsByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyRelation`."""
+    orderBy: [CaseStudyRelationsOrderBy!] = [NATURAL]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyRelationCondition
+  ): CaseStudyRelationsConnection!
+
+  """
+  Reads and enables pagination through a set of `CaseStudyMentalHealthProfessional`.
+  """
+  caseStudyMentalHealthProfessionalsByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyMentalHealthProfessional`."""
+    orderBy: [CaseStudyMentalHealthProfessionalsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyMentalHealthProfessionalCondition
+  ): CaseStudyMentalHealthProfessionalsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyTreatment`."""
+  caseStudyTreatmentsByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentCondition
+  ): CaseStudyTreatmentsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyTreatment`."""
+  caseStudyTreatmentsByUpdatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyTreatment`."""
+    orderBy: [CaseStudyTreatmentsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyTreatmentCondition
+  ): CaseStudyTreatmentsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyConclusion`."""
+  caseStudyConclusionsByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionCondition
+  ): CaseStudyConclusionsConnection!
+
+  """Reads and enables pagination through a set of `CaseStudyConclusion`."""
+  caseStudyConclusionsByUpdatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseStudyConclusion`."""
+    orderBy: [CaseStudyConclusionsOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseStudyConclusionCondition
+  ): CaseStudyConclusionsConnection!
+
+  """Reads and enables pagination through a set of `CaseHistory`."""
+  caseHistoriesByCreatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryCondition
+  ): CaseHistoriesConnection!
+
+  """Reads and enables pagination through a set of `CaseHistory`."""
+  caseHistoriesByUpdatedBy(
+    """Only read the first `n` values of the set."""
+    first: Int
+
+    """Only read the last `n` values of the set."""
+    last: Int
+
+    """
+    Skip the first `n` values from our `after` cursor, an alternative to cursor
+    based pagination. May not be used with `last`.
+    """
+    offset: Int
+
+    """Read all values in the set before (above) this cursor."""
+    before: Cursor
+
+    """Read all values in the set after (below) this cursor."""
+    after: Cursor
+
+    """The method to use when ordering `CaseHistory`."""
+    orderBy: [CaseHistoriesOrderBy!] = [PRIMARY_KEY_ASC]
+
+    """
+    A condition to be used in determining which values should be returned by the collection.
+    """
+    condition: CaseHistoryCondition
+  ): CaseHistoriesConnection!
   isAdmin: Boolean!
 }
 

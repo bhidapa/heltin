@@ -38,6 +38,7 @@ import { FormCheckboxField, FormTextAreaField, FormInputField } from 'lib/FormFi
 interface FormValues {
   title: string;
   description: string | null;
+  privateDescription: string | null;
   score: number | null;
   startedAt: Date;
   endedAt: Date;
@@ -52,6 +53,7 @@ export interface CaseStudyTreatmentManageProps {
 const defaultCreateTreatmentValues: FormValues = {
   title: (null as unknown) as string,
   description: null,
+  privateDescription: null,
   score: null,
   startedAt: new Date(),
   endedAt: addHours(new Date(), 1),
@@ -82,6 +84,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
         rowId
         title
         description
+        privateDescription
         score
         startedAt
         endedAt
@@ -91,9 +94,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     caseStudyTreatmentKey,
   );
 
-  const createCaseStudyTreatment = usePromiseMutation<
-    CaseStudyTreatmentManageCreateMutation
-  >(graphql`
+  const createCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageCreateMutation>(graphql`
     mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
       createCaseStudyTreatment(input: $input) {
         caseStudyTreatment {
@@ -103,9 +104,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     }
   `);
 
-  const updateCaseStudyTreatment = usePromiseMutation<
-    CaseStudyTreatmentManageUpdateMutation
-  >(graphql`
+  const updateCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageUpdateMutation>(graphql`
     mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
       updateCaseStudyTreatment(input: $input) {
         caseStudyTreatment {
@@ -115,9 +114,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     }
   `);
 
-  const deleteCaseStudyTreatment = usePromiseMutation<
-    CaseStudyTreatmentManageDeleteMutation
-  >(graphql`
+  const deleteCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageDeleteMutation>(graphql`
     mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
       deleteCaseStudyTreatment(input: $input) {
         clientMutationId
@@ -316,6 +313,13 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
                 rows={6}
                 path="description"
                 label={<FormattedMessage id="DESCRIPTION" />}
+              />
+            </Flex>
+            <Flex item>
+              <FormTextAreaField
+                rows={6}
+                path="privateDescription"
+                label={<FormattedMessage id="PRIVATE_DESCRIPTION" />}
               />
             </Flex>
             <Flex item container justify="flex-end" spacing="tiny">

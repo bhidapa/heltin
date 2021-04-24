@@ -14,7 +14,6 @@ import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 import { graphql, useFragment } from 'react-relay/hooks';
 import { CaseStudyProfessionalsManage_caseStudy$key } from 'relay/artifacts/CaseStudyProfessionalsManage_caseStudy.graphql';
 import { createCaseStudyProfessionalMutation } from 'relay/mutations/CreateCaseStudyProfessional';
-import { updateCaseStudyProfessionalMutation } from 'relay/mutations/UpdateCaseStudyProfessional';
 import { deleteCaseStudyProfessionalMutation } from 'relay/mutations/DeleteCaseStudyProfessional';
 
 // ui
@@ -83,63 +82,44 @@ const CaseStudyProfessionalsManage: React.FC<CaseStudyProfessionalsManageProps &
                 clearError: clearDeleteError,
                 loading: deleting,
               }) => (
-                <Form
-                  defaultValues={{
-                    primary,
-                  }}
-                  onSubmit={({ primary }) =>
-                    updateCaseStudyProfessionalMutation({ input: { rowId, primary } })
-                  }
-                  autoSubmit
-                  autoSubmitDelay={0}
-                  className={classes.caseStudyProfessional}
-                  resetOnFailedSubmit
-                >
+                <div className={classes.caseStudyProfessional}>
                   {deleteError ? (
                     <DismissableAlert message={deleteError} onDismiss={clearDeleteError} />
                   ) : (
-                    <FormSubmitErrorState>
-                      {(error, { resetSubmitError }) =>
-                        error ? (
-                          <DismissableAlert message={error} onDismiss={resetSubmitError} />
-                        ) : (
-                          <Flex container spacing="tiny" align="center">
-                            <Flex item flex={1} style={{ display: 'flex' }}>
-                              <Button
-                                variant="link"
-                                component={makeLink({
-                                  to: `${PROFESSIONALS_PAGE_ROUTE}/${professional.rowId}`,
-                                })}
-                              >
-                                <FormattedMessage id={professional.type} />
-                                &nbsp;
-                                {professional.fullName}
-                              </Button>
-                            </Flex>
-                            <Flex item>
-                              <FormCheckboxField
-                                path="primary"
-                                color="secondary"
-                                label={<FormattedMessage id="PRIMARY_PROFESSIONAL" />}
-                              />
-                            </Flex>
-                            <Flex item>
-                              <Button
-                                style={{ display: 'flex' }}
-                                color="danger"
-                                variant="text"
-                                onClick={triggerDelete}
-                                disabled={deleting}
-                              >
-                                <TrashIcon />
-                              </Button>
-                            </Flex>
-                          </Flex>
-                        )
-                      }
-                    </FormSubmitErrorState>
+                    <Flex container spacing="tiny" align="center">
+                      <Flex item flex={1} style={{ display: 'flex' }}>
+                        <Button
+                          variant="link"
+                          component={makeLink({
+                            to: `${PROFESSIONALS_PAGE_ROUTE}/${professional.rowId}`,
+                          })}
+                        >
+                          <FormattedMessage id={professional.type} />
+                          &nbsp;
+                          {professional.fullName}
+                        </Button>
+                      </Flex>
+                      <Flex item>
+                        {primary && (
+                          <Text color="secondary" weight="semiBold">
+                            <FormattedMessage id="PRIMARY_PROFESSIONAL" />
+                          </Text>
+                        )}
+                      </Flex>
+                      <Flex item>
+                        <Button
+                          style={{ display: 'flex' }}
+                          color="danger"
+                          variant="text"
+                          onClick={triggerDelete}
+                          disabled={deleting}
+                        >
+                          <TrashIcon />
+                        </Button>
+                      </Flex>
+                    </Flex>
                   )}
-                </Form>
+                </div>
               )}
             </ResolveOnTrigger>
           ))

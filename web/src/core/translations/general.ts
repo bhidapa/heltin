@@ -49,6 +49,10 @@ export const messages: Messages = {
     en: 'Description',
     hr: 'Opis',
   },
+  PRIVATE_DESCRIPTION: {
+    en: 'Private description',
+    hr: 'Privatni opis',
+  },
   FAMILY: {
     en: 'Family',
     hr: 'Familija',

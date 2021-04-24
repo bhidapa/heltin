@@ -11,6 +11,7 @@ export type CreateCaseStudyTreatmentInput = {
     endedAt: string;
     title: string;
     description?: string | null;
+    privateDescription?: string | null;
     score?: number | null;
 };
 export type CaseStudyTreatmentManageCreateMutationVariables = {

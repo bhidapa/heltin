@@ -12,6 +12,7 @@ export type UpdateCaseStudyTreatmentInput = {
     endedAt: string;
     title: string;
     description?: string | null;
+    privateDescription?: string | null;
     score?: number | null;
 };
 export type CaseStudyTreatmentManageUpdateMutationVariables = {
@@ -47,6 +48,7 @@ fragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {
   rowId
   title
   description
+  privateDescription
   score
   startedAt
   endedAt
@@ -154,6 +156,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "privateDescription",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "score",
                 "storageKey": null
               },
@@ -194,12 +203,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "397459d9ae73ecf1d882f9011785f7d0",
+    "cacheID": "9cd2592085c9bc3aab16ee7767b77680",
     "id": null,
     "metadata": {},
     "name": "CaseStudyTreatmentManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyTreatmentManageUpdateMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      ...CaseStudyTreatmentManage_caseStudyTreatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {\n  rowId\n  title\n  description\n  score\n  startedAt\n  endedAt\n  external\n}\n"
+    "text": "mutation CaseStudyTreatmentManageUpdateMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    caseStudyTreatment {\n      ...CaseStudyTreatmentManage_caseStudyTreatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudyTreatment on CaseStudyTreatment {\n  rowId\n  title\n  description\n  privateDescription\n  score\n  startedAt\n  endedAt\n  external\n}\n"
   }
 };
 })();
