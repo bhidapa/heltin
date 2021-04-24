@@ -184,6 +184,9 @@ create table public.case_history (
 
   parents_in_jail public.case_history_parents_in_jail_type,
 
+  created_by uuid not null references public.user(id) on delete restrict,
+  updated_by uuid references public.user(id) on delete restrict,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
@@ -250,7 +253,8 @@ $$
     age_during_loss_of_close_individual,
     family_heredity,
     ptsp,
-    parents_in_jail
+    parents_in_jail,
+    created_by
   ) values (
     create_case_history.case_study_id,
     create_case_history.case_study_treatment_id,
@@ -278,7 +282,8 @@ $$
     create_case_history.age_during_loss_of_close_individual,
     create_case_history.family_heredity,
     create_case_history.ptsp,
-    create_case_history.parents_in_jail
+    create_case_history.parents_in_jail,
+    public.viewer_user_id()
   )
   returning *
 $$
@@ -341,6 +346,7 @@ $$
     family_heredity=update_case_history.family_heredity,
     ptsp=update_case_history.ptsp,
     parents_in_jail=update_case_history.parents_in_jail,
+    updated_by=public.viewer_user_id(),
     updated_at=now()
   where id = update_case_history.id
   returning *

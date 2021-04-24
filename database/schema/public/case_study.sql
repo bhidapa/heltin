@@ -7,7 +7,8 @@ create table public.case_study (
 
   title text not null check(length(title) > 0),
 
-  -- todo: add more columns
+  created_by uuid not null references public.user(id) on delete restrict,
+  updated_by uuid references public.user(id) on delete restrict,
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
@@ -22,6 +23,7 @@ create or replace function public.update_case_study(
 $$
   update public.case_study set
     title=update_case_study.title,
+    updated_by=public.viewer_user_id(),
     updated_at=now()
   where id = update_case_study.id
   returning *
@@ -46,11 +48,11 @@ create table public.case_study_relation (
 
   description text, -- why is it related?
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_by uuid not null references public.user(id) on delete restrict,
+  created_at created_timestamptz not null
 );
 
-grant all on public.case_study_relation to viewer;
+grant select, insert, delete on public.case_study_relation to viewer;
 
 ----
 
@@ -63,11 +65,11 @@ create table public.case_study_mental_health_professional (
 
   "primary" boolean not null,
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_by uuid not null references public.user(id) on delete restrict,
+  created_at created_timestamptz not null
 );
 
-grant all on public.case_study_mental_health_professional to viewer;
+grant select, insert, delete on public.case_study_mental_health_professional to viewer;
 
 -- only one primary mental health professional per case study
 create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id, "primary") where ("primary");
@@ -78,21 +80,8 @@ create or replace function public.create_case_study_mental_health_professional(
   "primary"                     boolean
 ) returns public.case_study_mental_health_professional as
 $$
-  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary")
-    values (create_case_study_mental_health_professional.case_study_id, create_case_study_mental_health_professional.mental_health_professional_id, create_case_study_mental_health_professional."primary")
-  returning *
-$$
-language sql volatile;
-
-create or replace function public.update_case_study_mental_health_professional(
-  id        uuid,
-  "primary" boolean
-) returns public.case_study_mental_health_professional as
-$$
-  update public.case_study_mental_health_professional set
-    "primary"=update_case_study_mental_health_professional."primary",
-    updated_at=now()
-  where id = update_case_study_mental_health_professional.id
+  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary", created_by)
+    values (create_case_study_mental_health_professional.case_study_id, create_case_study_mental_health_professional.mental_health_professional_id, create_case_study_mental_health_professional."primary", public.viewer_user_id())
   returning *
 $$
 language sql volatile;
@@ -127,13 +116,13 @@ begin
     raise exception 'Only mental health professionals can create case studies';
   end if;
 
-  insert into public.case_study (client_id, group_id, title)
-    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title)
+  insert into public.case_study (client_id, group_id, title, created_by)
+    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title, public.viewer_user_id())
   returning * into added_case_study;
 
-  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary")
+  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary", created_by)
     -- only mental health professionals should be creating case studies
-    values (added_case_study.id, mental_health_professional_id, true);
+    values (added_case_study.id, mental_health_professional_id, true, public.viewer_user_id());
 
   return added_case_study;
 end
@@ -152,12 +141,14 @@ create table public.case_study_treatment (
   started_at timestamptz not null,
   ended_at   timestamptz not null,
 
-  title       text not null check(length(title) > 0),
-  description text check(length(description) >= 3),
+  title               text not null check(length(title) > 0),
+  description         text check(length(description) >= 3),
+  private_description text check(length(description) >= 3),
 
   score integer check(score >= 1 and score <= 5),
 
-  -- todo: add more columns
+  created_by uuid not null references public.user(id) on delete restrict,
+  updated_by uuid references public.user(id) on delete restrict,
 
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
@@ -182,18 +173,21 @@ create or replace function public.create_case_study_treatment(
   ended_at      timestamptz,
   title         text,
   description   text = null,
+  private_description text = null,
   score         integer = null
 ) returns public.case_study_treatment as
 $$
-  insert into public.case_study_treatment (case_study_id, "external", started_at, ended_at, description, title, score)
+  insert into public.case_study_treatment (case_study_id, "external", started_at, ended_at, description, private_description, title, score, created_by)
     values (
       create_case_study_treatment.case_study_id,
       create_case_study_treatment."external",
       create_case_study_treatment.started_at,
       create_case_study_treatment.ended_at,
       create_case_study_treatment.description,
+      create_case_study_treatment.private_description,
       create_case_study_treatment.title,
-      create_case_study_treatment.score
+      create_case_study_treatment.score,
+      public.viewer_user_id()
     )
   returning *
 $$
@@ -206,6 +200,7 @@ create or replace function public.update_case_study_treatment(
   ended_at    timestamptz,
   title       text,
   description text = null,
+  private_description text = null,
   score       integer = null
 ) returns public.case_study_treatment as
 $$
@@ -215,7 +210,9 @@ $$
     ended_at=update_case_study_treatment.ended_at,
     title=update_case_study_treatment.title,
     description=update_case_study_treatment.description,
+    private_description=update_case_study_treatment.private_description,
     score=update_case_study_treatment.score,
+    updated_by=public.viewer_user_id(),
     updated_at=now()
   where id = update_case_study_treatment.id
   returning *
@@ -240,11 +237,10 @@ create table public.case_study_treatment_file (
   case_study_treatment_id uuid not null references public.case_study_treatment(id) on delete cascade,
   file_id                 uuid not null references public.file(id) on delete cascade,
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_at created_timestamptz not null
 );
 
-grant all on public.case_study_treatment_file to viewer;
+grant select, insert, delete on public.case_study_treatment_file to viewer;
 
 create or replace function public.create_case_study_treatment_file(
   case_study_treatment_id uuid,
@@ -300,6 +296,9 @@ create table public.case_study_conclusion (
 
   concluded_at timestamptz not null,
 
+  created_by uuid not null references public.user(id) on delete restrict,
+  updated_by uuid references public.user(id) on delete restrict,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
@@ -313,8 +312,8 @@ create or replace function public.create_case_study_conclusion(
   description   text
 ) returns public.case_study_conclusion as
 $$
-  insert into public.case_study_conclusion (case_study_id, "type", concluded_at, description)
-    values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.concluded_at, create_case_study_conclusion.description)
+  insert into public.case_study_conclusion (case_study_id, "type", concluded_at, description, created_by)
+    values (create_case_study_conclusion.case_study_id, create_case_study_conclusion."type", create_case_study_conclusion.concluded_at, create_case_study_conclusion.description, public.viewer_user_id())
   returning *
 $$
 language sql volatile;
@@ -330,6 +329,7 @@ $$
     "type"=update_case_study_conclusion."type",
     description=update_case_study_conclusion.description,
     concluded_at=update_case_study_conclusion.concluded_at,
+    updated_by=public.viewer_user_id(),
     updated_at=now()
   where id = update_case_study_conclusion.id
   returning *
@@ -354,11 +354,10 @@ create table public.case_study_conclusion_file (
   case_study_conclusion_id uuid not null references public.case_study_conclusion(id) on delete cascade,
   file_id                  uuid not null references public.file(id) on delete cascade,
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_at created_timestamptz not null
 );
 
-grant all on public.case_study_conclusion_file to viewer;
+grant select, insert, delete on public.case_study_conclusion_file to viewer;
 
 create or replace function public.create_case_study_conclusion_file(
   case_study_conclusion_id uuid,

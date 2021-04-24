@@ -32,7 +32,8 @@ create table public.client (
 
   sent_by public.client_sent_by not null,
 
-  created_by uuid not null references public.user(id),
+  created_by uuid not null references public.user(id) on delete restrict,
+  updated_by uuid references public.user(id) on delete restrict,
 
   discrete boolean not null default false, -- not seen by public.assistant
 
@@ -84,7 +85,7 @@ create table public.client_assigned_mental_health_professional (
   created_at created_timestamptz not null
 );
 
-grant all on public.client_assigned_mental_health_professional to viewer;
+grant select, insert, delete on public.client_assigned_mental_health_professional to viewer;
 
 create function public.create_client_assigned_mental_health_professional(
   client_id                     uuid,
@@ -185,7 +186,7 @@ $$
     create_client.sent_by,
     create_client.email,
     coalesce(create_client.discrete, false),
-    (select id from public.viewer())
+    public.viewer_user_id()
   )
   returning *
 $$
@@ -221,6 +222,7 @@ $$
       sent_by=update_client.sent_by,
       email=update_client.email,
       discrete=update_client.discrete,
+      updated_by=public.viewer_user_id(),
       updated_at=now()
   where id = update_client.id
   returning *

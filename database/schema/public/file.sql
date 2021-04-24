@@ -4,11 +4,11 @@ create table public.file(
   name text not null check(length(name) > 3),
   data bytea not null,
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_by uuid not null references public.user(id) on delete restrict,
+  created_at created_timestamptz not null
 );
 
-grant all on public.file to viewer;
+grant select, insert, delete on public.file to viewer;
 
 create or replace function public.delete_file(
   id uuid
