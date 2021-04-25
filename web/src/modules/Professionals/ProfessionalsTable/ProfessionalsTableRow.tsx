@@ -17,6 +17,7 @@ import {
 
 // ui
 import { makeRow } from '@domonda/ui/Row';
+import { Text } from '@domonda/ui/Text';
 import { PROFESSIONALS_PAGE_ROUTE } from 'lib/routes';
 
 const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<ProfessionalsTableRow_item>({
@@ -53,6 +54,21 @@ const { RowHeader: ProfessionalsTableRowHeader, RowItem } = makeRow<Professional
         return <span>{item.lastName}</span>;
       },
     },
+    {
+      width: 92,
+      HeaderCell: <FormattedMessage id="DISABLED" />,
+      ItemCell: function ItemCell({ item }) {
+        return item.disabled ? (
+          <Text weight="semiBold">
+            <FormattedMessage id="YES" />
+          </Text>
+        ) : (
+          <Text color="gray40">
+            <FormattedMessage id="NO" />
+          </Text>
+        );
+      },
+    },
   ],
 });
 
@@ -71,6 +87,7 @@ export const ProfessionalsTableRow: React.FC<ProfessionalsTableRowProps> = (prop
         title
         firstName
         lastName
+        disabled
       }
     `,
     props.item,

@@ -11,6 +11,7 @@ export type ProfessionalsTableRow_item = {
     readonly title: string | null;
     readonly firstName: string;
     readonly lastName: string;
+    readonly disabled: boolean;
     readonly " $refType": "ProfessionalsTableRow_item";
 };
 export type ProfessionalsTableRow_item$data = ProfessionalsTableRow_item;
@@ -61,10 +62,17 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "lastName",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "disabled",
+      "storageKey": null
     }
   ],
   "type": "MentalHealthProfessional",
   "abstractKey": null
 };
-(node as any).hash = '12eeb0695ad080f68984025715f18b42';
+(node as any).hash = '555041720d2ca12774da6d2437da46f1';
 export default node;

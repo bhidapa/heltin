@@ -34,6 +34,7 @@ fragment ProfessionalsTableRow_item on MentalHealthProfessional {
   title
   firstName
   lastName
+  disabled
 }
 
 fragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {
@@ -196,6 +197,13 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "disabled",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "id",
                     "storageKey": null
                   },
@@ -261,12 +269,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7f5095fe1d1f22e322b6c21ae9b65231",
+    "cacheID": "12e2a48de50225c42ed210049c579113",
     "id": null,
     "metadata": {},
     "name": "ProfessionalsOverviewPageQuery",
     "operationKind": "query",
-    "text": "query ProfessionalsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  rowId\n  type\n  title\n  firstName\n  lastName\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ProfessionalsOverviewPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $searchText: String\n) {\n  ...ProfessionalsTable_professionalsQuery_4CrFSY\n}\n\nfragment ProfessionalsTableRow_item on MentalHealthProfessional {\n  rowId\n  type\n  title\n  firstName\n  lastName\n  disabled\n}\n\nfragment ProfessionalsTable_professionalsQuery_4CrFSY on Query {\n  filterMentalHealthProfessionals(first: $count, after: $cursor, searchText: $searchText) {\n    totalCount\n    edges {\n      node {\n        rowId\n        ...ProfessionalsTableRow_item\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
