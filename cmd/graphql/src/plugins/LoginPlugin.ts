@@ -1,4 +1,5 @@
 import { makeExtendSchemaPlugin, gql } from "graphile-utils";
+import { Context } from "../index";
 
 export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
   typeDefs: gql`
@@ -24,7 +25,11 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
         _resolveInfo,
         { selectGraphQLResultFromTable }
       ) {
-        const { rootPgPool, saveUserIdInSession, pgClient } = context;
+        const {
+          rootPgPool,
+          saveUserIdInSession,
+          pgClient,
+        } = context as Context;
 
         const { email, password } = args.input;
         const {
@@ -47,8 +52,8 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
         await saveUserIdInSession(user.id);
 
         // Tell pg we're logged in
-        await pgClient.query("set role viewer;");
-        await pgClient.query("select set_config($1, $2, true);", [
+        await pgClient.query("set role viewer");
+        await pgClient.query("select set_config($1, $2, true)", [
           "session.user_id",
           user.id,
         ]);
@@ -68,17 +73,17 @@ export const LoginPlugin = makeExtendSchemaPlugin((build) => ({
         };
       },
       async logout(_parent, _args, context) {
-        const { destroySession, pgClient } = context;
+        const { destroySession, pgClient } = context as Context;
 
-        const somethingToDestroy = await destroySession();
+        const somethingDestroyed = await destroySession();
 
         // If there was a session to destroy, tell pg we've logged out
-        if (somethingToDestroy) {
-          await pgClient.query("set role anonymous;");
-          await pgClient.query("reset session.user_id;");
+        if (somethingDestroyed) {
+          await pgClient.query("set role anonymous");
+          await pgClient.query("reset session.user_id");
         }
 
-        return somethingToDestroy;
+        return somethingDestroyed;
       },
     },
   },

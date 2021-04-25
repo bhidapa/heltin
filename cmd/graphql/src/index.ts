@@ -7,13 +7,22 @@
 import express from "express";
 import session from "express-session";
 const PgSession = require("connect-pg-simple")(session);
-import { Pool } from "pg";
+import { Client, Pool } from "pg";
 import { postgraphile } from "postgraphile";
 
 declare module "express-session" {
   interface SessionData {
     userId: string;
   }
+}
+interface AdditionalContext {
+  rootPgPool: Pool;
+  saveUserIdInSession(userId: string): Promise<void>;
+  destroySession(): Promise<boolean>;
+}
+
+export interface Context extends AdditionalContext {
+  pgClient: Client;
 }
 
 // plugins
@@ -126,31 +135,31 @@ app.use(
       if (config.noAuth) {
         return { role: "viewer" };
       }
-      if (req.session?.userId) {
-        return { role: "viewer", "session.user_id": req.session!.userId };
+      if (req.session.userId) {
+        return { role: "viewer", "session.user_id": req.session.userId };
       }
       return {
         role: "anonymous",
       };
     },
-    async additionalGraphQLContextFromRequest(req: express.Request) {
+    async additionalGraphQLContextFromRequest(
+      req: express.Request
+    ): Promise<AdditionalContext> {
       return {
         // Let plugins call priviliged methods (e.g. login) if they need to
         rootPgPool: pgPool,
         // Save the authenticated/logged-in user ID in this session
-        async saveUserIdInSession(userId: string) {
-          req.session!.userId = userId;
+        async saveUserIdInSession(userId) {
+          req.session.userId = userId;
           return new Promise<void>((resolve, reject) =>
-            req.session!.save((err) => (err ? reject(err) : resolve()))
+            req.session.save((err) => (err ? reject(err) : resolve()))
           );
         },
         // Destroys the session/logs out
-        async destroySession(): Promise<boolean> {
-          if (!req.session!.userId) {
-            return Promise.resolve(false);
-          }
+        async destroySession() {
+          if (!req.session.userId) return Promise.resolve(false);
           return new Promise((resolve, reject) =>
-            req.session!.destroy((err) => (err ? reject(err) : resolve(true)))
+            req.session.destroy((err) => (err ? reject(err) : resolve(true)))
           );
         },
       };
