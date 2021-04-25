@@ -371,11 +371,10 @@ create table public.case_history_file (
   case_history_id uuid not null references public.case_history(id) on delete cascade,
   file_id         uuid not null references public.file(id) on delete cascade,
 
-  created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null
+  created_at created_timestamptz not null
 );
 
-grant all on public.case_history_file to viewer;
+grant select, insert, delete on public.case_history_file to viewer;
 
 create or replace function public.create_case_history_file(
   case_history_id uuid,
