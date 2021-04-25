@@ -83,6 +83,7 @@ create table public.client_assigned_mental_health_professional (
   mental_health_professional_id uuid not null references public.mental_health_professional(id),
   unique(client_id, mental_health_professional_id),
 
+  created_by uuid not null references public.user(id) on delete restrict,
   created_at created_timestamptz not null
 );
 
@@ -90,6 +91,7 @@ grant select, insert, delete on public.client_assigned_mental_health_professiona
 
 create index client_assigned_mental_health_professional_client_id_idx on public.client_assigned_mental_health_professional (client_id);
 create index client_assigned_mental_health_professional_professional_id_idx on public.client_assigned_mental_health_professional (mental_health_professional_id);
+create index client_assigned_mental_health_professional_created_by_idx on public.client_assigned_mental_health_professional (created_by);
 
 ----
 
