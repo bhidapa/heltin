@@ -102,10 +102,12 @@ create function public.create_client_assigned_mental_health_professional(
 $$
   insert into public.client_assigned_mental_health_professional (
     client_id,
-    mental_health_professional_id
+    mental_health_professional_id,
+    created_by
   ) values (
     create_client_assigned_mental_health_professional.client_id,
-    create_client_assigned_mental_health_professional.mental_health_professional_id
+    create_client_assigned_mental_health_professional.mental_health_professional_id,
+    public.viewer_user_id()
   )
   returning *
 $$
