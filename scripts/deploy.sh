@@ -23,11 +23,11 @@ docker-compose build
 echo "Pushing containers..."
 docker-compose push
 
-echo "Pulling containers..."
+echo "Pulling containers on $1..."
 docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml pull
 
-echo "Down..."
+echo "Down on $1..."
 docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml down
 
-echo "Up..."
+echo "Up on $1..."
 docker-compose -c "$1" -f docker-compose.yml -f docker-compose.prod.yml up -d
