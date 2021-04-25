@@ -7,6 +7,7 @@
 import React, { useEffect } from 'react';
 
 // relay
+import { useRelayEnvironment } from 'react-relay';
 import { graphql, useTransitionMutation } from 'relay/hooks';
 
 // ui
@@ -16,6 +17,8 @@ import { Text } from '@domonda/ui/Text';
 export interface LogoutPageProps {}
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
+  const env = useRelayEnvironment();
+
   const [logout] = useTransitionMutation(
     graphql`
       mutation LogoutPageMutation {
@@ -26,12 +29,14 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
       // unset the root viewer as an indication of logout
       updater: (store) => {
         store.getRoot().setValue(null, 'viewer');
-        store.invalidateStore();
       },
     },
   );
 
   useEffect(() => {
+    // @ts-expect-error: `invalidateStore` is not typed
+    env.commitUpdate((store) => store.invalidateStore());
+
     logout({ variables: {} });
   }, []);
 
