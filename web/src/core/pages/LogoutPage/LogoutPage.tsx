@@ -26,6 +26,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
       // unset the root viewer as an indication of logout
       updater: (store) => {
         store.getRoot().setValue(null, 'viewer');
+        store.invalidateStore();
       },
     },
   );
