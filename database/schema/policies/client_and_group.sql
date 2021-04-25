@@ -1,3 +1,5 @@
+---- client ----
+
 ---- select
 
 create policy select_client_is_admin_policy on public.client
@@ -97,3 +99,67 @@ create policy delete_client_is_admin_policy on public.client
 ----
 
 alter table public.client enable row level security;
+
+---- client_assigned_mental_health_professional ----
+
+---- select
+
+create policy select_client_assigned_professional_always_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for select
+  using (
+    -- TODO-db-210425 having access to assigned mental health professionals exposes nothing, or does it?
+    true
+  );
+
+---- insert
+
+create policy insert_client_assigned_professional_is_admin_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for insert
+  with check (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy insert_client_assigned_professional_is_client_created_by_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for insert
+  with check (
+    exists (select from public.client
+      where client.id = client_assigned_mental_health_professional.client_id
+      and client.created_by = public.viewer_user_id())
+  );
+
+create policy insert_client_assigned_professional_is_assistant_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for insert
+  with check (
+    public.user_is_assistant(public.viewer())
+  );
+
+---- delete
+
+create policy delete_client_assigned_professional_is_admin_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for delete
+  using (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy delete_client_assigned_professional_is_client_created_by_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for delete
+  using (
+    exists (select from public.client
+      where client.id = client_assigned_mental_health_professional.client_id
+      and client.created_by = public.viewer_user_id())
+  );
+
+create policy delete_client_assigned_professional_is_assistant_policy on public.client_assigned_mental_health_professional
+  as permissive
+  for delete
+  using (
+    public.user_is_assistant(public.viewer())
+  );
+
+alter table public.client_assigned_mental_health_professional enable row level security;
