@@ -16,5 +16,6 @@
 \ir public/multidisciplinary_diagnostic.sql
 \ir public/multidisciplinary_therapy.sql
 
+\ir public/filter_users.sql
 \ir public/filter_clients.sql
 \ir public/filter_mental_health_professionals.sql

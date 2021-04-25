@@ -49,6 +49,11 @@ fragment ProfessionalEdit_professional on MentalHealthProfessional {
   fullName
   type
   disabled
+  user: userByUserRowId {
+    id
+    rowId
+    email
+  }
 }
 */
 
@@ -86,6 +91,20 @@ v4 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "email",
   "storageKey": null
 };
 return {
@@ -156,13 +175,7 @@ return {
         "plural": false,
         "selections": [
           (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "rowId",
-            "storageKey": null
-          },
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -170,13 +183,7 @@ return {
             "name": "dateOfBirth",
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "email",
-            "storageKey": null
-          },
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -219,6 +226,20 @@ return {
             "name": "disabled",
             "storageKey": null
           },
+          {
+            "alias": "user",
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "userByUserRowId",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/)
+            ],
+            "storageKey": null
+          },
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -226,12 +247,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2c7c2b73940db484e74c65d02a0cf0c0",
+    "cacheID": "39978bc189024b12997441995631abb4",
     "id": null,
     "metadata": {},
     "name": "ProfessionalsDetailPageQuery",
     "operationKind": "query",
-    "text": "query ProfessionalsDetailPageQuery(\n  $rowId: UUID!\n) {\n  viewer {\n    isAdmin\n    id\n  }\n  professional: mentalHealthProfessionalByRowId(rowId: $rowId) {\n    fullName\n    ...ProfessionalEdit_professional\n    id\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n}\n"
+    "text": "query ProfessionalsDetailPageQuery(\n  $rowId: UUID!\n) {\n  viewer {\n    isAdmin\n    id\n  }\n  professional: mentalHealthProfessionalByRowId(rowId: $rowId) {\n    fullName\n    ...ProfessionalEdit_professional\n    id\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
   }
 };
 })();

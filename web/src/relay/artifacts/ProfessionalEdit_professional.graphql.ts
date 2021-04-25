@@ -17,6 +17,11 @@ export type ProfessionalEdit_professional = {
     readonly fullName: string;
     readonly type: MentalHealthProfessionalType;
     readonly disabled: boolean;
+    readonly user: {
+        readonly id: string;
+        readonly rowId: string;
+        readonly email: string;
+    } | null;
     readonly " $refType": "ProfessionalEdit_professional";
 };
 export type ProfessionalEdit_professional$data = ProfessionalEdit_professional;
@@ -27,19 +32,28 @@ export type ProfessionalEdit_professional$key = {
 
 
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "email",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ProfessionalEdit_professional",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "rowId",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -47,13 +61,7 @@ const node: ReaderFragment = {
       "name": "dateOfBirth",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "email",
-      "storageKey": null
-    },
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -102,10 +110,31 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "disabled",
       "storageKey": null
+    },
+    {
+      "alias": "user",
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "userByUserRowId",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        (v0/*: any*/),
+        (v1/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "MentalHealthProfessional",
   "abstractKey": null
 };
-(node as any).hash = 'a36e4177e9030f52c24f63ef801eafa1';
+})();
+(node as any).hash = '902eb3162ffe63a67cfbcb0a90c4a1a3';
 export default node;

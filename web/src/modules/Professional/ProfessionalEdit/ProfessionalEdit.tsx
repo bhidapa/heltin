@@ -27,6 +27,7 @@ import {
   FormLockedState,
   FormSubmitErrorState,
   FormDateField,
+  FormField,
 } from '@domonda/react-form';
 import { FormCheckboxField } from 'lib/FormFields';
 import { ProfessionalTypeSelectOptions } from '../ProfessionalTypeSelectOptions';
@@ -34,6 +35,7 @@ import { GenderSelectOptions } from '../../GenderSelectOptions';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { makeLink } from 'lib/makeLink';
 import { usePromiseMutation } from 'relay/hooks';
+import { AutocompleteUser, AutocompleteUserItem } from 'modules/Autocomplete/AutocompleteUser';
 
 export interface ProfessionalEditProps {
   viewerIsAdmin: boolean;
@@ -56,6 +58,9 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
         fullName
         type
         disabled
+        user: userByUserRowId {
+          ...AutocompleteUser_item @relay(mask: false)
+        }
       }
     `,
     professionalKey,
@@ -116,11 +121,12 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
             ...professional,
             dateOfBirth: new Date(professional.dateOfBirth),
           }}
-          onSubmit={({ fullName, dateOfBirth, ...rest }) =>
+          onSubmit={({ fullName, dateOfBirth, user, ...rest }) =>
             updateMentalHealthProfessional({
               variables: {
                 input: {
                   ...rest,
+                  userRowId: user?.rowId,
                   dateOfBirth: dateOfBirth.toISOString(),
                 },
               },
@@ -136,10 +142,28 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
               </FormSubmitErrorState>
             </Flex>
             {viewerIsAdmin && (
-              <Flex item>
-                <FormCheckboxField path="disabled" label={<FormattedMessage id="DISABLED" />} />
-              </Flex>
+              <>
+                <Flex item>
+                  <FormCheckboxField path="disabled" label={<FormattedMessage id="DISABLED" />} />
+                </Flex>
+                <Flex item>
+                  <FormField<AutocompleteUserItem | null> path="user">
+                    {({ value, setValue }) => (
+                      <AutocompleteUser selectedItem={value} onChange={setValue} />
+                    )}
+                  </FormField>
+                </Flex>
+              </>
             )}
+            <Flex item>
+              <FormSelectField path="type" required>
+                {({ selectProps }) => (
+                  <Select {...selectProps} label={<FormattedMessage id="TYPE" />}>
+                    <ProfessionalTypeSelectOptions disableEmptyOption />
+                  </Select>
+                )}
+              </FormSelectField>
+            </Flex>
             <Flex item>
               <FormSelectField path="type" required>
                 {({ selectProps }) => (

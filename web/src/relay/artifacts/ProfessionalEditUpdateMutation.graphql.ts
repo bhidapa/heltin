@@ -59,6 +59,11 @@ fragment ProfessionalEdit_professional on MentalHealthProfessional {
   fullName
   type
   disabled
+  user: userByUserRowId {
+    id
+    rowId
+    email
+  }
 }
 */
 
@@ -76,7 +81,28 @@ v1 = [
     "name": "input",
     "variableName": "input"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "rowId",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "email",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -137,13 +163,7 @@ return {
             "name": "mentalHealthProfessional",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "rowId",
-                "storageKey": null
-              },
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -151,13 +171,7 @@ return {
                 "name": "dateOfBirth",
                 "storageKey": null
               },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "email",
-                "storageKey": null
-              },
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -208,12 +222,20 @@ return {
                 "storageKey": null
               },
               {
-                "alias": null,
+                "alias": "user",
                 "args": null,
-                "kind": "ScalarField",
-                "name": "id",
+                "concreteType": "User",
+                "kind": "LinkedField",
+                "name": "userByUserRowId",
+                "plural": false,
+                "selections": [
+                  (v4/*: any*/),
+                  (v2/*: any*/),
+                  (v3/*: any*/)
+                ],
                 "storageKey": null
-              }
+              },
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -223,12 +245,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a8c1da03aaf04a04e5276e813fbf5833",
+    "cacheID": "e35a32ffed616c429ab0c17dba5277fb",
     "id": null,
     "metadata": {},
     "name": "ProfessionalEditUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n}\n"
+    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
   }
 };
 })();
