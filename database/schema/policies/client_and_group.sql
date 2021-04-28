@@ -2,21 +2,21 @@
 
 ---- select
 
-create policy select_client_is_admin_policy on public.client
+create policy select_client_is_admin on public.client
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_client_is_created_by_policy on public.client
+create policy select_client_is_created_by on public.client
   as permissive
   for select
   using (
     client.created_by = public.viewer_user_id()
   );
 
-create policy select_client_is_assistant_and_not_discrete_policy on public.client
+create policy select_client_is_assistant_and_not_discrete on public.client
   as permissive
   for select
   using (
@@ -24,7 +24,7 @@ create policy select_client_is_assistant_and_not_discrete_policy on public.clien
     and not client.discrete
   );
 
-create policy select_client_is_assigned_mental_health_professional_policy on public.client
+create policy select_client_is_assigned_mental_health_professional on public.client
   as permissive
   for select
   using (
@@ -35,7 +35,7 @@ create policy select_client_is_assigned_mental_health_professional_policy on pub
       where client_id = client.id)
   );
 
-create policy select_client_has_case_study_mental_health_professional_policy on public.client
+create policy select_client_has_case_study_mental_health_professional on public.client
   as permissive
   for select
   using (
@@ -50,14 +50,14 @@ create policy select_client_has_case_study_mental_health_professional_policy on 
 
 ---- insert
 
-create policy insert_client_is_admin_policy on public.client
+create policy insert_client_is_admin on public.client
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_client_is_assistant_policy on public.client
+create policy insert_client_is_assistant on public.client
   as permissive
   for insert
   with check (
@@ -66,21 +66,21 @@ create policy insert_client_is_assistant_policy on public.client
 
 ---- update
 
-create policy update_client_is_admin_policy on public.client
+create policy update_client_is_admin on public.client
   as permissive
   for update
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_client_is_assistant_policy on public.client
+create policy update_client_is_assistant on public.client
   as permissive
   for update
   using (
     public.user_is_assistant(public.viewer())
   );
 
-create policy update_client_is_created_by_policy on public.client
+create policy update_client_is_created_by on public.client
   as permissive
   for update
   using (
@@ -89,7 +89,7 @@ create policy update_client_is_created_by_policy on public.client
 
 ---- delete
 
-create policy delete_client_is_admin_policy on public.client
+create policy delete_client_is_admin on public.client
   as permissive
   for delete
   using (
@@ -104,7 +104,7 @@ alter table public.client enable row level security;
 
 ---- select
 
-create policy select_client_assigned_professional_always_policy on public.client_assigned_mental_health_professional
+create policy select_client_assigned_professional_always on public.client_assigned_mental_health_professional
   as permissive
   for select
   using (
@@ -114,14 +114,14 @@ create policy select_client_assigned_professional_always_policy on public.client
 
 ---- insert
 
-create policy insert_client_assigned_professional_is_admin_policy on public.client_assigned_mental_health_professional
+create policy insert_client_assigned_professional_is_admin on public.client_assigned_mental_health_professional
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_client_assigned_professional_is_client_created_by_policy on public.client_assigned_mental_health_professional
+create policy insert_client_assigned_professional_is_client_created_by on public.client_assigned_mental_health_professional
   as permissive
   for insert
   with check (
@@ -130,7 +130,7 @@ create policy insert_client_assigned_professional_is_client_created_by_policy on
       and client.created_by = public.viewer_user_id())
   );
 
-create policy insert_client_assigned_professional_is_assistant_policy on public.client_assigned_mental_health_professional
+create policy insert_client_assigned_professional_is_assistant on public.client_assigned_mental_health_professional
   as permissive
   for insert
   with check (
@@ -139,14 +139,14 @@ create policy insert_client_assigned_professional_is_assistant_policy on public.
 
 ---- delete
 
-create policy delete_client_assigned_professional_is_admin_policy on public.client_assigned_mental_health_professional
+create policy delete_client_assigned_professional_is_admin on public.client_assigned_mental_health_professional
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_client_assigned_professional_is_client_created_by_policy on public.client_assigned_mental_health_professional
+create policy delete_client_assigned_professional_is_client_created_by on public.client_assigned_mental_health_professional
   as permissive
   for delete
   using (
@@ -155,7 +155,7 @@ create policy delete_client_assigned_professional_is_client_created_by_policy on
       and client.created_by = public.viewer_user_id())
   );
 
-create policy delete_client_assigned_professional_is_assistant_policy on public.client_assigned_mental_health_professional
+create policy delete_client_assigned_professional_is_assistant on public.client_assigned_mental_health_professional
   as permissive
   for delete
   using (

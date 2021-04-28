@@ -2,14 +2,14 @@
 
 ---- select
 
-create policy select_case_study_is_admin_policy on public.case_study
+create policy select_case_study_is_admin on public.case_study
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_has_professional_policy on public.case_study
+create policy select_case_study_has_professional on public.case_study
   as permissive
   for select
   using (
@@ -22,14 +22,14 @@ create policy select_case_study_has_professional_policy on public.case_study
 
 ---- insert
 
-create policy insert_case_study_is_admin_policy on public.case_study
+create policy insert_case_study_is_admin on public.case_study
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_professional_has_access_to_client_policy on public.case_study
+create policy insert_case_study_professional_has_access_to_client on public.case_study
   as permissive
   for insert
   with check (
@@ -39,7 +39,7 @@ create policy insert_case_study_professional_has_access_to_client_policy on publ
 
 ---- update
 
-create policy update_case_study_not_concluded_policy on public.case_study
+create policy update_case_study_not_concluded on public.case_study
   as restrictive
   for update
   using (
@@ -47,21 +47,21 @@ create policy update_case_study_not_concluded_policy on public.case_study
       where case_study_conclusion.case_study_id = case_study.id)
   );
 
-create policy update_case_study_is_admin_policy on public.case_study
+create policy update_case_study_is_admin on public.case_study
   as permissive
   for update
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_case_study_is_created_by_policy on public.case_study
+create policy update_case_study_is_created_by on public.case_study
   as permissive
   for update
   using (
     case_study.created_by = public.viewer_user_id()
   );
 
-create policy update_case_study_is_primary_professional_policy on public.case_study
+create policy update_case_study_is_primary_professional on public.case_study
   as permissive
   for update
   using (
@@ -75,7 +75,7 @@ create policy update_case_study_is_primary_professional_policy on public.case_st
 
 ---- delete
 
-create policy delete_case_study_not_concluded_policy on public.case_study
+create policy delete_case_study_not_concluded on public.case_study
   as restrictive
   for delete
   using (
@@ -83,21 +83,21 @@ create policy delete_case_study_not_concluded_policy on public.case_study
       where case_study_conclusion.case_study_id = case_study.id)
   );
 
-create policy delete_case_study_is_admin_policy on public.case_study
+create policy delete_case_study_is_admin on public.case_study
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_is_created_by_policy on public.case_study
+create policy delete_case_study_is_created_by on public.case_study
   as permissive
   for delete
   using (
     case_study.created_by = public.viewer_user_id()
   );
 
-create policy delete_case_study_is_primary_professional_policy on public.case_study
+create policy delete_case_study_is_primary_professional on public.case_study
   as permissive
   for delete
   using (
@@ -117,7 +117,7 @@ alter table public.case_study enable row level security;
 
 ---- select
 
-create policy select_case_study_professional_always_policy on public.case_study_mental_health_professional
+create policy select_case_study_professional_always on public.case_study_mental_health_professional
   as permissive
   for select
   using (
@@ -127,14 +127,14 @@ create policy select_case_study_professional_always_policy on public.case_study_
 
 ---- insert
 
-create policy insert_case_study_professional_is_admin_policy on public.case_study_mental_health_professional
+create policy insert_case_study_professional_is_admin on public.case_study_mental_health_professional
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_professional_is_case_study_created_by_policy on public.case_study_mental_health_professional
+create policy insert_case_study_professional_is_case_study_created_by on public.case_study_mental_health_professional
   as permissive
   for insert
   with check (
@@ -143,7 +143,7 @@ create policy insert_case_study_professional_is_case_study_created_by_policy on 
       and case_study.created_by = public.viewer_user_id())
   );
 
-create policy insert_case_study_professional_is_primary_professional_policy on public.case_study_mental_health_professional
+create policy insert_case_study_professional_is_primary_professional on public.case_study_mental_health_professional
   as permissive
   for insert
   with check (
@@ -157,14 +157,14 @@ create policy insert_case_study_professional_is_primary_professional_policy on p
 
 ---- delete
 
-create policy delete_case_study_professional_is_admin_policy on public.case_study_mental_health_professional
+create policy delete_case_study_professional_is_admin on public.case_study_mental_health_professional
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_professional_is_case_study_created_by_policy on public.case_study_mental_health_professional
+create policy delete_case_study_professional_is_case_study_created_by on public.case_study_mental_health_professional
   as permissive
   for delete
   using (
@@ -173,7 +173,7 @@ create policy delete_case_study_professional_is_case_study_created_by_policy on 
       and case_study.created_by = public.viewer_user_id())
   );
 
-create policy delete_case_study_professional_is_primary_professional_policy on public.case_study_mental_health_professional
+create policy delete_case_study_professional_is_primary_professional on public.case_study_mental_health_professional
   as permissive
   for delete
   using (
@@ -191,14 +191,14 @@ alter table public.case_study_mental_health_professional enable row level securi
 
 ---- select
 
-create policy select_case_study_treatment_is_admin_policy on public.case_study_treatment
+create policy select_case_study_treatment_is_admin on public.case_study_treatment
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_treatment_has_access_to_case_study_policy on public.case_study_treatment
+create policy select_case_study_treatment_has_access_to_case_study on public.case_study_treatment
   as permissive
   for select
   using (
@@ -208,7 +208,7 @@ create policy select_case_study_treatment_has_access_to_case_study_policy on pub
 
 ---- insert
 
-create policy insert_case_study_treatment_not_concluded_policy on public.case_study_treatment
+create policy insert_case_study_treatment_not_concluded on public.case_study_treatment
   as restrictive
   for insert
   with check (
@@ -216,14 +216,14 @@ create policy insert_case_study_treatment_not_concluded_policy on public.case_st
       where case_study_conclusion.case_study_id = case_study_treatment.case_study_id)
   );
 
-create policy insert_case_study_treatment_is_admin_policy on public.case_study_treatment
+create policy insert_case_study_treatment_is_admin on public.case_study_treatment
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_treatment_professional_is_added_policy on public.case_study_treatment
+create policy insert_case_study_treatment_professional_is_added on public.case_study_treatment
   as permissive
   for insert
   with check (
@@ -237,7 +237,7 @@ create policy insert_case_study_treatment_professional_is_added_policy on public
 
 ---- update
 
-create policy update_case_study_treatment_not_concluded_policy on public.case_study_treatment
+create policy update_case_study_treatment_not_concluded on public.case_study_treatment
   as restrictive
   for update
   using (
@@ -245,14 +245,14 @@ create policy update_case_study_treatment_not_concluded_policy on public.case_st
       where case_study_conclusion.case_study_id = case_study_treatment.case_study_id)
   );
 
-create policy update_case_study_treatment_is_admin_policy on public.case_study_treatment
+create policy update_case_study_treatment_is_admin on public.case_study_treatment
   as permissive
   for update
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_case_study_treatment_is_created_by_policy on public.case_study_treatment
+create policy update_case_study_treatment_is_created_by on public.case_study_treatment
   as permissive
   for update
   using (
@@ -261,7 +261,7 @@ create policy update_case_study_treatment_is_created_by_policy on public.case_st
 
 ---- delete
 
-create policy delete_case_study_treatment_not_concluded_policy on public.case_study_treatment
+create policy delete_case_study_treatment_not_concluded on public.case_study_treatment
   as restrictive
   for delete
   using (
@@ -269,14 +269,14 @@ create policy delete_case_study_treatment_not_concluded_policy on public.case_st
       where case_study_conclusion.case_study_id = case_study_treatment.case_study_id)
   );
 
-create policy delete_case_study_treatment_is_admin_policy on public.case_study_treatment
+create policy delete_case_study_treatment_is_admin on public.case_study_treatment
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_treatment_is_created_by_policy on public.case_study_treatment
+create policy delete_case_study_treatment_is_created_by on public.case_study_treatment
   as permissive
   for delete
   using (
@@ -291,14 +291,14 @@ alter table public.case_study_treatment enable row level security;
 
 ---- select
 
-create policy select_case_study_treatment_file_is_admin_policy on public.case_study_treatment_file
+create policy select_case_study_treatment_file_is_admin on public.case_study_treatment_file
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_treatment_file_has_access_to_case_study_treatment_policy on public.case_study_treatment_file
+create policy select_case_study_treatment_file_has_access_to_treatment on public.case_study_treatment_file
   as permissive
   for select
   using (
@@ -308,7 +308,7 @@ create policy select_case_study_treatment_file_has_access_to_case_study_treatmen
 
 ---- insert
 
-create policy insert_case_study_treatment_file_not_concluded_policy on public.case_study_treatment_file
+create policy insert_case_study_treatment_file_not_concluded on public.case_study_treatment_file
   as restrictive
   for insert
   with check (
@@ -317,14 +317,14 @@ create policy insert_case_study_treatment_file_not_concluded_policy on public.ca
       where case_study_treatment.id = case_study_treatment_file.case_study_treatment_id)
   );
 
-create policy insert_case_study_treatment_file_is_admin_policy on public.case_study_treatment_file
+create policy insert_case_study_treatment_file_is_admin on public.case_study_treatment_file
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_treatment_file_treatment_created_by_policy on public.case_study_treatment_file
+create policy insert_case_study_treatment_file_treatment_created_by on public.case_study_treatment_file
   as permissive
   for insert
   with check (
@@ -334,7 +334,7 @@ create policy insert_case_study_treatment_file_treatment_created_by_policy on pu
 
 ---- delete
 
-create policy delete_case_study_treatment_file_not_concluded_policy on public.case_study_treatment_file
+create policy delete_case_study_treatment_file_not_concluded on public.case_study_treatment_file
   as restrictive
   for delete
   using (
@@ -343,14 +343,14 @@ create policy delete_case_study_treatment_file_not_concluded_policy on public.ca
       where case_study_treatment.id = case_study_treatment_file.case_study_treatment_id)
   );
 
-create policy delete_case_study_treatment_file_is_admin_policy on public.case_study_treatment_file
+create policy delete_case_study_treatment_file_is_admin on public.case_study_treatment_file
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_treatment_file_is_created_by_policy on public.case_study_treatment_file
+create policy delete_case_study_treatment_file_is_created_by on public.case_study_treatment_file
   as permissive
   for delete
   using (
@@ -364,14 +364,14 @@ alter table public.case_study_treatment_file enable row level security;
 
 ---- select
 
-create policy select_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+create policy select_case_study_conclusion_is_admin on public.case_study_conclusion
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_conclusion_has_professional_policy on public.case_study_conclusion
+create policy select_case_study_conclusion_professional_is_added on public.case_study_conclusion
   as permissive
   for select
   using (
@@ -384,14 +384,14 @@ create policy select_case_study_conclusion_has_professional_policy on public.cas
 
 ---- insert
 
-create policy insert_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+create policy insert_case_study_conclusion_is_admin on public.case_study_conclusion
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_conclusion_professional_is_added_policy on public.case_study_conclusion
+create policy insert_case_study_conclusion_professional_is_added on public.case_study_conclusion
   as permissive
   for insert
   with check (
@@ -405,14 +405,14 @@ create policy insert_case_study_conclusion_professional_is_added_policy on publi
 
 ---- update
 
-create policy update_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+create policy update_case_study_conclusion_is_admin on public.case_study_conclusion
   as permissive
   for update
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_case_study_conclusion_is_created_by_policy on public.case_study_conclusion
+create policy update_case_study_conclusion_is_created_by on public.case_study_conclusion
   as permissive
   for update
   using (
@@ -421,14 +421,14 @@ create policy update_case_study_conclusion_is_created_by_policy on public.case_s
 
 ---- delete
 
-create policy delete_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+create policy delete_case_study_conclusion_is_admin on public.case_study_conclusion
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_conclusion_is_created_by_policy on public.case_study_conclusion
+create policy delete_case_study_conclusion_is_created_by on public.case_study_conclusion
   as permissive
   for delete
   using (
@@ -443,14 +443,14 @@ alter table public.case_study_conclusion enable row level security;
 
 ---- select
 
-create policy select_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+create policy select_case_study_conclusion_file_is_admin on public.case_study_conclusion_file
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_conclusion_file_has_access_to_case_study_conclusion_policy on public.case_study_conclusion_file
+create policy select_case_study_conclusion_file_has_access_to_conclusion on public.case_study_conclusion_file
   as permissive
   for select
   using (
@@ -460,14 +460,14 @@ create policy select_case_study_conclusion_file_has_access_to_case_study_conclus
 
 ---- insert
 
-create policy insert_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+create policy insert_case_study_conclusion_file_is_admin on public.case_study_conclusion_file
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_study_conclusion_file_conclusion_created_by_policy on public.case_study_conclusion_file
+create policy insert_case_study_conclusion_file_conclusion_created_by on public.case_study_conclusion_file
   as permissive
   for insert
   with check (
@@ -477,14 +477,14 @@ create policy insert_case_study_conclusion_file_conclusion_created_by_policy on 
 
 ---- delete
 
-create policy delete_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+create policy delete_case_study_conclusion_file_is_admin on public.case_study_conclusion_file
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_study_conclusion_file_is_created_by_policy on public.case_study_conclusion_file
+create policy delete_case_study_conclusion_file_is_created_by on public.case_study_conclusion_file
   as permissive
   for delete
   using (

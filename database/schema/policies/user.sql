@@ -1,19 +1,19 @@
 ---- user ----
 
 -- anonymous user cannot see any user
-create policy anonymous_user_select_policy on public.user
+create policy anonymous_user_select on public.user
   for select
   to anonymous
   using (false);
 
 ----
 
-create policy viewer_user_select_policy on public.user
+create policy viewer_user_select on public.user
   for select
   to viewer
   using (true);
 
-create policy viewer_user_update_policy on public.user
+create policy viewer_user_update on public.user
   for update
   to viewer
   using (true)
@@ -22,14 +22,14 @@ create policy viewer_user_update_policy on public.user
     or "user".id = public.viewer_user_id()
   );
 
-create policy viewer_user_insert_policy on public.user
+create policy viewer_user_insert on public.user
   for insert
   to viewer
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy viewer_user_delete_policy on public.user
+create policy viewer_user_delete on public.user
   for delete
   to viewer
   using (

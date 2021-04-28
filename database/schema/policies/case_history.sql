@@ -2,14 +2,14 @@
 
 ---- select
 
-create policy select_case_history_is_admin_policy on public.case_history
+create policy select_case_history_is_admin on public.case_history
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_history_has_access_to_case_study_policy on public.case_history
+create policy select_case_history_has_access_to_case_study on public.case_history
   as permissive
   for select
   using (
@@ -19,7 +19,7 @@ create policy select_case_history_has_access_to_case_study_policy on public.case
 
 ---- insert
 
-create policy insert_case_history_not_concluded_policy on public.case_history
+create policy insert_case_history_not_concluded on public.case_history
   as restrictive
   for insert
   with check (
@@ -27,14 +27,14 @@ create policy insert_case_history_not_concluded_policy on public.case_history
       where case_study_conclusion.case_study_id = case_history.case_study_id)
   );
 
-create policy insert_case_history_is_admin_policy on public.case_history
+create policy insert_case_history_is_admin on public.case_history
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_history_professional_is_primary_professional_policy on public.case_history
+create policy insert_case_history_professional_is_primary_professional on public.case_history
   as permissive
   for insert
   with check (
@@ -48,7 +48,7 @@ create policy insert_case_history_professional_is_primary_professional_policy on
 
 ---- update
 
-create policy update_case_history_not_concluded_policy on public.case_history
+create policy update_case_history_not_concluded on public.case_history
   as restrictive
   for update
   using (
@@ -56,21 +56,21 @@ create policy update_case_history_not_concluded_policy on public.case_history
       where case_study_conclusion.case_study_id = case_history.case_study_id)
   );
 
-create policy update_case_history_is_admin_policy on public.case_history
+create policy update_case_history_is_admin on public.case_history
   as permissive
   for update
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_case_history_is_created_by_policy on public.case_history
+create policy update_case_history_is_created_by on public.case_history
   as permissive
   for update
   using (
     case_history.created_by = public.viewer_user_id()
   );
 
-create policy update_case_history_is_primary_professional_policy on public.case_history
+create policy update_case_history_is_primary_professional on public.case_history
   as permissive
   for update
   using (
@@ -83,7 +83,7 @@ create policy update_case_history_is_primary_professional_policy on public.case_
 
 ---- delete
 
-create policy delete_case_history_not_concluded_policy on public.case_history
+create policy delete_case_history_not_concluded on public.case_history
   as restrictive
   for delete
   using (
@@ -91,21 +91,21 @@ create policy delete_case_history_not_concluded_policy on public.case_history
       where case_study_conclusion.case_study_id = case_history.case_study_id)
   );
 
-create policy delete_case_history_is_admin_policy on public.case_history
+create policy delete_case_history_is_admin on public.case_history
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_history_is_created_by_policy on public.case_history
+create policy delete_case_history_is_created_by on public.case_history
   as permissive
   for delete
   using (
     case_history.created_by = public.viewer_user_id()
   );
 
-create policy delete_case_history_is_primary_professional_policy on public.case_history
+create policy delete_case_history_is_primary_professional on public.case_history
   as permissive
   for delete
   using (
@@ -124,14 +124,14 @@ alter table public.case_history enable row level security;
 
 ---- select
 
-create policy select_case_history_file_is_admin_policy on public.case_history_file
+create policy select_case_history_file_is_admin on public.case_history_file
   as permissive
   for select
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_history_file_has_access_to_case_history_policy on public.case_history_file
+create policy select_case_history_file_has_access_to_case_history on public.case_history_file
   as permissive
   for select
   using (
@@ -141,7 +141,7 @@ create policy select_case_history_file_has_access_to_case_history_policy on publ
 
 ---- insert
 
-create policy insert_case_history_file_not_concluded_policy on public.case_history_file
+create policy insert_case_history_file_not_concluded on public.case_history_file
   as restrictive
   for insert
   with check (
@@ -150,14 +150,14 @@ create policy insert_case_history_file_not_concluded_policy on public.case_histo
       where case_history.id = case_history_file.case_history_id)
   );
 
-create policy insert_case_history_file_is_admin_policy on public.case_history_file
+create policy insert_case_history_file_is_admin on public.case_history_file
   as permissive
   for insert
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy insert_case_history_file_professional_is_primary_professional_policy on public.case_history_file
+create policy insert_case_history_file_professional_is_primary_professional on public.case_history_file
   as permissive
   for insert
   with check (
@@ -172,7 +172,7 @@ create policy insert_case_history_file_professional_is_primary_professional_poli
 
 ---- delete
 
-create policy delete_case_history_file_not_concluded_policy on public.case_history_file
+create policy delete_case_history_file_not_concluded on public.case_history_file
   as restrictive
   for delete
   using (
@@ -181,14 +181,14 @@ create policy delete_case_history_file_not_concluded_policy on public.case_histo
       where case_history.id = case_history_file.case_history_id)
   );
 
-create policy delete_case_history_file_is_admin_policy on public.case_history_file
+create policy delete_case_history_file_is_admin on public.case_history_file
   as permissive
   for delete
   using (
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_case_history_file_is_created_by_policy on public.case_history_file
+create policy delete_case_history_file_is_created_by on public.case_history_file
   as permissive
   for delete
   using (
@@ -196,7 +196,7 @@ create policy delete_case_history_file_is_created_by_policy on public.case_histo
     where file.id = case_history_file.file_id)
   );
 
-create policy delete_case_history_file_is_primary_professional_policy on public.case_history_file
+create policy delete_case_history_file_is_primary_professional on public.case_history_file
   as permissive
   for delete
   using (
