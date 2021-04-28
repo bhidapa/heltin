@@ -193,6 +193,8 @@ create table public.case_history (
 
 grant all on public.case_history to viewer;
 
+create index case_history_case_study_id_idx on public.case_history (case_study_id);
+
 comment on column public.case_history.accompanied_by is 'With whom was the patient accopanied by.';
 comment on column public.case_history.lives_with is 'With whom does the patient live with.';
 

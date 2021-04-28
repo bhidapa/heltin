@@ -10,6 +10,10 @@ create table public.file(
 
 grant select, insert, delete on public.file to viewer;
 
+create index file_created_by_idx on public.file (created_by);
+
+----
+
 create or replace function public.delete_file(
   id uuid
 ) returns public.file as
