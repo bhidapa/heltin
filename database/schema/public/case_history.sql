@@ -378,6 +378,11 @@ create table public.case_history_file (
 
 grant select, insert, delete on public.case_history_file to viewer;
 
+create index case_history_file_case_history_id_idx on public.case_history_file (case_history_id);
+create index case_history_file_file_id_idx on public.case_history_file (file_id);
+
+----
+
 create or replace function public.create_case_history_file(
   case_history_id uuid,
   file_name       text,

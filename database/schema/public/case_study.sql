@@ -166,6 +166,11 @@ create table public.case_study_treatment (
 
 grant all on public.case_study_treatment to viewer;
 
+create index case_study_treatment_case_study_id_idx on public.case_study_treatment (case_study_id);
+create index case_study_treatment_created_by_idx on public.case_study_treatment (created_by);
+
+----
+
 create or replace function public.client_case_study_treatments_by_case_studies_client_id(
   client public.client
 ) returns setof public.case_study_treatment as
@@ -251,6 +256,11 @@ create table public.case_study_treatment_file (
 );
 
 grant select, insert, delete on public.case_study_treatment_file to viewer;
+
+create index case_study_treatment_file_case_study_treatment_id_idx on public.case_study_treatment_file (case_study_treatment_id);
+create index case_study_treatment_file_file_id_idx on public.case_study_treatment_file (file_id);
+
+----
 
 create or replace function public.create_case_study_treatment_file(
   case_study_treatment_id uuid,
