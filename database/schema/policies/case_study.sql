@@ -357,4 +357,136 @@ create policy delete_case_study_treatment_file_is_created_by_policy on public.ca
     (select created_by = public.viewer_user_id() from public.file
       where file.id = case_study_treatment_file.file_id)
   );
+
+alter table public.case_study_treatment_file enable row level security;
+
+---- case_study_conclusion ----
+
+---- select
+
+create policy select_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+  as permissive
+  for select
+  using (
+    public.user_is_admin(public.viewer())
   );
+
+create policy select_case_study_conclusion_has_access_to_case_study_policy on public.case_study_conclusion
+  as permissive
+  for select
+  using (
+    exists (select from public.case_study
+      where case_study.id = case_study_conclusion.case_study_id)
+  );
+
+---- insert
+
+create policy insert_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+  as permissive
+  for insert
+  with check (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy insert_case_study_conclusion_professional_is_added_policy on public.case_study_conclusion
+  as permissive
+  for insert
+  with check (
+    public.user_is_mental_health_professional(public.viewer())
+    and exists (select from public.case_study_mental_health_professional
+        inner join public.mental_health_professional
+        on mental_health_professional.id = case_study_mental_health_professional.mental_health_professional_id
+        and mental_health_professional.user_id = public.viewer_user_id()
+      where case_study_conclusion.case_study_id = case_study_mental_health_professional.case_study_id)
+  );
+
+---- update
+
+create policy update_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+  as permissive
+  for update
+  using (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy update_case_study_conclusion_is_created_by_policy on public.case_study_conclusion
+  as permissive
+  for update
+  using (
+    case_study_conclusion.created_by = public.viewer_user_id()
+  );
+
+---- delete
+
+create policy delete_case_study_conclusion_is_admin_policy on public.case_study_conclusion
+  as permissive
+  for delete
+  using (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy delete_case_study_conclusion_is_created_by_policy on public.case_study_conclusion
+  as permissive
+  for delete
+  using (
+    case_study_conclusion.created_by = public.viewer_user_id()
+  );
+
+----
+
+alter table public.case_study_conclusion enable row level security;
+
+---- case_study_conclusion_file ----
+
+---- select
+
+create policy select_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+  as permissive
+  for select
+  using (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy select_case_study_conclusion_file_has_access_to_case_study_conclusion_policy on public.case_study_conclusion_file
+  as permissive
+  for select
+  using (
+    exists (select from public.case_study_conclusion
+      where case_study_conclusion.id = case_study_conclusion_file.case_study_conclusion_id)
+  );
+
+---- insert
+
+create policy insert_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+  as permissive
+  for insert
+  with check (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy insert_case_study_conclusion_file_conclusion_created_by_policy on public.case_study_conclusion_file
+  as permissive
+  for insert
+  with check (
+    (select case_study_conclusion.created_by = public.viewer_user_id() from public.case_study_conclusion
+      where case_study_conclusion.id = case_study_conclusion_file.case_study_conclusion_id)
+  );
+
+---- delete
+
+create policy delete_case_study_conclusion_file_is_admin_policy on public.case_study_conclusion_file
+  as permissive
+  for delete
+  using (
+    public.user_is_admin(public.viewer())
+  );
+
+create policy delete_case_study_conclusion_file_is_created_by_policy on public.case_study_conclusion_file
+  as permissive
+  for delete
+  using (
+    (select created_by = public.viewer_user_id() from public.file
+      where file.id = case_study_conclusion_file.file_id)
+  );
+
+alter table public.case_study_conclusion enable row level security;

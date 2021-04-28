@@ -308,7 +308,7 @@ create type public.case_study_conclusion_type as enum (
 create table public.case_study_conclusion (
   id uuid primary key default uuid_generate_v4(),
 
-  case_study_id uuid not null references public.case_study(id) on delete cascade,
+  case_study_id uuid unique not null references public.case_study(id) on delete cascade,
 
   "type" public.case_study_conclusion_type not null,
 
@@ -324,6 +324,11 @@ create table public.case_study_conclusion (
 );
 
 grant all on public.case_study_conclusion to viewer;
+
+create index case_study_conclusion_case_study_id_idx on public.case_study_conclusion (case_study_id);
+create index case_study_conclusion_created_by_idx on public.case_study_conclusion (created_by);
+
+----
 
 create or replace function public.create_case_study_conclusion(
   case_study_id uuid,
@@ -378,6 +383,11 @@ create table public.case_study_conclusion_file (
 );
 
 grant select, insert, delete on public.case_study_conclusion_file to viewer;
+
+create index case_study_conclusion_file_case_study_conclusion_id_idx on public.case_study_conclusion_file (case_study_conclusion_id);
+create index case_study_conclusion_file_file_id_idx on public.case_study_conclusion_file (file_id);
+
+----
 
 create or replace function public.create_case_study_conclusion_file(
   case_study_conclusion_id uuid,
