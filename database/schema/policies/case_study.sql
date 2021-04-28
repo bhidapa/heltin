@@ -371,12 +371,15 @@ create policy select_case_study_conclusion_is_admin_policy on public.case_study_
     public.user_is_admin(public.viewer())
   );
 
-create policy select_case_study_conclusion_has_access_to_case_study_policy on public.case_study_conclusion
+create policy select_case_study_conclusion_has_professional_policy on public.case_study_conclusion
   as permissive
   for select
   using (
-    exists (select from public.case_study
-      where case_study.id = case_study_conclusion.case_study_id)
+    exists (select from public.case_study_mental_health_professional
+        inner join public.mental_health_professional
+        on mental_health_professional.id = case_study_mental_health_professional.mental_health_professional_id
+        and mental_health_professional.user_id = public.viewer_user_id()
+      where case_study_conclusion.case_study_id = case_study_mental_health_professional.case_study_id)
   );
 
 ---- insert
