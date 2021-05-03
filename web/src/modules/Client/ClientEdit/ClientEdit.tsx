@@ -36,11 +36,12 @@ import { makeLink } from 'lib/makeLink';
 import { usePromiseMutation } from 'relay/hooks';
 
 export interface ClientEditProps {
+  viewerIsAdmin: boolean;
   client: ClientEdit_client$key;
 }
 
 export const ClientEdit: React.FC<ClientEditProps> = (props) => {
-  const { client: clientKey } = props;
+  const { viewerIsAdmin, client: clientKey } = props;
 
   const client = useFragment(
     graphql`
@@ -97,23 +98,25 @@ export const ClientEdit: React.FC<ClientEditProps> = (props) => {
         <Flex item flex={1}>
           <div />
         </Flex>
-        <Flex item>
-          <ResolveOnTrigger
-            promise={deleteClient}
-            params={{ variables: { input: { rowId: client.rowId } } }}
-            onResolve={() => history.push(CLIENTS_PAGE_ROUTE)}
-          >
-            {({ trigger, loading, error, clearError }) =>
-              error ? (
-                <DismissableAlert message={error} onDismiss={clearError} />
-              ) : (
-                <Button variant="primary" color="danger" disabled={loading} onClick={trigger}>
-                  <FormattedMessage id="DELETE" />
-                </Button>
-              )
-            }
-          </ResolveOnTrigger>
-        </Flex>
+        {viewerIsAdmin && (
+          <Flex item>
+            <ResolveOnTrigger
+              promise={deleteClient}
+              params={{ variables: { input: { rowId: client.rowId } } }}
+              onResolve={() => history.push(CLIENTS_PAGE_ROUTE)}
+            >
+              {({ trigger, loading, error, clearError }) =>
+                error ? (
+                  <DismissableAlert message={error} onDismiss={clearError} />
+                ) : (
+                  <Button variant="primary" color="danger" disabled={loading} onClick={trigger}>
+                    <FormattedMessage id="DELETE" />
+                  </Button>
+                )
+              }
+            </ResolveOnTrigger>
+          </Flex>
+        )}
       </Flex>
       <Flex item>
         <Form
