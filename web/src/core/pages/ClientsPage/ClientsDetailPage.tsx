@@ -33,9 +33,13 @@ export const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
     },
   } = props;
 
-  const { client } = useLazyLoadQuery<ClientsDetailPageQuery>(
+  const { viewer, client } = useLazyLoadQuery<ClientsDetailPageQuery>(
     graphql`
       query ClientsDetailPageQuery($rowId: UUID!) {
+        viewer {
+          isAdmin
+          isMentalHealthProfessional
+        }
         client: clientByRowId(rowId: $rowId) {
           rowId
           fullName
@@ -62,50 +66,54 @@ export const ClientsDetailPage: React.FC<ClientsDetailPageProps> = (props) => {
       <Helmet title={client.fullName} />
       <Flex container direction="column" spacing="small">
         <Flex item>
-          <ClientEdit client={client} />
+          <ClientEdit viewerIsAdmin={viewer!.isAdmin} client={client} />
         </Flex>
         <Flex item>
           <ClientAssignedProfessionalsManage client={client} />
         </Flex>
-        <Flex item>
-          <Divider />
-        </Flex>
-        <Flex item container spacing="tiny" justify="space-between" align="center">
-          <Flex item>
-            <Text size="large" weight="medium">
-              <FormattedMessage id="CASE_STUDIES" />
-            </Text>
-          </Flex>
-          <Flex item>
-            <Button
-              variant="primary"
-              component={makeLink({
-                to: `${CLIENTS_PAGE_ROUTE}/${client.rowId}/create-case-study`,
-              })}
-            >
-              <FormattedMessage id="CREATE_CASE_STUDY" />
-            </Button>
-          </Flex>
-        </Flex>
-        {client.caseStudies.nodes.length > 0 ? (
-          client.caseStudies.nodes.map((caseStudy, index) => (
-            <React.Fragment key={caseStudy.rowId}>
+        {(viewer!.isAdmin || viewer!.isMentalHealthProfessional) && (
+          <>
+            <Flex item>
+              <Divider />
+            </Flex>
+            <Flex item container spacing="tiny" justify="space-between" align="center">
               <Flex item>
-                <CaseStudyView caseStudy={caseStudy} />
+                <Text size="large" weight="medium">
+                  <FormattedMessage id="CASE_STUDIES" />
+                </Text>
               </Flex>
-              {index < client.caseStudies.nodes.length - 1 && (
-                <Flex item>
-                  <Divider />
-                </Flex>
-              )}
-            </React.Fragment>
-          ))
-        ) : (
-          <Flex item>
-            <Text color="warning">
-              <FormattedMessage id="NO_ENTRIES" />
-            </Text>
-          </Flex>
+              <Flex item>
+                <Button
+                  variant="primary"
+                  component={makeLink({
+                    to: `${CLIENTS_PAGE_ROUTE}/${client.rowId}/create-case-study`,
+                  })}
+                >
+                  <FormattedMessage id="CREATE_CASE_STUDY" />
+                </Button>
+              </Flex>
+            </Flex>
+            {client.caseStudies.nodes.length > 0 ? (
+              client.caseStudies.nodes.map((caseStudy, index) => (
+                <React.Fragment key={caseStudy.rowId}>
+                  <Flex item>
+                    <CaseStudyView caseStudy={caseStudy} />
+                  </Flex>
+                  {index < client.caseStudies.nodes.length - 1 && (
+                    <Flex item>
+                      <Divider />
+                    </Flex>
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              <Flex item>
+                <Text color="warning">
+                  <FormattedMessage id="NO_ENTRIES" />
+                </Text>
+              </Flex>
+            )}
+          </>
         )}
       </Flex>
     </>

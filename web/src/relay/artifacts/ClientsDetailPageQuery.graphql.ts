@@ -8,6 +8,10 @@ export type ClientsDetailPageQueryVariables = {
     rowId: string;
 };
 export type ClientsDetailPageQueryResponse = {
+    readonly viewer: {
+        readonly isAdmin: boolean;
+        readonly isMentalHealthProfessional: boolean;
+    } | null;
     readonly client: {
         readonly rowId: string;
         readonly fullName: string;
@@ -31,6 +35,11 @@ export type ClientsDetailPageQuery = {
 query ClientsDetailPageQuery(
   $rowId: UUID!
 ) {
+  viewer {
+    isAdmin
+    isMentalHealthProfessional
+    id
+  }
   client: clientByRowId(rowId: $rowId) {
     rowId
     fullName
@@ -123,28 +132,42 @@ var v0 = [
     "name": "rowId"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isAdmin",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "isMentalHealthProfessional",
+  "storageKey": null
+},
+v3 = [
   {
     "kind": "Variable",
     "name": "rowId",
     "variableName": "rowId"
   }
 ],
-v2 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "rowId",
   "storageKey": null
 },
-v3 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "fullName",
   "storageKey": null
 },
-v4 = [
+v6 = [
   {
     "kind": "Literal",
     "name": "orderBy",
@@ -153,21 +176,21 @@ v4 = [
     ]
   }
 ],
-v5 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v7 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -182,18 +205,31 @@ return {
     "name": "ClientsDetailPageQuery",
     "selections": [
       {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
         "alias": "client",
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "Client",
         "kind": "LinkedField",
         "name": "clientByRowId",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": "caseStudies",
-            "args": (v4/*: any*/),
+            "args": (v6/*: any*/),
             "concreteType": "CaseStudiesConnection",
             "kind": "LinkedField",
             "name": "caseStudiesByClientRowId",
@@ -207,7 +243,7 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
+                  (v4/*: any*/),
                   {
                     "args": null,
                     "kind": "FragmentSpread",
@@ -243,15 +279,29 @@ return {
     "name": "ClientsDetailPageQuery",
     "selections": [
       {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v2/*: any*/),
+          (v7/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
         "alias": "client",
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "Client",
         "kind": "LinkedField",
         "name": "clientByRowId",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v4/*: any*/),
+          (v5/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -345,12 +395,12 @@ return {
                 "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/),
-                  (v5/*: any*/)
+                  (v5/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
@@ -378,8 +428,8 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
-                  (v2/*: any*/),
+                  (v7/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": "therapist",
                     "args": null,
@@ -388,10 +438,10 @@ return {
                     "name": "mentalHealthProfessionalByMentalHealthProfessionalRowId",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
-                      (v6/*: any*/),
-                      (v3/*: any*/),
-                      (v5/*: any*/)
+                      (v4/*: any*/),
+                      (v8/*: any*/),
+                      (v5/*: any*/),
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -410,7 +460,7 @@ return {
           },
           {
             "alias": "caseStudies",
-            "args": (v4/*: any*/),
+            "args": (v6/*: any*/),
             "concreteType": "CaseStudiesConnection",
             "kind": "LinkedField",
             "name": "caseStudiesByClientRowId",
@@ -424,8 +474,8 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v2/*: any*/),
-                  (v7/*: any*/),
+                  (v4/*: any*/),
+                  (v9/*: any*/),
                   {
                     "alias": "caseStudyTreatments",
                     "args": [
@@ -450,7 +500,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v2/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -458,7 +508,7 @@ return {
                             "name": "caseStudyRowId",
                             "storageKey": null
                           },
-                          (v7/*: any*/),
+                          (v9/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -473,7 +523,7 @@ return {
                             "name": "endedAt",
                             "storageKey": null
                           },
-                          (v5/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -496,37 +546,37 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v2/*: any*/),
-                          (v6/*: any*/),
-                          (v5/*: any*/)
+                          (v4/*: any*/),
+                          (v8/*: any*/),
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
           },
-          (v5/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "c23749ff69e3e0dfb9866b1386e55b0a",
+    "cacheID": "5c0ed472628794269bd3af2be50e5719",
     "id": null,
     "metadata": {},
     "name": "ClientsDetailPageQuery",
     "operationKind": "query",
-    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    ...ClientAssignedProfessionalsManage_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  rowId\n  caseStudyRowId\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n"
+    "text": "query ClientsDetailPageQuery(\n  $rowId: UUID!\n) {\n  viewer {\n    isAdmin\n    isMentalHealthProfessional\n    id\n  }\n  client: clientByRowId(rowId: $rowId) {\n    rowId\n    fullName\n    ...ClientEdit_client\n    ...ClientAssignedProfessionalsManage_client\n    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        rowId\n        ...CaseStudyView_caseStudy\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyTreatmentRow_item on CaseStudyTreatment {\n  rowId\n  caseStudyRowId\n  title\n  startedAt\n  endedAt\n}\n\nfragment CaseStudyView_caseStudy on CaseStudy {\n  rowId\n  title\n  caseStudyTreatments: caseStudyTreatmentsByCaseStudyRowId(orderBy: [STARTED_AT_DESC]) {\n    nodes {\n      rowId\n      ...CaseStudyTreatmentRow_item\n      id\n    }\n  }\n  caseStudyConclusions: caseStudyConclusionsByCaseStudyRowId {\n    nodes {\n      rowId\n      type\n      id\n    }\n  }\n}\n\nfragment ClientAssignedProfessionalsManage_client on Client {\n  rowId\n  latestAssignedTherapist: latestAssignedMentalHealthProfessional {\n    therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n      fullName\n      id\n    }\n    id\n  }\n  assignedTherapists: clientAssignedMentalHealthProfessionalsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: mentalHealthProfessionalByMentalHealthProfessionalRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment ClientEdit_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  sentBy\n  email\n  discrete\n}\n"
   }
 };
 })();
-(node as any).hash = '2e49f33cee9f6442ddf758ec6c75a17f';
+(node as any).hash = 'ae41ab38711def8ca036a214799e51c0';
 export default node;

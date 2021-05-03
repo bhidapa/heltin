@@ -49,10 +49,12 @@ graphql`
 
 const RETURN_TO_KEY = '@heltin/returnTo';
 
-const RootRoutes = React.memo<{ isLoggedIn: boolean; isAdmin: boolean }>(function RootRoutes(
-  props,
-) {
-  const { isLoggedIn, isAdmin } = props;
+const RootRoutes = React.memo<{
+  isLoggedIn: boolean;
+  isAdmin: boolean;
+  isMentalHealthProfessional: boolean;
+}>(function RootRoutes(props) {
+  const { isLoggedIn, isAdmin, isMentalHealthProfessional } = props;
 
   const [returnTo, setReturnTo] = useState<LocationDescriptorObject | null>(
     local.get(RETURN_TO_KEY, null),
@@ -96,7 +98,9 @@ const RootRoutes = React.memo<{ isLoggedIn: boolean; isAdmin: boolean }>(functio
       <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
       {isAdmin && <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />}
       <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
-      <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
+      {(isAdmin || isMentalHealthProfessional) && (
+        <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
+      )}
       <Redirect exact path="/" to={DEFAULT_ROUTE} />
       <Route path="*" component={LazyFourOhFourPage} />
     </Switch>
@@ -111,6 +115,7 @@ const Root: React.FC<Decorate> = (props) => {
       query RootQuery {
         viewer {
           isAdmin
+          isMentalHealthProfessional
           ...Root_viewer @relay(mask: false)
         }
       }
@@ -142,7 +147,11 @@ const Root: React.FC<Decorate> = (props) => {
                       <Redirect to={location.pathname.replace(/\/+$/, '')} />
                     )}
                   />
-                  <RootRoutes isLoggedIn={Boolean(viewer)} isAdmin={viewer?.isAdmin ?? false} />
+                  <RootRoutes
+                    isLoggedIn={Boolean(viewer)}
+                    isAdmin={viewer?.isAdmin ?? false}
+                    isMentalHealthProfessional={viewer?.isMentalHealthProfessional ?? false}
+                  />
                 </Switch>
               </Boundary>
             </main>
