@@ -79,7 +79,7 @@ export function useTransitionMutation<M extends MutationParameters>(
   config?: Omit<UseSuspendMutationConfig<M>, 'variables'>,
   deps?: DependencyList,
 ): [(config: UseSuspendMutationConfig<M>) => Disposable, boolean] {
-  const [isInFlight, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
+  const [isInFlight, startTransition] = unstable_useTransition();
   const commit = useSuspendMutation<M>(mutation, config);
   const transitionCommit = useCallback<(config: UseSuspendMutationConfig<M>) => Disposable>(
     (commitConfig) => {

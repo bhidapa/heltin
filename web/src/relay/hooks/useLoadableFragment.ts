@@ -18,7 +18,7 @@ export function useLoadableRefetchableFragment<O extends OperationType, K extend
   fragmentInput: GraphQLTaggedNode,
   parentFragmentRef: K,
 ) {
-  const [isRefetching, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
+  const [isRefetching, startTransition] = unstable_useTransition();
   const [data, refetch] = useRefetchableFragment<O, K>(fragmentInput, parentFragmentRef);
   return {
     data: data as any,
@@ -34,7 +34,7 @@ export function useLoadablePaginationFragment<O extends OperationType, K extends
   fragmentInput: GraphQLTaggedNode,
   parentFragmentRef: K,
 ) {
-  const [isRefetching, startTransition] = unstable_useTransition({ busyMinDurationMs: Infinity });
+  const [isRefetching, startTransition] = unstable_useTransition();
   const { refetch, ...fragment } = usePaginationFragment<O, K>(fragmentInput, parentFragmentRef);
   return {
     ...fragment,
