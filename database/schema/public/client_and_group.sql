@@ -37,6 +37,16 @@ create table public.client (
 
   discrete boolean not null default false, -- not seen by public.assistant
 
+  fulltext text not null generated always as (
+    "number"::text || ' ' ||
+    first_name || ' ' ||
+    last_name || ' ' ||
+    telephone || ' ' ||
+    coalesce(email || ' ', '') ||
+    city || ' ' ||
+    address
+  ) stored,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
@@ -44,17 +54,7 @@ create table public.client (
 grant all on public.client to viewer;
 
 create index client_created_by_idx on public.client (created_by);
-create index client_fulltext_idx on public.client using gin(
-  to_tsvector('english',
-    "number" || ' ' ||
-    first_name || ' ' ||
-    last_name || ' ' ||
-    telephone || ' ' ||
-    coalesce(email, '') || ' ' ||
-    city || ' ' ||
-    address
-  )
-);
+create index client_fulltext_idx on public.client using gin (fulltext gin_trgm_ops);
 
 ----
 

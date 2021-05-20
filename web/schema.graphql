@@ -1751,6 +1751,7 @@ type Client implements Node {
   createdBy: UUID!
   updatedBy: UUID
   discrete: Boolean!
+  fulltext: String!
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -2018,6 +2019,9 @@ input ClientCondition {
   """Checks for equality with the object’s `discrete` field."""
   discrete: Boolean
 
+  """Checks for equality with the object’s `fulltext` field."""
+  fulltext: String
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
 
@@ -2096,6 +2100,8 @@ enum ClientsOrderBy {
   UPDATED_BY_DESC
   DISCRETE_ASC
   DISCRETE_DESC
+  FULLTEXT_ASC
+  FULLTEXT_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
@@ -3546,6 +3552,7 @@ type MentalHealthProfessional implements Node {
   dateOfBirth: Date!
   gender: Gender!
   disabled: Boolean!
+  fulltext: String!
   createdAt: CreatedTimestamptz!
   updatedAt: UpdatedTimestamptz!
 
@@ -3655,6 +3662,9 @@ input MentalHealthProfessionalCondition {
   """Checks for equality with the object’s `disabled` field."""
   disabled: Boolean
 
+  """Checks for equality with the object’s `fulltext` field."""
+  fulltext: String
+
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: CreatedTimestamptz
 
@@ -3713,6 +3723,8 @@ enum MentalHealthProfessionalsOrderBy {
   GENDER_DESC
   DISABLED_ASC
   DISABLED_DESC
+  FULLTEXT_ASC
+  FULLTEXT_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC

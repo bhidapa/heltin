@@ -133,6 +133,13 @@ create table public.mental_health_professional (
 
   disabled boolean not null default false,
 
+  fulltext text not null generated always as (
+    email || ' ' ||
+    coalesce(title || ' ', '') ||
+    first_name || ' ' ||
+    last_name
+  ) stored,
+
   created_at created_timestamptz not null,
   updated_at updated_timestamptz not null
 );
@@ -140,6 +147,7 @@ create table public.mental_health_professional (
 grant all on table public.mental_health_professional to viewer;
 
 create index mental_health_professional_user_id_idx on public.mental_health_professional (user_id);
+create index mental_health_professional_fulltext_idx on public.mental_health_professional using gin (fulltext gin_trgm_ops);
 
 ----
 
