@@ -814,6 +814,11 @@ type CaseStudy implements Node {
     condition: CaseStudyTreatmentCondition
   ): CaseStudyTreatmentsConnection!
 
+  """
+  Reads a single `CaseStudyConclusion` that is related to this `CaseStudy`.
+  """
+  caseStudyConclusionByCaseStudyRowId: CaseStudyConclusion
+
   """Reads and enables pagination through a set of `CaseStudyConclusion`."""
   caseStudyConclusionsByCaseStudyRowId(
     """Only read the first `n` values of the set."""
@@ -841,7 +846,7 @@ type CaseStudy implements Node {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: CaseStudyConclusionCondition
-  ): CaseStudyConclusionsConnection!
+  ): CaseStudyConclusionsConnection! @deprecated(reason: "Please use caseStudyConclusionByCaseStudyRowId instead")
 
   """Reads and enables pagination through a set of `CaseHistory`."""
   caseHistoriesByCaseStudyRowId(
@@ -5073,6 +5078,7 @@ type Query implements Node {
   caseHistoryFileByRowId(rowId: UUID!): CaseHistoryFile
   caseStudyByRowId(rowId: UUID!): CaseStudy
   caseStudyConclusionByRowId(rowId: UUID!): CaseStudyConclusion
+  caseStudyConclusionByCaseStudyRowId(caseStudyRowId: UUID!): CaseStudyConclusion
   caseStudyConclusionFileByRowId(rowId: UUID!): CaseStudyConclusionFile
   caseStudyMentalHealthProfessionalByRowId(rowId: UUID!): CaseStudyMentalHealthProfessional
   caseStudyMentalHealthProfessionalByCaseStudyRowIdAndMentalHealthProfessionalRowId(caseStudyRowId: UUID!, mentalHealthProfessionalRowId: UUID!): CaseStudyMentalHealthProfessional
