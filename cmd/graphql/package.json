@@ -15,7 +15,7 @@
     "@graphile-contrib/pg-non-null": "^1.0.3",
     "connect-pg-simple": "^6.2.1",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "express-session": "^1.17.2",
     "graphile-build-pg": "^4.11.2",
     "graphile-utils": "^4.11.2",
     "pg": "^8.6.0",
