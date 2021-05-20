@@ -36,7 +36,7 @@ if (!root) {
   throw new Error('root mountpoint not found');
 }
 
-ReactDOM.unstable_createRoot(root).render(
+ReactDOM.createRoot(root).render(
   <ThemeProvider theme={theme}>
     <Baseline />
     <Boundary>

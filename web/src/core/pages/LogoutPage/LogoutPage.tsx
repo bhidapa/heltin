@@ -23,8 +23,9 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
       }
     `,
     {
-      onCompleted: () => {
-        window.location.reload();
+      updater: (store) => {
+        store.invalidateStore();
+        store.getRoot().setValue(null, 'viewer');
       },
     },
   );

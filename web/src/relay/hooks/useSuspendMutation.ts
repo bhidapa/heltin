@@ -4,7 +4,7 @@
  *
  */
 
-import { unstable_useTransition, useCallback, DependencyList } from 'react';
+import { useTransition, useCallback, DependencyList } from 'react';
 import { GraphQLTaggedNode, MutationParameters, Disposable, commitMutation } from 'relay-runtime';
 import { useMutation } from 'react-relay/hooks';
 import { UseMutationConfig } from 'react-relay';
@@ -79,12 +79,11 @@ export function useTransitionMutation<M extends MutationParameters>(
   config?: Omit<UseSuspendMutationConfig<M>, 'variables'>,
   deps?: DependencyList,
 ): [(config: UseSuspendMutationConfig<M>) => Disposable, boolean] {
-  const [isInFlight, startTransition] = unstable_useTransition();
+  const [isInFlight, startTransition] = useTransition();
   const commit = useSuspendMutation<M>(mutation, config);
   const transitionCommit = useCallback<(config: UseSuspendMutationConfig<M>) => Disposable>(
     (commitConfig) => {
       const disposableRef = { current: null as Disposable | null };
-      // @ts-expect-error tuple order of useTransition has been flipped
       startTransition(() => {
         disposableRef.current = commit(commitConfig);
       });
@@ -98,11 +97,7 @@ export function useTransitionMutation<M extends MutationParameters>(
     },
     [commit, ...(deps ?? [])],
   );
-  return [
-    transitionCommit,
-    // @ts-expect-error tuple order of useTransition has been flipped
-    isInFlight,
-  ];
+  return [transitionCommit, isInFlight];
 }
 
 export function usePromiseMutation<M extends MutationParameters>(
