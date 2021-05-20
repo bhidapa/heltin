@@ -64,6 +64,13 @@ create policy insert_client_is_assistant on public.client
     public.user_is_assistant(public.viewer())
   );
 
+create policy insert_client_is_professional on public.client
+  as permissive
+  for insert
+  with check (
+    public.user_is_mental_health_professional(public.viewer())
+  );
+
 ---- update
 
 create policy update_client_is_admin on public.client
