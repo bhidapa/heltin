@@ -143,7 +143,7 @@ create table public.group (
   description text,
 
   created_at created_timestamptz not null,
-  updated_at updated_timestamptz not null  
+  updated_at updated_timestamptz not null
 );
 
 grant all on public.group to viewer;

@@ -157,7 +157,7 @@ create or replace function public.mental_health_professional_full_name(
   mental_health_professional public.mental_health_professional
 ) returns text as
 $$
-  select  
+  select
     coalesce(mental_health_professional.title || ' ', '') ||
     mental_health_professional.first_name || ' ' ||
     mental_health_professional.last_name
