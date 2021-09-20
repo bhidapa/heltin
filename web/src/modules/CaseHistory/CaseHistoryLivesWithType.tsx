@@ -31,8 +31,8 @@ export interface CaseHistoryLivesWithTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryLivesWithTypeSelectOptions: React.FC<CaseHistoryLivesWithTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryLivesWithTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryLivesWithTypeSelectOptions: React.FC<CaseHistoryLivesWithTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryLivesWithTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -45,5 +45,4 @@ export const CaseHistoryLivesWithTypeSelectOptions: React.FC<CaseHistoryLivesWit
         ))}
       </>
     );
-  },
-);
+  });

@@ -144,17 +144,16 @@ import {
   FormCheckboxFieldProps,
 } from '@domonda/react-form/FormCheckboxField';
 
-export const FormCheckboxField: React.FC<
-  Omit<FormCheckboxFieldProps, 'children'> & CheckboxProps
-> = ({ children, path, required, transformer, ...rest }) => (
-  <ReactFormCheckboxField path={path} required={required} transformer={transformer}>
-    {({ inputProps, state }) => (
-      <Checkbox {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
-        {children}
-      </Checkbox>
-    )}
-  </ReactFormCheckboxField>
-);
+export const FormCheckboxField: React.FC<Omit<FormCheckboxFieldProps, 'children'> & CheckboxProps> =
+  ({ children, path, required, transformer, ...rest }) => (
+    <ReactFormCheckboxField path={path} required={required} transformer={transformer}>
+      {({ inputProps, state }) => (
+        <Checkbox {...inputProps} disabled={state.disabled} readOnly={state.readOnly} {...rest}>
+          {children}
+        </Checkbox>
+      )}
+    </ReactFormCheckboxField>
+  );
 
 // DateField
 import enGB from 'date-fns/locale/en-GB';

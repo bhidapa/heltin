@@ -18,8 +18,10 @@ export interface CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions: React.FC<CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions: React.FC<CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions({
+    disableEmptyOption,
+  }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -32,5 +34,4 @@ export const CaseHistoryReasonOfMultipleAdoptionsTypeSelectOptions: React.FC<Cas
         ))}
       </>
     );
-  },
-);
+  });

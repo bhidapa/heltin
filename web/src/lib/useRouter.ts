@@ -9,7 +9,7 @@ import { __RouterContext, RouteComponentProps } from 'react-router';
 import { useForceUpdate } from '@domonda/react-plumb';
 
 export function useRouter<
-  Params extends { [K in keyof Params]?: string } = Record<string, string>
+  Params extends { [K in keyof Params]?: string } = Record<string, string>,
 >(): RouteComponentProps<Params> {
   const forceUpdate = useForceUpdate();
 

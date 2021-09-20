@@ -25,8 +25,8 @@ export interface CaseHistoryReferralTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryReferralTypeSelectOptions: React.FC<CaseHistoryReferralTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryReferralTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryReferralTypeSelectOptions: React.FC<CaseHistoryReferralTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryReferralTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -39,5 +39,4 @@ export const CaseHistoryReferralTypeSelectOptions: React.FC<CaseHistoryReferralT
         ))}
       </>
     );
-  },
-);
+  });

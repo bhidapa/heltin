@@ -19,8 +19,8 @@ export interface CaseHistoryDivorceOutcomeTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryDivorceOutcomeTypeSelectOptions: React.FC<CaseHistoryDivorceOutcomeTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryDivorceOutcomeTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryDivorceOutcomeTypeSelectOptions: React.FC<CaseHistoryDivorceOutcomeTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryDivorceOutcomeTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -33,5 +33,4 @@ export const CaseHistoryDivorceOutcomeTypeSelectOptions: React.FC<CaseHistoryDiv
         ))}
       </>
     );
-  },
-);
+  });

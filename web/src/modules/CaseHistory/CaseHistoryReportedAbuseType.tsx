@@ -17,8 +17,8 @@ export interface CaseHistoryReportedAbuseTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryReportedAbuseTypeSelectOptions: React.FC<CaseHistoryReportedAbuseTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryReportedAbuseTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryReportedAbuseTypeSelectOptions: React.FC<CaseHistoryReportedAbuseTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryReportedAbuseTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -31,5 +31,4 @@ export const CaseHistoryReportedAbuseTypeSelectOptions: React.FC<CaseHistoryRepo
         ))}
       </>
     );
-  },
-);
+  });

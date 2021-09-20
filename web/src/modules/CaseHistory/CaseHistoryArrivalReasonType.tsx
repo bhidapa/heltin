@@ -43,8 +43,8 @@ export interface CaseHistoryArrivalReasonTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryArrivalReasonTypeSelectOptions: React.FC<CaseHistoryArrivalReasonTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryArrivalReasonTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryArrivalReasonTypeSelectOptions: React.FC<CaseHistoryArrivalReasonTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryArrivalReasonTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -57,5 +57,4 @@ export const CaseHistoryArrivalReasonTypeSelectOptions: React.FC<CaseHistoryArri
         ))}
       </>
     );
-  },
-);
+  });

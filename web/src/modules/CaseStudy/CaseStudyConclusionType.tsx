@@ -18,8 +18,8 @@ export interface CaseStudyConclusionTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseStudyConclusionTypeSelectOptions: React.FC<CaseStudyConclusionTypeSelectOptionsProps> = React.memo(
-  function CaseStudyConclusionTypeSelectOptions({ disableEmptyOption }) {
+export const CaseStudyConclusionTypeSelectOptions: React.FC<CaseStudyConclusionTypeSelectOptionsProps> =
+  React.memo(function CaseStudyConclusionTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -32,5 +32,4 @@ export const CaseStudyConclusionTypeSelectOptions: React.FC<CaseStudyConclusionT
         ))}
       </>
     );
-  },
-);
+  });

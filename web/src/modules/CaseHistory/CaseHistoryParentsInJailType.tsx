@@ -17,8 +17,8 @@ export interface CaseHistoryParentsInJailTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const CaseHistoryParentsInJailTypeSelectOptions: React.FC<CaseHistoryParentsInJailTypeSelectOptionsProps> = React.memo(
-  function CaseHistoryParentsInJailTypeSelectOptions({ disableEmptyOption }) {
+export const CaseHistoryParentsInJailTypeSelectOptions: React.FC<CaseHistoryParentsInJailTypeSelectOptionsProps> =
+  React.memo(function CaseHistoryParentsInJailTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -31,5 +31,4 @@ export const CaseHistoryParentsInJailTypeSelectOptions: React.FC<CaseHistoryPare
         ))}
       </>
     );
-  },
-);
+  });

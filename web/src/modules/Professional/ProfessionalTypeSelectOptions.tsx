@@ -14,8 +14,8 @@ export interface ProfessionalTypeSelectOptionsProps {
   disableEmptyOption?: boolean;
 }
 
-export const ProfessionalTypeSelectOptions: React.FC<ProfessionalTypeSelectOptionsProps> = React.memo(
-  function ProfessionalTypeSelectOptions({ disableEmptyOption }) {
+export const ProfessionalTypeSelectOptions: React.FC<ProfessionalTypeSelectOptionsProps> =
+  React.memo(function ProfessionalTypeSelectOptions({ disableEmptyOption }) {
     return (
       <>
         <option value="" disabled={disableEmptyOption}>
@@ -28,5 +28,4 @@ export const ProfessionalTypeSelectOptions: React.FC<ProfessionalTypeSelectOptio
         ))}
       </>
     );
-  },
-);
+  });
