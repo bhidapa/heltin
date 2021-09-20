@@ -137,7 +137,7 @@ begin
   return added_case_study;
 end
 $$
-language plpgsql volatile;
+language plpgsql volatile security definer;
 
 ----
 
