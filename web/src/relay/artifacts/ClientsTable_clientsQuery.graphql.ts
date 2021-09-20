@@ -66,7 +66,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ClientsTableRefetchQuery.graphql.ts')
+      "operation": require('./ClientsTableRefetchQuery.graphql')
     }
   },
   "name": "ClientsTable_clientsQuery",

@@ -66,7 +66,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ProfessionalsTableRefetchQuery.graphql.ts')
+      "operation": require('./ProfessionalsTableRefetchQuery.graphql')
     }
   },
   "name": "ProfessionalsTable_professionalsQuery",
