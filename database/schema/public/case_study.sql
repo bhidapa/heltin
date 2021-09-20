@@ -269,8 +269,8 @@ create or replace function public.create_case_study_treatment_file(
 ) returns public.case_study_treatment_file as
 $$
   with created_file as (
-    insert into public.file (name, data)
-      values (create_case_study_treatment_file.file_name, create_case_study_treatment_file.file_data)
+    insert into public.file (name, data, created_by)
+      values (create_case_study_treatment_file.file_name, create_case_study_treatment_file.file_data, public.viewer_user_id())
     returning *
   )
   insert into public.case_study_treatment_file (case_study_treatment_id, file_id)
@@ -396,8 +396,8 @@ create or replace function public.create_case_study_conclusion_file(
 ) returns public.case_study_conclusion_file as
 $$
   with created_file as (
-    insert into public.file (name, data)
-      values (create_case_study_conclusion_file.file_name, create_case_study_conclusion_file.file_data)
+    insert into public.file (name, data, created_by)
+      values (create_case_study_conclusion_file.file_name, create_case_study_conclusion_file.file_data, public.viewer_user_id())
     returning *
   )
   insert into public.case_study_conclusion_file (case_study_conclusion_id, file_id)
