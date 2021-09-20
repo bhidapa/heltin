@@ -23,7 +23,7 @@ import { PlusIcon, MinusIcon } from 'lib/icons';
 import {
   Form,
   FormSubmitErrorState,
-  FormSubmittingState,
+  FormLockedState,
   FormSubmitHandler,
   FormArrayField,
   FormField,
@@ -838,13 +838,13 @@ export const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
               <FormTextAreaField path="ptsp" rows={5} label={<FormattedMessage id="PTSP" />} />
             </Flex>
             <Flex item container justify="flex-end">
-              <FormSubmittingState>
-                {(submitting) => (
-                  <Button disabled={submitting} variant="primary" type="submit">
+              <FormLockedState>
+                {(locked) => (
+                  <Button disabled={locked} variant="primary" type="submit">
                     <FormattedMessage id="SAVE" />
                   </Button>
                 )}
-              </FormSubmittingState>
+              </FormLockedState>
             </Flex>
           </Flex>
         </Form>
