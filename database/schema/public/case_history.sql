@@ -86,6 +86,7 @@ create type public.case_history_referral_type as enum (
   'POLICE',
   'HOSPITAL',
   'PSYCHIATRIST',
+  'PSYCHOTHERAPIST',
   'PEDIATRIST',
   'COURT',
   'MENTAL_HEALTH_CENTER',

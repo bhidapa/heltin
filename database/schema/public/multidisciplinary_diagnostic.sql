@@ -40,6 +40,7 @@ create type public.multidisciplinary_diagnostic_report_issued_to_type as enum (
   'POLICE',
   'HOSPITAL',
   'PSYCHIATRIST',
+  'PSYCHOTHERAPIST',
   'PEDIATRIST',
   'COURT',
   'MENTAL_HEALTH_CENTER',

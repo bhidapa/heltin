@@ -609,6 +609,7 @@ enum CaseHistoryReferralType {
   POLICE
   HOSPITAL
   PSYCHIATRIST
+  PSYCHOTHERAPIST
   PEDIATRIST
   COURT
   MENTAL_HEALTH_CENTER
@@ -2067,6 +2068,7 @@ enum ClientSentBy {
   REFERAL
   PEDIATRICIAN
   PSYCHIATRIST
+  PSYCHOTHERAPIST
 }
 
 """Methods to use when ordering `Client`."""
@@ -3942,6 +3944,7 @@ enum MultidisciplinaryDiagnosticReportIssuedToType {
   POLICE
   HOSPITAL
   PSYCHIATRIST
+  PSYCHOTHERAPIST
   PEDIATRIST
   COURT
   MENTAL_HEALTH_CENTER

@@ -9,7 +9,8 @@ create type public.client_sent_by as enum (
   'MENTAL_HEALTH_CENTER',
   'REFERAL',
   'PEDIATRICIAN',
-  'PSYCHIATRIST'
+  'PSYCHIATRIST',
+  'PSYCHOTHERAPIST'
 );
 
 create table public.client (

@@ -16,4 +16,5 @@ export enum ClientSentBy {
   School = 'SCHOOL',
   SelfInitiative = 'SELF_INITIATIVE',
   SocialWorkCenter = 'SOCIAL_WORK_CENTER',
+  Psychotherapist = 'PSYCHOTHERAPIST',
 }

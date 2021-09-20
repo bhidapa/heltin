@@ -15,6 +15,7 @@ export enum CaseHistoryReferralType {
   Pediatrist = 'PEDIATRIST',
   Police = 'POLICE',
   Psychiatrist = 'PSYCHIATRIST',
+  Psychotherapist = 'PSYCHOTHERAPIST',
   School = 'SCHOOL',
   Self = 'SELF',
   SocialWorkCenter = 'SOCIAL_WORK_CENTER',
