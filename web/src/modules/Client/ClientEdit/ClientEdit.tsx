@@ -74,15 +74,22 @@ export const ClientEdit: React.FC<ClientEditProps> = (props) => {
     }
   `);
 
-  const deleteClient = usePromiseMutation<ClientEditDeleteMutation>(graphql`
-    mutation ClientEditDeleteMutation($input: DeleteClientInput!) {
-      deleteClient(input: $input) {
-        client {
-          id
+  const deleteClient = usePromiseMutation<ClientEditDeleteMutation>(
+    graphql`
+      mutation ClientEditDeleteMutation($input: DeleteClientInput!) {
+        deleteClient(input: $input) {
+          client {
+            id
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   return (
     <Flex container direction="column" spacing="small">

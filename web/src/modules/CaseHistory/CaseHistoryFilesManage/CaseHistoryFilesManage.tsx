@@ -55,33 +55,47 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
     caseHistoryFilesKey,
   );
 
-  const createCaseHistoryFile = usePromiseMutation<CaseHistoryFilesManageCreateMutation>(graphql`
-    mutation CaseHistoryFilesManageCreateMutation($input: CreateCaseHistoryFileInput!) {
-      createCaseHistoryFile(input: $input) {
-        caseHistoryByCaseHistoryRowId {
-          caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
-            nodes {
-              ...CaseHistoryFilesManage_caseHistoryFiles
+  const createCaseHistoryFile = usePromiseMutation<CaseHistoryFilesManageCreateMutation>(
+    graphql`
+      mutation CaseHistoryFilesManageCreateMutation($input: CreateCaseHistoryFileInput!) {
+        createCaseHistoryFile(input: $input) {
+          caseHistoryByCaseHistoryRowId {
+            caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+              nodes {
+                ...CaseHistoryFilesManage_caseHistoryFiles
+              }
             }
           }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
-  const deleteCaseHistoryFile = usePromiseMutation<CaseHistoryFilesManageDeleteMutation>(graphql`
-    mutation CaseHistoryFilesManageDeleteMutation($input: DeleteCaseHistoryFileInput!) {
-      deleteCaseHistoryFile(input: $input) {
-        caseHistoryByCaseHistoryRowId {
-          caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
-            nodes {
-              id
+  const deleteCaseHistoryFile = usePromiseMutation<CaseHistoryFilesManageDeleteMutation>(
+    graphql`
+      mutation CaseHistoryFilesManageDeleteMutation($input: DeleteCaseHistoryFileInput!) {
+        deleteCaseHistoryFile(input: $input) {
+          caseHistoryByCaseHistoryRowId {
+            caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {
+              nodes {
+                id
+              }
             }
           }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   return (
     <Flex container direction="column" spacing="small">

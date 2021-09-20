@@ -80,21 +80,32 @@ const ClientAssignedProfessionalsManage: React.FC<
         }
       }
     `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
   );
 
-  const deleteAssignedTherapist = usePromiseMutation<ClientAssignedProfessionalsManageDeleteMutation>(
-    graphql`
-      mutation ClientAssignedProfessionalsManageDeleteMutation(
-        $input: DeleteClientAssignedMentalHealthProfessionalInput!
-      ) {
-        deleteClientAssignedMentalHealthProfessional(input: $input) {
-          clientByClientRowId {
-            ...ClientAssignedProfessionalsManage_client
+  const deleteAssignedTherapist =
+    usePromiseMutation<ClientAssignedProfessionalsManageDeleteMutation>(
+      graphql`
+        mutation ClientAssignedProfessionalsManageDeleteMutation(
+          $input: DeleteClientAssignedMentalHealthProfessionalInput!
+        ) {
+          deleteClientAssignedMentalHealthProfessional(input: $input) {
+            clientByClientRowId {
+              ...ClientAssignedProfessionalsManage_client
+            }
           }
         }
-      }
-    `,
-  );
+      `,
+      {
+        updater: (store) => {
+          store.invalidateStore();
+        },
+      },
+    );
 
   return (
     <Flex container spacing="small" direction="column">

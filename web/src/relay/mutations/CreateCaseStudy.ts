@@ -38,6 +38,9 @@ export const createCaseStudyMutation = (
     commitMutation<CreateCaseStudyMutation>(environment, {
       mutation,
       variables,
+      updater: (store) => {
+        store.invalidateStore();
+      },
       onCompleted: resolve,
       onError: reject,
     }),

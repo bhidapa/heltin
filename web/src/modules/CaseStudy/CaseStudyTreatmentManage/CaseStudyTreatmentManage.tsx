@@ -51,7 +51,7 @@ export interface CaseStudyTreatmentManageProps {
 }
 
 const defaultCreateTreatmentValues: FormValues = {
-  title: (null as unknown) as string,
+  title: null as unknown as string,
   description: null,
   privateDescription: null,
   score: null,
@@ -94,33 +94,48 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     caseStudyTreatmentKey,
   );
 
-  const createCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageCreateMutation>(graphql`
-    mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
-      createCaseStudyTreatment(input: $input) {
-        caseStudyTreatment {
-          rowId
+  const createCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageCreateMutation>(
+    graphql`
+      mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
+        createCaseStudyTreatment(input: $input) {
+          caseStudyTreatment {
+            rowId
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
-  const updateCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageUpdateMutation>(graphql`
-    mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
-      updateCaseStudyTreatment(input: $input) {
-        caseStudyTreatment {
-          ...CaseStudyTreatmentManage_caseStudyTreatment
+  const updateCaseStudyTreatment =
+    usePromiseMutation<CaseStudyTreatmentManageUpdateMutation>(graphql`
+      mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
+        updateCaseStudyTreatment(input: $input) {
+          caseStudyTreatment {
+            ...CaseStudyTreatmentManage_caseStudyTreatment
+          }
         }
       }
-    }
-  `);
+    `);
 
-  const deleteCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageDeleteMutation>(graphql`
-    mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
-      deleteCaseStudyTreatment(input: $input) {
-        clientMutationId
+  const deleteCaseStudyTreatment = usePromiseMutation<CaseStudyTreatmentManageDeleteMutation>(
+    graphql`
+      mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
+        deleteCaseStudyTreatment(input: $input) {
+          clientMutationId
+        }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     async ({ startedAt, endedAt, ...rest }) => {

@@ -36,6 +36,9 @@ export const deleteCaseStudyMutation = (
     commitMutation<DeleteCaseStudyMutation>(environment, {
       mutation,
       variables,
+      updater: (store) => {
+        store.invalidateStore();
+      },
       onCompleted: resolve,
       onError: reject,
     }),

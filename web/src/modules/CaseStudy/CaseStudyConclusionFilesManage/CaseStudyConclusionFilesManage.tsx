@@ -62,37 +62,53 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
     caseStudyConclusionFilesKey,
   );
 
-  const createCaseStudyConclusionFile = usePromiseMutation<CaseStudyConclusionFilesManageCreateMutation>(graphql`
-    mutation CaseStudyConclusionFilesManageCreateMutation(
-      $input: CreateCaseStudyConclusionFileInput!
-    ) {
-      createCaseStudyConclusionFile(input: $input) {
-        caseStudyConclusionByCaseStudyConclusionRowId {
-          caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
-            nodes {
-              ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+  const createCaseStudyConclusionFile =
+    usePromiseMutation<CaseStudyConclusionFilesManageCreateMutation>(
+      graphql`
+        mutation CaseStudyConclusionFilesManageCreateMutation(
+          $input: CreateCaseStudyConclusionFileInput!
+        ) {
+          createCaseStudyConclusionFile(input: $input) {
+            caseStudyConclusionByCaseStudyConclusionRowId {
+              caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
+                nodes {
+                  ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+                }
+              }
             }
           }
         }
-      }
-    }
-  `);
+      `,
+      {
+        updater: (store) => {
+          store.invalidateStore();
+        },
+      },
+    );
 
-  const deleteCaseStudyConclusionFile = usePromiseMutation<CaseStudyConclusionFilesManageDeleteMutation>(graphql`
-    mutation CaseStudyConclusionFilesManageDeleteMutation(
-      $input: DeleteCaseStudyConclusionFileInput!
-    ) {
-      deleteCaseStudyConclusionFile(input: $input) {
-        caseStudyConclusionByCaseStudyConclusionRowId {
-          caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
-            nodes {
-              ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+  const deleteCaseStudyConclusionFile =
+    usePromiseMutation<CaseStudyConclusionFilesManageDeleteMutation>(
+      graphql`
+        mutation CaseStudyConclusionFilesManageDeleteMutation(
+          $input: DeleteCaseStudyConclusionFileInput!
+        ) {
+          deleteCaseStudyConclusionFile(input: $input) {
+            caseStudyConclusionByCaseStudyConclusionRowId {
+              caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {
+                nodes {
+                  ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+                }
+              }
             }
           }
         }
-      }
-    }
-  `);
+      `,
+      {
+        updater: (store) => {
+          store.invalidateStore();
+        },
+      },
+    );
 
   return (
     <Flex container direction="column" spacing="small">

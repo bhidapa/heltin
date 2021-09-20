@@ -155,25 +155,34 @@ export const CaseHistoryManage: React.FC<CaseHistoryManageProps> = (props) => {
     caseHistoryKey,
   );
 
-  const createCaseHistory = usePromiseMutation<CaseHistoryManageCreateMutation>(graphql`
-    mutation CaseHistoryManageCreateMutation($input: CreateCaseHistoryInput!) {
-      createCaseHistory(input: $input) {
-        caseHistory {
-          ...CaseHistoryManage_caseHistory
+  const createCaseHistory = usePromiseMutation<CaseHistoryManageCreateMutation>(
+    graphql`
+      mutation CaseHistoryManageCreateMutation($input: CreateCaseHistoryInput!) {
+        createCaseHistory(input: $input) {
+          caseHistory {
+            ...CaseHistoryManage_caseHistory
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
-  const updateCaseHistory = usePromiseMutation<CaseHistoryManageUpdateMutation>(graphql`
-    mutation CaseHistoryManageUpdateMutation($input: UpdateCaseHistoryInput!) {
-      updateCaseHistory(input: $input) {
-        caseHistory {
-          ...CaseHistoryManage_caseHistory
+  const updateCaseHistory = usePromiseMutation<CaseHistoryManageUpdateMutation>(
+    graphql`
+      mutation CaseHistoryManageUpdateMutation($input: UpdateCaseHistoryInput!) {
+        updateCaseHistory(input: $input) {
+          caseHistory {
+            ...CaseHistoryManage_caseHistory
+          }
         }
       }
-    }
-  `);
+    `,
+  );
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     ({ caseHistoryRowId, caseStudyRowId, ...rest }, { state }) => {

@@ -66,15 +66,22 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     caseStudyKey,
   );
 
-  const createCaseHistory = usePromiseMutation<CaseStudyManageCreateMutation>(graphql`
-    mutation CaseStudyManageCreateMutation($input: CreateCaseHistoryInput!) {
-      createCaseHistory(input: $input) {
-        caseHistory {
-          ...CaseHistoryManage_caseHistory
+  const createCaseHistory = usePromiseMutation<CaseStudyManageCreateMutation>(
+    graphql`
+      mutation CaseStudyManageCreateMutation($input: CreateCaseHistoryInput!) {
+        createCaseHistory(input: $input) {
+          caseHistory {
+            ...CaseHistoryManage_caseHistory
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(async ({ rowId, title }) => {
     if (rowId) {
@@ -166,7 +173,7 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
         <Form<FormValues>
           defaultValues={{
             rowId: caseStudy ? caseStudy.rowId : null,
-            title: caseStudy ? caseStudy.title : ((null as unknown) as string), // field is required
+            title: caseStudy ? caseStudy.title : (null as unknown as string), // field is required
           }}
           onSubmit={submit}
         >

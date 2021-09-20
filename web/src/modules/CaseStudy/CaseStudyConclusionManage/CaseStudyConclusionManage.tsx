@@ -52,7 +52,7 @@ export interface CaseStudyConclusionManageProps {
 const defaultCreateConclusionValues: FormValues = {
   type: CaseStudyConclusionType.TreatmentCompletion,
   concludedAt: new Date(),
-  description: (null as unknown) as string,
+  description: null as unknown as string,
 };
 
 export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (props) => {
@@ -84,33 +84,48 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     caseStudyConclusionKey,
   );
 
-  const createCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageCreateMutation>(graphql`
-    mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
-      createCaseStudyConclusion(input: $input) {
-        caseStudyConclusion {
-          rowId
+  const createCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageCreateMutation>(
+    graphql`
+      mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
+        createCaseStudyConclusion(input: $input) {
+          caseStudyConclusion {
+            rowId
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
-  const updateCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageUpdateMutation>(graphql`
-    mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
-      updateCaseStudyConclusion(input: $input) {
-        caseStudyConclusion {
-          ...CaseStudyConclusionManage_caseStudyConclusion @relay(mask: false)
+  const updateCaseStudyConclusion =
+    usePromiseMutation<CaseStudyConclusionManageUpdateMutation>(graphql`
+      mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
+        updateCaseStudyConclusion(input: $input) {
+          caseStudyConclusion {
+            ...CaseStudyConclusionManage_caseStudyConclusion @relay(mask: false)
+          }
         }
       }
-    }
-  `);
+    `);
 
-  const deleteCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageDeleteMutation>(graphql`
-    mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
-      deleteCaseStudyConclusion(input: $input) {
-        clientMutationId
+  const deleteCaseStudyConclusion = usePromiseMutation<CaseStudyConclusionManageDeleteMutation>(
+    graphql`
+      mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
+        deleteCaseStudyConclusion(input: $input) {
+          clientMutationId
+        }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   const submit = useCallback<FormSubmitHandler<FormValues>>(
     async ({ concludedAt, ...rest }) => {

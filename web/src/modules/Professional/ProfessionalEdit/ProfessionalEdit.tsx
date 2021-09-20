@@ -76,15 +76,22 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
     }
   `);
 
-  const deleteMentalHealthProfessional = usePromiseMutation<ProfessionalEditDeleteMutation>(graphql`
-    mutation ProfessionalEditDeleteMutation($input: DeleteMentalHealthProfessionalInput!) {
-      deleteMentalHealthProfessional(input: $input) {
-        mentalHealthProfessional {
-          id
+  const deleteMentalHealthProfessional = usePromiseMutation<ProfessionalEditDeleteMutation>(
+    graphql`
+      mutation ProfessionalEditDeleteMutation($input: DeleteMentalHealthProfessionalInput!) {
+        deleteMentalHealthProfessional(input: $input) {
+          mentalHealthProfessional {
+            id
+          }
         }
       }
-    }
-  `);
+    `,
+    {
+      updater: (store) => {
+        store.invalidateStore();
+      },
+    },
+  );
 
   return (
     <Flex container direction="column" spacing="small">
