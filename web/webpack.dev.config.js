@@ -53,9 +53,13 @@ module.exports = merge(common, {
   devServer: {
     host: '0.0.0.0',
     port: 6001,
-    contentBase: path.join(__dirname, 'public'),
     historyApiFallback: true,
-    stats: 'minimal',
+    client: {
+      overlay: false,
+    },
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     headers: {
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
