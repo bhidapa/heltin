@@ -53,5 +53,14 @@ services:
       - local
     environment:
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
+      - GOTENBERG_PORT=${GOTENBERG_PORT}
     depends_on:
       - graphql
+  gotenberg:
+    image: thecodingmachine/gotenberg:7
+    networks:
+      - local
+    environment:
+      - DEFAULT_LISTEN_PORT=${GOTENBERG_PORT}
+    ports:
+      - ${GOTENBERG_PORT}:${GOTENBERG_PORT}
