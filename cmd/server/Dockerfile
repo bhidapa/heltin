@@ -1,21 +1,23 @@
 # build server
-FROM golang:1.16-alpine as server
-
-WORKDIR $GOPATH/src/github.com/bhidapa/heltin/cmd/server
+FROM golang:1.17-alpine as server
 
 RUN apk --update --no-cache add git tzdata
 
-COPY go.mod $GOPATH/src/github.com/bhidapa/heltin
-COPY go.sum $GOPATH/src/github.com/bhidapa/heltin
-RUN go mod download -x;
+WORKDIR $GOPATH/src/github.com/bhidapa/heltin
 
-COPY cmd/server .
+COPY go.mod .
+COPY go.sum .
+RUN go mod download -x
+
+COPY pkg ./pkg
+COPY cmd/server ./cmd/server
 RUN set -eux; \
+  cd cmd/server; \
   GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GODEBUG=cgocheck=0 \
   go build -v -a -ldflags='-s -w' -o /heltin-server
 
 # build web
-FROM node:15 as web 
+FROM node:17 as web
 
 WORKDIR /web
 

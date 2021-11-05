@@ -9,7 +9,7 @@ import (
 
 func App(router *mux.Router, dir fs.File, pathPrefix, indexPath string) {
 	router.PathPrefix(pathPrefix).Handler(http.StripPrefix(pathPrefix, NewSPA(dir, indexPath)))
-	log.Debug("spa app configured").
+	log.Debug("SPA app configured").
 		Str("dir", dir.Path()).
 		Str("pathPrefix", pathPrefix).
 		Str("indexPath", indexPath).

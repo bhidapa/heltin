@@ -4,18 +4,15 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
+	"net"
 	"net/http"
-	"path"
-	"path/filepath"
-	"runtime"
 	"time"
 
 	"github.com/bhidapa/heltin/cmd/server/routes"
-	"github.com/caarlos0/env"
+	"github.com/bhidapa/heltin/pkg/env"
 	"github.com/domonda/golog/log"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-httpx"
 	"golang.org/x/crypto/acme/autocert"
@@ -27,37 +24,8 @@ var config struct {
 	AllowedOrigins []string `env:"ALLOWED_ORIGINS"`
 	TLS            bool     `env:"TLS"`
 	CertDir        fs.File  `env:"CERT_DIR"`
-	CertEmail      string   `env:"CERT_EMAIL"`
 	AppDir         fs.File  `env:"APP_DIR"`
 	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT,required"`
-}
-
-func init() {
-	// injects the .env file env variables from the root of the repository
-	// does NOT override existing/already defined environment variables
-	_, filename, _, ok := runtime.Caller(0)
-	if !ok {
-		return
-	}
-
-	path := filepath.Join(path.Dir(filename), "..", "..", ".env")
-	if !fs.File(path).Exists() {
-		return
-	}
-
-	if path == "" {
-		log.Debug("dotenv not found").Log()
-		return
-	}
-
-	err := godotenv.Load(path)
-	if err != nil {
-		panic(err)
-	}
-
-	log.Debug("dotenv loaded").
-		Str("path", path).
-		Log()
 }
 
 func main() {
@@ -74,11 +42,15 @@ func main() {
 		}
 	}
 
-	log.Debug("configurated").
-		Any("config", config).
+	log.Logger = log.Logger.WithPrefix("server: ")
+
+	log.Debug("Configurated").
+		StructFields(config).
 		Log()
 
 	router := mux.NewRouter().StrictSlash(true)
+	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request"))
+	router.Use(SecHeaders)
 
 	err = routes.GraphQLProxy(router, config.GraphQLEndoint)
 	if err != nil {
@@ -90,39 +62,48 @@ func main() {
 	if config.AppDir != "" {
 		routes.App(router, config.AppDir, "/", "index.html")
 	} else {
-		log.Warn("app dir not specified, skipping SPA setup").Log()
+		log.Warn("Web dir not specified, skipping SPA setup").Log()
 	}
 
-	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request", "Referer"))
+	var handler http.Handler = router
+	if len(config.AllowedOrigins) > 0 {
+		allowedMethods := []string{"GET", "POST"}
+		allowedHeaders := []string{"Authorization", "X-Request-ID", "X-Correlation-ID"}
+		exposedHeaders := []string{"X-Request-ID", "X-Correlation-ID"}
+		handler = handlers.CORS(
+			handlers.AllowedOrigins(config.AllowedOrigins),
+			handlers.AllowedMethods(allowedMethods),
+			handlers.AllowedHeaders(allowedHeaders),
+			handlers.ExposedHeaders(exposedHeaders),
+		)(router)
 
-	var allowedOrigins []string
-	if len(config.AllowedOrigins) == 0 && len(config.AppDomains) == 0 {
-		allowedOrigins = []string{"*"}
-	} else if len(config.AllowedOrigins) > 0 {
-		allowedOrigins = config.AllowedOrigins
-	} else if len(config.AppDomains) > 0 {
-		if config.TLS {
-			for _, domain := range config.AppDomains {
-				allowedOrigins = append(allowedOrigins, "https://"+domain)
-			}
-		} else {
-			for _, domain := range config.AppDomains {
-				allowedOrigins = append(allowedOrigins, "http://"+domain)
-			}
-		}
+		log.Info("CORS enabled because allowed origins are configured").
+			Strs("allowedOrigins", config.AllowedOrigins).
+			Strs("allowedMethods", allowedMethods).
+			Strs("allowedHeaders", allowedHeaders).
+			Strs("exposedHeaders", exposedHeaders).
+			Log()
 	}
 
 	server := &http.Server{
-		Addr:     fmt.Sprintf(":%d", config.Port),
-		Handler:  handlers.CORS(handlers.AllowedOrigins(allowedOrigins))(router),
-		ErrorLog: log.ErrorWriter().StdLogger(),
+		Addr:         fmt.Sprintf(":%d", config.Port),
+		Handler:      handler,
+		ErrorLog:     log.ErrorWriter().StdLogger(),
+		IdleTimeout:  60 * time.Second,
+		ReadTimeout:  30 * time.Second,
+		WriteTimeout: 30 * time.Second,
 	}
 
 	httpx.GracefulShutdownServerOnSignal(server, nil, log.ErrorWriter(), time.Minute)
 
+	listener, err := net.Listen("tcp", server.Addr)
+	if err != nil {
+		panic(err)
+	}
+
 	if config.TLS {
 		certManager := autocert.Manager{
-			Email:      config.CertEmail,
+			Email:      "dev@heltin.app",
 			Prompt:     autocert.AcceptTOS,
 			HostPolicy: autocert.HostWhitelist(config.AppDomains...),
 			Cache:      autocert.DirCache(config.CertDir),
@@ -147,26 +128,48 @@ func main() {
 			if err != nil && !errors.Is(err, http.ErrServerClosed) {
 				log.Error("autocert manager server error").
 					Err(err).
-					LogAndPanic()
+					Log()
 			}
 		}()
 
+		server.TLSConfig = &tls.Config{GetCertificate: certManager.GetCertificate, MinVersion: tls.VersionTLS12}
 		log.Info("TLS listening").
 			Log()
-		server.TLSConfig = &tls.Config{GetCertificate: certManager.GetCertificate}
-		err = server.ListenAndServeTLS("", "")
+		err = server.ServeTLS(listener, "", "")
 	} else {
-		log.Info("listening").
+		log.Info("Listening").
 			Log()
-		err = server.ListenAndServe()
+		err = server.Serve(listener)
 	}
 
 	if err == nil || errors.Is(err, http.ErrServerClosed) {
-		log.Info("shutting down").
+		log.Info("Shutting down gracefully").
 			Log()
 	} else {
-		log.Fatal("server error").
+		log.Fatal("Server error").
 			Err(err).
 			LogAndPanic()
 	}
+}
+
+// SecHeaders injects security headers to every response.
+// Read more: https://gist.github.com/mikesamuel/f7c7caed42413396e4d3e61dae6f5712.
+func SecHeaders(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Specifies interactions between frames and affects click-jacking.
+		w.Header().Set("X-Frame-Options", "DENY")
+
+		// Affects leakage of sensitive information via URL parameters included in the referrer header.
+		w.Header().Set("Referrer-Policy", "no-referrer")
+
+		// Addresses leakage of sensitive information and MITM attacks via HTTPS->HTTP downgrade attacks.
+		if r.TLS != nil {
+			w.Header().Set("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload")
+		}
+
+		// Addresses polyglot attacks by forbidding content-type sniffing.
+		w.Header().Set("X-Content-Type-Options", "nosniff")
+
+		h.ServeHTTP(w, r)
+	})
 }
