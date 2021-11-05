@@ -50,10 +50,6 @@ export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
         if (!user?.id) throw new Error("Wrong credentials");
         req.session.user_id = user.id;
 
-        const expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 60 * 24 * 30); // 30 days
-        req.session.cookie.expires = expires;
-
         await new Promise<void>((resolve, reject) =>
           req.session.save((err) => (err ? reject(err) : resolve()))
         );

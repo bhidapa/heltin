@@ -27,8 +27,12 @@ export class SessionStore extends Store {
   }
 
   private getExpireTime(sess: SessionData) {
-    // if the cookie itself has no expire date, expire immediately
-    return sess?.cookie?.expires || now();
+    let expires = sess?.cookie?.expires;
+    if (!expires) {
+      expires = now();
+      // expires.setMinutes(expires.getMinutes() + 60 * 24 * 30); // 30 days
+    }
+    return expires;
   }
 
   private async queryOne<T = unknown>(

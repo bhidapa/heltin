@@ -85,7 +85,7 @@ app.use(
       secure: config.sessionSecure || false,
       sameSite: "lax",
       httpOnly: true,
-      // expires is set by plugins/SessionPlugin
+      maxAge: 30 * 24 * 60 * 60 * 1000, // in milliseconds
     },
   })
 );
