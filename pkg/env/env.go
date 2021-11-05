@@ -4,7 +4,7 @@ import (
 	"path"
 	"runtime"
 
-	goenv "github.com/caarlos0/env"
+	goenv "github.com/caarlos0/env/v6"
 	"github.com/joho/godotenv"
 	"github.com/ungerik/go-fs"
 )

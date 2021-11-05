@@ -1,1 +1,1 @@
-declare module "@graphile-contrib/pg-non-null/relations";
+declare type UUID = string;

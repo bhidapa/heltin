@@ -1,6 +1,8 @@
-const pgBytea = require("postgres-bytea");
+// const pgByteaDecode = require("postgres-bytea");
+import pgByteaDecode from "postgres-bytea";
+import { SchemaBuilder } from "graphile-build";
 
-module.exports = (builder) => {
+export function PgBytea(builder: SchemaBuilder) {
   builder.hook(
     "build",
     (build) => {
@@ -13,7 +15,7 @@ module.exports = (builder) => {
         pgSql: sql,
       } = build;
       const bytea = pgIntrospectionResultsByKind.type.find(
-        (t) => t.name === "bytea" && t.namespaceName === "pg_catalog"
+        (t: any) => t.name === "bytea" && t.namespaceName === "pg_catalog"
       );
       if (!bytea) {
         // No bytea type found
@@ -35,8 +37,8 @@ module.exports = (builder) => {
       pgRegisterGqlTypeByTypeId(bytea.id, () => BinaryType);
       pgRegisterGqlInputTypeByTypeId(bytea.id, () => BinaryType);
       pg2GqlMapper[bytea.id] = {
-        map: (data) => pgBytea(data).toString("base64"),
-        unmap: (str) =>
+        map: (data: unknown) => pgByteaDecode(data).toString("base64"),
+        unmap: (str: unknown) =>
           str === null
             ? sql.null
             : sql.fragment`decode(${sql.value(str)}, 'base64')`,
@@ -47,4 +49,4 @@ module.exports = (builder) => {
     [],
     ["PgTypes"]
   );
-};
+}
