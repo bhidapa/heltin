@@ -6,15 +6,18 @@ volumes:
 
 services:
   postgres:
+    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   graphql:
+    restart: unless-stopped
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - SESSION_SECRET=${SESSION_SECRET}
       - SESSION_SECURE=true
       - WATCH=true
   server:
+    restart: unless-stopped
     environment:
       - APP_DOMAINS=${APP_DOMAINS}
       - TLS=true

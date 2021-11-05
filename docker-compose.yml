@@ -47,7 +47,6 @@ services:
       - PORT=${GRAPHQL_PORT}
     depends_on:
       - postgres
-    restart: unless-stopped
   server:
     image: bhidapa/heltin-server
     networks:
