@@ -4,6 +4,9 @@ create table public.file(
   name text not null check(length(name) > 3),
   data bytea not null,
 
+  -- TODO-db-051121 for deleteion protection
+  -- protected boolean not null default false
+
   created_by uuid not null references public.user(id) on delete restrict,
   created_at created_timestamptz not null
 );
