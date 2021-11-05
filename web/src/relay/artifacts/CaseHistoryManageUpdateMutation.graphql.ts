@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CaseHistoryAbuseType = "ABUSE_WITNESS" | "BULLYING" | "CYBER_BULLYING" | "EMOTIONAL_ABUSE" | "NEGLECTION" | "OTHER" | "PARENT_MANIPULATION" | "PHYSICAL_ABUSE" | "SEXUAL_ABUSE";
 export type CaseHistoryAccompaniedByType = "FAMILY" | "FATHER" | "MOTHER" | "NO_ONE";
@@ -13,38 +14,38 @@ export type CaseHistoryIndividualType = "AUNT" | "BROTHER" | "COUSIN" | "FATHER"
 export type CaseHistoryLivesWithType = "ALONE" | "AUNT" | "BROTHER" | "COUSIN" | "FATHER" | "FOSTER_FATHER" | "FOSTER_HOUSE" | "FOSTER_MOTHER" | "GRANDFATHER" | "GRANDMOTHER" | "MOTHER" | "SISTER" | "STEP_BROTHER" | "STEP_FATHER" | "STEP_MOTHER" | "STEP_SISTER" | "UNCLE";
 export type CaseHistoryParentsInJailType = "FATHER" | "FATHER_AND_MOTHER" | "MOTHER";
 export type CaseHistoryReasonOfMultipleAdoptionsType = "ABUSE" | "LOSS_OF_FOSTER_PARENT" | "NEGLECTION" | "OTHER";
-export type CaseHistoryReferralType = "COURT" | "HOSPITAL" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "OTHER" | "PEDIATRIST" | "POLICE" | "PSYCHIATRIST" | "SCHOOL" | "SELF" | "SOCIAL_WORK_CENTER";
+export type CaseHistoryReferralType = "COURT" | "HOSPITAL" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "OTHER" | "PEDIATRIST" | "POLICE" | "PSYCHIATRIST" | "PSYCHOTHERAPIST" | "SCHOOL" | "SELF" | "SOCIAL_WORK_CENTER";
 export type CaseHistoryReportedAbuseType = "COURT" | "NOT_REPORTED" | "SOCIAL_WORK_CENTER";
 export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type UpdateCaseHistoryInput = {
-    clientMutationId?: string | null;
+    accompaniedBy?: CaseHistoryAccompaniedByType | null | undefined;
+    adaptedEducationProgram?: boolean | null | undefined;
+    adoptionAge?: number | null | undefined;
+    ageDuringLossOfCloseIndividual?: number | null | undefined;
+    arrivalReason?: Array<CaseHistoryArrivalReasonType | null> | null | undefined;
+    attendsKindergarten?: boolean | null | undefined;
+    caseStudyTreatmentRowId?: string | null | undefined;
+    clientMutationId?: string | null | undefined;
+    diagnosedIntelectualDevelopmentProblems?: boolean | null | undefined;
+    divorceOutcome?: CaseHistoryDivorceOutcomeType | null | undefined;
+    divorcedParents?: CaseHistoryDivorcedParentsType | null | undefined;
+    earlierProfessionalHelp?: Array<MentalHealthProfessionalType | null> | null | undefined;
+    familyHeredity?: string | null | undefined;
+    furtherAbuses?: Array<CaseHistoryAbuseType | null> | null | undefined;
+    individualizedEducationProgram?: boolean | null | undefined;
+    involvedReferral?: boolean | null | undefined;
+    livesWith?: Array<CaseHistoryLivesWithType | null> | null | undefined;
+    lossOfCloseIndividual?: Array<CaseHistoryIndividualType | null> | null | undefined;
+    numberOfAdoptions?: number | null | undefined;
+    parentsInJail?: CaseHistoryParentsInJailType | null | undefined;
+    previousTreatment?: string | null | undefined;
+    ptsp?: string | null | undefined;
+    reasonOfMultipleAdoptions?: Array<CaseHistoryReasonOfMultipleAdoptionsType | null> | null | undefined;
+    referral?: Array<CaseHistoryReferralType | null> | null | undefined;
+    referralDiagnosis?: string | null | undefined;
+    reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null | undefined;
     rowId: string;
-    caseStudyTreatmentRowId?: string | null;
-    accompaniedBy?: CaseHistoryAccompaniedByType | null;
-    livesWith?: Array<CaseHistoryLivesWithType | null> | null;
-    divorcedParents?: CaseHistoryDivorcedParentsType | null;
-    divorceOutcome?: CaseHistoryDivorceOutcomeType | null;
-    adoptionAge?: number | null;
-    numberOfAdoptions?: number | null;
-    reasonOfMultipleAdoptions?: Array<CaseHistoryReasonOfMultipleAdoptionsType | null> | null;
-    arrivalReason?: Array<CaseHistoryArrivalReasonType | null> | null;
-    earlierProfessionalHelp?: Array<MentalHealthProfessionalType | null> | null;
-    referralDiagnosis?: string | null;
-    referral?: Array<CaseHistoryReferralType | null> | null;
-    involvedReferral?: boolean | null;
-    previousTreatment?: string | null;
-    attendsKindergarten?: boolean | null;
-    schoolMark?: number | null;
-    adaptedEducationProgram?: boolean | null;
-    individualizedEducationProgram?: boolean | null;
-    diagnosedIntelectualDevelopmentProblems?: boolean | null;
-    furtherAbuses?: Array<CaseHistoryAbuseType | null> | null;
-    reportedFurtherAbuses?: CaseHistoryReportedAbuseType | null;
-    lossOfCloseIndividual?: Array<CaseHistoryIndividualType | null> | null;
-    ageDuringLossOfCloseIndividual?: number | null;
-    familyHeredity?: string | null;
-    ptsp?: string | null;
-    parentsInJail?: CaseHistoryParentsInJailType | null;
+    schoolMark?: number | null | undefined;
 };
 export type CaseHistoryManageUpdateMutationVariables = {
     input: UpdateCaseHistoryInput;

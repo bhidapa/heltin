@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type ClientCreateQueryVariables = {};
 export type ClientCreateQueryResponse = {
     readonly nextAvailableClientNumber: number;

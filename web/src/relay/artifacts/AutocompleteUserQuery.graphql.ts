@@ -3,8 +3,9 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type AutocompleteUserQueryVariables = {
-    searchText?: string | null;
+    searchText?: string | null | undefined;
 };
 export type AutocompleteUserQueryResponse = {
     readonly filterUsers: {

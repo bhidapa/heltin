@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+import ProfessionalsTableRefetchQuery from "./ProfessionalsTableRefetchQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type ProfessionalsTable_professionalsQuery = {
     readonly filterMentalHealthProfessionals: {
@@ -18,7 +19,7 @@ export type ProfessionalsTable_professionalsQuery = {
 };
 export type ProfessionalsTable_professionalsQuery$data = ProfessionalsTable_professionalsQuery;
 export type ProfessionalsTable_professionalsQuery$key = {
-    readonly " $data"?: ProfessionalsTable_professionalsQuery$data;
+    readonly " $data"?: ProfessionalsTable_professionalsQuery$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ProfessionalsTable_professionalsQuery">;
 };
 
@@ -66,7 +67,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ProfessionalsTableRefetchQuery.graphql')
+      "operation": ProfessionalsTableRefetchQuery
     }
   },
   "name": "ProfessionalsTable_professionalsQuery",

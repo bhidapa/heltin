@@ -3,13 +3,14 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type UpdateCaseStudyConclusionInput = {
-    clientMutationId?: string | null;
-    rowId: string;
-    type: CaseStudyConclusionType;
+    clientMutationId?: string | null | undefined;
     concludedAt: string;
     description: string;
+    rowId: string;
+    type: CaseStudyConclusionType;
 };
 export type CaseStudyConclusionManageUpdateMutationVariables = {
     input: UpdateCaseStudyConclusionInput;

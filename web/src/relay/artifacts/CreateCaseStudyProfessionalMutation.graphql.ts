@@ -3,10 +3,11 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type CreateCaseStudyMentalHealthProfessionalInput = {
-    clientMutationId?: string | null;
     caseStudyRowId: string;
+    clientMutationId?: string | null | undefined;
     mentalHealthProfessionalRowId: string;
     primary: boolean;
 };

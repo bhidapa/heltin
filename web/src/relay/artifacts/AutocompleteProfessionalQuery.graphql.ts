@@ -3,8 +3,9 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type AutocompleteProfessionalQueryVariables = {
-    searchText?: string | null;
+    searchText?: string | null | undefined;
 };
 export type AutocompleteProfessionalQueryResponse = {
     readonly filterMentalHealthProfessionals: {

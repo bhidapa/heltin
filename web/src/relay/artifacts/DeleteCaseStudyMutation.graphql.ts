@@ -3,8 +3,9 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type DeleteCaseStudyInput = {
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
     rowId: string;
 };
 export type DeleteCaseStudyMutationVariables = {

@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type CaseStudyProfessionalsManage_caseStudy = {
@@ -22,7 +23,7 @@ export type CaseStudyProfessionalsManage_caseStudy = {
 };
 export type CaseStudyProfessionalsManage_caseStudy$data = CaseStudyProfessionalsManage_caseStudy;
 export type CaseStudyProfessionalsManage_caseStudy$key = {
-    readonly " $data"?: CaseStudyProfessionalsManage_caseStudy$data;
+    readonly " $data"?: CaseStudyProfessionalsManage_caseStudy$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"CaseStudyProfessionalsManage_caseStudy">;
 };
 

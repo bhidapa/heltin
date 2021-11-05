@@ -3,16 +3,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type CreateCaseStudyTreatmentInput = {
-    clientMutationId?: string | null;
     caseStudyRowId: string;
-    external: boolean;
-    startedAt: string;
+    clientMutationId?: string | null | undefined;
+    description?: string | null | undefined;
     endedAt: string;
+    external: boolean;
+    privateDescription?: string | null | undefined;
+    score?: number | null | undefined;
+    startedAt: string;
     title: string;
-    description?: string | null;
-    privateDescription?: string | null;
-    score?: number | null;
 };
 export type CaseStudyTreatmentManageCreateMutationVariables = {
     input: CreateCaseStudyTreatmentInput;

@@ -3,22 +3,23 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
-export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
+export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "PSYCHOTHERAPIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
 export type CreateClientInput = {
-    clientMutationId?: string | null;
-    number: number;
-    firstName: string;
-    lastName: string;
-    dateOfBirth: string;
-    telephone: string;
-    gender: Gender;
-    city: string;
     address: string;
+    city: string;
+    clientMutationId?: string | null | undefined;
+    dateOfBirth: string;
+    discrete?: boolean | null | undefined;
+    email?: string | null | undefined;
+    firstName: string;
+    gender: Gender;
+    lastName: string;
+    number: number;
     sentBy: ClientSentBy;
-    email?: string | null;
-    discrete?: boolean | null;
+    telephone: string;
 };
 export type CreateClientMutationVariables = {
     input: CreateClientInput;

@@ -3,13 +3,14 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyInput = {
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
+    clientRowId?: string | null | undefined;
+    groupRowId?: string | null | undefined;
     title: string;
-    clientRowId?: string | null;
-    groupRowId?: string | null;
 };
 export type CreateCaseStudyMutationVariables = {
     input: CreateCaseStudyInput;

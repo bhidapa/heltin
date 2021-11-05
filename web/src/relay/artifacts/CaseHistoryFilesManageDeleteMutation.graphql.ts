@@ -3,8 +3,9 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type DeleteCaseHistoryFileInput = {
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
     rowId: string;
 };
 export type CaseHistoryFilesManageDeleteMutationVariables = {

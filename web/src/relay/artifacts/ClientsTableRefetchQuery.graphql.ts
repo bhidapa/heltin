@@ -3,11 +3,12 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTableRefetchQueryVariables = {
     count: number;
-    cursor?: unknown | null;
-    searchText?: string | null;
+    cursor?: unknown | null | undefined;
+    searchText?: string | null | undefined;
 };
 export type ClientsTableRefetchQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"ClientsTable_clientsQuery">;

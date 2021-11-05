@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+import ClientsTableRefetchQuery from "./ClientsTableRefetchQuery.graphql";
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_clientsQuery = {
     readonly filterClients: {
@@ -18,7 +19,7 @@ export type ClientsTable_clientsQuery = {
 };
 export type ClientsTable_clientsQuery$data = ClientsTable_clientsQuery;
 export type ClientsTable_clientsQuery$key = {
-    readonly " $data"?: ClientsTable_clientsQuery$data;
+    readonly " $data"?: ClientsTable_clientsQuery$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ClientsTable_clientsQuery">;
 };
 
@@ -66,7 +67,7 @@ return {
         "path": (v0/*: any*/)
       },
       "fragmentPathInResult": [],
-      "operation": require('./ClientsTableRefetchQuery.graphql')
+      "operation": ClientsTableRefetchQuery
     }
   },
   "name": "ClientsTable_clientsQuery",

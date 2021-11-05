@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
 export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
@@ -26,7 +27,7 @@ export type ProfessionalEdit_professional = {
 };
 export type ProfessionalEdit_professional$data = ProfessionalEdit_professional;
 export type ProfessionalEdit_professional$key = {
-    readonly " $data"?: ProfessionalEdit_professional$data;
+    readonly " $data"?: ProfessionalEdit_professional$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ProfessionalEdit_professional">;
 };
 

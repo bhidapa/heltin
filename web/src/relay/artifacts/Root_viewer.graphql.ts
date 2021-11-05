@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type Root_viewer = {
     readonly " $fragmentRefs": FragmentRefs<"AppBar_viewer">;
@@ -10,7 +11,7 @@ export type Root_viewer = {
 };
 export type Root_viewer$data = Root_viewer;
 export type Root_viewer$key = {
-    readonly " $data"?: Root_viewer$data;
+    readonly " $data"?: Root_viewer$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"Root_viewer">;
 };
 

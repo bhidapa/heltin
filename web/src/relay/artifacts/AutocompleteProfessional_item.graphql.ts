@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type AutocompleteProfessional_item = {
     readonly id: string;
@@ -12,7 +13,7 @@ export type AutocompleteProfessional_item = {
 };
 export type AutocompleteProfessional_item$data = AutocompleteProfessional_item;
 export type AutocompleteProfessional_item$key = {
-    readonly " $data"?: AutocompleteProfessional_item$data;
+    readonly " $data"?: AutocompleteProfessional_item$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"AutocompleteProfessional_item">;
 };
 

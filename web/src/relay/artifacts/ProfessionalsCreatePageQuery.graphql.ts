@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 export type ProfessionalsCreatePageQueryVariables = {};
 export type ProfessionalsCreatePageQueryResponse = {
     readonly viewer: {

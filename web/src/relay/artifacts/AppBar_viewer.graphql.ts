@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type AppBar_viewer = {
     readonly isAdmin: boolean;
@@ -11,7 +12,7 @@ export type AppBar_viewer = {
 };
 export type AppBar_viewer$data = AppBar_viewer;
 export type AppBar_viewer$key = {
-    readonly " $data"?: AppBar_viewer$data;
+    readonly " $data"?: AppBar_viewer$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"AppBar_viewer">;
 };
 

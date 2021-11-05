@@ -3,8 +3,9 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
-export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
+export type ClientSentBy = "CLINIC" | "COURT" | "KINDERGARTEN" | "MENTAL_HEALTH_CENTER" | "PEDIATRICIAN" | "POLICE" | "PSYCHIATRIST" | "PSYCHOTHERAPIST" | "REFERAL" | "SCHOOL" | "SELF_INITIATIVE" | "SOCIAL_WORK_CENTER";
 export type Gender = "FEMALE" | "MALE";
 export type ClientEdit_client = {
     readonly rowId: string;
@@ -24,7 +25,7 @@ export type ClientEdit_client = {
 };
 export type ClientEdit_client$data = ClientEdit_client;
 export type ClientEdit_client$key = {
-    readonly " $data"?: ClientEdit_client$data;
+    readonly " $data"?: ClientEdit_client$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ClientEdit_client">;
 };
 

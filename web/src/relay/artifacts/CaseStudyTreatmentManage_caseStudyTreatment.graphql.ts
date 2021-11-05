@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyTreatmentManage_caseStudyTreatment = {
     readonly rowId: string;
@@ -17,7 +18,7 @@ export type CaseStudyTreatmentManage_caseStudyTreatment = {
 };
 export type CaseStudyTreatmentManage_caseStudyTreatment$data = CaseStudyTreatmentManage_caseStudyTreatment;
 export type CaseStudyTreatmentManage_caseStudyTreatment$key = {
-    readonly " $data"?: CaseStudyTreatmentManage_caseStudyTreatment$data;
+    readonly " $data"?: CaseStudyTreatmentManage_caseStudyTreatment$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"CaseStudyTreatmentManage_caseStudyTreatment">;
 };
 

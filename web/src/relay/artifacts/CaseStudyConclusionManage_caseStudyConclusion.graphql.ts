@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CaseStudyConclusionManage_caseStudyConclusion = {
@@ -14,7 +15,7 @@ export type CaseStudyConclusionManage_caseStudyConclusion = {
 };
 export type CaseStudyConclusionManage_caseStudyConclusion$data = CaseStudyConclusionManage_caseStudyConclusion;
 export type CaseStudyConclusionManage_caseStudyConclusion$key = {
-    readonly " $data"?: CaseStudyConclusionManage_caseStudyConclusion$data;
+    readonly " $data"?: CaseStudyConclusionManage_caseStudyConclusion$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"CaseStudyConclusionManage_caseStudyConclusion">;
 };
 

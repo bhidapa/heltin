@@ -3,21 +3,22 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
 export type MentalHealthProfessionalType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type UpdateMentalHealthProfessionalInput = {
-    clientMutationId?: string | null;
-    rowId: string;
-    type: MentalHealthProfessionalType;
+    clientMutationId?: string | null | undefined;
+    dateOfBirth: string;
+    disabled: boolean;
     email: string;
     firstName: string;
-    lastName: string;
-    dateOfBirth: string;
     gender: Gender;
-    disabled: boolean;
-    title?: string | null;
-    userRowId?: string | null;
+    lastName: string;
+    rowId: string;
+    title?: string | null | undefined;
+    type: MentalHealthProfessionalType;
+    userRowId?: string | null | undefined;
 };
 export type ProfessionalEditUpdateMutationVariables = {
     input: UpdateMentalHealthProfessionalInput;

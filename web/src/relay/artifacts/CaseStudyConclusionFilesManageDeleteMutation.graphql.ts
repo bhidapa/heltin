@@ -3,9 +3,10 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type DeleteCaseStudyConclusionFileInput = {
-    clientMutationId?: string | null;
+    clientMutationId?: string | null | undefined;
     rowId: string;
 };
 export type CaseStudyConclusionFilesManageDeleteMutationVariables = {

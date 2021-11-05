@@ -3,12 +3,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseHistoryFileInput = {
-    clientMutationId?: string | null;
     caseHistoryRowId: string;
-    fileName: string;
+    clientMutationId?: string | null | undefined;
     fileData: string;
+    fileName: string;
 };
 export type CaseHistoryFilesManageCreateMutationVariables = {
     input: CreateCaseHistoryFileInput;

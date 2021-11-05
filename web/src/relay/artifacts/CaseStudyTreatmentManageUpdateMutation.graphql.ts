@@ -3,17 +3,18 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type UpdateCaseStudyTreatmentInput = {
-    clientMutationId?: string | null;
-    rowId: string;
-    external: boolean;
-    startedAt: string;
+    clientMutationId?: string | null | undefined;
+    description?: string | null | undefined;
     endedAt: string;
+    external: boolean;
+    privateDescription?: string | null | undefined;
+    rowId: string;
+    score?: number | null | undefined;
+    startedAt: string;
     title: string;
-    description?: string | null;
-    privateDescription?: string | null;
-    score?: number | null;
 };
 export type CaseStudyTreatmentManageUpdateMutationVariables = {
     input: UpdateCaseStudyTreatmentInput;

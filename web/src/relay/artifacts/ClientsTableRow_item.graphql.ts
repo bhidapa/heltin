@@ -3,6 +3,7 @@
 // @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTableRow_item = {
     readonly rowId: string;
@@ -21,7 +22,7 @@ export type ClientsTableRow_item = {
 };
 export type ClientsTableRow_item$data = ClientsTableRow_item;
 export type ClientsTableRow_item$key = {
-    readonly " $data"?: ClientsTableRow_item$data;
+    readonly " $data"?: ClientsTableRow_item$data | undefined;
     readonly " $fragmentRefs": FragmentRefs<"ClientsTableRow_item">;
 };
 
