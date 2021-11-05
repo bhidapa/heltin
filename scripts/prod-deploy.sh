@@ -27,8 +27,13 @@ docker compose push $2
 echo "Pulling ${2:-everything} on $1..."
 docker -c "$CTX" compose -f docker-compose.yml -f docker-compose.prod.yml pull $2
 
-echo "Down ${2:-everything} on $1..."
-docker -c "$CTX" compose -f docker-compose.yml -f docker-compose.prod.yml stop $2
+echo "Stopping ${2:-everything} on $1..."
+if [ -z "$2" ]
+then
+  docker -c "$CTX" compose -f docker-compose.yml -f docker-compose.prod.yml down
+else
+  docker -c "$CTX" compose -f docker-compose.yml -f docker-compose.prod.yml stop $2
+fi
 
 echo "Up ${2:-everything} on $1..."
 docker -c "$CTX" compose -f docker-compose.yml -f docker-compose.prod.yml up -d $2
