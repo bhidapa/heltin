@@ -29,7 +29,7 @@ func init() {
 		Hostname: fmt.Sprintf("http://%s:%d", config.GotenbergHost, config.GotenbergPort),
 	}
 
-	log.Debug("configured").
+	log.Debug("Configured").
 		StructFields(config).
 		Log()
 }

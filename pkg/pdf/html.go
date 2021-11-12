@@ -11,6 +11,8 @@ import (
 func RenderHTML(ctx context.Context, pageHTML, headerHTML, footerHTML []byte) (pdf []byte, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, pageHTML, headerHTML, footerHTML)
 
+	log.Info("Rendering HTML to PDF").Ctx(ctx).Log()
+
 	index, err := gotenberg.NewDocumentFromBytes("index.html", pageHTML)
 	if err != nil {
 		return nil, err
