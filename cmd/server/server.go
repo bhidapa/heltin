@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto/tls"
 	"errors"
 	"fmt"
@@ -10,6 +11,8 @@ import (
 
 	"github.com/bhidapa/heltin/cmd/server/routes"
 	"github.com/bhidapa/heltin/pkg/env"
+	"github.com/bhidapa/heltin/pkg/postgres"
+	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/golog/log"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -51,6 +54,14 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.Use(log.HTTPMiddlewareFunc(log.Levels.Debug, "HTTP request"))
 	router.Use(SecHeaders)
+
+	conn, err := postgres.NewConnection(context.Background())
+	if err != nil {
+		panic(err)
+	}
+	db.SetConn(conn)
+
+	routes.API(router)
 
 	err = routes.GraphQLProxy(router, config.GraphQLEndoint)
 	if err != nil {

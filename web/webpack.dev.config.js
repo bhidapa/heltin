@@ -69,6 +69,9 @@ module.exports = merge(common, {
         target: 'http://localhost:5000',
         pathRewrite: { '^/api': '' },
       },
+      '/api': {
+        target: 'http://localhost:5001',
+      },
     },
   },
   plugins: [
