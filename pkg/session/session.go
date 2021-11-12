@@ -29,6 +29,7 @@ func Handler(wrappedHandler http.Handler) http.HandlerFunc {
 			return
 		}
 
+		req = req.WithContext(ContextWithUser(req.Context(), userID.Get()))
 		req = golog.AddValueToRequest(req, golog.NewUUIDValue("userID", userID))
 		req = golog.AddValueToRequest(req, golog.NewStringValue("userEmail", userEmail))
 
@@ -111,7 +112,7 @@ func handleSession(res http.ResponseWriter, req *http.Request) (userID uu.Nullab
 	}
 
 	// parsing and validation done, finally get the user
-	err = db.Conn(req.Context()).QueryRow("select id, email from public.user where id = $1", sess.UserID).Scan(&userID, &email, &isSuperAdmin)
+	err = db.Conn(req.Context()).QueryRow("select id, email from public.user where id = $1", sess.UserID).Scan(&userID, &email)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			log.Error("error while retrieving user for session").
