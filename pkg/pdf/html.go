@@ -19,9 +19,7 @@ func RenderHTML(ctx context.Context, pageHTML, headerHTML, footerHTML []byte) (p
 	}
 	request := gotenberg.NewHTMLRequest(index)
 
-	// A4
-	request.PaperSize([2]float64{8.27, 11.7})
-	request.Margins([4]float64{3, 3, 3, 3})
+	request.PaperSize([2]float64{8.27, 11.7}) // A4
 	request.Landscape(false)
 	request.Scale(1)
 
