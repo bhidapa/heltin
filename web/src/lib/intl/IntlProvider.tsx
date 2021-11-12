@@ -24,25 +24,41 @@ export const IntlProvider: React.FC<IntlProviderProps> = ({
 }) => {
   const [locale, setLocale] = useState<Locale>(() => retrieveLocale() || defaultLocale);
 
-  const mappedMessages = useMemo(
-    () => ({
-      en: Object.keys(messages).reduce((acc, curr) => ({ ...acc, [curr]: messages[curr].en }), {}),
-      hr: Object.keys(messages).reduce((acc, curr) => {
-        const baMessage = messages[curr].hr;
-        if (!baMessage && locale === 'hr') {
-          // eslint-disable-next-line no-console
-          console.warn(
-            `intl: key "${curr}" does not have a "hr" message, using "en" message sa fallback`,
-          );
-        }
-        return {
-          ...acc,
-          [curr]: baMessage ? baMessage : messages[curr].en,
-        };
-      }, {}),
-    }),
-    [messages, locale],
-  );
+  const mappedMessages = useMemo(() => {
+    const en: Record<string, string> = {};
+    for (const [key, value] of Object.entries(messages)) {
+      if (__DEV__ && !value.en) {
+        // eslint-disable-next-line no-console
+        console.warn(`intl: key "${key}" does not have an "en" message`);
+      }
+      if (__DEV__ && key in en) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `intl: key "${key}" already has an "en" message, replacing "${en[key]}" with "${value.en}"`,
+        );
+      }
+      en[key] = value.en;
+    }
+
+    const hr: Record<string, string> = {};
+    for (const [key, value] of Object.entries(messages)) {
+      if (__DEV__ && !value.hr) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `intl: key "${key}" does not have a "hr" message, using "en" message sa fallback`,
+        );
+      }
+      if (__DEV__ && key in hr) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `intl: key "${key}" already has a "hr" message, replacing "${hr[key]}" with "${value.hr}"`,
+        );
+      }
+      hr[key] = value.hr || messages[key].en;
+    }
+
+    return { en, hr };
+  }, []);
 
   const localeContextValue = useMemo<LocaleContextValue>(
     () => ({
