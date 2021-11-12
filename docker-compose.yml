@@ -57,7 +57,7 @@ services:
     depends_on:
       - graphql
   gotenberg:
-    image: thecodingmachine/gotenberg:7
+    image: thecodingmachine/gotenberg:6
     networks:
       - local
     environment:
