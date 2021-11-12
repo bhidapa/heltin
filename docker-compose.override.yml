@@ -29,3 +29,6 @@ services:
       - SERVER_PORT=${SERVER_PORT}
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
+  gotenberg:
+    ports:
+      - ${GOTENBERG_PORT}:${GOTENBERG_PORT}
