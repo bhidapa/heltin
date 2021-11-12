@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 	"text/template"
-	"time"
 
 	"github.com/bhidapa/heltin/pkg/pdf"
 	"github.com/bhidapa/heltin/pkg/session"
@@ -50,15 +49,18 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	readSeeker, err := reportsPDF.OpenReadSeeker()
-	if err != nil {
-		httperr.New(http.StatusInternalServerError, err.Error()).ServeHTTP(w, r)
-		return
-	}
-
 	w.Header().Set("Content-Type", "application/pdf")
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", reportsPDF.Size()))
-	http.ServeContent(w, r, "", time.Now(), readSeeker)
+
+	// TODO-db-121121 if "attachment;" is included, the PDF will be downloaded without opening in browser.
+	// the benefit of initiating a download immediately is because the treatment file should be stored in
+	// the db too and just downloading emphasises that
+	w.Header().Set("Content-Disposition", fmt.Sprintf("filename=%q", reportsPDF.Name()))
+
+	_, err = w.Write(reportsPDF.FileData)
+	if err != nil {
+		log.Error("Problem while writing treatment PDF").Err(err).Log()
+	}
 }
 
 func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
