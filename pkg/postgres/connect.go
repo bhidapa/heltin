@@ -39,9 +39,11 @@ func NewConnection(ctx context.Context) (sqldb.Connection, error) {
 		MaxIdleConns: config.MaxIdleConns,
 	}
 
-	sqlconfig.ConnMaxLifetime, err = time.ParseDuration(config.ConnMaxLifetime)
-	if err != nil {
-		return nil, err
+	if config.ConnMaxLifetime != "" {
+		sqlconfig.ConnMaxLifetime, err = time.ParseDuration(config.ConnMaxLifetime)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return pqconn.New(ctx, &sqlconfig)
