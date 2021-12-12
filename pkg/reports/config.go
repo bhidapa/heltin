@@ -8,5 +8,5 @@ import (
 
 var log = rootlog.NewPackageLogger("reports")
 
-//go:embed definitions.html
+//go:embed templates/definitions.html
 var definitions []byte

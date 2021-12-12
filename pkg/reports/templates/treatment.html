@@ -4,21 +4,13 @@
     <meta charset="utf-8" />
     <title>{{ .Title }}</title>
 
-    {{template "css-variables"}}
-
-    <style type="text/css">
-      footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-      }
-    </style>
+    <style type="text/css"></style>
   </head>
   <body>
     <main>
       <div style="display: flex; justify-content: space-between">
         <div>
-          <h3>Terapeut</h3>
+          <h3 style="margin-top: 0">Terapeut</h3>
           <b>{{ .TherapistName }}</b>
           <br />
           <a href="mailto:{{ .TherapistEmail }}">{{ .TherapistEmail }}</a>
@@ -26,7 +18,7 @@
           <a href="tel:{{ .TherapistTelephone }}">{{ .TherapistTelephone }}</a>
         </div>
         <div>
-          <h3>Klijent</h3>
+          <h3 style="margin-top: 0">Klijent</h3>
           <b>{{ .ClientName }}</b>
           <br />
           <a href="mailto:{{ .ClientEmail }}">{{ .ClientEmail }}</a>

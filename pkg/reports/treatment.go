@@ -64,14 +64,23 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//go:embed treatmentheader.html
+//go:embed templates/treatmentheader.html
 var treatmentHeaderHtml []byte
 
-//go:embed treatmentmain.html
-var treatmentMainHtml []byte
+//go:embed templates/treatment.html
+var treatmentHtml []byte
 
-//go:embed treatmentfooter.html
+//go:embed templates/treatmentfooter.html
 var treatmentFooterHtml []byte
+
+//go:embed assets/bhidapa-logo.png
+var bhidapaLogo []byte
+
+//go:embed assets/djecija-dusa-treba-da-se-slusa.png
+var djecijaDusaTrebaDaSeSlusaPng []byte
+
+//go:embed assets/zastita-zdravlja.png
+var zastitaZdravljaPng []byte
 
 func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, treatmentID)
@@ -84,32 +93,38 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 	}
 
 	data := map[string]string{
+		"Logo":                      pdf.ToBase64Encoding(bhidapaLogo),
+		"ZastitaZdravlja":           pdf.ToBase64Encoding(zastitaZdravljaPng),
+		"DjecijaDusaTrebaDaSeSlusa": pdf.ToBase64Encoding(djecijaDusaTrebaDaSeSlusaPng),
+
 		"Title":       treatment.Title,
 		"Description": treatment.Description.StringOr(""),
 		// TODO-db-121121 add rest
 	}
 
-	headerHtml, err := render(treatmentHeaderHtml, data)
+	headerHTML, err := render(treatmentHeaderHtml, data)
 	if err != nil {
 		return nil, err
 	}
 
-	mainHtml, err := render(treatmentMainHtml, data)
+	indexHTML, err := render(treatmentHtml, data)
 	if err != nil {
 		return nil, err
 	}
 
-	footerHtml, err := render(treatmentFooterHtml, data)
+	footerHTML, err := render(treatmentFooterHtml, data)
 	if err != nil {
 		return nil, err
 	}
 
 	pdfFileBytes, err := pdf.RenderHTML(ctx, &pdf.RenderHTMLArgs{
-		IndexHTML:    mainHtml,
-		HeaderHTML:   headerHtml,
-		FooterHTML:   footerHtml,
-		MarginTop:    3,
-		MarginBottom: 3,
+		IndexHTML:    indexHTML,
+		HeaderHTML:   headerHTML,
+		FooterHTML:   footerHTML,
+		MarginTop:    1.8,
+		MarginBottom: 1.8,
+		MarginRight:  0.8,
+		MarginLeft:   0.8,
 	})
 	if err != nil {
 		return nil, err

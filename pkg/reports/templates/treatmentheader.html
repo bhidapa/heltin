@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    {{template "css-variables"}}
+
+    <style type="text/css">
+      body {
+        font-size: 8rem;
+        margin-top: 20px;
+        margin-left: 20px;
+      }
+
+      .header-text-bhidapa {
+        text-align: justify;
+        text-align-last: justify;
+        text-transform: uppercase;
+        font-size: 1.1em;
+        color: var(--blue);
+      }
+      .header-text-bhidapa-desc {
+        text-align: justify;
+        text-align-last: justify;
+        text-transform: uppercase;
+        font-size: 1.2em;
+        color: var(--blue);
+      }
+      .header-hr {
+        border-style: solid;
+        color: var(--yellow);
+      }
+      .header-text-bottom {
+        font-size: 0.9em;
+        color: var(--blue);
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display: flex">
+      <div style="margin-right: 10px">
+        <img src="{{ .Logo }}" height="58px" />
+      </div>
+
+      <div style="display: flex; flex-direction: column">
+        <div class="header-text-bhidapa">
+          <b>
+            Bosansko-hercegovačka integrativna dječja i adolescentna
+            psihoterapijska Asocijacija
+          </b>
+        </div>
+        <div class="header-text-bhidapa-desc">
+          <b>
+            Interdisciplinarni terapijski centar za zaštitu zdravlja djece,
+            mladih i obitelji
+          </b>
+        </div>
+        <div>
+          <hr class="header-hr" />
+        </div>
+        <div class="header-text-bottom">
+          Adresa Emerika Bluma 9A, 71000 Sarajevo, Bosna i Hercegovina || Tel.
+          +387 61 773 887, +387 33 744 634
+        </div>
+        <div class="header-text-bottom">
+          Područje djelovanja: 14. Zaštita zdravlja || ID: 4202071240017 || TRN:
+          1610000134890054
+        </div>
+        <div class="header-text-bottom">
+          <a href="mailto:info@bhidapa.ba">info@bhidapa.ba</a>
+          ||
+          <a href="https://bhidapa.ba">bhidapa.ba</a>
+          ||
+          <a href="https://journal.bhidapa.ba">journal.bhidapa.ba</a>
+          ||
+          <a href="https://congress.bhidapa.ba">congress.bhidapa.ba</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
