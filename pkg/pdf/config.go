@@ -5,7 +5,6 @@ import (
 
 	"github.com/bhidapa/heltin/pkg/env"
 	rootlog "github.com/domonda/golog/log"
-	"github.com/thecodingmachine/gotenberg-go-client/v7"
 )
 
 var (
@@ -16,7 +15,7 @@ var (
 		GotenbergPort uint16 `env:"GOTENBERG_PORT,required"`
 	}
 
-	gotenbergClient *gotenberg.Client
+	gotenbergURL string
 )
 
 func init() {
@@ -25,11 +24,10 @@ func init() {
 		panic(err)
 	}
 
-	gotenbergClient = &gotenberg.Client{
-		Hostname: fmt.Sprintf("http://%s:%d", config.GotenbergHost, config.GotenbergPort),
-	}
+	gotenbergURL = fmt.Sprintf("http://%s:%d", config.GotenbergHost, config.GotenbergPort)
 
 	log.Debug("Configured").
 		StructFields(config).
+		Str("gotenbergURL", gotenbergURL).
 		Log()
 }

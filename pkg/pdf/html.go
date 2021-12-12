@@ -1,54 +1,72 @@
 package pdf
 
 import (
+	"bytes"
 	"context"
+	"fmt"
 	"io"
+	"mime/multipart"
+	"net/http"
 
 	"github.com/domonda/go-errs"
-	"github.com/thecodingmachine/gotenberg-go-client/v7"
 )
 
-func RenderHTML(ctx context.Context, pageHTML, headerHTML, footerHTML []byte) (pdf []byte, err error) {
-	defer errs.WrapWithFuncParams(&err, ctx, pageHTML, headerHTML, footerHTML)
+type RenderHTMLArgs struct {
+	HeaderHTML []byte
+	FooterHTML []byte
+	IndexHTML  []byte
+
+	MarginTop    int
+	MarginBottom int
+}
+
+func RenderHTML(ctx context.Context, args *RenderHTMLArgs) (pdf []byte, err error) {
+	defer errs.WrapWithFuncParams(&err, ctx, args)
 
 	log.Info("Rendering HTML to PDF").Ctx(ctx).Log()
 
-	index, err := gotenberg.NewDocumentFromBytes("index.html", pageHTML)
+	body := &bytes.Buffer{}
+
+	writer := multipart.NewWriter(body)
+
+	index, _ := writer.CreateFormFile("files", "index.html")
+	index.Write(args.IndexHTML)
+
+	if len(args.HeaderHTML) > 0 {
+		header, _ := writer.CreateFormFile("files", "header.html")
+		header.Write(args.HeaderHTML)
+	}
+	if len(args.FooterHTML) > 0 {
+		footer, _ := writer.CreateFormFile("files", "footer.html")
+		footer.Write(args.FooterHTML)
+	}
+
+	if args.MarginTop > 0 {
+		marginTop, _ := writer.CreateFormField("marginTop")
+		marginTop.Write([]byte(fmt.Sprintf("%d", args.MarginTop)))
+	}
+	if args.MarginBottom > 0 {
+		marginBottom, _ := writer.CreateFormField("marginBottom")
+		marginBottom.Write([]byte(fmt.Sprintf("%d", args.MarginBottom)))
+	}
+
+	writer.Close()
+
+	req, err := http.NewRequestWithContext(ctx, "POST", gotenbergURL+"/forms/chromium/convert/html", body)
 	if err != nil {
 		return nil, err
 	}
-	request := gotenberg.NewHTMLRequest(index)
+	req.Header.Add("Content-Type", writer.FormDataContentType())
 
-	request.PaperSize([2]float64{8.27, 11.7}) // A4
-	request.Landscape(false)
-	request.Scale(1)
-
-	if len(headerHTML) > 0 {
-		header, err := gotenberg.NewDocumentFromBytes("header.html", headerHTML)
-		if err != nil {
-			return nil, err
-		}
-		request.Header(header)
-	}
-
-	if len(footerHTML) > 0 {
-		footer, err := gotenberg.NewDocumentFromBytes("footer.html", footerHTML)
-		if err != nil {
-			return nil, err
-		}
-		request.Footer(footer)
-	}
-
-	response, err := gotenbergClient.PostContext(ctx, request)
-	if err != nil {
-		return nil, err
-	}
-	defer response.Body.Close()
-
-	err = responseErrorOrNil(response)
+	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
 
-	return io.ReadAll(response.Body)
+	err = responseErrorOrNil(res)
+	if err != nil {
+		return nil, err
+	}
+
+	return io.ReadAll(res.Body)
 }

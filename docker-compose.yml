@@ -57,10 +57,13 @@ services:
     depends_on:
       - graphql
   gotenberg:
-    image: thecodingmachine/gotenberg:6
+    image: thecodingmachine/gotenberg:7
     networks:
       - local
     environment:
-      - DEFAULT_LISTEN_PORT=${GOTENBERG_PORT}
+      - GOTENBERG_PORT=${GOTENBERG_PORT}
+    command:
+      - "gotenberg"
+      - "--api-port-from-env=GOTENBERG_PORT"
     ports:
       - ${GOTENBERG_PORT}:${GOTENBERG_PORT}
