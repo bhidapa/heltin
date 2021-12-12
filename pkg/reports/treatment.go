@@ -3,6 +3,7 @@ package reports
 import (
 	"bytes"
 	"context"
+	_ "embed"
 	"fmt"
 	"net/http"
 	"text/template"
@@ -63,6 +64,15 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//go:embed treatmentheader.html
+var treatmentHeaderHtml []byte
+
+//go:embed treatmentmain.html
+var treatmentMainHtml []byte
+
+//go:embed treatmentfooter.html
+var treatmentFooterHtml []byte
+
 func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, treatmentID)
 
@@ -73,28 +83,59 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	tmplt := template.New("")
-	tmplt, err = tmplt.Parse(treatmentReportHTML)
-	if err != nil {
-		return nil, err
-	}
-
 	data := map[string]string{
-		"Title": treatment.Title,
-		"Note":  treatment.Description.StringOr(""),
+		"Title":       treatment.Title,
+		"Description": treatment.Description.StringOr(""),
 		// TODO-db-121121 add rest
 	}
 
-	buffer := new(bytes.Buffer)
-	err = tmplt.Execute(buffer, data)
+	headerHtml, err := render(treatmentHeaderHtml, data)
 	if err != nil {
 		return nil, err
 	}
 
-	pdfFileBytes, err := pdf.RenderHTML(ctx, buffer.Bytes(), nil, nil)
+	mainHtml, err := render(treatmentMainHtml, data)
+	if err != nil {
+		return nil, err
+	}
+
+	footerHtml, err := render(treatmentFooterHtml, data)
+	if err != nil {
+		return nil, err
+	}
+
+	pdfFileBytes, err := pdf.RenderHTML(ctx, &pdf.RenderHTMLArgs{
+		IndexHTML:    mainHtml,
+		HeaderHTML:   headerHtml,
+		FooterHTML:   footerHtml,
+		MarginTop:    3,
+		MarginBottom: 3,
+	})
 	if err != nil {
 		return nil, err
 	}
 
 	return fs.NewMemFile("somehwere.pdf", pdfFileBytes), nil
+}
+
+func render(html []byte, data interface{}) (rendered []byte, err error) {
+	tmplt := template.New("")
+
+	tmplt, err = tmplt.Parse(string(definitions))
+	if err != nil {
+		return nil, err
+	}
+
+	tmplt, err = tmplt.Parse(string(html))
+	if err != nil {
+		return nil, err
+	}
+
+	buff := new(bytes.Buffer)
+	err = tmplt.Execute(buff, data)
+	if err != nil {
+		return nil, err
+	}
+
+	return buff.Bytes(), nil
 }
