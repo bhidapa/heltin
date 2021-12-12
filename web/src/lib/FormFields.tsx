@@ -42,6 +42,7 @@ export const FormTextAreaField: React.FC<
     {({ textAreaProps, state }) => (
       <TextArea
         {...textAreaProps}
+        style={{ whiteSpace: 'pre-wrap' }}
         onKeyPress={
           submitOnEnter
             ? (event) => {
