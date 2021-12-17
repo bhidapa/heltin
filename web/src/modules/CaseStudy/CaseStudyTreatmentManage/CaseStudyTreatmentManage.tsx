@@ -341,6 +341,23 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
               {caseStudyTreatment && (
                 <Flex item>
                   <Button
+                    variant="primary"
+                    color="primary"
+                    component={makeLink({
+                      native: true,
+                      to: `/api/memos/for-treatment/${caseStudyTreatment.rowId}.pdf`,
+                      // target: '_blank',
+                      // rel: 'noreferrer',
+                    })}
+                  >
+                    <FormattedMessage id="BUILD_MEMORANDUM" />
+                  </Button>
+                </Flex>
+              )}
+              <Flex item flex={1} />
+              {caseStudyTreatment && (
+                <Flex item>
+                  <Button
                     component={makeLink({
                       to: `${CASE_STUDIES_PAGE_ROUTE}/${caseStudy.rowId}/treatments/create`,
                     })}
