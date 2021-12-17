@@ -2,18 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+
+    <style type="text/css">
+      #root {
+        width: 570px; /* eyeballed width of the a4 print with the margins accounted for */
+
+        display: flex;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+    </style>
   </head>
   <body>
-    <img
-      src="{{ .ZastitaZdravlja }}"
-      height="30px"
-      style="margin-bottom: 25px"
-    />
-    <div style="width: 67%"></div>
-    <img
-      src="{{ .DjecijaDusaTrebaDaSeSlusa }}"
-      height="80px"
-      style="margin-bottom: 25px"
-    />
+    <div id="root">
+      <div>
+        <img src="{{ .ZastitaZdravlja }}" height="30px" />
+      </div>
+
+      <div style="text-align: center">
+        <small>{{ .FileCreatedAt }}</small>
+        <br />
+        <small>{{ .ID }}-{{ .FileCreatedBy }}</small>
+      </div>
+
+      <div>
+        <img src="{{ .DjecijaDusaTrebaDaSeSlusa }}" height="80px" />
+      </div>
+    </div>
   </body>
 </html>

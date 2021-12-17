@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{{ .Title }}</title>
+    <title>{{ .Treatment.Title }}</title>
 
     <style type="text/css">
       body {
@@ -18,27 +18,49 @@
       <div style="display: flex; justify-content: space-between">
         <div>
           <h3 style="margin-top: 0">Terapeut</h3>
-          <b>{{ .TherapistName }}</b>
+          {{ .Treatment.TherapistName }}
           <br />
-          <a href="mailto:{{ .TherapistEmail }}">{{ .TherapistEmail }}</a>
+          <a href="mailto:{{ .Treatment.TherapistEmail }}"
+            >{{ .Treatment.TherapistEmail }}</a
+          >
+          {{ if ne .Treatment.TherapistTelephone "" }}
           <br />
-          <a href="tel:{{ .TherapistTelephone }}">{{ .TherapistTelephone }}</a>
+          <a href="tel:{{ .Treatment.TherapistTelephone }}"
+            >{{ .Treatment.TherapistTelephone }}</a
+          >
+          {{ end }}
         </div>
         <div>
           <h3 style="margin-top: 0">Klijent</h3>
-          <b>{{ .ClientName }}</b>
+          {{ .Treatment.ClientName }}
+          <!-- prettier-ignore -->
+          {{ if ne .Treatment.ClientEmail "" }}
           <br />
-          <a href="mailto:{{ .ClientEmail }}">{{ .ClientEmail }}</a>
+          <a href="mailto:{{ .Treatment.ClientEmail }}"
+            >{{ .Treatment.ClientEmail }}</a
+          >
+          {{ end }}
           <br />
-          <a href="tel:{{ .ClientTelephone }}">{{ .ClientTelephone }}</a>
+          <a href="tel:{{ .Treatment.ClientTelephone }}"
+            >{{ .Treatment.ClientTelephone }}</a
+          >
         </div>
       </div>
 
-      <div style="height: 50px"></div>
+      <br />
+      <hr />
+      <br />
 
       <div>
-        <h2>{{ .Title }}</h2>
-        <p>{{ .Description }}</p>
+        <h3 style="margin-top: 0">Vrijeme tretmana</h3>
+        {{ .Treatment.StartedAt }} &mdash; {{ .Treatment.EndedAt }}
+      </div>
+
+      <br /><br />
+
+      <div>
+        <h2>{{ .Treatment.Title }}</h2>
+        <p>{{ .Treatment.Description }}</p>
       </div>
     </main>
   </body>
