@@ -41,9 +41,10 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("Building treatment reports").Log()
 
+	fileID := uu.IDv4()
 	var reportsPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
-		reportsPDF, err = forTreatmentInPDF(ctx, treatmentID)
+		reportsPDF, err = forTreatmentInPDF(ctx, fileID, treatmentID)
 		if err != nil {
 			return err
 		}
@@ -55,13 +56,13 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		var fileID uu.ID
-		err = db.Conn(ctx).InsertReturning("public.file", sqldb.Values{
+		err = db.Conn(ctx).Insert("public.file", sqldb.Values{
+			"id":         fileID,
 			"name":       reportsPDF.Name(),
 			"data":       reportsPDFBytes,
 			"protected":  true,
 			"created_by": sessionUserID,
-		}, "id").Scan(&fileID)
+		})
 		if err != nil {
 			return err
 		}
@@ -98,8 +99,8 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 //go:embed templates/treatment.html
 var treatmentHtml []byte
 
-func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
-	defer errs.WrapWithFuncParams(&err, ctx, treatmentID)
+func forTreatmentInPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
+	defer errs.WrapWithFuncParams(&err, ctx, fileID, treatmentID)
 
 	treatment := struct {
 		// therapist shouldn't be null, but the user that created
@@ -153,19 +154,16 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 	treatment.StartedAt = treatment.StartedAtTime.In(loc).Format("02.01.2006 15:04")
 	treatment.EndedAt = treatment.EndedAtTime.In(loc).Format("02.01.2006 15:04")
 
-	fileCreatedBy, err := session.UserFromContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-	fileCreatedAt := time.Now().UTC()
+	createdAt := time.Now().UTC()
 	data := map[string]interface{}{
+		"ID":        fileID,
+		"ForID":     treatmentID,
+		"CreatedAt": createdAt,
+
 		"Logo":                      pdf.ToBase64Encoding(bhidapaLogo),
 		"ZastitaZdravlja":           pdf.ToBase64Encoding(zastitaZdravljaPng),
 		"DjecijaDusaTrebaDaSeSlusa": pdf.ToBase64Encoding(djecijaDusaTrebaDaSeSlusaPng),
-		"ID":                        treatmentID,
 		"Treatment":                 treatment,
-		"FileCreatedBy":             fileCreatedBy,
-		"FileCreatedAt":             fileCreatedAt,
 	}
 
 	headerHTML, err := render(headerHtml, data)
@@ -196,6 +194,6 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + fileCreatedAt.In(loc).Format(time.RFC3339)
+	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + createdAt.In(loc).Format(time.RFC3339)
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }

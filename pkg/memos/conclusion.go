@@ -43,9 +43,10 @@ func ForConclusion(w http.ResponseWriter, r *http.Request) {
 
 	log.Info("Building conclusion reports").Log()
 
+	fileID := uu.IDv4()
 	var reportsPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
-		reportsPDF, err = forConclusionInPDF(ctx, conclusionID)
+		reportsPDF, err = forConclusionInPDF(ctx, fileID, conclusionID)
 		if err != nil {
 			return err
 		}
@@ -57,13 +58,13 @@ func ForConclusion(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		var fileID uu.ID
-		err = db.Conn(ctx).InsertReturning("public.file", sqldb.Values{
+		err = db.Conn(ctx).Insert("public.file", sqldb.Values{
+			"id":         fileID,
 			"name":       reportsPDF.Name(),
 			"data":       reportsPDFBytes,
 			"protected":  true,
 			"created_by": sessionUserID,
-		}, "id").Scan(&fileID)
+		})
 		if err != nil {
 			return err
 		}
@@ -100,8 +101,8 @@ func ForConclusion(w http.ResponseWriter, r *http.Request) {
 //go:embed templates/conclusion.html
 var conclusionHtml []byte
 
-func forConclusionInPDF(ctx context.Context, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
-	defer errs.WrapWithFuncParams(&err, ctx, conclusionID)
+func forConclusionInPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
+	defer errs.WrapWithFuncParams(&err, ctx, fileID, conclusionID)
 
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
@@ -155,19 +156,16 @@ func forConclusionInPDF(ctx context.Context, conclusionID uu.ID) (pdfFile *fs.Me
 	}
 	conclusion.ConcludedAt = conclusion.ConcludedAtTime.In(loc).Format("02.01.2006 15:04")
 
-	fileCreatedBy, err := session.UserFromContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-	fileCreatedAt := time.Now().UTC()
+	createdAt := time.Now().UTC()
 	data := map[string]interface{}{
+		"ID":        fileID,
+		"ForID":     conclusionID,
+		"CreatedAt": createdAt,
+
 		"Logo":                      pdf.ToBase64Encoding(bhidapaLogo),
 		"ZastitaZdravlja":           pdf.ToBase64Encoding(zastitaZdravljaPng),
 		"DjecijaDusaTrebaDaSeSlusa": pdf.ToBase64Encoding(djecijaDusaTrebaDaSeSlusaPng),
-		"ID":                        conclusionID,
 		"Conclusion":                conclusion,
-		"FileCreatedBy":             fileCreatedBy,
-		"FileCreatedAt":             fileCreatedAt,
 	}
 
 	headerHTML, err := render(headerHtml, data)
@@ -198,6 +196,6 @@ func forConclusionInPDF(ctx context.Context, conclusionID uu.ID) (pdfFile *fs.Me
 		return nil, err
 	}
 
-	filename := "Memorandum" + "_" + conclusion.ClientName + "_" + conclusion.Title + "_" + fileCreatedAt.In(loc).Format(time.RFC3339)
+	filename := "Memorandum" + "_" + conclusion.ClientName + "_" + conclusion.Title + "_" + createdAt.In(loc).Format(time.RFC3339)
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }
