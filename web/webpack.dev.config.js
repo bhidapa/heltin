@@ -70,7 +70,7 @@ module.exports = merge(common, {
         pathRewrite: { '^/api': '' },
       },
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:7000',
       },
     },
   },
