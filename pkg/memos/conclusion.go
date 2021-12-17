@@ -123,11 +123,11 @@ func forConclusionInPDF(ctx context.Context, conclusionID uu.ID) (pdfFile *fs.Me
 		select
 			public.mental_health_professional_full_name(mental_health_professional) as therapist_name,
 			mental_health_professional.email as therapist_email,
-			mental_health_professional.telephone as therapist_telephone,
+			replace(mental_health_professional.telephone, '\s', '') as therapist_telephone,
 
 			public.client_full_name(client) as client_name,
 			client.email as client_email,
-			client.telephone as client_telephone,
+			replace(client.telephone, '\s', '') as client_telephone,
 
 			case_study_conclusion."type" as "type",
 			case_study_conclusion.description as description,
