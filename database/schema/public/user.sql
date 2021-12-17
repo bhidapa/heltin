@@ -69,6 +69,7 @@ create table public.assistant (
 
   user_id uuid unique references public.user(id) on delete set null,
 
+  telephone text,
   email email_address unique not null,
 
   first_name    text not null,
@@ -121,6 +122,7 @@ create table public.mental_health_professional (
 
   "type" public.mental_health_professional_type not null,
 
+  telephone text,
   email email_address unique not null,
 
   title         text,
