@@ -12,19 +12,24 @@
         margin-top: 20px;
         margin-left: 20px;
       }
+      main {
+        width: 570px; /* eyeballed width of the a4 print with the margins accounted for */
+
+        display: flex;
+      }
 
       .header-text-bhidapa {
         text-align: justify;
         text-align-last: justify;
         text-transform: uppercase;
-        font-size: 1.1em;
+        font-size: 1.15em;
         color: var(--blue);
       }
       .header-text-bhidapa-desc {
         text-align: justify;
         text-align-last: justify;
         text-transform: uppercase;
-        font-size: 1.2em;
+        font-size: 1.3em;
         color: var(--blue);
       }
       .header-hr {
@@ -38,12 +43,12 @@
     </style>
   </head>
   <body>
-    <div style="display: flex">
+    <main>
       <div style="margin-right: 10px">
         <img src="{{ .Logo }}" height="58px" />
       </div>
 
-      <div style="display: flex; flex-direction: column">
+      <div style="flex: 1; display: flex; flex-direction: column">
         <div class="header-text-bhidapa">
           <b>
             Bosansko-hercegovačka integrativna dječja i adolescentna
@@ -77,6 +82,6 @@
           <a href="https://congress.bhidapa.ba">congress.bhidapa.ba</a>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>
