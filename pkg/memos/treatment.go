@@ -12,6 +12,7 @@ import (
 	"github.com/bhidapa/heltin/pkg/pdf"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
+	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
@@ -48,7 +49,33 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			return err
 		}
-		return err
+
+		sessionUserID, _ := session.UserFromContext(ctx)
+
+		reportsPDFBytes, err := reportsPDF.ReadAll()
+		if err != nil {
+			return err
+		}
+
+		var fileID uu.ID
+		err = db.Conn(ctx).InsertReturning("public.file", sqldb.Values{
+			"name":       reportsPDF.Name(),
+			"data":       reportsPDFBytes,
+			"created_by": sessionUserID,
+		}, "id").Scan(&fileID)
+		if err != nil {
+			return err
+		}
+
+		err = db.Conn(ctx).Insert("public.case_study_treatment_file", sqldb.Values{
+			"case_study_treatment_id": treatmentID,
+			"file_id":                 fileID,
+		})
+		if err != nil {
+			return err
+		}
+
+		return nil
 	})
 	if err != nil {
 		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
@@ -146,6 +173,7 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 	if err != nil {
 		return nil, err
 	}
+	fileCreatedAt := time.Now().UTC()
 	data := map[string]interface{}{
 		"Logo":                      pdf.ToBase64Encoding(bhidapaLogo),
 		"ZastitaZdravlja":           pdf.ToBase64Encoding(zastitaZdravljaPng),
@@ -153,7 +181,7 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		"ID":                        treatmentID,
 		"Treatment":                 treatment,
 		"FileCreatedBy":             fileCreatedBy,
-		"FileCreatedAt":             time.Now().UTC(),
+		"FileCreatedAt":             fileCreatedAt,
 	}
 
 	headerHTML, err := render(treatmentHeaderHtml, data)
@@ -184,7 +212,7 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + treatment.StartedAtTime.In(loc).Format("02-01-2006")
+	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + fileCreatedAt.In(loc).Format(time.RFC3339)
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }
 
