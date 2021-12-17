@@ -171,15 +171,6 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
                 )}
               </FormSelectField>
             </Flex>
-            <Flex item>
-              <FormSelectField path="type" required>
-                {({ selectProps }) => (
-                  <Select {...selectProps} label={<FormattedMessage id="TYPE" />}>
-                    <ProfessionalTypeSelectOptions disableEmptyOption />
-                  </Select>
-                )}
-              </FormSelectField>
-            </Flex>
             <Flex item container spacing="tiny" wrap>
               <Flex item minWidth={92} maxWidth={92}>
                 <FormInputField path="title">
