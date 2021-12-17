@@ -26,8 +26,13 @@ jobs:
   #       uses: actions/setup-node@v2
   #       with:
   #         node-version: "16"
-  #         cache: "yarn"
-  #         cache-dependency-path: cmd/graphql/yarn.lock
+  #     - name: Cache
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: cmd/graphql/.yarn/cache
+  #         key: ${{ runner.os }}-graphql-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-graphql-yarn-cache-
   #     - name: Install
   #       run: yarn install --immutable
   #     - name: Lint
@@ -44,8 +49,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "16"
-          cache: "yarn"
-          cache-dependency-path: cmd/graphql/yarn.lock
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: cmd/graphql/.yarn/cache
+          key: ${{ runner.os }}-graphql-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-graphql-yarn-cache-
       - name: Install
         run: yarn install --immutable
       - name: Type check
@@ -63,8 +73,13 @@ jobs:
   #       uses: actions/setup-node@v2
   #       with:
   #         node-version: "16"
-  #         cache: "yarn"
-  #         cache-dependency-path: cmd/graphql/yarn.lock
+  #     - name: Cache
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: cmd/graphql/.yarn/cache
+  #         key: ${{ runner.os }}-graphql-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-graphql-yarn-cache-
   #     - name: Install
   #       run: yarn install --immutable
   #     - name: Test
