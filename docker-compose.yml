@@ -65,5 +65,3 @@ services:
     command:
       - "gotenberg"
       - "--api-port-from-env=GOTENBERG_PORT"
-    ports:
-      - ${GOTENBERG_PORT}:${GOTENBERG_PORT}
