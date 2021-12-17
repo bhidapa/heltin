@@ -7,6 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { toBase64 } from 'lib/file';
+import { makeLink } from 'lib/makeLink';
 
 // relay
 import { graphql, useFragment } from 'react-relay/hooks';
@@ -30,7 +31,6 @@ import {
 // decorate
 import { decorate, Decorate } from './decorate';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
-import { FileDownloadButton } from 'modules/File/FileDownloadButton';
 import { usePromiseMutation } from 'relay/hooks';
 
 export interface CaseHistoryFilesManageProps {
@@ -122,13 +122,16 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
                       <Flex item flex={1}>
                         <Text>{file.name}</Text>
                       </Flex>
-                      <Flex item>
-                        <FileDownloadButton
-                          fileRowId={file.rowId}
-                          variant="link"
-                          color="secondary"
-                        />
-                      </Flex>
+                      <Button
+                        variant="link"
+                        color="secondary"
+                        component={makeLink({
+                          native: true,
+                          to: `/api/file/${file.rowId}`,
+                        })}
+                      >
+                        <FormattedMessage id="DOWNLOAD" />
+                      </Button>
                       {!file.protected && (
                         <Flex item>
                           <Button

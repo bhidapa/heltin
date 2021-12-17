@@ -7,6 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { toBase64 } from 'lib/file';
+import { makeLink } from 'lib/makeLink';
 
 // relay
 import { graphql, useFragment } from 'react-relay/hooks';
@@ -30,7 +31,6 @@ import {
 // decorate
 import { decorate, Decorate } from './decorate';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
-import { FileDownloadButton } from 'modules/File/FileDownloadButton';
 
 export interface CaseStudyTreatmentFilesManageProps {
   caseStudyTreatmentRowId: UUID;
@@ -87,11 +87,16 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
                         <Text>{file.name}</Text>
                       </Flex>
                       <Flex item>
-                        <FileDownloadButton
-                          fileRowId={file.rowId}
+                        <Button
                           variant="link"
                           color="secondary"
-                        />
+                          component={makeLink({
+                            native: true,
+                            to: `/api/file/${file.rowId}`,
+                          })}
+                        >
+                          <FormattedMessage id="DOWNLOAD" />
+                        </Button>
                       </Flex>
                       {!file.protected && (
                         <Flex item>
