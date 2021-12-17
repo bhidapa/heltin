@@ -11,7 +11,6 @@ require (
 	github.com/gorilla/handlers v1.5.1
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.4.0
-	github.com/thecodingmachine/gotenberg-go-client/v7 v7.2.0
 	github.com/ungerik/go-fs v0.0.0-20211026033919-c01ec0166b2d
 	github.com/ungerik/go-httpx v0.0.0-20210208164815-b56980774627
 	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa
@@ -21,6 +20,7 @@ require (
 	github.com/domonda/go-encjson v0.0.0-20210830085227-1beee57a72d8 // indirect
 	github.com/domonda/go-pretty v0.0.0-20210202131827-b4ff5dbd12fd // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
+	github.com/guregu/null v4.0.0+incompatible // indirect
 	github.com/lib/pq v1.10.4 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect

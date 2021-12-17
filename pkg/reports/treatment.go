@@ -14,6 +14,7 @@ import (
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-types/nullable"
+	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
 	"github.com/gorilla/mux"
 	"github.com/ungerik/go-fs"
@@ -180,7 +181,8 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	return fs.NewMemFile("somehwere.pdf", pdfFileBytes), nil
+	filename := "Report" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + treatment.StartedAtTime.In(loc).Format("02-01-2006")
+	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }
 
 func render(html []byte, data interface{}) (rendered []byte, err error) {
