@@ -3,7 +3,6 @@ package memos
 import (
 	"context"
 	_ "embed"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -17,51 +16,37 @@ import (
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
-	"github.com/gorilla/mux"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-httpx/httperr"
 )
 
-func ForConclusion(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	conclusionIDVar := mux.Vars(r)["id"]
-	if conclusionIDVar == "" {
-		httperr.New(http.StatusBadRequest, "Missing conclusion ID").ServeHTTP(w, r)
-		return
-	}
-
-	conclusionID, err := uu.IDFromString(conclusionIDVar)
-	if err != nil {
-		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
-		return
-	}
-
+func CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID, err error) {
 	log, ctx := log.With().
 		Ctx(ctx).
 		UUID("conclusionID", conclusionID).
 		SubLoggerContext(ctx)
 
-	log.Info("Building conclusion reports").Log()
+	log.Info("Creating conclusion memo").Log()
 
-	fileID := uu.IDv4()
-	var reportsPDF *fs.MemFile
+	fileID = uu.IDv4()
+	var memoPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
-		reportsPDF, err = forConclusionInPDF(ctx, fileID, conclusionID)
+		memoPDF, err = buildConclusionPDF(ctx, fileID, conclusionID)
 		if err != nil {
 			return err
 		}
 
 		sessionUserID, _ := session.UserFromContext(ctx)
 
-		reportsPDFBytes, err := reportsPDF.ReadAll()
+		memoPDFBytes, err := memoPDF.ReadAll()
 		if err != nil {
 			return err
 		}
 
 		err = db.Conn(ctx).Insert("public.file", sqldb.Values{
 			"id":         fileID,
-			"name":       reportsPDF.Name(),
-			"data":       reportsPDFBytes,
+			"name":       memoPDF.Name(),
+			"data":       memoPDFBytes,
 			"protected":  true,
 			"created_by": sessionUserID,
 		})
@@ -80,28 +65,15 @@ func ForConclusion(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 	if err != nil {
-		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
-		return
+		return uu.IDNil, httperr.New(http.StatusBadRequest, err.Error())
 	}
-
-	w.Header().Set("Content-Type", "application/pdf")
-	w.Header().Set("Content-Length", fmt.Sprintf("%d", reportsPDF.Size()))
-
-	// TODO-db-121121 if "attachment;" is included, the PDF will be downloaded without opening in browser.
-	// the benefit of initiating a download immediately is because the conclusion file should be stored in
-	// the db too and just downloading emphasises that
-	w.Header().Set("Content-Disposition", fmt.Sprintf("filename=%q", reportsPDF.Name()))
-
-	_, err = w.Write(reportsPDF.FileData)
-	if err != nil {
-		log.Error("Problem while writing conclusion PDF").Err(err).Log()
-	}
+	return fileID, nil
 }
 
 //go:embed templates/conclusion.html
 var conclusionHtml []byte
 
-func forConclusionInPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
+func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, fileID, conclusionID)
 
 	conclusion := struct {

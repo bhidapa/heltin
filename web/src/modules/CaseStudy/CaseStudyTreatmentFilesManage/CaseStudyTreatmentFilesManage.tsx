@@ -92,6 +92,7 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
                           color="secondary"
                           component={makeLink({
                             native: true,
+                            download: true,
                             to: `/api/file/${file.rowId}`,
                           })}
                         >

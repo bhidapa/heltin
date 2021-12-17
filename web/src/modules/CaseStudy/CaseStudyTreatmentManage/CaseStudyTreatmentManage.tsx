@@ -12,14 +12,17 @@ import { addHours, isEqual } from 'date-fns';
 import { history } from 'lib/history';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
 import { usePromiseMutation } from 'relay/hooks';
+import { LoadFileButton } from 'lib/LoadFileButton';
+import { usePanic } from 'lib/usePanic';
 
 // relay
-import { graphql, useFragment } from 'react-relay/hooks';
+import { graphql, useFragment, fetchQuery, useRelayEnvironment } from 'react-relay/hooks';
 import { CaseStudyTreatmentManage_caseStudy$key } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudy.graphql';
 import { CaseStudyTreatmentManage_caseStudyTreatment$key } from 'relay/artifacts/CaseStudyTreatmentManage_caseStudyTreatment.graphql';
 import { CaseStudyTreatmentManageCreateMutation } from 'relay/artifacts/CaseStudyTreatmentManageCreateMutation.graphql';
 import { CaseStudyTreatmentManageUpdateMutation } from 'relay/artifacts/CaseStudyTreatmentManageUpdateMutation.graphql';
 import { CaseStudyTreatmentManageDeleteMutation } from 'relay/artifacts/CaseStudyTreatmentManageDeleteMutation.graphql';
+import { CaseStudyTreatmentManageMemoBuiltQuery } from 'relay/artifacts/CaseStudyTreatmentManageMemoBuiltQuery.graphql';
 
 // ui
 import { Flex, Button, Text, Input } from '@domonda/ui';
@@ -64,6 +67,8 @@ let previousFormValues: FormValues | null = null;
 
 export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> = (props) => {
   const { caseStudy: caseStudyKey, caseStudyTreatment: caseStudyTreatmentKey } = props;
+  const [panic] = usePanic();
+  const environment = useRelayEnvironment();
 
   const caseStudy = useFragment(
     graphql`
@@ -340,18 +345,47 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
             <Flex item container justify="flex-end" spacing="tiny">
               {caseStudyTreatment && (
                 <Flex item>
-                  <Button
+                  <LoadFileButton
                     variant="primary"
                     color="primary"
-                    component={makeLink({
-                      native: true,
-                      to: `/api/memos/for-treatment/${caseStudyTreatment.rowId}.pdf`,
-                      // target: '_blank',
-                      // rel: 'noreferrer',
-                    })}
+                    url={`/api/memos/for-treatment/${caseStudyTreatment.rowId}`}
+                    onFileUrl={() => {
+                      fetchQuery<CaseStudyTreatmentManageMemoBuiltQuery>(
+                        environment,
+                        graphql`
+                          query CaseStudyTreatmentManageMemoBuiltQuery($treatmentRowId: UUID!) {
+                            caseStudyTreatmentByRowId(rowId: $treatmentRowId) {
+                              caseStudyTreatmentFiles: caseStudyTreatmentFilesByCaseStudyTreatmentRowId(
+                                orderBy: [CREATED_AT_ASC]
+                              ) {
+                                nodes {
+                                  ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles
+                                }
+                              }
+                            }
+                          }
+                        `,
+                        { treatmentRowId: caseStudyTreatment.rowId },
+                        { fetchPolicy: 'network-only' },
+                      )
+                        .toPromise()
+                        .catch(panic);
+                    }}
+                    fileUrlReady={(fileUrl) => (
+                      <Button
+                        variant="primary"
+                        color="success"
+                        component={makeLink({
+                          native: true,
+                          to: fileUrl,
+                        })}
+                      >
+                        <FormattedMessage id="OPEN_MEMORANDUM" />
+                      </Button>
+                    )}
                   >
                     <FormattedMessage id="BUILD_MEMORANDUM" />
-                  </Button>
+                  </LoadFileButton>
                 </Flex>
               )}
               <Flex item flex={1} />

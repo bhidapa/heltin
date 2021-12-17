@@ -37,8 +37,16 @@ export const messages: Messages = {
     en: 'Download',
     hr: 'Preuzmi',
   },
+  OPEN: {
+    en: 'Open',
+    hr: 'Otvori',
+  },
   BUILD_MEMORANDUM: {
     en: 'Build memorandum',
     hr: 'Napravi memorandum',
+  },
+  OPEN_MEMORANDUM: {
+    en: 'Open memorandum',
+    hr: 'Otvori memorandum',
   },
 };

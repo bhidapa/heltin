@@ -3,7 +3,6 @@ package memos
 import (
 	"context"
 	_ "embed"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -15,36 +14,22 @@ import (
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
-	"github.com/gorilla/mux"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-httpx/httperr"
 )
 
-func ForTreatment(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	treatmentIDVar := mux.Vars(r)["id"]
-	if treatmentIDVar == "" {
-		httperr.New(http.StatusBadRequest, "Missing treatment ID").ServeHTTP(w, r)
-		return
-	}
-
-	treatmentID, err := uu.IDFromString(treatmentIDVar)
-	if err != nil {
-		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
-		return
-	}
-
+func CreateForTreatment(ctx context.Context, treatmentID uu.ID) (fileID uu.ID, err error) {
 	log, ctx := log.With().
 		Ctx(ctx).
 		UUID("treatmentID", treatmentID).
 		SubLoggerContext(ctx)
 
-	log.Info("Building treatment reports").Log()
+	log.Info("Creating treatment memo").Log()
 
-	fileID := uu.IDv4()
+	fileID = uu.IDv4()
 	var reportsPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
-		reportsPDF, err = forTreatmentInPDF(ctx, fileID, treatmentID)
+		reportsPDF, err = buildTreatmentPDF(ctx, fileID, treatmentID)
 		if err != nil {
 			return err
 		}
@@ -78,28 +63,15 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 	if err != nil {
-		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
-		return
+		return uu.IDNil, httperr.New(http.StatusBadRequest, err.Error())
 	}
-
-	w.Header().Set("Content-Type", "application/pdf")
-	w.Header().Set("Content-Length", fmt.Sprintf("%d", reportsPDF.Size()))
-
-	// TODO-db-121121 if "attachment;" is included, the PDF will be downloaded without opening in browser.
-	// the benefit of initiating a download immediately is because the treatment file should be stored in
-	// the db too and just downloading emphasises that
-	w.Header().Set("Content-Disposition", fmt.Sprintf("filename=%q", reportsPDF.Name()))
-
-	_, err = w.Write(reportsPDF.FileData)
-	if err != nil {
-		log.Error("Problem while writing treatment PDF").Err(err).Log()
-	}
+	return fileID, nil
 }
 
 //go:embed templates/treatment.html
 var treatmentHtml []byte
 
-func forTreatmentInPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
+func buildTreatmentPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, fileID, treatmentID)
 
 	treatment := struct {

@@ -51,7 +51,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", http.DetectContentType(dbfile.FileData))
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", dbfile.Size()))
-	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%q", dbfile.Name()))
+	w.Header().Set("Content-Disposition", fmt.Sprintf("filename=%q", dbfile.Name()))
 	_, err = w.Write(dbfile.FileData)
 	if err != nil {
 		log.Error("Problem while writing file").Err(err).Log()

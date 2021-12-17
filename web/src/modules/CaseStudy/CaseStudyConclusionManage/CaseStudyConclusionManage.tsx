@@ -10,15 +10,18 @@ import { FormattedMessage } from 'react-intl';
 import { makeLink } from 'lib/makeLink';
 import { history } from 'lib/history';
 import { ResolveOnTrigger } from 'lib/ResolveOnTrigger';
+import { LoadFileButton } from 'lib/LoadFileButton';
+import { usePanic } from 'lib/usePanic';
 
 // relay
-import { graphql, useFragment } from 'react-relay/hooks';
+import { graphql, useFragment, fetchQuery, useRelayEnvironment } from 'react-relay/hooks';
 import { usePromiseMutation } from 'relay/hooks';
 import { CaseStudyConclusionManage_caseStudy$key } from 'relay/artifacts/CaseStudyConclusionManage_caseStudy.graphql';
 import { CaseStudyConclusionManage_caseStudyConclusion$key } from 'relay/artifacts/CaseStudyConclusionManage_caseStudyConclusion.graphql';
 import { CaseStudyConclusionManageCreateMutation } from 'relay/artifacts/CaseStudyConclusionManageCreateMutation.graphql';
 import { CaseStudyConclusionManageUpdateMutation } from 'relay/artifacts/CaseStudyConclusionManageUpdateMutation.graphql';
 import { CaseStudyConclusionManageDeleteMutation } from 'relay/artifacts/CaseStudyConclusionManageDeleteMutation.graphql';
+import { CaseStudyConclusionManageMemoBuiltQuery } from 'relay/artifacts/CaseStudyConclusionManageMemoBuiltQuery.graphql';
 
 // ui
 import { Flex, Button, Text, Input } from '@domonda/ui';
@@ -57,6 +60,8 @@ const defaultCreateConclusionValues: FormValues = {
 
 export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps> = (props) => {
   const { caseStudy: caseStudyKey, caseStudyConclusion: caseStudyConclusionKey } = props;
+  const [panic] = usePanic();
+  const environment = useRelayEnvironment();
 
   const caseStudy = useFragment(
     graphql`
@@ -288,18 +293,49 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
             <Flex item container justify="flex-end" spacing="tiny">
               {caseStudyConclusion && (
                 <Flex item>
-                  <Button
+                  <LoadFileButton
                     variant="primary"
                     color="primary"
-                    component={makeLink({
-                      native: true,
-                      to: `/api/memos/for-conclusion/${caseStudyConclusion.rowId}.pdf`,
-                      // target: '_blank',
-                      // rel: 'noreferrer',
-                    })}
+                    url={`/api/memos/for-conclusion/${caseStudyConclusion.rowId}`}
+                    onFileUrl={() => {
+                      fetchQuery<CaseStudyConclusionManageMemoBuiltQuery>(
+                        environment,
+                        graphql`
+                          query CaseStudyConclusionManageMemoBuiltQuery($conclusionRowId: UUID!) {
+                            caseStudyConclusion: caseStudyConclusionByRowId(
+                              rowId: $conclusionRowId
+                            ) {
+                              caseStudyConclusionFiles: caseStudyConclusionFilesByCaseStudyConclusionRowId(
+                                orderBy: [CREATED_AT_ASC]
+                              ) {
+                                nodes {
+                                  ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles
+                                }
+                              }
+                            }
+                          }
+                        `,
+                        { conclusionRowId: caseStudyConclusion.rowId },
+                        { fetchPolicy: 'network-only' },
+                      )
+                        .toPromise()
+                        .catch(panic);
+                    }}
+                    fileUrlReady={(fileUrl) => (
+                      <Button
+                        variant="primary"
+                        color="success"
+                        component={makeLink({
+                          native: true,
+                          to: fileUrl,
+                        })}
+                      >
+                        <FormattedMessage id="OPEN_MEMORANDUM" />
+                      </Button>
+                    )}
                   >
                     <FormattedMessage id="BUILD_MEMORANDUM" />
-                  </Button>
+                  </LoadFileButton>
                 </Flex>
               )}
               <Flex item flex={1} />

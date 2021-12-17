@@ -127,6 +127,7 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
                         color="secondary"
                         component={makeLink({
                           native: true,
+                          download: true,
                           to: `/api/file/${file.rowId}`,
                         })}
                       >
