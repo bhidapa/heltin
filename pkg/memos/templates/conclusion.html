@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ .Conclusion.Title }}</title>
+
+    <style type="text/css">
+      body {
+        font-family: Helvetica, sans-serif;
+      }
+      p {
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1 style="margin-top: 0">Memorandum</h1>
+      <br />
+
+      <div style="display: flex; justify-content: space-between">
+        <div>
+          <h3 style="margin-top: 0">Terapeut</h3>
+          {{ .Conclusion.TherapistName }}
+          <br />
+          <a href="mailto:{{ .Conclusion.TherapistEmail }}"
+            >{{ .Conclusion.TherapistEmail }}</a
+          >
+          {{ if ne .Conclusion.TherapistTelephone "" }}
+          <br />
+          <a href="tel:{{ .Conclusion.TherapistTelephone }}"
+            >{{ .Conclusion.TherapistTelephone }}</a
+          >
+          {{ end }}
+        </div>
+        <div>
+          <h3 style="margin-top: 0">Klijent</h3>
+          {{ .Conclusion.ClientName }}
+          <!-- prettier-ignore -->
+          {{ if ne .Conclusion.ClientEmail "" }}
+          <br />
+          <a href="mailto:{{ .Conclusion.ClientEmail }}"
+            >{{ .Conclusion.ClientEmail }}</a
+          >
+          {{ end }}
+          <br />
+          <a href="tel:{{ .Conclusion.ClientTelephone }}"
+            >{{ .Conclusion.ClientTelephone }}</a
+          >
+        </div>
+      </div>
+
+      <br />
+      <hr />
+      <br />
+
+      <div>
+        <h3 style="margin-top: 0">Vrijeme zaključenja</h3>
+        {{ .Conclusion.ConcludedAt }}
+      </div>
+
+      <br /><br />
+
+      <div>
+        <h2>{{ .Conclusion.Title }}</h2>
+        <p>{{ .Conclusion.Description }}</p>
+      </div>
+    </main>
+  </body>
+</html>

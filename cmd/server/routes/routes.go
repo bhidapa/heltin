@@ -16,4 +16,9 @@ func API(router *mux.Router) {
 		fmt.Sprintf("/api/memos/for-treatment/{id:%s}.pdf", uu.IDRegex),
 		session.Handler(http.HandlerFunc(memos.ForTreatment)),
 	).Methods("GET")
+
+	router.HandleFunc(
+		fmt.Sprintf("/api/memos/for-conclusion/{id:%s}.pdf", uu.IDRegex),
+		session.Handler(http.HandlerFunc(memos.ForConclusion)),
+	).Methods("GET")
 }

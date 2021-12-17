@@ -285,7 +285,24 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
                 label={<FormattedMessage id="DESCRIPTION" />}
               />
             </Flex>
-            <Flex item container justify="flex-end">
+            <Flex item container justify="flex-end" spacing="tiny">
+              {caseStudyConclusion && (
+                <Flex item>
+                  <Button
+                    variant="primary"
+                    color="primary"
+                    component={makeLink({
+                      native: true,
+                      to: `/api/memos/for-conclusion/${caseStudyConclusion.rowId}.pdf`,
+                      // target: '_blank',
+                      // rel: 'noreferrer',
+                    })}
+                  >
+                    <FormattedMessage id="BUILD_MEMORANDUM" />
+                  </Button>
+                </Flex>
+              )}
+              <Flex item flex={1} />
               <Flex item>
                 <FormLockedState>
                   {(locked) => (

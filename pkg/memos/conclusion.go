@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/bhidapa/heltin/pkg/casestudy"
 	"github.com/bhidapa/heltin/pkg/pdf"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
+	"github.com/domonda/go-types/language"
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
@@ -20,15 +22,15 @@ import (
 	"github.com/ungerik/go-httpx/httperr"
 )
 
-func ForTreatment(w http.ResponseWriter, r *http.Request) {
+func ForConclusion(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-	treatmentIDVar := mux.Vars(r)["id"]
-	if treatmentIDVar == "" {
-		httperr.New(http.StatusBadRequest, "Missing treatment ID").ServeHTTP(w, r)
+	conclusionIDVar := mux.Vars(r)["id"]
+	if conclusionIDVar == "" {
+		httperr.New(http.StatusBadRequest, "Missing conclusion ID").ServeHTTP(w, r)
 		return
 	}
 
-	treatmentID, err := uu.IDFromString(treatmentIDVar)
+	conclusionID, err := uu.IDFromString(conclusionIDVar)
 	if err != nil {
 		httperr.New(http.StatusBadRequest, err.Error()).ServeHTTP(w, r)
 		return
@@ -36,14 +38,14 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 
 	log, ctx := log.With().
 		Ctx(ctx).
-		UUID("treatmentID", treatmentID).
+		UUID("conclusionID", conclusionID).
 		SubLoggerContext(ctx)
 
-	log.Info("Building treatment reports").Log()
+	log.Info("Building conclusion reports").Log()
 
 	var reportsPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
-		reportsPDF, err = forTreatmentInPDF(ctx, treatmentID)
+		reportsPDF, err = forConclusionInPDF(ctx, conclusionID)
 		if err != nil {
 			return err
 		}
@@ -65,9 +67,9 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		err = db.Conn(ctx).Insert("public.case_study_treatment_file", sqldb.Values{
-			"case_study_treatment_id": treatmentID,
-			"file_id":                 fileID,
+		err = db.Conn(ctx).Insert("public.case_study_conclusion_file", sqldb.Values{
+			"case_study_conclusion_id": conclusionID,
+			"file_id":                  fileID,
 		})
 		if err != nil {
 			return err
@@ -84,37 +86,36 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", reportsPDF.Size()))
 
 	// TODO-db-121121 if "attachment;" is included, the PDF will be downloaded without opening in browser.
-	// the benefit of initiating a download immediately is because the treatment file should be stored in
+	// the benefit of initiating a download immediately is because the conclusion file should be stored in
 	// the db too and just downloading emphasises that
 	w.Header().Set("Content-Disposition", fmt.Sprintf("filename=%q", reportsPDF.Name()))
 
 	_, err = w.Write(reportsPDF.FileData)
 	if err != nil {
-		log.Error("Problem while writing treatment PDF").Err(err).Log()
+		log.Error("Problem while writing conclusion PDF").Err(err).Log()
 	}
 }
 
-//go:embed templates/treatment.html
-var treatmentHtml []byte
+//go:embed templates/conclusion.html
+var conclusionHtml []byte
 
-func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemFile, err error) {
-	defer errs.WrapWithFuncParams(&err, ctx, treatmentID)
+func forConclusionInPDF(ctx context.Context, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
+	defer errs.WrapWithFuncParams(&err, ctx, conclusionID)
 
-	treatment := struct {
+	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study is not a mental health professional
-		TherapistName      nullable.NonEmptyString `db:"therapist_name"`
-		TherapistEmail     nullable.NonEmptyString `db:"therapist_email"`
-		TherapistTelephone nullable.NonEmptyString `db:"therapist_telephone"`
-		ClientName         string                  `db:"client_name"`
-		ClientEmail        nullable.NonEmptyString `db:"client_email"`
-		ClientTelephone    string                  `db:"client_telephone"`
-		Title              string                  `db:"title"`
-		Description        string                  `db:"description"`
-		StartedAtTime      time.Time               `db:"started_at"`
-		StartedAt          string                  `db:"-"`
-		EndedAtTime        time.Time               `db:"ended_at"`
-		EndedAt            string                  `db:"-"`
+		TherapistName      nullable.NonEmptyString  `db:"therapist_name"`
+		TherapistEmail     nullable.NonEmptyString  `db:"therapist_email"`
+		TherapistTelephone nullable.NonEmptyString  `db:"therapist_telephone"`
+		ClientName         string                   `db:"client_name"`
+		ClientEmail        nullable.NonEmptyString  `db:"client_email"`
+		ClientTelephone    string                   `db:"client_telephone"`
+		Type               casestudy.ConclusionType `db:"type"`
+		Title              string                   `db:"-"`
+		Description        string                   `db:"description"`
+		ConcludedAtTime    time.Time                `db:"concluded_at"`
+		ConcludedAt        string                   `db:"-"`
 	}{}
 	err = db.Conn(ctx).QueryRow(`
 		-- TODO: support group case studies
@@ -127,30 +128,31 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 			client.email as client_email,
 			client.telephone as client_telephone,
 
-			case_study_treatment.title as title,
-			case_study_treatment.description as description,
+			case_study_conclusion."type" as "type",
+			case_study_conclusion.description as description,
 
-			case_study_treatment.started_at as started_at,
-			case_study_treatment.ended_at as ended_at
-		from public.case_study_treatment
+			case_study_conclusion.concluded_at as concluded_at
+		from public.case_study_conclusion
 			inner join (public.case_study
 				inner join public.client on client.id = case_study.client_id)
-			on case_study.id = case_study_treatment.case_study_id
+			on case_study.id = case_study_conclusion.case_study_id
 			left join public.mental_health_professional
-			on mental_health_professional.user_id = case_study_treatment.created_by
-		where case_study_treatment.id = $1`, treatmentID).
-		ScanStruct(&treatment)
+			on mental_health_professional.user_id = case_study_conclusion.created_by
+		where case_study_conclusion.id = $1`, conclusionID).
+		ScanStruct(&conclusion)
 	if err != nil {
 		return nil, err
 	}
+
+	// TODO: use requester language
+	conclusion.Title = conclusion.Type.Message(language.BA)
 
 	// TODO: use timezone from requester
 	loc, err := time.LoadLocation("Europe/Sarajevo")
 	if err != nil {
 		return nil, err
 	}
-	treatment.StartedAt = treatment.StartedAtTime.In(loc).Format("02.01.2006 15:04")
-	treatment.EndedAt = treatment.EndedAtTime.In(loc).Format("02.01.2006 15:04")
+	conclusion.ConcludedAt = conclusion.ConcludedAtTime.In(loc).Format("02.01.2006 15:04")
 
 	fileCreatedBy, err := session.UserFromContext(ctx)
 	if err != nil {
@@ -161,8 +163,8 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		"Logo":                      pdf.ToBase64Encoding(bhidapaLogo),
 		"ZastitaZdravlja":           pdf.ToBase64Encoding(zastitaZdravljaPng),
 		"DjecijaDusaTrebaDaSeSlusa": pdf.ToBase64Encoding(djecijaDusaTrebaDaSeSlusaPng),
-		"ID":                        treatmentID,
-		"Treatment":                 treatment,
+		"ID":                        conclusionID,
+		"Conclusion":                conclusion,
 		"FileCreatedBy":             fileCreatedBy,
 		"FileCreatedAt":             fileCreatedAt,
 	}
@@ -172,7 +174,7 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	indexHTML, err := render(treatmentHtml, data)
+	indexHTML, err := render(conclusionHtml, data)
 	if err != nil {
 		return nil, err
 	}
@@ -195,6 +197,6 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + fileCreatedAt.In(loc).Format(time.RFC3339)
+	filename := "Memorandum" + "_" + conclusion.ClientName + "_" + conclusion.Title + "_" + fileCreatedAt.In(loc).Format(time.RFC3339)
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }
