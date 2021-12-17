@@ -1,4 +1,4 @@
-package reports
+package memos
 
 import (
 	"bytes"
@@ -45,6 +45,9 @@ func ForTreatment(w http.ResponseWriter, r *http.Request) {
 	var reportsPDF *fs.MemFile
 	err = session.TransactionAsUser(ctx, func(ctx context.Context) error {
 		reportsPDF, err = forTreatmentInPDF(ctx, treatmentID)
+		if err != nil {
+			return err
+		}
 		return err
 	})
 	if err != nil {
@@ -181,7 +184,7 @@ func forTreatmentInPDF(ctx context.Context, treatmentID uu.ID) (pdfFile *fs.MemF
 		return nil, err
 	}
 
-	filename := "Report" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + treatment.StartedAtTime.In(loc).Format("02-01-2006")
+	filename := "Memorandum" + "_" + treatment.ClientName + "_" + treatment.Title + "_" + treatment.StartedAtTime.In(loc).Format("02-01-2006")
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }
 

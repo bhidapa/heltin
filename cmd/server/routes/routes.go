@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bhidapa/heltin/pkg/reports"
+	"github.com/bhidapa/heltin/pkg/memos"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/gorilla/mux"
 
@@ -13,7 +13,7 @@ import (
 
 func API(router *mux.Router) {
 	router.HandleFunc(
-		fmt.Sprintf("/api/report/for-treatment/{id:%s}.pdf", uu.IDRegex),
-		session.Handler(http.HandlerFunc(reports.ForTreatment)),
+		fmt.Sprintf("/api/memos/for-treatment/{id:%s}.pdf", uu.IDRegex),
+		session.Handler(http.HandlerFunc(memos.ForTreatment)),
 	).Methods("GET")
 }
