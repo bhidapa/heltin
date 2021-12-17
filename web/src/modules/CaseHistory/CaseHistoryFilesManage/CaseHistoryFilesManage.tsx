@@ -127,11 +127,10 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
                         color="secondary"
                         component={makeLink({
                           native: true,
-                          download: true,
                           to: `/api/file/${file.rowId}`,
                         })}
                       >
-                        <FormattedMessage id="DOWNLOAD" />
+                        <FormattedMessage id="OPEN" />
                       </Button>
                       {!file.protected && (
                         <Flex item>

@@ -141,11 +141,10 @@ const CaseStudyConclusionFilesManage: React.FC<CaseStudyConclusionFilesManagePro
                           color="secondary"
                           component={makeLink({
                             native: true,
-                            download: true,
                             to: `/api/file/${file.rowId}`,
                           })}
                         >
-                          <FormattedMessage id="DOWNLOAD" />
+                          <FormattedMessage id="OPEN" />
                         </Button>
                       </Flex>
                       {!file.protected && (
