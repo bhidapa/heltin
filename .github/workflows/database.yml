@@ -28,4 +28,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Init check
-        run: POSTGRES_DB=heltin POSTGRES_USER=postgres PGPASSWORD=wowmuchsecret database/init.sh
+        run: POSTGRES_DB=heltin POSTGRES_USER=postgres PGHOST=postgres PGPASSWORD=wowmuchsecret database/init.sh
