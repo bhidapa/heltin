@@ -55,6 +55,7 @@ fragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreat
   file: fileByFileRowId {
     rowId
     name
+    protected
     id
   }
 }
@@ -214,6 +215,13 @@ return {
                             "name": "name",
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "protected",
+                            "storageKey": null
+                          },
                           (v3/*: any*/)
                         ],
                         "storageKey": null
@@ -234,12 +242,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "acdc3668cb0d0dc9ca3c01f49e707010",
+    "cacheID": "f301883b5f4abc32c0824e9f19c8b8b0",
     "id": null,
     "metadata": {},
     "name": "CreateCaseStudyTreatmentFileMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateCaseStudyTreatmentFileMutation(\n  $input: CreateCaseStudyTreatmentFileInput!\n) {\n  createCaseStudyTreatmentFile(input: $input) {\n    caseStudyTreatmentByCaseStudyTreatmentRowId {\n      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CreateCaseStudyTreatmentFileMutation(\n  $input: CreateCaseStudyTreatmentFileInput!\n) {\n  createCaseStudyTreatmentFile(input: $input) {\n    caseStudyTreatmentByCaseStudyTreatmentRowId {\n      caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles on CaseStudyTreatmentFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    protected\n    id\n  }\n}\n"
   }
 };
 })();

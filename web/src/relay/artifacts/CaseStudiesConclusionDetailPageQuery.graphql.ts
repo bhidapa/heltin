@@ -58,6 +58,7 @@ fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyCon
   file: fileByFileRowId {
     rowId
     name
+    protected
     id
   }
 }
@@ -301,6 +302,13 @@ return {
                         "name": "name",
                         "storageKey": null
                       },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "protected",
+                        "storageKey": null
+                      },
                       (v5/*: any*/)
                     ],
                     "storageKey": null
@@ -318,12 +326,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2502f7346baaf348ba69fef0dba1b299",
+    "cacheID": "5e734b7c7e127c7bd22085c78d2beaec",
     "id": null,
     "metadata": {},
     "name": "CaseStudiesConclusionDetailPageQuery",
     "operationKind": "query",
-    "text": "query CaseStudiesConclusionDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudyConclusion: caseStudyConclusionByRowId(rowId: $rowId) {\n    rowId\n    description\n    ...CaseStudyConclusionManage_caseStudyConclusion\n    caseStudy: caseStudyByCaseStudyRowId {\n      ...CaseStudyConclusionManage_caseStudy\n      id\n    }\n    caseStudyConclusionFiles: caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {\n  rowId\n  type\n  concludedAt\n  description\n}\n"
+    "text": "query CaseStudiesConclusionDetailPageQuery(\n  $rowId: UUID!\n) {\n  caseStudyConclusion: caseStudyConclusionByRowId(rowId: $rowId) {\n    rowId\n    description\n    ...CaseStudyConclusionManage_caseStudyConclusion\n    caseStudy: caseStudyByCaseStudyRowId {\n      ...CaseStudyConclusionManage_caseStudy\n      id\n    }\n    caseStudyConclusionFiles: caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n      nodes {\n        ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    protected\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyConclusionManage_caseStudyConclusion on CaseStudyConclusion {\n  rowId\n  type\n  concludedAt\n  description\n}\n"
   }
 };
 })();

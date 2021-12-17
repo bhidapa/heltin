@@ -55,6 +55,7 @@ fragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {
   file: fileByFileRowId {
     rowId
     name
+    protected
     id
   }
 }
@@ -214,6 +215,13 @@ return {
                             "name": "name",
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "protected",
+                            "storageKey": null
+                          },
                           (v3/*: any*/)
                         ],
                         "storageKey": null
@@ -234,12 +242,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "21626f5da67f541f4460f3f49c835cb6",
+    "cacheID": "4c1c8cb3b737f03e526a4f26d7bba522",
     "id": null,
     "metadata": {},
     "name": "CaseHistoryFilesManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseHistoryFilesManageCreateMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CaseHistoryFilesManageCreateMutation(\n  $input: CreateCaseHistoryFileInput!\n) {\n  createCaseHistoryFile(input: $input) {\n    caseHistoryByCaseHistoryRowId {\n      caseHistoryFilesByCaseHistoryRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseHistoryFilesManage_caseHistoryFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseHistoryFilesManage_caseHistoryFiles on CaseHistoryFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    protected\n    id\n  }\n}\n"
   }
 };
 })();

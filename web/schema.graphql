@@ -3284,6 +3284,7 @@ type File implements Node {
   """
   id: ID!
   name: String!
+  protected: Boolean!
   rowId: UUID!
 
   """Reads a single `User` that is related to this `File`."""
@@ -3305,6 +3306,9 @@ input FileCondition {
 
   """Checks for equality with the object’s `name` field."""
   name: String
+
+  """Checks for equality with the object’s `protected` field."""
+  protected: Boolean
 
   """Checks for equality with the object’s `rowId` field."""
   rowId: UUID
@@ -3351,6 +3355,8 @@ enum FilesOrderBy {
   NATURAL
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
+  PROTECTED_ASC
+  PROTECTED_DESC
 }
 
 enum Gender {

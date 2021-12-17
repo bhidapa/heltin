@@ -55,6 +55,7 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
         file: fileByFileRowId {
           rowId
           name
+          protected
         }
       }
     `,
@@ -92,17 +93,19 @@ const CaseStudyTreatmentFilesManage: React.FC<CaseStudyTreatmentFilesManageProps
                           color="secondary"
                         />
                       </Flex>
-                      <Flex item>
-                        <Button
-                          color="danger"
-                          variant="text"
-                          onClick={trigger}
-                          disabled={loading}
-                          style={{ display: 'flex' }}
-                        >
-                          <TrashIcon />
-                        </Button>
-                      </Flex>
+                      {!file.protected && (
+                        <Flex item>
+                          <Button
+                            color="danger"
+                            variant="text"
+                            onClick={trigger}
+                            disabled={loading}
+                            style={{ display: 'flex' }}
+                          >
+                            <TrashIcon />
+                          </Button>
+                        </Flex>
+                      )}
                     </Flex>
                   </div>
                 )

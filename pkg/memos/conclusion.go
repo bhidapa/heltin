@@ -61,6 +61,7 @@ func ForConclusion(w http.ResponseWriter, r *http.Request) {
 		err = db.Conn(ctx).InsertReturning("public.file", sqldb.Values{
 			"name":       reportsPDF.Name(),
 			"data":       reportsPDFBytes,
+			"protected":  true,
 			"created_by": sessionUserID,
 		}, "id").Scan(&fileID)
 		if err != nil {

@@ -11,6 +11,7 @@ export type CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles = ReadonlyArra
     readonly file: {
         readonly rowId: string;
         readonly name: string;
+        readonly protected: boolean;
     };
     readonly " $refType": "CaseStudyTreatmentFilesManage_caseStudyTreatmentFiles";
 }>;
@@ -61,6 +62,13 @@ return {
           "kind": "ScalarField",
           "name": "name",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "protected",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -70,5 +78,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b4618c17e520b8590d81b3cf17e09e7a';
+(node as any).hash = '2cb99b90265174a0550bc8be9f42073a';
 export default node;

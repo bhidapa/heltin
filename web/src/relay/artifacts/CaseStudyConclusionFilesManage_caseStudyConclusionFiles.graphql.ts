@@ -11,6 +11,7 @@ export type CaseStudyConclusionFilesManage_caseStudyConclusionFiles = ReadonlyAr
     readonly file: {
         readonly rowId: string;
         readonly name: string;
+        readonly protected: boolean;
     };
     readonly " $refType": "CaseStudyConclusionFilesManage_caseStudyConclusionFiles";
 }>;
@@ -61,6 +62,13 @@ return {
           "kind": "ScalarField",
           "name": "name",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "protected",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -70,5 +78,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a1c5bdf6ef9fd234dfb1d15f4424e2ae';
+(node as any).hash = 'ad6f8df9f74f446a2335439a9fe35211';
 export default node;

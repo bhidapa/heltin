@@ -11,6 +11,7 @@ export type CaseHistoryFilesManage_caseHistoryFiles = ReadonlyArray<{
     readonly file: {
         readonly rowId: string;
         readonly name: string;
+        readonly protected: boolean;
     };
     readonly " $refType": "CaseHistoryFilesManage_caseHistoryFiles";
 }>;
@@ -61,6 +62,13 @@ return {
           "kind": "ScalarField",
           "name": "name",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "protected",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -70,5 +78,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ebb1d827c44d2ba02482c7ce24d14bc0';
+(node as any).hash = 'd1868d620c72704d4ae31133c99ab11e';
 export default node;

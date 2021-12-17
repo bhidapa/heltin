@@ -53,6 +53,7 @@ fragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyCon
   file: fileByFileRowId {
     rowId
     name
+    protected
     id
   }
 }
@@ -212,6 +213,13 @@ return {
                             "name": "name",
                             "storageKey": null
                           },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "protected",
+                            "storageKey": null
+                          },
                           (v3/*: any*/)
                         ],
                         "storageKey": null
@@ -232,12 +240,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "99174d1a970be521fda5952a0bcc3780",
+    "cacheID": "485731b7466f32664482eaca4bdc049d",
     "id": null,
     "metadata": {},
     "name": "CaseStudyConclusionFilesManageDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyConclusionFilesManageDeleteMutation(\n  $input: DeleteCaseStudyConclusionFileInput!\n) {\n  deleteCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyConclusionFilesManageDeleteMutation(\n  $input: DeleteCaseStudyConclusionFileInput!\n) {\n  deleteCaseStudyConclusionFile(input: $input) {\n    caseStudyConclusionByCaseStudyConclusionRowId {\n      caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: [CREATED_AT_ASC]) {\n        nodes {\n          ...CaseStudyConclusionFilesManage_caseStudyConclusionFiles\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyConclusionFilesManage_caseStudyConclusionFiles on CaseStudyConclusionFile {\n  id\n  rowId\n  file: fileByFileRowId {\n    rowId\n    name\n    protected\n    id\n  }\n}\n"
   }
 };
 })();

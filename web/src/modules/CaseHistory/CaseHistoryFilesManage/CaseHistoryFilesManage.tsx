@@ -49,6 +49,7 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
         file: fileByFileRowId {
           rowId
           name
+          protected
         }
       }
     `,
@@ -128,17 +129,19 @@ const CaseHistoryFilesManage: React.FC<CaseHistoryFilesManageProps & Decorate> =
                           color="secondary"
                         />
                       </Flex>
-                      <Flex item>
-                        <Button
-                          color="danger"
-                          variant="text"
-                          onClick={trigger}
-                          disabled={loading}
-                          style={{ display: 'flex' }}
-                        >
-                          <TrashIcon />
-                        </Button>
-                      </Flex>
+                      {!file.protected && (
+                        <Flex item>
+                          <Button
+                            color="danger"
+                            variant="text"
+                            onClick={trigger}
+                            disabled={loading}
+                            style={{ display: 'flex' }}
+                          >
+                            <TrashIcon />
+                          </Button>
+                        </Flex>
+                      )}
                     </Flex>
                   </div>
                 )
