@@ -9,6 +9,10 @@ on:
     branches:
       - master
 
+defaults:
+  run:
+    working-directory: web
+
 jobs:
   lint:
     name: Lint
@@ -17,13 +21,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Chdir to web
-        run: cd web
       - name: Set up node
         uses: actions/setup-node@v2
         with:
           node-version: "16"
           cache: "yarn"
+          cache-dependency-path: web/yarn.lock
       - name: Install
         run: yarn install --immutable
       - name: Lint
@@ -43,6 +46,7 @@ jobs:
         with:
           node-version: "16"
           cache: "yarn"
+          cache-dependency-path: web/yarn.lock
       - name: Install
         run: yarn install --immutable
       - name: Type check
@@ -63,6 +67,7 @@ jobs:
   #       with:
   #         node-version: "16"
   #         cache: "yarn"
+  #         cache-dependency-path: web/yarn.lock
   #     - name: Install
   #       run: yarn install --immutable
   #     - name: Test
