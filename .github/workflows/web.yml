@@ -39,8 +39,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Chdir to web
-        run: cd web
       - name: Set up node
         uses: actions/setup-node@v2
         with:
@@ -60,8 +58,6 @@ jobs:
   #   steps:
   #     - name: Checkout
   #       uses: actions/checkout@v2
-  #     - name: Chdir to web
-  #       run: cd web
   #     - name: Set up node
   #       uses: actions/setup-node@v2
   #       with:
