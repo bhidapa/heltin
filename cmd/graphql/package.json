@@ -8,6 +8,7 @@
     "yarn": ">=1.22.0"
   },
   "scripts": {
+    "type-check": "tsc --noEmit",
     "build": "tsc",
     "start": "node ./build"
   },

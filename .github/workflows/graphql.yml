@@ -1,0 +1,70 @@
+name: GraphQL
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  # TODO:
+  # lint:
+  #   name: Lint
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "16"
+  #         cache: "yarn"
+  #     - name: Chdir to cmd/graphql
+  #       run: cd cmd/graphql
+  #     - name: Install
+  #       run: yarn install --immutable
+  #     - name: Lint
+  #       run: yarn lint
+
+  type-check:
+    name: Type check
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "yarn"
+      - name: Chdir to cmd/graphql
+        run: cd cmd/graphql
+      - name: Install
+        run: yarn install --immutable
+      - name: Type check
+        run: yarn type-check
+
+  # TODO:
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   if: "!contains(github.event.head_commit.message, '[skip ci]')"
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - name: Set up node
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: "16"
+  #         cache: "yarn"
+  #     - name: Chdir to cmd/graphql
+  #       run: cd cmd/graphql
+  #     - name: Install
+  #       run: yarn install --immutable
+  #     - name: Test
+  #       run: yarn test --forceExit

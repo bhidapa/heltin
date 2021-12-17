@@ -1,0 +1,33 @@
+name: Database
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+  init-check:
+    name: Init check
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: wowmuchsecret
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Chdir to database
+        run: cd database
+      - name: Init check
+        run: POSTGRES_DB=heltin POSTGRES_USER=postgres PGPASSWORD=wowmuchsecret ./init.sh
