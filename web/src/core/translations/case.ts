@@ -64,6 +64,14 @@ export const messages: Messages = {
     en: 'Referral diagnosis',
     hr: 'Diagnoza prepoporuke',
   },
+  PARENTS: {
+    en: 'Parents',
+    hr: 'Roditelji',
+  },
+  PARTNER: {
+    en: 'Partner',
+    hr: 'Partner',
+  },
   DIVORCED_PARENTS: {
     en: 'Divorced parents',
     hr: 'Razvedeni roditelji',

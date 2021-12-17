@@ -11,6 +11,8 @@ export enum CaseHistoryAccompaniedByType {
   Family = 'FAMILY',
   Father = 'FATHER',
   Mother = 'MOTHER',
+  Parents = 'PARENTS',
+  Partner = 'PARTNER',
   NoOne = 'NO_ONE',
 }
 

@@ -112,6 +112,7 @@ create type public.mental_health_professional_type as enum (
   'NEUROPSYCHIATRIST', -- neuropsihijatar
   'CLINICAL_PSYCHOLOGIST',
   'SUPERVISOR',
+  'LOGOPED',
   'OTHER'
 );
 

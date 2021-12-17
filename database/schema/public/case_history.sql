@@ -2,7 +2,9 @@ create type public.case_history_accompanied_by_type as enum (
   'NO_ONE',
   'FATHER',
   'MOTHER',
-  'FAMILY'
+  'PARENTS',
+  'FAMILY',
+  'PARTNER'
 );
 
 create type public.case_history_lives_with_type as enum (

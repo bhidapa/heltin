@@ -98,6 +98,10 @@ export const messages: Messages = {
     en: 'Supervisor',
     hr: 'Supervizor',
   },
+  [ProfessionalType.Logoped]: {
+    en: 'Logoped',
+    hr: 'Logoped',
+  },
   [ProfessionalType.Other]: {
     en: 'Other',
     hr: 'Ostalo',

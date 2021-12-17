@@ -311,6 +311,8 @@ enum CaseHistoryAccompaniedByType {
   FATHER
   MOTHER
   NO_ONE
+  PARENTS
+  PARTNER
 }
 
 enum CaseHistoryArrivalReasonType {
@@ -3698,6 +3700,7 @@ input MentalHealthProfessionalCondition {
 enum MentalHealthProfessionalType {
   CLINICAL_PSYCHOLOGIST
   DEFECTOLOGIST
+  LOGOPED
   NEUROLOGIST
   NEUROPSYCHIATRIST
   OTHER

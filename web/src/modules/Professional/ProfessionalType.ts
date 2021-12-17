@@ -17,5 +17,6 @@ export enum ProfessionalType {
   Neuropsychiatrist = 'NEUROPSYCHIATRIST',
   ClinicalPsychologist = 'CLINICAL_PSYCHOLOGIST',
   Supervisor = 'SUPERVISOR',
+  Logoped = 'LOGOPED',
   Other = 'OTHER',
 }
