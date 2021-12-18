@@ -18,7 +18,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        uses: docker/bake-action@v1
+        uses: docker/bake-action@master
         with:
           set: |
             *.cache-from=type=gha
