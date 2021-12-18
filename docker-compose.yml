@@ -10,7 +10,7 @@ networks:
 
 services:
   postgres:
-    image: bhidapa/heltin-postgres
+    image: ghcr.io/bhidapa/heltin-postgres
     build:
       context: .
       dockerfile: ./database/Dockerfile
@@ -35,7 +35,7 @@ services:
       - -c
       - jit=off
   graphql:
-    image: bhidapa/heltin-graphql
+    image: ghcr.io/bhidapa/heltin-graphql
     build:
       context: .
       dockerfile: ./cmd/graphql/Dockerfile
@@ -55,7 +55,7 @@ services:
     depends_on:
       - postgres
   server:
-    image: bhidapa/heltin-server
+    image: ghcr.io/bhidapa/heltin-server
     build:
       context: .
       dockerfile: ./cmd/server/Dockerfile
