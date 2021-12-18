@@ -40,12 +40,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install SSH identity
-        run: |
-          SSH_PATH="$HOME/.ssh"
-          mkdir -p "$SSH_PATH"
-          echo "${{ secrets.SSH_IDENTITY }}" > "$SSH_PATH/id_rsa"
-          chmod 600 "$SSH_PATH/id_rsa"
       - name: Setup SSH identity
         run: |
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
