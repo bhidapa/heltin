@@ -1,4 +1,5 @@
 FROM node:15-alpine as build-stage
+LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
 WORKDIR /graphql
 
