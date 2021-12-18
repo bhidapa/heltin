@@ -44,7 +44,7 @@ jobs:
         run: |
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
-          touch ~/.ssh/known_hosts && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
       - name: Create and use context
         run: |
           docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
