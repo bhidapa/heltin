@@ -24,3 +24,32 @@ jobs:
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
           push: true
+
+  deploy-bhidapa:
+    name: Deploy to BHIDAPA
+    environment: BHIDAPA
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install SSH identity
+        run: |
+          SSH_PATH="$HOME/.ssh"
+          mkdir -p "$SSH_PATH"
+          echo "${{ secrets.SSH_IDENTITY }}" > "$SSH_PATH/id_rsa"
+          chmod 600 "$SSH_PATH/id_rsa"
+      - name: Create context
+        run: docker context create bhidapa --docker "host=${{ secrets.HOST }}"
+      - name: Pull
+        run: docker compose pull
+      - name: Down
+        run: docker compose down
+      # TODO: deploy database schema changes
+      - name: Up
+        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
