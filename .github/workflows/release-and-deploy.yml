@@ -1,10 +1,10 @@
-name: Build, push and deploy
+name: Release and deploy
 
 on: workflow_dispatch
 
 jobs:
-  build-and-push:
-    name: Build and push
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
 
   deploy-bhidapa:
     name: Deploy to BHIDAPA
-    # needs: [build-and-push] TODO: put back once build speeds up
+    # needs: [release] TODO: put back once build speeds up
     environment: BHIDAPA
     runs-on: ubuntu-latest
     env:
