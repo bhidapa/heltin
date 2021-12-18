@@ -27,7 +27,6 @@ jobs:
 
   deploy-bhidapa:
     name: Deploy to BHIDAPA
-    needs: [build-and-push]
     environment: BHIDAPA
     runs-on: ubuntu-latest
     steps:
@@ -45,8 +44,10 @@ jobs:
           mkdir -p "$SSH_PATH"
           echo "${{ secrets.SSH_IDENTITY }}" > "$SSH_PATH/id_rsa"
           chmod 600 "$SSH_PATH/id_rsa"
-      - name: Create context
-        run: docker context create bhidapa --docker "host=${{ secrets.HOST }}"
+      - name: Create and use context
+        run: |
+          docker context create bhidapa --docker host=${{ secrets.HOST }}
+          docker context use bhidapa
       - name: Pull
         run: docker compose pull
       - name: Down
