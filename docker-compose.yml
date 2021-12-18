@@ -11,6 +11,9 @@ networks:
 services:
   postgres:
     image: bhidapa/heltin-postgres
+    build:
+      context: .
+      dockerfile: ./database/Dockerfile
     networks:
       - local
     environment:
@@ -33,6 +36,9 @@ services:
       - jit=off
   graphql:
     image: bhidapa/heltin-graphql
+    build:
+      context: .
+      dockerfile: ./cmd/graphql/Dockerfile
     networks:
       - local
     environment:
@@ -50,6 +56,9 @@ services:
       - postgres
   server:
     image: bhidapa/heltin-server
+    build:
+      context: .
+      dockerfile: ./cmd/server/Dockerfile
     networks:
       - local
     environment:

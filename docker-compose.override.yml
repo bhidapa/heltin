@@ -2,9 +2,6 @@ version: "3"
 
 services:
   postgres:
-    build:
-      context: .
-      dockerfile: ./database/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
@@ -12,18 +9,12 @@ services:
     volumes:
       - ./database:/docker-entrypoint-initdb.d
   graphql:
-    build:
-      context: .
-      dockerfile: ./cmd/graphql/Dockerfile
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - WATCH=true
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
   server:
-    build:
-      context: .
-      dockerfile: ./cmd/server/Dockerfile
     environment:
       - SERVER_PORT=${SERVER_PORT}
     ports:
