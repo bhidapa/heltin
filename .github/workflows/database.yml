@@ -16,9 +16,11 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     services:
       postgres:
-        image: postgres
+        image: postgres:13
         env:
           POSTGRES_PASSWORD: wowmuchsecret
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -28,4 +30,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Init check
-        run: POSTGRES_DB=heltin POSTGRES_USER=postgres PGHOST=postgres PGPASSWORD=wowmuchsecret database/init.sh
+        env:
+          PGHOST: postgres
+          PGPORT: ${{ job.services.postgres.ports[5432] }}
+          POSTGRES_USER: postgres
+          PGPASSWORD: wowmuchsecret
+          POSTGRES_DB: heltin
+        run: database/init.sh
