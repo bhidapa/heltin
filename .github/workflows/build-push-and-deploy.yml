@@ -3,7 +3,7 @@ name: Build, push and deploy
 on: workflow_dispatch
 
 jobs:
-  build:
+  build-and-push:
     name: Build and push
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +27,7 @@ jobs:
 
   deploy-bhidapa:
     name: Deploy to BHIDAPA
+    needs: [build-and-push]
     environment: BHIDAPA
     runs-on: ubuntu-latest
     steps:
