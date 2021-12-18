@@ -44,9 +44,11 @@ jobs:
           mkdir -p "$SSH_PATH"
           echo "${{ secrets.SSH_IDENTITY }}" > "$SSH_PATH/id_rsa"
           chmod 600 "$SSH_PATH/id_rsa"
+      - name: Add SSH identity
+        run: ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Create and use context
         run: |
-          docker context create bhidapa --docker host=${{ secrets.HOST }}
+          docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
           docker context use bhidapa
       - name: Pull
         run: docker compose pull
