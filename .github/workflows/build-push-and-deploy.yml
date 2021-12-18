@@ -1,4 +1,4 @@
-name: Push and deploy
+name: Build, push and deploy
 
 on: workflow_dispatch
 
