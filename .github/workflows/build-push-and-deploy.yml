@@ -29,6 +29,8 @@ jobs:
     name: Deploy to BHIDAPA
     environment: BHIDAPA
     runs-on: ubuntu-latest
+    env:
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -41,7 +43,7 @@ jobs:
       - name: Setup SSH identity
         run: |
           mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-          ssh-agent
+          ssh-agent -a $SSH_AUTH_SOCK
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Create and use context
         run: |
