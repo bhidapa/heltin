@@ -24,13 +24,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
-      - name: Build
+      - name: Build and push
         run: |
-          TAG=$(git rev-parse --short HEAD) \
           env $(cat .env | grep -v "#" | xargs) \
           docker buildx bake \
             --set "*.cache-from=type=local,src=/tmp/.buildx-cache" \
-            --set "*.cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max"
+            --set "*.cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max" \
+          && docker compose push
       # This ugly bit is necessary if you don't want your cache to grow forever
       # till it hits GitHub's limit of 5GB.
       # Temp fix
@@ -40,5 +40,3 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-      - name: Push
-        run: docker compose push
