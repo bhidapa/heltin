@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: |
           TAG=$(git rev-parse --short HEAD) \
-          env $(cat .env | grep -v "#" | xargs) \ # parse .env because bake does not
+          env $(cat .env | grep -v "#" | xargs) \
           docker buildx bake \
             --set "*.cache-from=type=local,src=/tmp/.buildx-cache" \
             --set "*.cache-to=type=local,dest=/tmp/.buildx-cache-new,mode=max"
