@@ -29,8 +29,6 @@ jobs:
     name: Deploy to BHIDAPA
     environment: BHIDAPA
     runs-on: ubuntu-latest
-    env:
-      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -42,9 +40,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup SSH identity
         run: |
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
           mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-agent
+          ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Create and use context
         run: |
           docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
@@ -52,7 +50,7 @@ jobs:
       - name: Pull
         run: docker compose pull
       - name: Down
-        run: docker compose down
+        run: docker compose down || docker compose down # sometimes "down" fails, try 2 times
       # TODO: deploy database schema changes
       - name: Up
         env:
