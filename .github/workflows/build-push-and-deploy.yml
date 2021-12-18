@@ -27,6 +27,7 @@ jobs:
 
   deploy-bhidapa:
     name: Deploy to BHIDAPA
+    # needs: [build-and-push] TODO: put back once build speeds up
     environment: BHIDAPA
     runs-on: ubuntu-latest
     env:
