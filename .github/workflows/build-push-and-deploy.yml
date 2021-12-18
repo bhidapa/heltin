@@ -29,6 +29,8 @@ jobs:
     name: Deploy to BHIDAPA
     environment: BHIDAPA
     runs-on: ubuntu-latest
+    env:
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -44,8 +46,10 @@ jobs:
           mkdir -p "$SSH_PATH"
           echo "${{ secrets.SSH_IDENTITY }}" > "$SSH_PATH/id_rsa"
           chmod 600 "$SSH_PATH/id_rsa"
-      - name: Add SSH identity
-        run: ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
+      - name: Setup SSH identity
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Create and use context
         run: |
           docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
