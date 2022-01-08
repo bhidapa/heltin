@@ -6,76 +6,74 @@
     {{template "css-variables"}}
 
     <style type="text/css">
-      body {
+      header {
+        width: 570px; /* eyeballed width of the a4 print with the margins accounted for */
+        position: relative;
+
         font-family: Helvetica, sans-serif;
         font-size: 8rem;
-        margin-top: 20px;
-        margin-left: 20px;
-      }
-      main {
-        width: 570px; /* eyeballed width of the a4 print with the margins accounted for */
 
         display: flex;
+        margin: 20px auto;
       }
-
-      .header-text-bhidapa {
+      header .text-bhidapa {
         text-align: justify;
         text-align-last: justify;
         text-transform: uppercase;
         font-size: 1.15em;
         color: var(--blue);
       }
-      .header-text-bhidapa-desc {
+      header .text-bhidapa-desc {
         text-align: justify;
         text-align-last: justify;
         text-transform: uppercase;
         font-size: 1.3em;
         color: var(--blue);
       }
-      .header-hr {
+      header .hr {
         border-style: solid;
         color: var(--yellow);
       }
-      .header-text-bottom {
+      header .text-bottom {
         font-size: 0.9em;
         color: var(--blue);
       }
     </style>
   </head>
   <body>
-    <main>
+    <header>
       <div style="margin-right: 10px">
         <img src="{{ .Logo }}" height="58px" />
       </div>
 
       <div style="flex: 1; display: flex; flex-direction: column">
-        <div class="header-text-bhidapa">
+        <div class="text-bhidapa">
           <b>
             Bosansko-hercegovačka integrativna dječja i adolescentna
             psihoterapijska Asocijacija
           </b>
         </div>
-        <div class="header-text-bhidapa-desc">
+        <div class="text-bhidapa-desc">
           <b>
             Interdisciplinarni terapijski centar za zaštitu zdravlja djece,
             mladih i obitelji
           </b>
         </div>
         <div>
-          <hr class="header-hr" />
+          <hr class="hr" />
         </div>
-        <div class="header-text-bottom">
+        <div class="text-bottom">
           <a href="https://g.page/BHIDAPA?share"
             >Adresa Emerika Bluma 9a, 71000 Sarajevo, Bosna i Hercegovina</a
           >
           || Tel. <a href="tel:+38761773887">+387 61 773 887</a>,
           <a href="+38733744634">+387 33 744 634</a>
         </div>
-        <div class="header-text-bottom">
+        <div class="text-bottom">
           Područje djelovanja: 14. Zaštita zdravlja || ID: 4202071240017 || TRN:
           3387302238277714
         </div>
-        <div class="header-text-bottom">
+        <div class="text-bottom">
           <a href="mailto:info@bhidapa.ba">info@bhidapa.ba</a>
           ||
           <a href="https://bhidapa.ba">bhidapa.ba</a>
@@ -85,6 +83,6 @@
           <a href="https://congress.bhidapa.ba">congress.bhidapa.ba</a>
         </div>
       </div>
-    </main>
+    </header>
   </body>
 </html>
