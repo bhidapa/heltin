@@ -32,8 +32,8 @@
 2.  Clone this repo using `git clone --depth=1 https://github.com/bhidapa/heltin.git` and cd into it
 3.  Run `docker-compose up` to build and start [Postgres](https://www.postgresql.org/) + [PostGraphile](https://www.graphile.org/postgraphile/) + app server built with [Go](https://golang.org/)<br>
     - Postgres database is exposed at: **[postgres://localhost:5432/heltin](postgres://localhost:5432/heltin)**
-    - GraphQL endpoint is located at: **[http://localhost:5000/graphql](http://localhost:5000/graphql)**<br>
-      _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:5000/graphiql](http://localhost:4400/graphiql)_
+    - GraphQL endpoint is located at: **[http://localhost:6000/graphql](http://localhost:6000/graphql)**<br>
+      _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:6000/graphiql](http://localhost:6000/graphiql)_
     - The application is located at: **[http://localhost:7000](http://localhost:7000)**<br>
       _Use `john@doe.com:password` to login_
 

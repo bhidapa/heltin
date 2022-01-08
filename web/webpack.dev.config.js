@@ -52,7 +52,7 @@ module.exports = merge(common, {
   },
   devServer: {
     host: '0.0.0.0',
-    port: 6001,
+    port: 7000,
     historyApiFallback: true,
     client: {
       overlay: false,
@@ -66,11 +66,11 @@ module.exports = merge(common, {
     },
     proxy: {
       '/api/graphql': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:6000',
         pathRewrite: { '^/api': '' },
       },
       '/api': {
-        target: 'http://localhost:7000',
+        target: 'http://localhost:6001',
       },
     },
   },
