@@ -11,6 +11,7 @@ export type ProfessionalEdit_professional = {
     readonly rowId: string;
     readonly dateOfBirth: string;
     readonly email: string;
+    readonly telephone: string | null;
     readonly title: string | null;
     readonly firstName: string;
     readonly gender: Gender;
@@ -63,6 +64,13 @@ return {
       "storageKey": null
     },
     (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "telephone",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -137,5 +145,5 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '902eb3162ffe63a67cfbcb0a90c4a1a3';
+(node as any).hash = 'a4664e69913f5f58af902853d9b4eaee';
 export default node;

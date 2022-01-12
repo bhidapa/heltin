@@ -14,6 +14,7 @@ export type CreateMentalHealthProfessionalInput = {
     firstName: string;
     gender: Gender;
     lastName: string;
+    telephone?: string | null | undefined;
     title?: string | null | undefined;
     type: MentalHealthProfessionalType;
     userRowId?: string | null | undefined;

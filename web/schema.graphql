@@ -2629,6 +2629,7 @@ input CreateMentalHealthProfessionalInput {
   firstName: String!
   gender: Gender!
   lastName: String!
+  telephone: String
   title: String
   type: MentalHealthProfessionalType!
   userRowId: UUID
@@ -5694,6 +5695,7 @@ input UpdateMentalHealthProfessionalInput {
   gender: Gender!
   lastName: String!
   rowId: UUID!
+  telephone: String
   title: String
   type: MentalHealthProfessionalType!
   userRowId: UUID

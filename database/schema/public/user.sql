@@ -187,6 +187,7 @@ create or replace function public.create_mental_health_professional(
   date_of_birth date,
   gender        public.gender,
   disabled      boolean,
+  telephone     text = null,
   title         text = null,
   user_id       uuid = null
 ) returns public.mental_health_professional as
@@ -200,6 +201,7 @@ $$
     date_of_birth,
     gender,
     disabled,
+    telephone,
     user_id
   ) values (
     create_mental_health_professional."type",
@@ -210,6 +212,7 @@ $$
     create_mental_health_professional.date_of_birth,
     create_mental_health_professional.gender,
     create_mental_health_professional.disabled,
+    create_mental_health_professional.telephone,
     create_mental_health_professional.user_id
   )
   returning *
@@ -227,6 +230,7 @@ create or replace function public.update_mental_health_professional(
   date_of_birth date,
   gender        public.gender,
   disabled      boolean,
+  telephone     text = null,
   title         text = null,
   user_id       uuid = null
 ) returns public.mental_health_professional as
@@ -241,6 +245,7 @@ $$
       date_of_birth=update_mental_health_professional.date_of_birth,
       gender=update_mental_health_professional.gender,
       disabled=update_mental_health_professional.disabled,
+      telephone=update_mental_health_professional.telephone,
       user_id=update_mental_health_professional.user_id,
       updated_at=now()
   where id = update_mental_health_professional.id

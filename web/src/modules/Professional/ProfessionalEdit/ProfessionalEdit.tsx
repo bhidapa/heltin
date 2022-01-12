@@ -51,6 +51,7 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
         rowId
         dateOfBirth
         email
+        telephone
         title
         firstName
         gender
@@ -220,6 +221,18 @@ export const ProfessionalEdit: React.FC<ProfessionalEditProps> = (props) => {
                   <FormInputField path="email" required>
                     {({ inputProps }) => <Input {...inputProps} type="email" label="E-Mail" />}
                   </FormInputField>
+                </Flex>
+
+                <Flex item flex={1}>
+                  <FormattedMessage id="TELEPHONE">
+                    {([telephone]) => (
+                      <FormInputField path="telephone">
+                        {({ inputProps }) => (
+                          <Input {...inputProps} type="telephone" label={telephone} />
+                        )}
+                      </FormInputField>
+                    )}
+                  </FormattedMessage>
                 </Flex>
               </Flex>
             </Flex>

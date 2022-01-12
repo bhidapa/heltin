@@ -16,6 +16,7 @@ export type UpdateMentalHealthProfessionalInput = {
     gender: Gender;
     lastName: string;
     rowId: string;
+    telephone?: string | null | undefined;
     title?: string | null | undefined;
     type: MentalHealthProfessionalType;
     userRowId?: string | null | undefined;
@@ -53,6 +54,7 @@ fragment ProfessionalEdit_professional on MentalHealthProfessional {
   rowId
   dateOfBirth
   email
+  telephone
   title
   firstName
   gender
@@ -177,6 +179,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "telephone",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "title",
                 "storageKey": null
               },
@@ -246,12 +255,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e35a32ffed616c429ab0c17dba5277fb",
+    "cacheID": "4d6793bd84050aac79cf4000c3ec3ee4",
     "id": null,
     "metadata": {},
     "name": "ProfessionalEditUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
+    "text": "mutation ProfessionalEditUpdateMutation(\n  $input: UpdateMentalHealthProfessionalInput!\n) {\n  updateMentalHealthProfessional(input: $input) {\n    mentalHealthProfessional {\n      ...ProfessionalEdit_professional\n      id\n    }\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  telephone\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
   }
 };
 })();

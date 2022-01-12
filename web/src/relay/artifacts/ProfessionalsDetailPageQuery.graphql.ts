@@ -43,6 +43,7 @@ fragment ProfessionalEdit_professional on MentalHealthProfessional {
   rowId
   dateOfBirth
   email
+  telephone
   title
   firstName
   gender
@@ -189,6 +190,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "telephone",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "title",
             "storageKey": null
           },
@@ -248,12 +256,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "39978bc189024b12997441995631abb4",
+    "cacheID": "b6541cd3d92f8095e518f3d6ab5aeb22",
     "id": null,
     "metadata": {},
     "name": "ProfessionalsDetailPageQuery",
     "operationKind": "query",
-    "text": "query ProfessionalsDetailPageQuery(\n  $rowId: UUID!\n) {\n  viewer {\n    isAdmin\n    id\n  }\n  professional: mentalHealthProfessionalByRowId(rowId: $rowId) {\n    fullName\n    ...ProfessionalEdit_professional\n    id\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
+    "text": "query ProfessionalsDetailPageQuery(\n  $rowId: UUID!\n) {\n  viewer {\n    isAdmin\n    id\n  }\n  professional: mentalHealthProfessionalByRowId(rowId: $rowId) {\n    fullName\n    ...ProfessionalEdit_professional\n    id\n  }\n}\n\nfragment ProfessionalEdit_professional on MentalHealthProfessional {\n  rowId\n  dateOfBirth\n  email\n  telephone\n  title\n  firstName\n  gender\n  lastName\n  fullName\n  type\n  disabled\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n}\n"
   }
 };
 })();
