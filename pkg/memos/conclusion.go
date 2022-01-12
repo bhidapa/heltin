@@ -9,6 +9,7 @@ import (
 
 	"github.com/bhidapa/heltin/pkg/casestudy"
 	"github.com/bhidapa/heltin/pkg/pdf"
+	"github.com/bhidapa/heltin/pkg/professional"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
@@ -81,9 +82,10 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study might not be a mental health professional
-		TherapistName    nullable.NonEmptyString `db:"therapist_name"`
-		TherapistType    string                  `db:"therapist_type"` // TODO: use therapist type type
-		TherapistSubType nullable.NonEmptyString `db:"therapist_sub_type"`
+		TherapistName     nullable.NonEmptyString `db:"therapist_name"`
+		TherapistTypeType professional.Type       `db:"therapist_type"`
+		TherapistType     string                  `db:"-"`
+		TherapistSubType  nullable.NonEmptyString `db:"therapist_sub_type"`
 
 		ClientName    string                  `db:"client_name"`
 		ClientDOBDate date.Date               `db:"client_dob"`
@@ -129,6 +131,9 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	if conclusion.Description.IsNull() {
 		return nil, errors.New("description is required")
 	}
+
+	// TODO: use requester language
+	conclusion.TherapistType = conclusion.TherapistTypeType.Message(language.BA, true)
 
 	conclusion.ClientDOB = conclusion.ClientDOBDate.Format("02.01.2006.")
 

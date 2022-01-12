@@ -8,11 +8,13 @@ import (
 	"time"
 
 	"github.com/bhidapa/heltin/pkg/pdf"
+	"github.com/bhidapa/heltin/pkg/professional"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-types/date"
+	"github.com/domonda/go-types/language"
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
@@ -79,9 +81,10 @@ func buildTreatmentPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile 
 	treatment := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study might not be a mental health professional
-		TherapistName    nullable.NonEmptyString `db:"therapist_name"`
-		TherapistType    string                  `db:"therapist_type"` // TODO: use therapist type type
-		TherapistSubType nullable.NonEmptyString `db:"therapist_sub_type"`
+		TherapistName     nullable.NonEmptyString `db:"therapist_name"`
+		TherapistTypeType professional.Type       `db:"therapist_type"`
+		TherapistType     string                  `db:"-"`
+		TherapistSubType  nullable.NonEmptyString `db:"therapist_sub_type"`
 
 		ClientName    string                  `db:"client_name"`
 		ClientDOBDate date.Date               `db:"client_dob"`
@@ -122,6 +125,9 @@ func buildTreatmentPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile 
 	if treatment.Description.IsNull() {
 		return nil, errors.New("description is required")
 	}
+
+	// TODO: use requester language
+	treatment.TherapistType = treatment.TherapistTypeType.Message(language.BA, true)
 
 	treatment.ClientDOB = treatment.ClientDOBDate.Format("02.01.2006.")
 
