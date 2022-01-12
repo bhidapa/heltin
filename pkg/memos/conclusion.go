@@ -3,6 +3,7 @@ package memos
 import (
 	"context"
 	_ "embed"
+	"errors"
 	"net/http"
 	"time"
 
@@ -12,6 +13,7 @@ import (
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
+	"github.com/domonda/go-types/date"
 	"github.com/domonda/go-types/language"
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
@@ -78,29 +80,35 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
-		// the case study is not a mental health professional
-		TherapistName      nullable.NonEmptyString  `db:"therapist_name"`
-		TherapistEmail     nullable.NonEmptyString  `db:"therapist_email"`
-		TherapistTelephone nullable.NonEmptyString  `db:"therapist_telephone"`
-		ClientName         string                   `db:"client_name"`
-		ClientEmail        nullable.NonEmptyString  `db:"client_email"`
-		ClientTelephone    string                   `db:"client_telephone"`
-		Type               casestudy.ConclusionType `db:"type"`
-		Title              string                   `db:"-"`
-		Description        string                   `db:"description"`
-		ConcludedAtTime    time.Time                `db:"concluded_at"`
-		ConcludedAt        string                   `db:"-"`
+		// the case study might not be a mental health professional
+		TherapistName    nullable.NonEmptyString `db:"therapist_name"`
+		TherapistType    string                  `db:"therapist_type"` // TODO: use therapist type type
+		TherapistSubType nullable.NonEmptyString `db:"therapist_sub_type"`
+
+		ClientName    string                  `db:"client_name"`
+		ClientDOBDate date.Date               `db:"client_dob"`
+		ClientDOB     string                  `db:"-"`
+		ClientAddress string                  `db:"client_address"`
+		ClientEmail   nullable.NonEmptyString `db:"client_email"`
+
+		Type            casestudy.ConclusionType `db:"type"`
+		Title           string                   `db:"-"`
+		Description     nullable.NonEmptyString  `db:"description"`
+		ConcludedAtTime time.Time                `db:"concluded_at"`
+		ConcludedAt     string                   `db:"-"`
+		IssuedAt        string                   `db:"-"`
 	}{}
 	err = db.Conn(ctx).QueryRow(`
 		-- TODO: support group case studies
 		select
 			public.mental_health_professional_full_name(mental_health_professional) as therapist_name,
-			mental_health_professional.email as therapist_email,
-			replace(mental_health_professional.telephone, '\s', '') as therapist_telephone,
+			mental_health_professional."type" as therapist_type,
+			null as therapist_sub_type,
 
 			public.client_full_name(client) as client_name,
+			client.date_of_birth as client_dob,
+			client.address as client_address,
 			client.email as client_email,
-			replace(client.telephone, '\s', '') as client_telephone,
 
 			case_study_conclusion."type" as "type",
 			case_study_conclusion.description as description,
@@ -118,6 +126,12 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 		return nil, err
 	}
 
+	if conclusion.Description.IsNull() {
+		return nil, errors.New("description is required")
+	}
+
+	conclusion.ClientDOB = conclusion.ClientDOBDate.Format("02.01.2006.")
+
 	// TODO: use requester language
 	conclusion.Title = conclusion.Type.Message(language.BA)
 
@@ -126,9 +140,11 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	if err != nil {
 		return nil, err
 	}
-	conclusion.ConcludedAt = conclusion.ConcludedAtTime.In(loc).Format("02.01.2006 15:04")
 
 	createdAt := time.Now().UTC()
+	conclusion.IssuedAt = createdAt.In(loc).Format("02.01.2006.")
+	conclusion.ConcludedAt = conclusion.ConcludedAtTime.In(loc).Format("02.01.2006 15:04")
+
 	data := map[string]interface{}{
 		"ID":        fileID,
 		"ForID":     conclusionID,

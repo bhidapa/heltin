@@ -15,39 +15,27 @@
   </head>
   <body>
     <main>
-      <h1 style="margin-top: 0">Memorandum</h1>
+      <h1 style="margin-top: 0">
+        Mišljenje i preporuka {{ .Conclusion.TherapistType }}
+      </h1>
       <br />
 
       <div style="display: flex; justify-content: space-between">
         <div>
-          <h3 style="margin-top: 0">Terapeut</h3>
-          {{ .Conclusion.TherapistName }}
+          <b>Ime i prezime:</b>&nbsp;{{ .Conclusion.ClientName }}
           <br />
-          <a href="mailto:{{ .Conclusion.TherapistEmail }}"
-            >{{ .Conclusion.TherapistEmail }}</a
-          >
-          {{ if ne .Conclusion.TherapistTelephone "" }}
+          <b>Datum rođenja:</b>&nbsp;{{ .Conclusion.ClientDOB }}
           <br />
-          <a href="tel:{{ .Conclusion.TherapistTelephone }}"
-            >{{ .Conclusion.TherapistTelephone }}</a
-          >
-          {{ end }}
-        </div>
-        <div>
-          <h3 style="margin-top: 0">Klijent</h3>
-          {{ .Conclusion.ClientName }}
+          <b>Adresa:</b>&nbsp;{{ .Conclusion.ClientAddress }}
           <!-- prettier-ignore -->
           {{ if ne .Conclusion.ClientEmail "" }}
           <br />
-          <a href="mailto:{{ .Conclusion.ClientEmail }}"
+          <b>E-Mail:</b>&nbsp;<a href="mailto:{{ .Conclusion.ClientEmail }}"
             >{{ .Conclusion.ClientEmail }}</a
           >
           {{ end }}
-          <br />
-          <a href="tel:{{ .Conclusion.ClientTelephone }}"
-            >{{ .Conclusion.ClientTelephone }}</a
-          >
         </div>
+        <div>{{ .Conclusion.IssuedAt }}</div>
       </div>
 
       <br />
@@ -55,15 +43,18 @@
       <br />
 
       <div>
-        <h3 style="margin-top: 0">Vrijeme zaključenja</h3>
-        {{ .Conclusion.ConcludedAt }}
+        <h2>{{ .Conclusion.Title }}</h2>
+        <p>{{ .Conclusion.Description }}</p>
       </div>
 
       <br /><br />
 
-      <div>
-        <h2>{{ .Conclusion.Title }}</h2>
-        <p>{{ .Conclusion.Description }}</p>
+      <div style="display: flex; justify-content: flex-end">
+        <div>
+          {{ .Conclusion.TherapistName }}
+          <br />
+          {{ .Conclusion.TherapistType }}
+        </div>
       </div>
     </main>
   </body>
