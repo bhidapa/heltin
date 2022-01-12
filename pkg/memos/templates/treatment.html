@@ -5,7 +5,7 @@
     <title>{{ .Treatment.Title }}</title>
 
     <style type="text/css">
-      body {
+      main {
         font-family: Helvetica, sans-serif;
       }
       p {
@@ -15,39 +15,28 @@
   </head>
   <body>
     <main>
-      <h1 style="margin-top: 0">Memorandum</h1>
+      <h1 style="margin-top: 0">
+        Mišljenje i preporuka {{ .Treatment.TherapistType }}
+      </h1>
+
       <br />
 
       <div style="display: flex; justify-content: space-between">
         <div>
-          <h3 style="margin-top: 0">Terapeut</h3>
-          {{ .Treatment.TherapistName }}
+          <b>Ime i prezime:</b>&nbsp;{{ .Treatment.ClientName }}
           <br />
-          <a href="mailto:{{ .Treatment.TherapistEmail }}"
-            >{{ .Treatment.TherapistEmail }}</a
-          >
-          {{ if ne .Treatment.TherapistTelephone "" }}
+          <b>Datum rođenja:</b>&nbsp;{{ .Treatment.ClientDOB }}
           <br />
-          <a href="tel:{{ .Treatment.TherapistTelephone }}"
-            >{{ .Treatment.TherapistTelephone }}</a
-          >
-          {{ end }}
-        </div>
-        <div>
-          <h3 style="margin-top: 0">Klijent</h3>
-          {{ .Treatment.ClientName }}
+          <b>Adresa:</b>&nbsp;{{ .Treatment.ClientAddress }}
           <!-- prettier-ignore -->
           {{ if ne .Treatment.ClientEmail "" }}
           <br />
-          <a href="mailto:{{ .Treatment.ClientEmail }}"
+          <b>E-Mail:</b>&nbsp;<a href="mailto:{{ .Treatment.ClientEmail }}"
             >{{ .Treatment.ClientEmail }}</a
           >
           {{ end }}
-          <br />
-          <a href="tel:{{ .Treatment.ClientTelephone }}"
-            >{{ .Treatment.ClientTelephone }}</a
-          >
         </div>
+        <div>{{ .Treatment.IssuedAt }}</div>
       </div>
 
       <br />
@@ -55,15 +44,18 @@
       <br />
 
       <div>
-        <h3 style="margin-top: 0">Vrijeme tretmana</h3>
-        {{ .Treatment.StartedAt }} &mdash; {{ .Treatment.EndedAt }}
+        <h2 style="margin-top: 0">{{ .Treatment.Title }}</h2>
+        <p>{{ .Treatment.Description }}</p>
       </div>
 
       <br /><br />
 
-      <div>
-        <h2>{{ .Treatment.Title }}</h2>
-        <p>{{ .Treatment.Description }}</p>
+      <div style="display: flex; justify-content: flex-end">
+        <div>
+          {{ .Treatment.TherapistName }}
+          <br />
+          {{ .Treatment.TherapistType }}
+        </div>
       </div>
     </main>
   </body>

@@ -3,6 +3,7 @@ package memos
 import (
 	"context"
 	_ "embed"
+	"errors"
 	"net/http"
 	"time"
 
@@ -11,6 +12,7 @@ import (
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
+	"github.com/domonda/go-types/date"
 	"github.com/domonda/go-types/nullable"
 	"github.com/domonda/go-types/strutil"
 	"github.com/domonda/go-types/uu"
@@ -76,36 +78,35 @@ func buildTreatmentPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile 
 
 	treatment := struct {
 		// therapist shouldn't be null, but the user that created
-		// the case study is not a mental health professional
-		TherapistName      nullable.NonEmptyString `db:"therapist_name"`
-		TherapistEmail     nullable.NonEmptyString `db:"therapist_email"`
-		TherapistTelephone nullable.NonEmptyString `db:"therapist_telephone"`
-		ClientName         string                  `db:"client_name"`
-		ClientEmail        nullable.NonEmptyString `db:"client_email"`
-		ClientTelephone    string                  `db:"client_telephone"`
-		Title              string                  `db:"title"`
-		Description        string                  `db:"description"`
-		StartedAtTime      time.Time               `db:"started_at"`
-		StartedAt          string                  `db:"-"`
-		EndedAtTime        time.Time               `db:"ended_at"`
-		EndedAt            string                  `db:"-"`
+		// the case study might not be a mental health professional
+		TherapistName    nullable.NonEmptyString `db:"therapist_name"`
+		TherapistType    string                  `db:"therapist_type"` // TODO: use therapist type type
+		TherapistSubType nullable.NonEmptyString `db:"therapist_sub_type"`
+
+		ClientName    string                  `db:"client_name"`
+		ClientDOBDate date.Date               `db:"client_dob"`
+		ClientDOB     string                  `db:"-"`
+		ClientAddress string                  `db:"client_address"`
+		ClientEmail   nullable.NonEmptyString `db:"client_email"`
+
+		Title       string                  `db:"title"`
+		Description nullable.NonEmptyString `db:"description"`
+		IssuedAt    string                  `db:"-"`
 	}{}
 	err = db.Conn(ctx).QueryRow(`
 		-- TODO: support group case studies
 		select
 			public.mental_health_professional_full_name(mental_health_professional) as therapist_name,
-			mental_health_professional.email as therapist_email,
-			replace(mental_health_professional.telephone, '\s', '') as therapist_telephone,
+			mental_health_professional."type" as therapist_type,
+			null as therapist_sub_type,
 
 			public.client_full_name(client) as client_name,
+			client.date_of_birth as client_dob,
+			client.address as client_address,
 			client.email as client_email,
-			replace(client.telephone, '\s', '') as client_telephone,
 
 			case_study_treatment.title as title,
-			case_study_treatment.description as description,
-
-			case_study_treatment.started_at as started_at,
-			case_study_treatment.ended_at as ended_at
+			case_study_treatment.description as description
 		from public.case_study_treatment
 			inner join (public.case_study
 				inner join public.client on client.id = case_study.client_id)
@@ -118,15 +119,21 @@ func buildTreatmentPDF(ctx context.Context, fileID, treatmentID uu.ID) (pdfFile 
 		return nil, err
 	}
 
+	if treatment.Description.IsNull() {
+		return nil, errors.New("description is required")
+	}
+
+	treatment.ClientDOB = treatment.ClientDOBDate.Format("02.01.2006.")
+
 	// TODO: use timezone from requester
 	loc, err := time.LoadLocation("Europe/Sarajevo")
 	if err != nil {
 		return nil, err
 	}
-	treatment.StartedAt = treatment.StartedAtTime.In(loc).Format("02.01.2006 15:04")
-	treatment.EndedAt = treatment.EndedAtTime.In(loc).Format("02.01.2006 15:04")
 
 	createdAt := time.Now().UTC()
+	treatment.IssuedAt = createdAt.In(loc).Format("02.01.2006.")
+
 	data := map[string]interface{}{
 		"ID":        fileID,
 		"ForID":     treatmentID,

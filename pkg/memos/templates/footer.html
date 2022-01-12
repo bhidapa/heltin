@@ -4,34 +4,50 @@
     <meta charset="utf-8" />
 
     <style type="text/css">
-      body {
-        font-family: Helvetica, sans-serif;
-      }
-      main {
+      footer {
         width: 570px; /* eyeballed width of the a4 print with the margins accounted for */
+        position: relative;
 
+        font-family: Helvetica, sans-serif;
+        font-size: 8rem;
+
+        display: block;
+        margin: 5px auto;
+      }
+      footer .top {
         display: flex;
-        margin-bottom: 20px;
         justify-content: space-between;
         align-items: flex-end;
+      }
+      footer .bottom {
+        text-transform: uppercase;
+        text-align: center;
+        color: #a52e84;
       }
     </style>
   </head>
   <body>
-    <main>
-      <div>
-        <img src="{{ .ZastitaZdravlja }}" height="30px" />
-      </div>
+    <footer>
+      <div class="top">
+        <div>
+          <img src="{{ .ZastitaZdravlja }}" height="30px" />
+        </div>
 
-      <div style="text-align: center">
-        <small>{{ .CreatedAt }}</small>
-        <br />
-        <small>{{ .ID }}-{{ .ForID }}</small>
-      </div>
+        <div style="text-align: center">
+          <small>{{ .CreatedAt }}</small>
+          <br />
+          <small>{{ .ID }}-{{ .ForID }}</small>
+        </div>
 
-      <div>
-        <img src="{{ .DjecijaDusaTrebaDaSeSlusa }}" height="80px" />
+        <div>
+          <img src="{{ .DjecijaDusaTrebaDaSeSlusa }}" height="80px" />
+        </div>
       </div>
-    </main>
+      <br />
+      <div class="bottom">
+        Europski akreditovani edukacijski centar &mdash; Znanstveno stručni
+        istraživački centar
+      </div>
+    </footer>
   </body>
 </html>
