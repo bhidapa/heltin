@@ -1,8 +1,7 @@
 {
+  "private": true,
   "name": "heltin-graphql",
   "version": "0.0.0",
-  "private": true,
-  "license": "SEE LICENSE IN LICENSE.md",
   "engines": {
     "node": ">=13",
     "yarn": ">=1.22.0"

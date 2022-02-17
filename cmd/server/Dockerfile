@@ -22,8 +22,6 @@ FROM node:17 as web
 
 WORKDIR /web
 
-COPY web/LICENSE.md .
-
 COPY web/.yarn/releases ./.yarn/releases
 COPY web/.yarn/plugins ./.yarn/plugins
 COPY web/.yarnrc.yml .

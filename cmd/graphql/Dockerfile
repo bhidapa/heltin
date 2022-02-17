@@ -3,8 +3,6 @@ LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
 WORKDIR /graphql
 
-COPY ./cmd/graphql/LICENSE.md .
-
 # yarn setup
 COPY ./cmd/graphql/.yarn/releases ./.yarn/releases
 COPY ./cmd/graphql/.yarn/plugins ./.yarn/plugins
