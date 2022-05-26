@@ -20,8 +20,7 @@ func ContextWithUser(ctx context.Context, userID uu.ID) context.Context {
 }
 
 func UserFromContext(ctx context.Context) (userID uu.ID, err error) {
-	userIDVal := ctx.Value(userCtxKey)
-	userID = uu.IDFrom(userIDVal)
+	userID = ctx.Value(userCtxKey).(uu.ID)
 	if userID == uu.IDNil {
 		return uu.IDNil, errors.New("user not in context")
 	}
