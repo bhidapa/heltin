@@ -3,30 +3,29 @@
  * GenderSelectOptions
  *
  */
-
 import React from 'react';
-import { Gender } from './Gender';
 import { FormattedMessage } from 'react-intl';
 
-export { Gender };
+import { Gender } from 'enums.graphql';
+
+const types: { [key in Gender]: 1 } = {
+  FEMALE: 1,
+  MALE: 1,
+};
+
+const options = Object.entries(types).map(([type]) => (
+  <FormattedMessage id={type} key={type}>
+    {(text) => <option value={type}>{text}</option>}
+  </FormattedMessage>
+));
 
 export interface GenderSelectOptionsProps {
-  disableEmptyOption?: boolean;
+  hideEmptyOption?: boolean;
 }
 
-export const GenderSelectOptions: React.FC<GenderSelectOptionsProps> = React.memo(
-  function GenderSelectOptions({ disableEmptyOption }) {
-    return (
-      <>
-        <option value="" disabled={disableEmptyOption}>
-          &mdash;
-        </option>
-        {Object.values(Gender).map((value) => (
-          <FormattedMessage id={value} key={value}>
-            {(text) => <option value={value}>{text}</option>}
-          </FormattedMessage>
-        ))}
-      </>
-    );
-  },
+export const GenderSelectOptions: React.FC<GenderSelectOptionsProps> = ({ hideEmptyOption }) => (
+  <>
+    {!hideEmptyOption && <option value="">&mdash;</option>}
+    {options}
+  </>
 );

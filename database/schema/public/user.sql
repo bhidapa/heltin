@@ -20,7 +20,7 @@ grant select on table public.user to anonymous;
 
 ----
 
-create or replace function public.register(
+create function public.register(
   email    text,
   password text,
   is_admin boolean = false,
@@ -52,13 +52,14 @@ comment on function public.register is 'Creates a new `User` which can log in.';
 
 ----
 
-create or replace function public.user_is_admin(
+create function public.user_is_admin(
   "user" public.user
 ) returns boolean as
 $$
   select admin from private.user as private_user where private_user.id = "user".id
 $$
-language sql stable strict;
+language sql stable strict
+cost 100000; -- used in RLS, have the planner call the function as little as possible
 
 comment on function public.user_is_admin is '@notNull';
 
@@ -89,17 +90,30 @@ create index assistant_user_id_idx on public.assistant (user_id);
 
 ----
 
-create or replace function public.user_is_assistant(
+create function public.user_is_assistant(
   "user" public.user
 ) returns boolean as $$
   select exists(select from public.assistant where user_id = "user".id)
-$$ language sql stable strict;
+$$ language sql stable strict
+cost 100000; -- used in RLS, have the planner call the function as little as possible
 
 comment on function public.user_is_assistant is '@notNull';
 
+create function public.assistant_full_name(
+  assistant public.assistant
+) returns text as
+$$
+  select
+    assistant.first_name || ' ' ||
+    assistant.last_name
+$$
+language sql immutable;
+
+comment on function public.assistant_full_name is '@notNull';
+
 ----
 
-create type public.mental_health_professional_type as enum (
+create type public.therapist_type as enum (
   'PSYCHOTHERAPIST',
   'PSYCHOLOGIST',
   'PSYCHIATRIST',
@@ -116,12 +130,12 @@ create type public.mental_health_professional_type as enum (
   'OTHER'
 );
 
-create table public.mental_health_professional (
+create table public.therapist (
   id uuid primary key default uuid_generate_v4(),
 
   user_id uuid unique references public.user(id) on delete set null,
 
-  "type" public.mental_health_professional_type not null,
+  "type" public.therapist_type not null,
 
   telephone text,
   email email_address unique not null,
@@ -147,40 +161,53 @@ create table public.mental_health_professional (
   updated_at updated_timestamptz not null
 );
 
-grant all on table public.mental_health_professional to viewer;
+comment on column public.therapist.fulltext is '@omit';
 
-create index mental_health_professional_user_id_idx on public.mental_health_professional (user_id);
-create index mental_health_professional_fulltext_idx on public.mental_health_professional using gin (fulltext gin_trgm_ops);
+grant all on table public.therapist to viewer;
+
+create index therapist_user_id_idx on public.therapist (user_id);
+create index therapist_fulltext_idx on public.therapist using gin (fulltext gin_trgm_ops);
 
 ----
 
-create or replace function public.user_is_mental_health_professional(
+create function public.therapist_enabled(
+  therapist public.therapist
+) returns boolean as $$
+  select not therapist.disabled
+$$ language sql immutable strict;
+
+comment on function public.therapist_enabled is '@notNull';
+
+----
+
+create function public.user_is_therapist(
   "user" public.user
 ) returns boolean as $$
-  select exists(select from public.mental_health_professional where user_id = "user".id)
-$$ language sql stable strict;
+  select exists(select from public.therapist where user_id = "user".id)
+$$ language sql stable strict
+cost 100000; -- used in RLS, have the planner call the function as little as possible
 
-comment on function public.user_is_mental_health_professional is '@notNull';
+comment on function public.user_is_therapist is '@notNull';
 
 ----
 
-create or replace function public.mental_health_professional_full_name(
-  mental_health_professional public.mental_health_professional
+create function public.therapist_full_name(
+  therapist public.therapist
 ) returns text as
 $$
   select
-    coalesce(mental_health_professional.title || ' ', '') ||
-    mental_health_professional.first_name || ' ' ||
-    mental_health_professional.last_name
+    coalesce(therapist.title || ' ', '') ||
+    therapist.first_name || ' ' ||
+    therapist.last_name
 $$
 language sql immutable;
 
-comment on function public.mental_health_professional_full_name is '@notNull';
+comment on function public.therapist_full_name is '@notNull';
 
 ----
 
-create or replace function public.create_mental_health_professional(
-  "type"        public.mental_health_professional_type,
+create function public.create_therapist(
+  "type"        public.therapist_type,
   email         email_address,
   first_name    text,
   last_name     text,
@@ -190,9 +217,9 @@ create or replace function public.create_mental_health_professional(
   telephone     text = null,
   title         text = null,
   user_id       uuid = null
-) returns public.mental_health_professional as
+) returns public.therapist as
 $$
-  insert into public.mental_health_professional (
+  insert into public.therapist (
     "type",
     email,
     title,
@@ -204,16 +231,16 @@ $$
     telephone,
     user_id
   ) values (
-    create_mental_health_professional."type",
-    create_mental_health_professional.email,
-    create_mental_health_professional.title,
-    create_mental_health_professional.first_name,
-    create_mental_health_professional.last_name,
-    create_mental_health_professional.date_of_birth,
-    create_mental_health_professional.gender,
-    create_mental_health_professional.disabled,
-    create_mental_health_professional.telephone,
-    create_mental_health_professional.user_id
+    create_therapist."type",
+    create_therapist.email,
+    create_therapist.title,
+    create_therapist.first_name,
+    create_therapist.last_name,
+    create_therapist.date_of_birth,
+    create_therapist.gender,
+    create_therapist.disabled,
+    create_therapist.telephone,
+    create_therapist.user_id
   )
   returning *
 $$
@@ -221,9 +248,9 @@ language sql volatile;
 
 ----
 
-create or replace function public.update_mental_health_professional(
+create function public.update_therapist(
   id            uuid,
-  "type"        public.mental_health_professional_type,
+  "type"        public.therapist_type,
   email         email_address,
   first_name    text,
   last_name     text,
@@ -233,34 +260,66 @@ create or replace function public.update_mental_health_professional(
   telephone     text = null,
   title         text = null,
   user_id       uuid = null
-) returns public.mental_health_professional as
+) returns public.therapist as
 $$
-  update public.mental_health_professional
+  update public.therapist
     set
-      "type"=update_mental_health_professional."type",
-      email=update_mental_health_professional.email,
-      title=update_mental_health_professional.title,
-      first_name=update_mental_health_professional.first_name,
-      last_name=update_mental_health_professional.last_name,
-      date_of_birth=update_mental_health_professional.date_of_birth,
-      gender=update_mental_health_professional.gender,
-      disabled=update_mental_health_professional.disabled,
-      telephone=update_mental_health_professional.telephone,
-      user_id=update_mental_health_professional.user_id,
+      "type"=update_therapist."type",
+      email=update_therapist.email,
+      title=update_therapist.title,
+      first_name=update_therapist.first_name,
+      last_name=update_therapist.last_name,
+      date_of_birth=update_therapist.date_of_birth,
+      gender=update_therapist.gender,
+      disabled=update_therapist.disabled,
+      telephone=update_therapist.telephone,
+      user_id=update_therapist.user_id,
       updated_at=now()
-  where id = update_mental_health_professional.id
+  where id = update_therapist.id
   returning *
 $$
 language sql volatile;
 
 ----
 
-create or replace function public.delete_mental_health_professional(
+create function public.delete_therapist(
   id uuid
-) returns public.mental_health_professional as
+) returns public.therapist as
 $$
-  delete from public.mental_health_professional
-  where id = delete_mental_health_professional.id
+  delete from public.therapist
+  where id = delete_therapist.id
   returning *
 $$
 language sql volatile;
+
+----
+
+create function public.user_first_name(
+  "user" public.user
+) returns text as $$
+  select coalesce(
+    (select assistant.first_name
+      from public.assistant
+      where assistant.user_id = "user".id),
+    (select therapist.first_name
+      from public.therapist
+      where therapist.user_id = "user".id),
+    "user".email -- TODO: use first part of email address
+  )
+$$ language sql stable strict;
+comment on function public.user_first_name is '@notNull';
+
+create function public.user_full_name(
+  "user" public.user
+) returns text as $$
+  select coalesce(
+    (select public.assistant_full_name(assistant)
+      from public.assistant
+      where assistant.user_id = "user".id),
+    (select public.therapist_full_name(therapist)
+      from public.therapist
+      where therapist.user_id = "user".id),
+    "user".email
+  )
+$$ language sql stable strict;
+comment on function public.user_full_name is '@notNull';

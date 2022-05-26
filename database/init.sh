@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 if [ -d /docker-entrypoint-initdb.d ]; then
@@ -90,6 +90,7 @@ begin;
 \echo
 
 \i ${INIT_DIR}/schema/seed.sql
+\i ${INIT_DIR}/schema/seed_forms/anamneza.sql
 
 commit;
 

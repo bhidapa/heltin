@@ -3,31 +3,26 @@
  * LoginPage
  *
  */
-
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+import { graphql } from 'react-relay';
 
-// relay
-import { graphql, usePromiseMutation } from 'relay/hooks';
-import { LoginPageMutation } from 'relay/artifacts/LoginPageMutation.graphql';
+import { useNavigate, useSearch } from '@tanstack/react-location';
 
-// ui
-import { Flex, Button, Input } from '@domonda/ui';
-import {
-  Form,
-  FormInputField,
-  FormSubmitErrorState,
-  FormSubmittingState,
-} from '@domonda/react-form';
-import { DismissableAlert } from 'lib/DismissableAlert';
+import { usePromiseMutation } from 'lib/relay';
+import { errorToast } from 'lib/toasts';
 
-// assets
-import BHIDAPALogo from 'assets/BHIDAPA-logo-90x90.png';
+import { LocationGenerics } from 'core/location';
+
+import BHIDAPABanner from 'assets/BHIDAPA-banner-blue_800x400.jpg';
+
+import { LoginPageMutation } from './__generated__/LoginPageMutation.graphql';
 
 export interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
-  const login = usePromiseMutation<LoginPageMutation>(
+  const [login] = usePromiseMutation<LoginPageMutation>(
     graphql`
       mutation LoginPageMutation($input: LoginInput!) {
         login(input: $input) {
@@ -37,72 +32,122 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
         }
       }
     `,
-    {
-      // set the resulting user to the root viewer as an indication of successful authorization
-      updater: (store) => {
-        store
-          .getRoot()
-          .setLinkedRecord(store.getRootField('login').getLinkedRecord('user'), 'viewer');
-      },
-    },
   );
 
+  const { register, handleSubmit, formState } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
+  const params = useSearch<LocationGenerics>();
+  const navigate = useNavigate<LocationGenerics>();
+
   return (
-    <>
-      <Helmet title="Login" />
-      <Flex container justify="center" align="center" fill>
-        <Flex item>
-          <Form<{ email: string | null; password: string | null }>
-            defaultValues={{ email: null, password: null }}
-            onSubmit={({ email, password }) =>
-              login({
-                variables: {
-                  input: {
-                    email: email || '',
-                    password: password || '',
+    <div className="m-auto w-600 mw-full">
+      <div className="card p-0">
+        <img
+          src={BHIDAPABanner}
+          alt="BHIDAPA heltin login banner"
+          className="img-fluid rounded-top"
+        />
+
+        <div className="content">
+          <h2 className="content-title mb-0">
+            <FormattedMessage id="WELCOME" />
+          </h2>
+
+          <p className="text-muted mt-0">
+            <FormattedMessage id="LOG_IN_DESCRIPTION" values={{ heltin: <b>heltin</b> }} />
+          </p>
+
+          <form
+            onSubmit={handleSubmit(async (values) => {
+              try {
+                await login({
+                  variables: {
+                    input: values,
                   },
-                },
-              })
-            }
+                  updater: (store) => {
+                    // set the resulting user to the root viewer because the login was a success
+                    const loggedInUser = store.getRootField('login').getLinkedRecord('user');
+                    store.getRoot().setLinkedRecord(loggedInUser, 'viewer');
+                  },
+                });
+                navigate({ to: params.returnTo || '/' });
+              } catch (err) {
+                errorToast(err);
+              }
+            })}
           >
-            <Flex container direction="column" spacing="tiny" style={{ width: 256 }}>
-              <Flex item style={{ textAlign: 'center' }}>
-                <img src={BHIDAPALogo} alt="BHIDAPA" />
-              </Flex>
-              <Flex item>
-                <FormInputField path="email" required>
-                  {({ inputProps }) => (
-                    <Input {...inputProps} label="E-Mail" type="email" autoFocus />
+            <div className="form-group">
+              <label htmlFor="email" className="required">
+                E-Mail
+              </label>
+
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fa-solid fa-circle-user"></i>
+                  </span>
+                </div>
+                <FormattedMessage id="ENTER_YOUR_EMAIL">
+                  {([msg]) => (
+                    <input
+                      {...register('email')}
+                      type="email"
+                      className="form-control"
+                      id="email"
+                      placeholder={msg?.toString() + '...'}
+                      required
+                    />
                   )}
-                </FormInputField>
-              </Flex>
-              <Flex item>
-                <FormInputField path="password" required>
-                  {({ inputProps }) => <Input {...inputProps} label="Password" type="password" />}
-                </FormInputField>
-              </Flex>
-              <Flex item>
-                <FormSubmitErrorState>
-                  {(error, { resetSubmitError }) =>
-                    error && <DismissableAlert message={error} onDismiss={resetSubmitError} />
-                  }
-                </FormSubmitErrorState>
-              </Flex>
-              <Flex item container justify="flex-end" align="center" spacing="tiny">
-                <Flex item>
-                  <FormSubmittingState>
-                    {(submitting) => (
-                      <Button type="submit" variant="primary" disabled={submitting}>
-                        Login
-                      </Button>
-                    )}
-                  </FormSubmittingState>
-                </Flex>
-              </Flex>
-            </Flex>
-          </Form>
-        </Flex>
-      </Flex>
-    </>
+                </FormattedMessage>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password" className="required">
+                <FormattedMessage id="PASSWORD" />
+              </label>
+
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">
+                    <i className="fa-solid fa-key"></i>
+                  </span>
+                </div>
+                <FormattedMessage id="ENTER_YOUR_PASSWORD">
+                  {([msg]) => (
+                    <input
+                      {...register('password')}
+                      type="password"
+                      className="form-control"
+                      id="password"
+                      placeholder={msg?.toString() + '...'}
+                      required
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            </div>
+
+            <div className="text-right">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={formState.isSubmitting}
+                aria-disabled={formState.isSubmitting}
+              >
+                <i className="fa-solid fa-right-to-bracket" />
+                &nbsp;
+                <FormattedMessage id="LOG_IN" />
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };

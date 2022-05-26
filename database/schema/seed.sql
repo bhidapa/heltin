@@ -25,7 +25,6 @@ insert into public.client (
   gender,
   city,
   address,
-  sent_by,
   created_by
 ) values (
   '88bc02bf-000d-4120-8143-c0a095bb9192',
@@ -37,6 +36,5 @@ insert into public.client (
   'MALE',
   'London',
   'Westminister',
-  'CLINIC',
   '1d35ee19-e375-4a75-b855-76adda9d583e'
 );

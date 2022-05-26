@@ -6,60 +6,60 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/bhidapa/heltin/pkg/memos"
+	"github.com/bhidapa/heltin/pkg/reports"
 
 	"github.com/domonda/go-function"
 	"github.com/domonda/go-types/uu"
 )
 
-// memosCreateForConclusion wraps memos.CreateForConclusion as function.Wrapper (generated code)
-var memosCreateForConclusion memosCreateForConclusionT
+// reportsCreateForConclusion wraps reports.CreateForConclusion as function.Wrapper (generated code)
+var reportsCreateForConclusion reportsCreateForConclusionT
 
-// memosCreateForConclusionT wraps memos.CreateForConclusion as function.Wrapper (generated code)
-type memosCreateForConclusionT struct{}
+// reportsCreateForConclusionT wraps reports.CreateForConclusion as function.Wrapper (generated code)
+type reportsCreateForConclusionT struct{}
 
-func (memosCreateForConclusionT) String() string {
-	return "memos.CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID, err error)"
+func (reportsCreateForConclusionT) String() string {
+	return "reports.CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID, err error)"
 }
 
-func (memosCreateForConclusionT) Name() string {
+func (reportsCreateForConclusionT) Name() string {
 	return "CreateForConclusion"
 }
 
-func (memosCreateForConclusionT) NumArgs() int      { return 2 }
-func (memosCreateForConclusionT) ContextArg() bool  { return true }
-func (memosCreateForConclusionT) NumResults() int   { return 2 }
-func (memosCreateForConclusionT) ErrorResult() bool { return true }
+func (reportsCreateForConclusionT) NumArgs() int      { return 2 }
+func (reportsCreateForConclusionT) ContextArg() bool  { return true }
+func (reportsCreateForConclusionT) NumResults() int   { return 2 }
+func (reportsCreateForConclusionT) ErrorResult() bool { return true }
 
-func (memosCreateForConclusionT) ArgNames() []string {
+func (reportsCreateForConclusionT) ArgNames() []string {
 	return []string{"ctx", "conclusionID"}
 }
 
-func (memosCreateForConclusionT) ArgDescriptions() []string {
+func (reportsCreateForConclusionT) ArgDescriptions() []string {
 	return []string{"", ""}
 }
 
-func (memosCreateForConclusionT) ArgTypes() []reflect.Type {
+func (reportsCreateForConclusionT) ArgTypes() []reflect.Type {
 	return []reflect.Type{
 		reflect.TypeOf((*context.Context)(nil)).Elem(),
 		reflect.TypeOf((*uu.ID)(nil)).Elem(),
 	}
 }
 
-func (memosCreateForConclusionT) ResultTypes() []reflect.Type {
+func (reportsCreateForConclusionT) ResultTypes() []reflect.Type {
 	return []reflect.Type{
 		reflect.TypeOf((*uu.ID)(nil)).Elem(),
 		reflect.TypeOf((*error)(nil)).Elem(),
 	}
 }
 
-func (f memosCreateForConclusionT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForConclusion(ctx, args[0].(uu.ID)) // wrapped call
+	results[0], err = reports.CreateForConclusion(ctx, args[0].(uu.ID)) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForConclusionT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
 	var a struct {
 		conclusionID uu.ID
 	}
@@ -70,11 +70,11 @@ func (f memosCreateForConclusionT) CallWithStrings(ctx context.Context, strs ...
 		}
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForConclusion(ctx, a.conclusionID) // wrapped call
+	results[0], err = reports.CreateForConclusion(ctx, a.conclusionID) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForConclusionT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
 	var a struct {
 		conclusionID uu.ID
 	}
@@ -85,11 +85,11 @@ func (f memosCreateForConclusionT) CallWithNamedStrings(ctx context.Context, str
 		}
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForConclusion(ctx, a.conclusionID) // wrapped call
+	results[0], err = reports.CreateForConclusion(ctx, a.conclusionID) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
 	var a struct {
 		ConclusionID uu.ID
 	}
@@ -98,58 +98,58 @@ func (f memosCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON []
 		return nil, function.NewErrParseArgsJSON(err, f, argsJSON)
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForConclusion(ctx, a.ConclusionID) // wrapped call
+	results[0], err = reports.CreateForConclusion(ctx, a.ConclusionID) // wrapped call
 	return results, err
 }
 
-// memosCreateForTreatment wraps memos.CreateForTreatment as function.Wrapper (generated code)
-var memosCreateForTreatment memosCreateForTreatmentT
+// reportsCreateForTreatment wraps reports.CreateForTreatment as function.Wrapper (generated code)
+var reportsCreateForTreatment reportsCreateForTreatmentT
 
-// memosCreateForTreatmentT wraps memos.CreateForTreatment as function.Wrapper (generated code)
-type memosCreateForTreatmentT struct{}
+// reportsCreateForTreatmentT wraps reports.CreateForTreatment as function.Wrapper (generated code)
+type reportsCreateForTreatmentT struct{}
 
-func (memosCreateForTreatmentT) String() string {
-	return "memos.CreateForTreatment(ctx context.Context, treatmentID uu.ID) (fileID uu.ID, err error)"
+func (reportsCreateForTreatmentT) String() string {
+	return "reports.CreateForTreatment(ctx context.Context, treatmentID uu.ID) (fileID uu.ID, err error)"
 }
 
-func (memosCreateForTreatmentT) Name() string {
+func (reportsCreateForTreatmentT) Name() string {
 	return "CreateForTreatment"
 }
 
-func (memosCreateForTreatmentT) NumArgs() int      { return 2 }
-func (memosCreateForTreatmentT) ContextArg() bool  { return true }
-func (memosCreateForTreatmentT) NumResults() int   { return 2 }
-func (memosCreateForTreatmentT) ErrorResult() bool { return true }
+func (reportsCreateForTreatmentT) NumArgs() int      { return 2 }
+func (reportsCreateForTreatmentT) ContextArg() bool  { return true }
+func (reportsCreateForTreatmentT) NumResults() int   { return 2 }
+func (reportsCreateForTreatmentT) ErrorResult() bool { return true }
 
-func (memosCreateForTreatmentT) ArgNames() []string {
+func (reportsCreateForTreatmentT) ArgNames() []string {
 	return []string{"ctx", "treatmentID"}
 }
 
-func (memosCreateForTreatmentT) ArgDescriptions() []string {
+func (reportsCreateForTreatmentT) ArgDescriptions() []string {
 	return []string{"", ""}
 }
 
-func (memosCreateForTreatmentT) ArgTypes() []reflect.Type {
+func (reportsCreateForTreatmentT) ArgTypes() []reflect.Type {
 	return []reflect.Type{
 		reflect.TypeOf((*context.Context)(nil)).Elem(),
 		reflect.TypeOf((*uu.ID)(nil)).Elem(),
 	}
 }
 
-func (memosCreateForTreatmentT) ResultTypes() []reflect.Type {
+func (reportsCreateForTreatmentT) ResultTypes() []reflect.Type {
 	return []reflect.Type{
 		reflect.TypeOf((*uu.ID)(nil)).Elem(),
 		reflect.TypeOf((*error)(nil)).Elem(),
 	}
 }
 
-func (f memosCreateForTreatmentT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForTreatment(ctx, args[0].(uu.ID)) // wrapped call
+	results[0], err = reports.CreateForTreatment(ctx, args[0].(uu.ID)) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
 	var a struct {
 		treatmentID uu.ID
 	}
@@ -160,11 +160,11 @@ func (f memosCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ...s
 		}
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForTreatment(ctx, a.treatmentID) // wrapped call
+	results[0], err = reports.CreateForTreatment(ctx, a.treatmentID) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
 	var a struct {
 		treatmentID uu.ID
 	}
@@ -175,11 +175,11 @@ func (f memosCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, strs
 		}
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForTreatment(ctx, a.treatmentID) // wrapped call
+	results[0], err = reports.CreateForTreatment(ctx, a.treatmentID) // wrapped call
 	return results, err
 }
 
-func (f memosCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
 	var a struct {
 		TreatmentID uu.ID
 	}
@@ -188,6 +188,6 @@ func (f memosCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON []b
 		return nil, function.NewErrParseArgsJSON(err, f, argsJSON)
 	}
 	results = make([]interface{}, 1)
-	results[0], err = memos.CreateForTreatment(ctx, a.TreatmentID) // wrapped call
+	results[0], err = reports.CreateForTreatment(ctx, a.TreatmentID) // wrapped call
 	return results, err
 }

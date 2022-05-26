@@ -1,4 +1,4 @@
-create or replace function public.filter_users(
+create function public.filter_users(
   search_text text = null,
   disabled    boolean = null
 ) returns setof public.user as

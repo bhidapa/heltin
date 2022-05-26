@@ -14,31 +14,37 @@ import (
 
 func API(router *mux.Router) {
 	router.Handle(
-		fmt.Sprintf("/api/memos/for-conclusion/{conclusionID:%s}", uu.IDRegex),
+		fmt.Sprintf("/api/reports/for-conclusion/{conclusionID:%s}", uu.IDRegex),
 		session.Handler(
 			function.HTTPHandler(
 				getMuxVars,
-				memosCreateForConclusion,
+				reportsCreateForConclusion,
 				function.RespondPlaintext,
 			),
 		),
-	).Methods("PUT")
+	).Methods("POST")
 
 	router.Handle(
-		fmt.Sprintf("/api/memos/for-treatment/{treatmentID:%s}", uu.IDRegex),
+		fmt.Sprintf("/api/reports/for-treatment/{treatmentID:%s}", uu.IDRegex),
 		session.Handler(
 			function.HTTPHandler(
 				getMuxVars,
-				memosCreateForTreatment,
+				reportsCreateForTreatment,
 				function.RespondPlaintext,
 			),
 		),
-	).Methods("PUT")
+	).Methods("POST")
 
 	router.HandleFunc(
+		// matches the link specified in database/schema/public/file.sql@public.file_link
 		fmt.Sprintf("/api/file/{id:%s}", uu.IDRegex),
 		session.Handler(http.HandlerFunc(file.Download)),
 	).Methods("GET")
+
+	router.HandleFunc(
+		"/api/file/upload",
+		session.Handler(http.HandlerFunc(file.Upload)),
+	).Methods("POST")
 }
 
 func getMuxVars(request *http.Request) (map[string]string, error) {

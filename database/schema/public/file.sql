@@ -10,13 +10,23 @@ create table public.file(
   created_at created_timestamptz not null
 );
 
+comment on column public.file.data is E'@omit\nFile serving is handled by the server.';
+
 grant select, insert, delete on public.file to viewer;
 
 create index file_created_by_idx on public.file (created_by);
 
 ----
 
-create or replace function public.delete_file(
+create function public.file_link(
+  file public.file
+) returns text as $$
+  -- matches the route specified in cmd/server/routes/routes.go
+  select '/api/file/' || file.id::text
+$$ language sql stable strict;
+comment on function public.file_link is '@notNull';
+
+create function public.delete_file(
   id uuid
 ) returns public.file as
 $$
@@ -25,3 +35,11 @@ $$
   returning *
 $$
 language sql volatile;
+
+create function public.get_file_after_upload(
+  id uuid
+) returns public.file as $$
+  select * from public.file where file.id = get_file_after_upload.id
+$$ language sql volatile strict;
+
+comment on function public.get_file_after_upload is 'Intentionally a mutation even though the it changes nothing. Useful for patching the store after a successful upload.';

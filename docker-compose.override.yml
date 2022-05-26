@@ -1,17 +1,12 @@
-version: "3"
-
 services:
   postgres:
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
-      - ${POSTGRES_PORT}:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - ./database:/docker-entrypoint-initdb.d
   graphql:
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - WATCH=true
+    volumes:
+      - ./cmd/graphql/schema.graphql:/opt/graphql/dist/schema.graphql
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
   server:

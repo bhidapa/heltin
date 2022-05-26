@@ -1,5 +1,17 @@
 {
   "printWidth": 100,
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "importOrder": [
+    "^react",
+    "<THIRD_PARTY_MODULES>",
+    "^lib/(.*)$",
+    "^intl/(.*)$",
+    "^core/(.*)$",
+    "^modules/(.*)$",
+    "^assets/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

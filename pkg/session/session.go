@@ -23,7 +23,7 @@ import (
 
 func Handler(wrappedHandler http.Handler) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
-		userID, userEmail := handleSession(res, req)
+		userID := handleSession(res, req)
 		if userID.IsNull() {
 			httperr.Unauthorized.ServeHTTP(res, req)
 			return
@@ -31,7 +31,6 @@ func Handler(wrappedHandler http.Handler) http.HandlerFunc {
 
 		req = req.WithContext(ContextWithUser(req.Context(), userID.Get()))
 		req = golog.AddValueToRequest(req, golog.NewUUIDValue("userID", userID))
-		req = golog.AddValueToRequest(req, golog.NewStringValue("userEmail", userEmail))
 
 		wrappedHandler.ServeHTTP(res, req)
 	}
@@ -39,7 +38,7 @@ func Handler(wrappedHandler http.Handler) http.HandlerFunc {
 
 func HandlerWithUserIDAsMuxVar(muxVarName string, wrappedHandler http.Handler) http.HandlerFunc {
 	return func(res http.ResponseWriter, req *http.Request) {
-		userID, userEmail := handleSession(res, req)
+		userID := handleSession(res, req)
 		if userID.IsNull() {
 			httperr.Unauthorized.ServeHTTP(res, req)
 			return
@@ -48,28 +47,26 @@ func HandlerWithUserIDAsMuxVar(muxVarName string, wrappedHandler http.Handler) h
 		mux.Vars(req)[muxVarName] = userID.String()
 
 		req = golog.AddValueToRequest(req, golog.NewUUIDValue("userID", userID))
-		req = golog.AddValueToRequest(req, golog.NewStringValue("userEmail", userEmail))
 
 		wrappedHandler.ServeHTTP(res, req)
 	}
 }
 
-func handleSession(res http.ResponseWriter, req *http.Request) (userID uu.NullableID, email string) {
+func handleSession(res http.ResponseWriter, req *http.Request) (userID uu.NullableID) {
 	cookie, err := req.Cookie(cookieName)
 	if err != nil {
-		return uu.IDNull, ""
+		return uu.IDNull
 	}
 
 	parts := strings.Split(cookie.Value, ".")
 	if len(parts) != 2 {
-		return uu.IDNull, ""
+		return uu.IDNull
 	}
-	sessionID, _ := url.QueryUnescape(parts[0])
+	tentativeSessionID, _ := url.QueryUnescape(parts[0])
 	base64Mac, _ := url.QueryUnescape(parts[1])
-	if sessionID == "" || base64Mac == "" {
-		return uu.IDNull, ""
+	if tentativeSessionID == "" || base64Mac == "" {
+		return uu.IDNull
 	}
-	sessionID = strings.Replace(sessionID, "s:", "", 1) // prepended by [express-session](https://github.com/expressjs/session/blob/0048bcac451ad867299d404aca94c79cc8bc751d/index.js#L656)
 
 	// base64 mac is stored without padding, put it back (https://gist.github.com/catwell/3046205)
 	if len(base64Mac)%4 == 2 {
@@ -80,84 +77,84 @@ func handleSession(res http.ResponseWriter, req *http.Request) (userID uu.Nullab
 
 	mac, err := base64.StdEncoding.DecodeString(base64Mac)
 	if err != nil {
-		return uu.IDNull, ""
+		return uu.IDNull
 	}
 
 	hash := hmac.New(sha256.New, []byte(config.Secret))
-	hash.Write([]byte(sessionID))
+	hash.Write([]byte(tentativeSessionID))
 	expectedMac := hash.Sum(nil)
 	if !hmac.Equal(mac, expectedMac) {
-		return uu.IDNull, ""
+		return uu.IDNull
 	}
 
-	sess := new(session)
-	err = db.Conn(req.Context()).QueryRow("select sess from private.session where sid = $1 and expire > now()", sessionID).Scan(&sess)
+	sess := new(Session)
+	err = db.Conn(req.Context()).QueryRow("select * from private.session where id = $1 and expires_at > now()", tentativeSessionID).ScanStruct(sess)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
-			log.Error("error while retrieving session").
+			log.Error("Error while retrieving session").
+				Request(req).
 				Err(err).
-				Str("sessionID", sessionID).
+				Str("sessionID", tentativeSessionID).
 				Log()
 		}
-		// no rows = no existing session or expired
-		return uu.IDNull, ""
-	}
-	if sess.Cookie.Expires.Before(time.Now()) {
-		// expired
-		return uu.IDNull, ""
-	}
-	if sess.Cookie.Secure && req.TLS == nil && req.Header.Get("X-Forwarded-Proto") != "https" {
-		// not an https site
-		return uu.IDNull, ""
+		return uu.IDNull
 	}
 
-	// parsing and validation done, finally get the user
-	err = db.Conn(req.Context()).QueryRow("select id, email from public.user where id = $1", sess.UserID).Scan(&userID, &email)
-	if err != nil {
-		if !errors.Is(err, sql.ErrNoRows) {
-			log.Error("error while retrieving user for session").
-				Err(err).
-				Str("sessionID", sessionID).
-				Any("session", sess).
-				Log()
-		}
-		return uu.IDNull, ""
+	// TODO: check for cookie path mismatch
+	if sess.Cookie.Secure && req.TLS == nil {
+		return uu.IDNull
+	}
+	if sess.ExpiresAt.Before(time.Now()) {
+		return uu.IDNull
 	}
 
-	// assign the session data to the cookie and send it back to the client
-	cookie.Expires = sess.Cookie.Expires
+	cookie.MaxAge = sess.Cookie.MaxAge
 	cookie.Secure = sess.Cookie.Secure
 	cookie.HttpOnly = sess.Cookie.HTTPOnly
 	cookie.Path = sess.Cookie.Path
 	cookie.SameSite = sess.Cookie.SameSite.HTTPSameSite()
 	http.SetCookie(res, cookie)
 
-	return userID, email
+	// TODO: extend the session expires_at because we're using rolling cookies
+
+	return sess.UserID.Nullable()
 }
 
-// check the private.session.sess in database/schema/private/session.sql
-type session struct {
-	UserID uu.ID `json:"user_id"`
-	Cookie struct {
-		OriginalMaxAge int       `json:"originalMaxAge"`
-		Expires        time.Time `json:"expires"`
-		Secure         bool      `json:"secure"`
-		HTTPOnly       bool      `json:"httpOnly"`
-		Path           string    `json:"path"`
-		SameSite       SameSite  `json:"sameSite"`
-	} `json:"cookie"`
+// Session is the user cookie session stored.
+// See database/schema/private/session.sql@private.session
+type Session struct {
+	ID uu.ID `db:"id,pk"`
+
+	UserID uu.ID          `db:"user_id"`
+	Cookie *SessionCookie `db:"cookie"`
+	Data   interface{}    `db:"data"`
+
+	ExpiresAt time.Time `db:"expires_at"`
+
+	UpdatedAt time.Time `db:"updated_at"`
+	CreatedAt time.Time `db:"created_at"`
 }
 
-func (sess session) Value() (driver.Value, error) {
-	return json.Marshal(sess)
+// SessionCookie is the session cookie and it matches the SessionCookie in cmd/graphql/src/session.ts@SessionCookie
+type SessionCookie struct {
+	Domain   string   `json:"domain"`
+	Path     string   `json:"path"`
+	Secure   bool     `json:"secure"`
+	MaxAge   int      `json:"maxAge"`
+	HTTPOnly bool     `json:"httpOnly"`
+	SameSite SameSite `json:"sameSite"`
 }
 
-func (sess *session) Scan(value interface{}) error {
+func (v SessionCookie) Value() (driver.Value, error) {
+	return json.Marshal(v)
+}
+
+func (v *SessionCookie) Scan(value interface{}) error {
 	b, ok := value.([]byte)
 	if !ok {
 		return errors.New("type assertion to []byte failed")
 	}
-	return json.Unmarshal(b, &sess)
+	return json.Unmarshal(b, &v)
 }
 
 // SameSite attribute of the Set-Cookie HTTP response header allows you to declare

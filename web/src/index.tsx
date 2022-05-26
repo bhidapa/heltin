@@ -3,55 +3,35 @@
  * index
  *
  */
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-// router
-import { Router } from 'react-router-dom';
-import { QueryParamsProvider } from '@domonda/query-params';
-import { history } from 'lib/history';
+import ReactDOM from 'react-dom/client';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { RelayEnvironmentProvider, loadQuery } from 'react-relay';
 
-// relay
-import { RelayEnvironmentProvider } from 'react-relay/hooks';
-import { environment } from 'relay/environment';
+import { ErrBoundary } from 'lib/ErrBoundary';
+import { ToastsContainer } from 'lib/toasts';
 
-// intl
-import { IntlProvider } from 'lib/intl/IntlProvider';
-import { messages } from 'core/translations/messages';
+import { IntlProvider } from 'intl/IntlProvider';
+import { messages } from 'intl/translations/messages';
 
-// styles
-import { ThemeProvider } from '@domonda/ui/styles';
-import { Baseline } from '@domonda/ui/Baseline';
-import { theme } from 'theme';
-
-// parts
-import { Boundary } from 'lib/Boundary';
 import { Root } from 'core/Root';
+import rootQuery, { RootQuery } from 'core/Root/__generated__/RootQuery.graphql';
+import { environment } from 'core/relay';
 
-// find root and add class
-const root = document.getElementById('root');
-if (!root) {
-  throw new Error('root mountpoint not found');
-}
+const rootQueryRef = loadQuery<RootQuery>(environment, rootQuery, {});
 
-ReactDOM.createRoot(root).render(
-  <ThemeProvider theme={theme}>
-    <Baseline />
-    <Boundary>
-      <Router history={history}>
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <IntlProvider defaultLocale="hr" messages={messages}>
+      <ErrBoundary>
         <HelmetProvider>
           <Helmet titleTemplate="%s | heltin" />
-          <QueryParamsProvider history={history}>
-            <RelayEnvironmentProvider environment={environment}>
-              <IntlProvider defaultLocale="hr" messages={messages}>
-                <Root />
-              </IntlProvider>
-            </RelayEnvironmentProvider>
-          </QueryParamsProvider>
+          <RelayEnvironmentProvider environment={environment}>
+            <ToastsContainer />
+            <Root query={rootQueryRef} />
+          </RelayEnvironmentProvider>
         </HelmetProvider>
-      </Router>
-    </Boundary>
-  </ThemeProvider>,
+      </ErrBoundary>
+    </IntlProvider>
+  </React.StrictMode>,
 );

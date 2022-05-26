@@ -1,0 +1,6 @@
+{
+  "ignore": ["node_modules"],
+  "watch": ["build"],
+  "exec": "node build",
+  "ext": "js"
+}

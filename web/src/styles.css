@@ -1,0 +1,160 @@
+:root {
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  --navbar-brand-image-height: 3rem;
+
+  --sticky-alerts-top: var(--sticky-alerts-right);
+
+  --toastify-font-family: var(--font-family);
+  --toastify-color-light: var(--lm-alert-bg-color);
+  --toastify-text-color-light: var(--lm-alert-text-color);
+  --toastify-color-dark: var(--dm-alert-bg-color);
+  --toastify-text-color-dark: var(--dm-alert-text-color);
+  --toastify-toast-max-height: 80vh;
+  --toastify-color-info: var(--primary-color);
+  --toastify-color-success: var(--success-color);
+  --toastify-color-warning: var(--yellow-color);
+  --toastify-color-error: var(--danger-color);
+  --toastify-spinner-color: var(--gray-color-very-dark);
+  --toastify-spinner-color-empty-area: var(--gray-color-dark);
+  --toastify-toast-width: var(--sticky-alert-width);
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+/* halfmoon dropdown-menu will take over */
+.Dropdown__tooltip {
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
+}
+.Dropdown__tooltip.tippy-box[data-theme~='light-border'] {
+  border: 0;
+  background-color: transparent;
+}
+.Dropdown__tooltip .tippy-content {
+  padding: 0;
+}
+
+.dropdown-item {
+  cursor: pointer;
+  margin: 0; /* if dropdown-item is li, remove margin */
+}
+
+.dropdown-item.highlighted {
+  background-color: var(--lm-dropdown-item-bg-color-hover);
+}
+.dark-mode .dropdown-item.highlighted {
+  background-color: var(--dm-dropdown-item-bg-color-hover);
+}
+
+.Toastify__toast-container {
+  top: var(--sticky-alerts-top);
+  right: var(--sticky-alerts-right);
+}
+
+.Toastify__toast {
+  border: var(--alert-border-width) solid var(--lm-alert-border-color);
+  border-radius: var(--alert-border-radius);
+  box-shadow: var(--sticky-alert-box-shadow);
+  cursor: auto;
+}
+
+.dark-mode .Toastify__toast {
+  border-color: var(--dm-alert-border-color);
+}
+
+.Toastify__toast-body {
+  /* padding: var(--alert-padding); because the container already has some padding */
+  padding: 1rem;
+}
+
+.Toastify__toast-body > div:last-child {
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.form-v-spacer {
+  height: var(--form-row-and-col-margin-bottom);
+  position: relative;
+  width: 100%;
+}
+
+.form-h-spacer {
+  width: var(--form-col-horizontal-padding);
+  position: relative;
+  display: inline-block;
+}
+
+.tippy-box {
+  font-size: var(--base-font-size);
+  line-height: var(--tooltip-line-height);
+}
+
+.tippy-box[data-theme~='light-border'] {
+  color: var(--lm-alert-text-color);
+  border-color: var(--lm-alert-border-color);
+  background-color: var(--lm-alert-bg-color);
+}
+
+.tippy-box[data-theme~='light-border'] .tippy-arrow {
+  color: var(--lm-alert-bg-color);
+}
+
+.dark-mode .tippy-box {
+  color: var(--dm-alert-text-color);
+  border: 1px solid var(--dm-alert-border-color);
+  background-color: var(--dm-alert-bg-color);
+}
+
+.dark-mode .tippy-box .tippy-arrow {
+  color: var(--dm-alert-bg-color);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.Files__dropzone {
+  color: var(--primary-color);
+  background-color: var(--lm-input-bg-color);
+  box-shadow: var(--lm-input-box-shadow);
+  border-radius: var(--input-border-radius);
+  border: 2px dashed var(--lm-alert-border-color);
+  cursor: pointer;
+}
+
+.Files__dropzone:hover {
+  border-color: var(--lm-input-border-color-hover);
+}
+
+.dark-mode .Files__dropzone {
+  background-color: var(--dm-input-bg-color);
+  box-shadow: var(--dm-input-box-shadow);
+  border-color: var(--dm-alert-border-color);
+}
+
+.dark-mode .Files__dropzone:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.Files__dropzone.accept {
+  color: var(--lm-alert-text-color);
+  border-color: var(--lm-alert-success-border-color);
+  background-color: var(--lm-alert-success-bg-color);
+}
+
+.dark-mode .Files__dropzone.accept {
+  color: var(--dm-alert-text-color);
+  border-color: var(--dm-alert-success-border-color);
+  background-color: var(--dm-alert-success-bg-color);
+}
+
+.ExplanationTooltip__text {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  cursor: help;
+}

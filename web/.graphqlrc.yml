@@ -1,7 +1,8 @@
-schema: http://localhost:6000/graphql
-extensions:
-  codegen:
-    generates:
-      ./schema.graphql:
-        plugins:
-          - schema-ast
+schema:
+  - ../cmd/graphql/schema.graphql
+  - ./relay-directives.graphql
+documents:
+  - ./src/core/**/*.ts
+  - ./src/core/**/*.tsx
+  - ./src/modules/**/*.ts
+  - ./src/modules/**/*.tsx

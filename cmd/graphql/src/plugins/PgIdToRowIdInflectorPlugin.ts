@@ -26,16 +26,15 @@
  *  `languageIdiomatics` -> `languageIdiomatics` (will stay the same if `Id` is suffixed with a lowercase letter)
  *  `language_idiomatics` -> `language_idiomatics` (will stay the same if `id` is NOT suffixed with an underscore)
  */
-
-import { makeAddInflectorsPlugin } from "graphile-utils";
-import { camelCase, PgAttribute, PgProc } from "graphile-build-pg";
+import { makeAddInflectorsPlugin } from 'graphile-utils';
+import { camelCase, PgAttribute, PgProc } from 'graphile-build-pg';
 
 function replaceIdWithRowId(str: string) {
   return str
-    .replace(/(?<!(row_)|[a-zA-Z])(id)(?=_|$)/, "row_id")
-    .replace(/(?<!((R|r)ow))(Id)(?=[A-Z]|$)/, "RowId")
-    .replace(/(?<!(row_)|[a-zA-Z])(ids)(?=_|$)/, "row_ids")
-    .replace(/(?<!((R|r)ow))(Ids)(?=[A-Z]|$)/, "RowIds");
+    .replace(/(?<!(row_)|[a-zA-Z])(id)(?=_|$)/, 'row_id')
+    .replace(/(?<!((R|r)ow))(Id)(?=[A-Z]|$)/, 'RowId')
+    .replace(/(?<!(row_)|[a-zA-Z])(ids)(?=_|$)/, 'row_ids')
+    .replace(/(?<!((R|r)ow))(Ids)(?=[A-Z]|$)/, 'RowIds');
 }
 
 export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
@@ -43,9 +42,9 @@ export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
     // replace ids in all column
     column({ tags, name }: PgAttribute) {
       if (tags.name) {
-        if (typeof tags.name !== "string") {
+        if (typeof tags.name !== 'string') {
           throw new Error(
-            "PgIdToRowIdInflectorPlugin: column tag name should be string but is not"
+            'PgIdToRowIdInflectorPlugin: column tag name should be string but is not',
           );
         }
         return camelCase(tags.name);
@@ -56,9 +55,9 @@ export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
     // replace ids in all computed columns
     computedColumn(pseudoColumnName: string, { tags }: PgProc) {
       if (tags.fieldName) {
-        if (typeof tags.fieldName !== "string") {
+        if (typeof tags.fieldName !== 'string') {
           throw new Error(
-            "PgIdToRowIdInflectorPlugin: computedColumn tag name should be string but is not"
+            'PgIdToRowIdInflectorPlugin: computedColumn tag name should be string but is not',
           );
         }
         return tags.fieldName;
@@ -70,5 +69,5 @@ export const PgIdToRowIdInflectorPlugin = makeAddInflectorsPlugin(
       return camelCase(replaceIdWithRowId(name || `arg${index}`));
     },
   },
-  true
+  true,
 );

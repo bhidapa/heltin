@@ -60,6 +60,29 @@ jobs:
       - name: Type check
         run: yarn type-check
 
+  graphql-check:
+    name: GraphQL check
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: web/.yarn/cache
+          key: ${{ runner.os }}-web-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-web-yarn-cache-
+      - name: Install
+        run: yarn install --immutable
+      - name: GraphQL check
+        run: yarn relay --validate
+
   # TODO:
   # test:
   #   name: Test

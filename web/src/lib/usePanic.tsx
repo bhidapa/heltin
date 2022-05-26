@@ -6,8 +6,7 @@
  * but you want to throw the error to be catched by the first error boundary.
  *
  */
-
-import React, { createContext, useState, useCallback, useContext, useRef, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 const PanicContext = createContext<(error: Error) => void>(() => {
   /**/
@@ -18,7 +17,7 @@ const PanicContext = createContext<(error: Error) => void>(() => {
  * this `Panicer` comes useful. Putting it somewhere in the root, will throw
  * from there if the usePanic hook is unmounted but an error needs reporting.
  */
-export const Panicer: React.FC = (props) => {
+export const Panicer: React.FC<{ children: React.ReactElement }> = (props) => {
   const { children } = props;
   const [err, setErr] = useState<Error | null>(null);
   if (err) {

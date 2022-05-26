@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+      name="viewport"
+    />
+
+    <link rel="shortcut icon" href="/src/assets/favicon.ico" />
+    <title>heltin</title>
+
+    <link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/node_modules/react-toastify/dist/ReactToastify.css"
+    />
+    <link type="text/css" rel="stylesheet" href="/src/halfmoon-variables.css" />
+    <link type="text/css" rel="stylesheet" href="/node_modules/tippy.js/dist/tippy.css" />
+    <link type="text/css" rel="stylesheet" href="/node_modules/tippy.js/themes/light-border.css" />
+    <link type="text/css" rel="stylesheet" href="/src/styles.css" />
+
+    <script type="module" src="/src/browser-check.ts"></script>
+  </head>
+
+  <!-- we start with dark mode so that there's no flashing effect while deciding about the preferred mode -->
+  <body class="dark-mode">
+    <main id="root"></main>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

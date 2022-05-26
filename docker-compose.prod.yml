@@ -1,5 +1,3 @@
-version: "3"
-
 volumes:
   server-certs:
     driver: "local"
@@ -7,21 +5,18 @@ volumes:
 services:
   postgres:
     restart: unless-stopped
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   graphql:
     restart: unless-stopped
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - NODE_ENV=production
       - SESSION_SECURE=true
-      - WATCH=true
   server:
     restart: unless-stopped
     environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - APP_DOMAINS=${APP_DOMAINS}
       - TLS=true
       - CERT_DIR=/srv/certs
+      - SERVER_PORT=443 # is the default already, but defined for healtchecks
     volumes:
       - server-certs:/srv/certs
     ports:

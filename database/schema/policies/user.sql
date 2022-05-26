@@ -16,7 +16,7 @@ create policy viewer_user_select on public.user
 create policy viewer_user_update on public.user
   for update
   to viewer
-  using (true)
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
     public.user_is_admin(public.viewer())
     or "user".id = public.viewer_user_id()
@@ -58,16 +58,15 @@ create policy insert_assistant_only_admin on public.assistant
 create policy update_assistant_is_admin on public.assistant
   for update
   to viewer
-  using (
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
+  with check (
     public.user_is_admin(public.viewer())
   );
 
 create policy update_assistant_is_self on public.assistant
   for update
   to viewer
-  using (
-    assistant.user_id = public.viewer_user_id()
-  )
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
     assistant.user_id = public.viewer_user_id()
   );
@@ -81,42 +80,41 @@ create policy delete_assistant_only_admin on public.assistant
 
 alter table public.assistant enable row level security;
 
----- mental_health_professional ----
+---- therapist ----
 
-create policy select_mental_health_professional_anyone on public.mental_health_professional
+create policy select_therapist_anyone on public.therapist
   for select
   to viewer
   using (true);
 
-create policy insert_mental_health_professional_only_admin on public.mental_health_professional
+create policy insert_therapist_only_admin on public.therapist
   for insert
   to viewer
   with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_mental_health_professional_is_admin on public.mental_health_professional
+create policy update_therapist_is_admin on public.therapist
   for update
   to viewer
-  using (
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
+  with check (
     public.user_is_admin(public.viewer())
   );
 
-create policy update_mental_health_professional_is_self on public.mental_health_professional
+create policy update_therapist_is_self on public.therapist
   for update
   to viewer
-  using (
-    mental_health_professional.user_id = public.viewer_user_id()
-  )
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
-    mental_health_professional.user_id = public.viewer_user_id()
+    therapist.user_id = public.viewer_user_id()
   );
 
-create policy delete_mental_health_professional_only_admin on public.mental_health_professional
+create policy delete_therapist_only_admin on public.therapist
   for delete
   to viewer
   using (
     public.user_is_admin(public.viewer())
   );
 
-alter table public.mental_health_professional enable row level security;
+alter table public.therapist enable row level security;

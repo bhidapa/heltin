@@ -3,7 +3,7 @@
     heltin
   </h3>
   <p align="center">
-    Robust client registry for individuals receiving mental healthcare services
+    Robust client registry for individuals receiving healthcare services
   </p>
   <p align="center">
     <a href="https://www.docker.com/">Docker</a>
@@ -18,25 +18,23 @@
     +
     <a href="https://www.graphile.org/postgraphile/">PostGraphile</a>
     +
-    <a href="https://webpack.js.org/">Webpack</a>
+    <a href="https://vitejs.dev/">Vite</a>
     +
     <a href="https://reactjs.org/">React</a>
     +
-    <a href="http://facebook.github.io/relay/docs/en/thinking-in-relay.html">Relay</a>
+    <a href="https://www.gethalfmoon.com/">Halfmoon</a>
+    +
+    <a href="https://relay.dev">Relay</a>
   </p>
 <br>
 
 # Quick start
 
-1.  Make sure that you have [Docker](https://www.docker.com/products/docker-engine) and [Docker Compose](https://docs.docker.com/compose/install/) installed
-2.  Clone this repo using `git clone --depth=1 https://github.com/bhidapa/heltin.git` and cd into it
-3.  Run `docker-compose up` to build and start [Postgres](https://www.postgresql.org/) + [PostGraphile](https://www.graphile.org/postgraphile/) + app server built with [Go](https://golang.org/)<br>
-    - Postgres database is exposed at: **[postgres://localhost:5432/heltin](postgres://localhost:5432/heltin)**
-    - GraphQL endpoint is located at: **[http://localhost:6000/graphql](http://localhost:6000/graphql)**<br>
-      _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:6000/graphiql](http://localhost:6000/graphiql)_
-    - The application is located at: **[http://localhost:7000](http://localhost:7000)**<br>
+1.  Make sure that you have [Docker](https://www.docker.com/products/docker-engine) installed
+2.  Clone this repo using `git clone https://github.com/bhidapa/heltin.git` and cd into it
+3.  Run `docker compose up` to start the stack<br>
+    - Postgres database will be exposed at: **[postgres://localhost:54321/heltin](postgres://localhost:54321/heltin)**
+    - GraphQL endpoint will be located at: **[http://localhost:50000/graphql](http://localhost:50000/graphql)**<br>
+      _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:50000/graphiql](http://localhost:50000/graphiql)_
+    - The application will be located at: **[http://localhost:8080](http://localhost:8080)**<br>
       _Use `john@doe.com:password` to login_
-
-# Documentation
-
-Detailed documentation coming soon. Until then, happy code digging. 🔬

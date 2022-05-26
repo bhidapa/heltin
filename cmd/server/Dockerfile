@@ -14,8 +14,8 @@ COPY pkg ./pkg
 COPY cmd/server ./cmd/server
 RUN set -eux; \
   cd cmd/server; \
-  GOOS=linux GOARCH=amd64 CGO_ENABLED=0 GODEBUG=cgocheck=0 \
-  go build -v -a -ldflags='-s -w' -o /heltin-server
+  GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
+  go build -v -o /heltin-server
 
 # build web
 FROM node:17 as web
@@ -31,15 +31,19 @@ COPY web/package.json .
 RUN yarn install --immutable
 
 COPY web .
-RUN yarn build
+ARG VITE_APP_VER
+RUN VITE_APP_VER=$VITE_APP_VER yarn build
 
 # server
 FROM alpine:3.13
+
+# necessary for healthchecks
+RUN apk --update --no-cache add curl
 
 COPY --from=server /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=server /heltin-server /usr/local/bin/
 
 ENV APP_DIR=/srv/app
-COPY --from=web /web/build ${APP_DIR}
+COPY --from=web /web/build $APP_DIR
 
 ENTRYPOINT ["heltin-server"]

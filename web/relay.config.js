@@ -1,19 +1,17 @@
-const typescript = require('relay-compiler-language-typescript');
-
 module.exports = {
-  language: typescript,
-  schema: './schema.graphql',
+  language: 'typescript',
+  schema: '../cmd/graphql/schema.graphql',
   src: './src',
-  artifactDirectory: './src/relay/artifacts',
+  eagerEsModules: true,
   noFutureProofEnums: true,
-  // persistOutput: './.meta/complete.queryMap.json', TODO-db-190618 support persisted queries
-  exclude: ['**/node_modules/**', '**/relay/artifacts/**'],
+  isDevVariableName: 'import.meta.env.DEV',
   customScalars: {
-    UUID: 'String',
-    BigInt: 'Int',
-    EmailAddress: 'String',
-    Date: 'String',
-    Datetime: 'String',
-    Base64EncodedBinary: 'String',
+    UUID: 'string',
+    BigInt: 'number',
+    EmailAddress: 'string',
+    Date: 'string',
+    Datetime: 'string',
+    UpdatedTimestamptz: 'string',
+    CreatedTimestamptz: 'string',
   },
 };

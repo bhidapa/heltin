@@ -3,44 +3,40 @@
  * LogoutPage
  *
  */
-
 import React, { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { graphql, useMutation } from 'react-relay';
 
-// relay
-import { graphql, useTransitionMutation } from 'relay/hooks';
-
-// ui
-import { Flex } from '@domonda/ui/Flex';
-import { Text } from '@domonda/ui/Text';
+import { useNavigate } from '@tanstack/react-location';
 
 export interface LogoutPageProps {}
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
-  const [logout] = useTransitionMutation(
+  const [logout] = useMutation(
     graphql`
       mutation LogoutPageMutation {
         logout
       }
     `,
-    {
+  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    logout({
+      variables: {},
       updater: (store) => {
         store.invalidateStore();
         store.getRoot().setValue(null, 'viewer');
+        navigate({ to: '/login', search: true });
       },
-    },
-  );
-
-  useEffect(() => {
-    logout({ variables: {} });
+    });
   }, []);
 
   return (
-    <Flex container justify="center" align="center">
-      <Flex item>
-        <Text size="medium" weight="medium">
-          Logging out...
-        </Text>
-      </Flex>
-    </Flex>
+    <pre className="text-center text-muted">
+      <FormattedMessage id="LOGGING_OUT" />
+      ...
+    </pre>
   );
 };

@@ -3,48 +3,66 @@
  * ClientsPage
  *
  */
-
 import React from 'react';
-import { Route, Switch, RouteComponentProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { graphql, usePreloadedQuery } from 'react-relay';
 
-// relay
-import { graphql, useLazyLoadQuery } from 'react-relay/hooks';
-import { ClientsPageQuery } from 'relay/artifacts/ClientsPageQuery.graphql';
+import { Link, useMatch } from '@tanstack/react-location';
 
-// parts
-import { ClientsCreatePage } from './ClientsCreatePage';
-import { ClientsCreateCaseStudyPage } from './ClientsCreateCaseStudyPage';
-import { ClientsDetailPage } from './ClientsDetailPage';
-import { ClientsOverviewPage } from './ClientsOverviewPage';
+import { LocationGenerics } from 'core/location';
 
-export type ClientsPageProps = RouteComponentProps;
+import { ClientsTable } from 'modules/Clients/ClientsTable';
 
-export const ClientsPage: React.FC<ClientsPageProps> = (props) => {
-  const { match } = props;
+export interface ClientsPageProps {}
 
-  const { viewer } = useLazyLoadQuery<ClientsPageQuery>(
+export const ClientsPage: React.FC<ClientsPageProps> = () => {
+  const match = useMatch<LocationGenerics>();
+
+  const query = usePreloadedQuery(
     graphql`
-      query ClientsPageQuery {
-        viewer {
-          isAdmin
-          isMentalHealthProfessional
-        }
+      query ClientsPageQuery(
+        # pagination
+        $count: Int!
+        $cursor: Cursor
+        # filters
+        $q: String
+      ) {
+        ...ClientsTable_query
+          @arguments(
+            # pagination
+            count: $count
+            cursor: $cursor
+            # filters
+            q: $q
+          )
       }
     `,
-    {},
+    match.data.clientsPageQuery!,
   );
 
   return (
-    <Switch>
-      <Route path={`${match.path}/create`} component={ClientsCreatePage} />
-      {(viewer!.isAdmin || viewer!.isMentalHealthProfessional) && (
-        <Route
-          path={`${match.path}/:rowId/create-case-study`}
-          component={ClientsCreateCaseStudyPage}
-        />
-      )}
-      <Route path={`${match.path}/:rowId`} component={ClientsDetailPage} />
-      <Route path={match.path} component={ClientsOverviewPage} />
-    </Switch>
+    <div className="container">
+      <FormattedMessage id="CLIENTS">
+        {([msg]) => <Helmet title={msg?.toString()} />}
+      </FormattedMessage>
+
+      <div className="row row-eq-spacing align-items-center">
+        <div className="col-auto">
+          <h2 className="content-title m-0">
+            <FormattedMessage id="CLIENTS" />
+          </h2>
+        </div>
+        <div className="col text-right">
+          <Link to="create" search className="btn btn-primary">
+            <i className="fa-solid fa-plus"></i>
+            &nbsp;
+            <FormattedMessage id="NEW_CLIENT" />
+          </Link>
+        </div>
+      </div>
+
+      <ClientsTable query={query} />
+    </div>
   );
 };

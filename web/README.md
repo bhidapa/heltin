@@ -1,33 +1,29 @@
 # heltin app
 
-## Changelog
+## Getting started
 
-[Learn about the latest improvements](CHANGELOG.md).
-
-## Development (Available Scripts)
-
-After installing [yarn](https://yarnpkg.com/), you can run the following in the project directory:
+After installing [yarn](https://yarnpkg.com/getting-started/install), you can run the following from the project directory:
 
 ### `yarn start`
 
-Builds the DLL and runs the app in the development mode.<br>
-Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
+Starts the app using [Vite](https://vitejs.dev/).<br>
+Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
-The page will reload if you make edits.
+### `yarn type-check --watch`
+
+Since [Vite](https://vitejs.dev/) does not perform any type checking, we instead use [`tsc`](https://www.typescriptlang.org/docs/handbook/2/basic-types.html#tsc-the-typescript-compiler) to type-check our [TypeScript](https://www.typescriptlang.org/) code in _watch_ mode.
 
 ### `yarn relay --watch`
 
-Runs the [Relay Modern compiler](https://relay.dev/docs/en/compiler-architecture) in _watch_ mode. Whenever you are changing any GraphQL related code, you should have this compiler running.
+Runs the [Relay compiler](https://relay.dev/docs/guides/compiler/) in _watch_ mode. Whenever you are changing any GraphQL related code, you should have this running.
 
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Filenames include content hashes.<br>
+The app is ready to be deployed! 🚀
 
 ## Want to help?
 
 Want to file a bug, contribute some code, or improve documentation? Excellent! Read up on our
-guidelines for [contributing](CONTRIBUTING.md).
+guidelines for [contributing](../CONTRIBUTING.md).

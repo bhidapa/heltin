@@ -3,25 +3,48 @@
  * ClientsCreatePage
  *
  */
-
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
 import { Helmet } from 'react-helmet-async';
+import { FormattedMessage } from 'react-intl';
+import { graphql, usePreloadedQuery } from 'react-relay';
 
-// modules
-import { ClientCreate } from 'modules/Client/ClientCreate';
+import { useMatch } from '@tanstack/react-location';
 
-export type ClientsCreatePageProps = RouteComponentProps;
+import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
 
-const ClientsCreatePage: React.FC<ClientsCreatePageProps> = () => {
+import { ClientManage } from 'modules/Client/ClientManage';
+
+export interface ClientsCreatePageProps {}
+
+export const ClientsCreatePage: React.FC<ClientsCreatePageProps> = () => {
+  const match = useMatch<LocationGenerics>();
+
+  const { nextAvailableClientNumber } = usePreloadedQuery(
+    graphql`
+      query ClientsCreatePageQuery {
+        nextAvailableClientNumber
+      }
+    `,
+    match.data.clientsCreatePageQuery!,
+  );
+
   return (
-    <>
-      <FormattedMessage id="CREATE_CLIENT">{([msg]) => <Helmet title={msg} />}</FormattedMessage>
-      <ClientCreate />
-    </>
+    <div className="container">
+      <FormattedMessage id="NEW_CLIENT">
+        {([msg]) => <Helmet title={msg?.toString()} />}
+      </FormattedMessage>
+
+      <div className="row row-eq-spacing align-items-center">
+        <div className="col-auto">
+          <BackButton />
+        </div>
+
+        <div className="col">
+          <Breadcrumbs rightAlign />
+        </div>
+      </div>
+
+      <ClientManage client={null} nextAvailableClientNumber={nextAvailableClientNumber} />
+    </div>
   );
 };
-
-const ComposedClientsCreatePage = ClientsCreatePage;
-export { ComposedClientsCreatePage as ClientsCreatePage };

@@ -3,24 +3,17 @@
  * AutocompleteUser
  *
  */
-
-import React, { useCallback } from 'react';
+import React, { useCallback, useTransition } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { AutocompletePropsWith } from './types';
+import { useRefetchableFragment } from 'react-relay';
 
-// relay
-import { graphql, QueryRenderer, WithoutRefType } from 'react-relay';
-import { environment } from 'relay/environment';
-import { AutocompleteUserQuery } from 'relay/artifacts/AutocompleteUserQuery.graphql';
-import { AutocompleteUser_item } from 'relay/artifacts/AutocompleteUser_item.graphql';
+import { Autocomplete, AutocompletePropsWith } from 'lib/Autocomplete';
+import { WithoutFragmentType, graphql } from 'lib/relay';
+import { debounce } from 'lib/utils';
 
-// ui
-import { useDebouncedState } from '@domonda/react-plumb';
-import {
-  Autocomplete,
-  AutocompleteGetItemId,
-  AutocompleteItemToString,
-} from '@domonda/ui/Autocomplete';
+import { AutocompleteUserRefetchQuery } from './__generated__/AutocompleteUserRefetchQuery.graphql';
+import { AutocompleteUser_item$data } from './__generated__/AutocompleteUser_item.graphql';
+import { AutocompleteUser_query$key } from './__generated__/AutocompleteUser_query.graphql';
 
 graphql`
   fragment AutocompleteUser_item on User {
@@ -30,45 +23,54 @@ graphql`
   }
 `;
 
-export type AutocompleteUserItem = WithoutRefType<AutocompleteUser_item>;
+export type AutocompleteUserItem = WithoutFragmentType<AutocompleteUser_item$data>;
 
-export type AutocompleteUserProps = AutocompletePropsWith<AutocompleteUserItem>;
+export interface AutocompleteUserProps extends AutocompletePropsWith<AutocompleteUserItem> {
+  query: AutocompleteUser_query$key;
+}
 
 export const AutocompleteUser: React.FC<AutocompleteUserProps> = (props) => {
-  const getItemId = useCallback<AutocompleteGetItemId<AutocompleteUserItem>>(
-    (item) => (item ? item.id : ''),
-    [],
-  );
-  const itemToString = useCallback<AutocompleteItemToString<AutocompleteUserItem>>(
-    (item) => (item ? item.email : ''),
-    [],
-  );
-
-  const [searchText, setSearchText] = useDebouncedState<string | null>(300, null);
-
-  return (
-    <QueryRenderer<AutocompleteUserQuery>
-      environment={environment}
-      query={graphql`
-        query AutocompleteUserQuery($searchText: String) {
-          filterUsers(searchText: $searchText) {
-            nodes {
-              ...AutocompleteUser_item @relay(mask: false)
-            }
+  const [isPending, startTransition] = useTransition();
+  const [{ filterUsers }, refetch] = useRefetchableFragment<
+    AutocompleteUserRefetchQuery,
+    AutocompleteUser_query$key
+  >(
+    graphql`
+      fragment AutocompleteUser_query on Query
+      @refetchable(queryName: "AutocompleteUserRefetchQuery")
+      @argumentDefinitions(q: { type: "String" }) {
+        filterUsers(first: 10, searchText: $q) @required(action: THROW) {
+          nodes {
+            ...AutocompleteUser_item @relay(mask: false)
           }
         }
-      `}
-      variables={{ searchText }}
-      render={({ props: data }) => (
-        <Autocomplete<AutocompleteUserItem>
-          items={data ? data.filterUsers.nodes : []}
-          label={<FormattedMessage id="USER" />}
-          getItemId={getItemId}
-          itemToString={itemToString}
-          onInputValueChange={setSearchText}
-          {...props}
-        />
-      )}
+      }
+    `,
+    props.query,
+  );
+
+  const debouncedRefetch = useCallback(
+    debounce((...args: Parameters<typeof refetch>) => {
+      startTransition(() => {
+        refetch(...args);
+      });
+    }, 500),
+    [refetch],
+  );
+
+  return (
+    <Autocomplete
+      label={<FormattedMessage id="USER" />}
+      {...props}
+      items={filterUsers.nodes}
+      pleaseWait={isPending}
+      getItemId={(i) => filterUsers.nodes[i].id}
+      itemToString={(item) => item?.email || ''}
+      onInputValueChange={(changes) =>
+        debouncedRefetch({
+          q: changes.inputValue === changes.selectedItem?.email ? null : changes.inputValue,
+        })
+      }
     />
   );
 };

@@ -12,12 +12,14 @@ import (
 	"github.com/bhidapa/heltin/cmd/server/routes"
 	"github.com/bhidapa/heltin/pkg/env"
 	"github.com/bhidapa/heltin/pkg/postgres"
+	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/golog/log"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-httpx"
+	"github.com/ungerik/go-httpx/httperr"
 	"golang.org/x/crypto/acme/autocert"
 )
 
@@ -28,7 +30,7 @@ var config struct {
 	TLS            bool     `env:"TLS"`
 	CertDir        fs.File  `env:"CERT_DIR"`
 	AppDir         fs.File  `env:"APP_DIR"`
-	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT,required"`
+	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT"`
 }
 
 func main() {
@@ -47,6 +49,24 @@ func main() {
 
 	log.Logger = log.Logger.WithPrefix("server: ")
 
+	httperr.DefaultHandler = httperr.HandlerFunc(func(err error, writer http.ResponseWriter, request *http.Request) (handled bool) {
+		if errors.Is(err, context.Canceled) || errs.IsContextCanceled(request.Context()) {
+			return httperr.Handled
+		}
+		if httperr.WriteHandler(err, writer, request) {
+			// dont log handled errors
+			return httperr.Handled
+		}
+		if httperr.ShouldLog(err) {
+			log.Error("Internal error").
+				Request(request).
+				Err(err).
+				Log()
+		}
+		httperr.WriteInternalServerError(err, writer)
+		return httperr.Handled
+	})
+
 	log.Debug("Configurated").
 		StructFields(config).
 		Log()
@@ -63,11 +83,15 @@ func main() {
 
 	routes.API(router)
 
-	err = routes.GraphQLProxy(router, config.GraphQLEndoint)
-	if err != nil {
-		log.Fatal("error during graphql proxy setup").
-			Err(err).
-			LogAndPanic()
+	if config.GraphQLEndoint != "" {
+		err = routes.GraphQLProxy(router, config.GraphQLEndoint)
+		if err != nil {
+			log.Fatal("error during graphql proxy setup").
+				Err(err).
+				LogAndPanic()
+		}
+	} else {
+		log.Warn("GraphQL endpoint not specified, skipping proxy setup").Log()
 	}
 
 	if config.AppDir != "" {
@@ -79,8 +103,8 @@ func main() {
 	var handler http.Handler = router
 	if len(config.AllowedOrigins) > 0 {
 		allowedMethods := []string{"GET", "POST"}
-		allowedHeaders := []string{"Authorization", "X-Request-ID", "X-Correlation-ID"}
-		exposedHeaders := []string{"X-Request-ID", "X-Correlation-ID"}
+		allowedHeaders := []string{"X-Request-ID"}
+		exposedHeaders := []string{"X-Request-ID"}
 		handler = handlers.CORS(
 			handlers.AllowedOrigins(config.AllowedOrigins),
 			handlers.AllowedMethods(allowedMethods),
@@ -180,6 +204,9 @@ func SecHeaders(h http.Handler) http.Handler {
 
 		// Addresses polyglot attacks by forbidding content-type sniffing.
 		w.Header().Set("X-Content-Type-Options", "nosniff")
+
+		// No search engine should index anything about the app
+		w.Header().Set("X-Robots-Tag", "noindex")
 
 		h.ServeHTTP(w, r)
 	})

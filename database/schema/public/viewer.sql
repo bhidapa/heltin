@@ -8,7 +8,7 @@ cost 100000; -- so that the planner calls the function as little as possible
 
 ----
 
-create or replace function public.viewer()
+create function public.viewer()
 returns public.user as $$
 declare
   vwr public.user;

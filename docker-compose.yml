@@ -1,7 +1,7 @@
-version: "3"
-
 volumes:
   postgres-data:
+    driver: "local"
+  pgbackrest-repo:
     driver: "local"
 
 networks:
@@ -17,19 +17,19 @@ services:
     networks:
       - local
     environment:
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - PGPORT=${POSTGRES_PORT} # for postgres client utilities (like psql)
+      - PGBACKREST_PG1_PORT=${POSTGRES_PORT} # for pgBackRest
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - pgbackrest-repo:/var/lib/pgbackrest
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1",
-        ]
+      test: psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1 || exit 1
+      interval: 7s
       timeout: 3s
-      interval: 6s
-      retries: 3
     command:
       - postgres
       - -c
@@ -45,15 +45,22 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_SCHEMAS=${POSTGRES_SCHEMAS}
       - POSTGRES_SESSION_TABLE_SCHEMA=${POSTGRES_SESSION_TABLE_SCHEMA}
+      - WATCH=t
       - SESSION_SECRET=${SESSION_SECRET}
       - GRAPHQL_ROUTE=/graphql
       - GRAPHIQL_ROUTE=/graphiql
-      - PORT=${GRAPHQL_PORT}
+      - GRAPHQL_PORT=${GRAPHQL_PORT}
+    healthcheck:
+      test: "curl -f -H \"Content-Type: application/json\" -d '{ \"query\": \"query healthcheck { viewer { id } }\" }' http://localhost:$$GRAPHQL_PORT$$GRAPHQL_ROUTE || exit 1"
+      interval: 7s
+      timeout: 3s
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
   server:
     image: ghcr.io/bhidapa/heltin-server
     build:
@@ -65,19 +72,34 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
       - SESSION_SECRET=${SESSION_SECRET}
       - GOTENBERG_HOST=gotenberg
       - GOTENBERG_PORT=${GOTENBERG_PORT}
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
+    healthcheck:
+      test: curl -f -L http://localhost:$$SERVER_PORT/index.html?healthcheck || exit 1
+      interval: 7s
+      timeout: 3s
     depends_on:
-      - graphql
+      postgres:
+        condition: service_healthy
+      graphql:
+        condition: service_healthy
+      # is indeed used, but not a critical service
+      # gotenberg:
+      #   condition: service_healthy
   gotenberg:
     image: thecodingmachine/gotenberg:7
     networks:
       - local
     environment:
       - GOTENBERG_PORT=${GOTENBERG_PORT}
+    healthcheck:
+      test: curl -f http://localhost:$$GOTENBERG_PORT/health || exit 1
+      interval: 7s
+      timeout: 3s
     command:
-      - "gotenberg"
-      - "--api-port-from-env=GOTENBERG_PORT"
+      - gotenberg
+      - --api-port-from-env=GOTENBERG_PORT

@@ -5,7 +5,7 @@
 create policy select_file_anyone on public.file
   for select
   using (true);
-  -- TODO-db-051121 improve
+  -- TODO: improve
 
 ---- insert
 
@@ -17,7 +17,8 @@ create policy insert_file_anyone on public.file
 
 create policy update_file_disabled on public.file
   for update
-  using (false);
+  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
+  with check (false);
 
 ---- delete
 
@@ -28,11 +29,10 @@ create policy delete_file_is_admin on public.file
     public.user_is_admin(public.viewer())
   );
 
-create policy delete_file_disabled on public.file
+create policy delete_file_not_protected on public.file
   as permissive
   for delete
-  using (false);
-  -- TODO-db-051121 use "protected" field on file
+  using (not file.protected);
 
 ----
 

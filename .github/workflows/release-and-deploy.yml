@@ -9,6 +9,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Get short commit SHA
+        id: shortsha
+        run: echo "::set-output name=shortsha::$(git rev-parse --short HEAD)"
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to GitHub Container Registry
@@ -23,11 +26,12 @@ jobs:
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
+            server.args.VITE_APP_VER=${{ steps.shortsha.outputs.shortsha }}
           push: true
 
   deploy-bhidapa:
     name: Deploy to BHIDAPA
-    # needs: [release] TODO: put back once build speeds up
+    needs: [release]
     environment: BHIDAPA
     runs-on: ubuntu-latest
     env:

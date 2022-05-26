@@ -11,7 +11,7 @@ var (
 	log = rootlog.NewPackageLogger("pdf")
 
 	config struct {
-		GotenbergHost string `env:"GOTENBERG_HOST,required"`
+		GotenbergHost string `env:"GOTENBERG_HOST" envDefault:"localhost"`
 		GotenbergPort uint16 `env:"GOTENBERG_PORT,required"`
 	}
 

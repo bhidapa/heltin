@@ -44,7 +44,7 @@ func GraphQLProxy(router *mux.Router, endpoint string) error {
 
 	router.Handle(from, handlers.ProxyHeaders(proxy))
 
-	log.Debug("proxying graphql").
+	log.Debug("Proxying GraphQL").
 		Str("from", from).
 		Str("to", endpoint).
 		Log()

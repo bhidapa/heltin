@@ -3,164 +3,210 @@
  * Root
  *
  */
-
 import React, { useState } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { RestoreScroll } from 'lib/RestoreScroll';
-import { local } from 'lib/storage';
-import { LocationDescriptorObject } from 'history';
+import { FormattedMessage } from 'react-intl';
+import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay';
 
-// relay
-import { graphql } from 'relay/hooks';
-import { useLazyLoadQuery } from 'react-relay/hooks';
-import { RootQuery } from 'relay/artifacts/RootQuery.graphql';
+import { Link, Outlet, Router } from '@tanstack/react-location';
 
-// ui
-import { Flex } from '@domonda/ui/Flex';
-
-// pages
-import {
-  LOGIN_PAGE_ROUTE,
-  LOGOUT_PAGE_ROUTE,
-  DEFAULT_ROUTE,
-  PROFESSIONALS_PAGE_ROUTE,
-  CLIENTS_PAGE_ROUTE,
-  CASE_STUDIES_PAGE_ROUTE,
-} from 'lib/routes';
-const LazyFourOhFourPage = React.lazy(() => import('../pages/FourOhFourPage/default'));
-const LazyLoginPage = React.lazy(() => import('../pages/LoginPage/default'));
-const LazyLogoutPage = React.lazy(() => import('../pages/LogoutPage/default'));
-const LazyProfessionalsPage = React.lazy(() => import('../pages/ProfessionalsPage/default'));
-const LazyClientsPage = React.lazy(() => import('../pages/ClientsPage/default'));
-const LazyCaseStudiesPage = React.lazy(() => import('../pages/CaseStudiesPage/default'));
-
-// parts
-import { AppBar } from '../AppBar';
 import { Boundary } from 'lib/Boundary';
+import { Dropdown } from 'lib/Dropdown';
+import { PleaseWait } from 'lib/PleaseWait';
+import { useDarkMode } from 'lib/useDarkMode';
 
-// decorate
-import { decorate, Decorate } from './decorate';
+import { location } from 'core/location';
+import { getRoutes } from 'core/routes';
 
+import BHIDAPALogo from 'assets/BHIDAPA-logo-blue-90x90.png';
+
+import { RootSearch } from './RootSearch';
+import { RootQuery } from './__generated__/RootQuery.graphql';
+
+// viewer fragment for authenticating
 graphql`
   fragment Root_viewer on User {
-    ...AppBar_viewer
+    id
+    fullName
+    firstName
+    email
+    isAdmin
+    ...routes_viewer
   }
 `;
 
-const RETURN_TO_KEY = '@heltin/returnTo';
+export interface RootProps {
+  query: PreloadedQuery<RootQuery>;
+}
 
-const RootRoutes = React.memo<{
-  isLoggedIn: boolean;
-  isAdmin: boolean;
-  isMentalHealthProfessional: boolean;
-}>(function RootRoutes(props) {
-  const { isLoggedIn, isAdmin, isMentalHealthProfessional } = props;
-
-  const [returnTo, setReturnTo] = useState<LocationDescriptorObject | null>(
-    local.get(RETURN_TO_KEY, null),
-  );
-
-  function saveReturnTo(location: LocationDescriptorObject | null) {
-    const nextLocation = location;
-    if (nextLocation?.pathname === '/login' || nextLocation?.pathname === '/logout') {
-      nextLocation.pathname = DEFAULT_ROUTE;
-    }
-    if (nextLocation) {
-      local.set(RETURN_TO_KEY, nextLocation);
-    } else {
-      local.remove(RETURN_TO_KEY);
-    }
-    setReturnTo(nextLocation);
-  }
-
-  if (!isLoggedIn) {
-    return (
-      <Switch>
-        <Route path={LOGIN_PAGE_ROUTE} component={LazyLoginPage} />
-        <Route
-          path="*"
-          render={({ location }) => {
-            setTimeout(() => saveReturnTo(location), 0);
-            return <Redirect to={LOGIN_PAGE_ROUTE} />;
-          }}
-        />
-      </Switch>
-    );
-  }
-
-  if (returnTo) {
-    setTimeout(() => saveReturnTo(null), 0);
-    return <Redirect to={returnTo} />;
-  }
-
-  return (
-    <Switch>
-      <Route path={LOGOUT_PAGE_ROUTE} component={LazyLogoutPage} />
-      {isAdmin && <Route path={PROFESSIONALS_PAGE_ROUTE} component={LazyProfessionalsPage} />}
-      <Route path={CLIENTS_PAGE_ROUTE} component={LazyClientsPage} />
-      {(isAdmin || isMentalHealthProfessional) && (
-        <Route path={CASE_STUDIES_PAGE_ROUTE} component={LazyCaseStudiesPage} />
-      )}
-      <Redirect exact path="/" to={DEFAULT_ROUTE} />
-      <Route path="*" component={LazyFourOhFourPage} />
-    </Switch>
-  );
-});
-
-const Root: React.FC<Decorate> = (props) => {
-  const { classes } = props;
-
-  const { viewer } = useLazyLoadQuery<RootQuery>(
+export const Root: React.FC<RootProps> = (props) => {
+  const { viewer } = usePreloadedQuery<RootQuery>(
     graphql`
       query RootQuery {
         viewer {
-          isAdmin
-          isMentalHealthProfessional
           ...Root_viewer @relay(mask: false)
         }
       }
     `,
-    {},
+    props.query,
+  );
+
+  const [, toggleDarkMode] = useDarkMode();
+
+  // only logged in users have access to the navbar and the sidebar
+  const withSidebarAndNavbar = Boolean(viewer);
+
+  const [sidebarHidden, setSidebarHidden] = useState(
+    // hide sidebar on load on small screens (like halfmoon does)
+    () => document.documentElement.clientWidth <= 768,
   );
 
   return (
-    <Flex container direction="column">
-      {viewer && (
-        <header className={classes.header}>
-          <Flex container className={classes.content}>
-            <AppBar viewer={viewer} />
-          </Flex>
-        </header>
-      )}
-      <RestoreScroll>
-        {(ref) => (
-          <Flex ref={ref} item container flex={1} className={classes.main} component="main">
-            <main className={classes.content}>
-              <Boundary>
-                <Switch>
-                  {/* Removes trailing slashes */}
-                  <Route
-                    path="/:url*(/+)"
-                    exact
-                    strict
-                    render={({ location }) => (
-                      <Redirect to={location.pathname.replace(/\/+$/, '')} />
-                    )}
-                  />
-                  <RootRoutes
-                    isLoggedIn={Boolean(viewer)}
-                    isAdmin={viewer?.isAdmin ?? false}
-                    isMentalHealthProfessional={viewer?.isMentalHealthProfessional ?? false}
-                  />
-                </Switch>
-              </Boundary>
-            </main>
-          </Flex>
+    <Router
+      useErrorBoundary
+      defaultPendingMs={1_000}
+      defaultPendingElement={<PleaseWait />}
+      location={location}
+      routes={getRoutes(viewer)}
+    >
+      <div
+        id="page-wrapper"
+        className={
+          'page-wrapper with-navbar-fixed-bottom' +
+          (withSidebarAndNavbar ? ' with-navbar with-sidebar' : '')
+        }
+        {...(withSidebarAndNavbar ? { ['data-sidebar-type']: 'overlayed-sm-and-down' } : {})}
+        {...(withSidebarAndNavbar && sidebarHidden ? { ['data-sidebar-hidden']: 'hidden' } : {})}
+      >
+        {viewer && (
+          <>
+            <nav className="navbar">
+              <div className="navbar-content">
+                <button
+                  id="toggle-sidebar-btn"
+                  className="btn btn-action"
+                  type="button"
+                  onClick={() => setSidebarHidden((hidden) => !hidden)}
+                >
+                  <i className="fa fa-bars" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <Link to="/" className="navbar-brand ml-10 ml-sm-20">
+                <img src={BHIDAPALogo} alt="BHIDAPA" />
+              </Link>
+
+              <div className="navbar-content ml-auto">
+                <button className="btn btn-action mr-5" type="button" onClick={toggleDarkMode}>
+                  <i className="fa-solid fa-moon hidden-lm"></i>
+                  <i className="fa-solid fa-sun hidden-dm"></i>
+                  <span className="sr-only">
+                    <FormattedMessage id="TOGGLE_DARK_LIGHT_MODE" />
+                  </span>
+                </button>
+
+                <Dropdown
+                  content={
+                    <>
+                      <h6 className="dropdown-header">
+                        <FormattedMessage
+                          id="HELLO_USER"
+                          values={{
+                            user: viewer.firstName,
+                          }}
+                        />
+                        <br />
+                        <small>{viewer.email}</small>
+                      </h6>
+                      <div className="dropdown-divider"></div>
+                      <div className="dropdown-content">
+                        <Link to="/logout" className="btn btn-block btn-primary">
+                          <i className="fa-solid fa-right-from-bracket"></i>
+                          &nbsp;
+                          <FormattedMessage id="LOG_OUT" />
+                        </Link>
+                      </div>
+                    </>
+                  }
+                >
+                  {(toggle) => (
+                    <button
+                      className="btn"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      onClick={toggle}
+                    >
+                      <i className="fa-solid fa-circle-user"></i>
+                      <span className="hidden-sm-and-down">&nbsp;{viewer.fullName}</span>
+                    </button>
+                  )}
+                </Dropdown>
+              </div>
+            </nav>
+
+            <div className="sidebar-overlay" onClick={() => setSidebarHidden(true)}></div>
+
+            <div className="sidebar">
+              <div className="sidebar-menu">
+                <div className="sidebar-content">
+                  <RootSearch />
+                </div>
+
+                <h5 className="sidebar-title">
+                  <FormattedMessage id="MENU" />
+                </h5>
+                <div className="sidebar-divider"></div>
+
+                <Link
+                  to="/clients"
+                  className="sidebar-link sidebar-link-with-icon"
+                  activeOptions={{ exact: true }}
+                  getActiveProps={() => ({ className: 'active' })}
+                >
+                  <span className="sidebar-icon" style={{ color: 'inherit' }}>
+                    <i className="fa-solid fa-hospital-user"></i>
+                  </span>
+                  <FormattedMessage id="CLIENTS" />
+                </Link>
+                {viewer.isAdmin && (
+                  <Link
+                    to="/therapists"
+                    className="sidebar-link sidebar-link-with-icon"
+                    activeOptions={{ exact: true }}
+                    getActiveProps={() => ({ className: 'active' })}
+                  >
+                    <span className="sidebar-icon" style={{ color: 'inherit' }}>
+                      <i className="fa fa-user-doctor" aria-hidden="true"></i>
+                    </span>
+                    <FormattedMessage id="THERAPISTS" />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </>
         )}
-      </RestoreScroll>
-    </Flex>
+
+        <div className="content-wrapper">
+          <Boundary>
+            <Outlet />
+          </Boundary>
+        </div>
+
+        <nav className="navbar navbar-fixed-bottom">
+          <div className="container-fluid justify-content-between">
+            <small className="navbar-text">
+              {import.meta.env.VITE_APP_VER || import.meta.env.MODE}
+            </small>
+            <p className="navbar-text">
+              &copy;&nbsp;2019-{new Date().getFullYear()}&nbsp;
+              <b>heltin</b>&nbsp;by&nbsp;
+              <a href="https://bhidapa.com">
+                <b>BHIDAPA</b>
+              </a>
+            </p>
+          </div>
+        </nav>
+      </div>
+    </Router>
   );
 };
-
-const StyledRoot = decorate(Root);
-export { StyledRoot as Root };

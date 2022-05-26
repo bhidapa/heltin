@@ -24,7 +24,7 @@ func init() {
 	password := config.Secret
 	config.Secret = "<omitted>"
 
-	log.Debug("configured").
+	log.Debug("Configured").
 		StructFields(config).
 		Log()
 

@@ -2,8 +2,6 @@ create table public.case_study (
   id uuid primary key default uuid_generate_v4(),
 
   client_id uuid references public.client(id) on delete cascade,
-  group_id  uuid references public.group(id) on delete cascade,
-  check ((client_id is null) <> (group_id is null)), -- only one can be set. one must be set
 
   title text not null check(length(title) > 0),
 
@@ -21,7 +19,7 @@ create index case_study_created_by_idx on public.case_study (created_by);
 
 ----
 
-create or replace function public.update_case_study(
+create function public.update_case_study(
   id          uuid,
   title text
 ) returns public.case_study as
@@ -35,7 +33,7 @@ $$
 $$
 language sql volatile;
 
-create or replace function public.delete_case_study(
+create function public.delete_case_study(
   id uuid
 ) returns public.case_study as
 $$
@@ -61,78 +59,107 @@ grant select, insert, delete on public.case_study_relation to viewer;
 
 ----
 
-create table public.case_study_mental_health_professional (
+create table public.case_study_therapist (
   id uuid primary key default uuid_generate_v4(),
 
-  case_study_id                 uuid not null references public.case_study(id) on delete cascade,
-  mental_health_professional_id uuid not null references public.mental_health_professional(id),
-  unique(case_study_id, mental_health_professional_id),
+  case_study_id uuid not null references public.case_study(id) on delete cascade,
+  therapist_id  uuid not null references public.therapist(id),
+  unique(case_study_id, therapist_id),
 
-  "primary" boolean not null,
+  "primary" boolean not null default false,
 
   created_by uuid not null references public.user(id) on delete restrict,
-  created_at created_timestamptz not null
+  updated_by uuid references public.user(id) on delete restrict,
+
+  created_at created_timestamptz not null,
+  updated_at updated_timestamptz not null
 );
 
-grant select, insert, delete on public.case_study_mental_health_professional to viewer;
+grant select, update, insert, delete on public.case_study_therapist to viewer;
 
--- only one primary mental health professional per case study
-create unique index case_study_mental_health_professional_primary on public.case_study_mental_health_professional (case_study_id, "primary") where ("primary");
+-- only one primary therapist per case study
+create unique index case_study_therapist_primary on public.case_study_therapist (case_study_id, "primary") where ("primary");
 
-create index case_study_mental_health_professional_case_study_id_idx on public.case_study_mental_health_professional (case_study_id);
-create index case_study_mental_health_professional_professional_id_idx on public.case_study_mental_health_professional (mental_health_professional_id);
+create index case_study_therapist_case_study_id_idx on public.case_study_therapist (case_study_id);
+create index case_study_therapist_professional_id_idx on public.case_study_therapist (therapist_id);
+create index case_study_therapist_primary_idx on public.case_study_therapist ("primary");
 
 ----
 
-create or replace function public.create_case_study_mental_health_professional(
-  case_study_id                 uuid,
-  mental_health_professional_id uuid,
-  "primary"                     boolean
-) returns public.case_study_mental_health_professional as
+create function public.create_case_study_therapist(
+  case_study_id uuid,
+  therapist_id  uuid
+) returns public.case_study_therapist as
 $$
-  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary", created_by)
-    values (create_case_study_mental_health_professional.case_study_id, create_case_study_mental_health_professional.mental_health_professional_id, create_case_study_mental_health_professional."primary", public.viewer_user_id())
+  insert into public.case_study_therapist (case_study_id, therapist_id, created_by)
+    values (create_case_study_therapist.case_study_id, create_case_study_therapist.therapist_id, public.viewer_user_id())
   returning *
 $$
 language sql volatile;
 
-create or replace function public.delete_case_study_mental_health_professional(
+create function public.delete_case_study_therapist(
   id uuid
-) returns public.case_study_mental_health_professional as
+) returns public.case_study_therapist as
 $$
-  delete from public.case_study_mental_health_professional
-  where id = delete_case_study_mental_health_professional.id
+  delete from public.case_study_therapist
+  where id = delete_case_study_therapist.id
   returning *
 $$
 language sql volatile;
 
+create function public.set_primary_case_study_therapist(
+  case_study_id uuid,
+  therapist_id  uuid
+) returns public.case_study_therapist as $$
+declare
+  new_case_study_therapist public.case_study_therapist;
+begin
+  -- unset all primary therapists because there can be just one
+  update public.case_study_therapist
+    set
+      "primary"=false,
+      updated_by=public.viewer_user_id(),
+      updated_at=now()
+  where case_study_therapist.case_study_id = set_primary_case_study_therapist.case_study_id;
+
+  update public.case_study_therapist
+    set
+      "primary"=true,
+      updated_by=public.viewer_user_id(),
+      updated_at=now()
+  where case_study_therapist.case_study_id = set_primary_case_study_therapist.case_study_id
+  and case_study_therapist.therapist_id = set_primary_case_study_therapist.therapist_id
+  returning * into new_case_study_therapist;
+
+  return new_case_study_therapist;
+end
+$$ language plpgsql volatile strict;
+
 ----
 
-create or replace function public.create_case_study(
+create function public.create_case_study(
   title text,
-  -- either client or group, but not both
-  client_id   uuid = null,
-  group_id    uuid = null
+  client_id uuid
 ) returns public.case_study as
 $$
 declare
   added_case_study public.case_study;
-  mental_health_professional_id uuid;
+  therapist_id uuid;
 begin
-  select id into mental_health_professional_id
-  from public.mental_health_professional
+  select id into therapist_id
+  from public.therapist
   where user_id = public.viewer_user_id();
-  if mental_health_professional_id is null then
-    raise exception 'Only mental health professionals can create case studies';
+  if therapist_id is null then
+    raise exception 'Only therapists can create case studies';
   end if;
 
-  insert into public.case_study (client_id, group_id, title, created_by)
-    values (create_case_study.client_id, create_case_study.group_id, create_case_study.title, public.viewer_user_id())
+  insert into public.case_study (client_id, title, created_by)
+    values (create_case_study.client_id, create_case_study.title, public.viewer_user_id())
   returning * into added_case_study;
 
-  insert into public.case_study_mental_health_professional (case_study_id, mental_health_professional_id, "primary", created_by)
-    -- only mental health professionals should be creating case studies
-    values (added_case_study.id, mental_health_professional_id, true, public.viewer_user_id());
+  insert into public.case_study_therapist (case_study_id, therapist_id, "primary", created_by)
+    -- only therapists should be creating case studies
+    values (added_case_study.id, therapist_id, true, public.viewer_user_id());
 
   return added_case_study;
 end
@@ -171,7 +198,7 @@ create index case_study_treatment_created_by_idx on public.case_study_treatment 
 
 ----
 
-create or replace function public.client_case_study_treatments_by_case_studies_client_id(
+create function public.client_case_study_treatments_by_case_studies_client_id(
   client public.client
 ) returns setof public.case_study_treatment as
 $$
@@ -181,7 +208,7 @@ $$
 $$
 language sql stable;
 
-create or replace function public.create_case_study_treatment(
+create function public.create_case_study_treatment(
   case_study_id uuid,
   "external"    boolean,
   started_at    timestamptz,
@@ -208,7 +235,7 @@ $$
 $$
 language sql volatile;
 
-create or replace function public.update_case_study_treatment(
+create function public.update_case_study_treatment(
   id          uuid,
   "external"  boolean,
   started_at  timestamptz,
@@ -234,7 +261,7 @@ $$
 $$
 language sql volatile;
 
-create or replace function public.delete_case_study_treatment(
+create function public.delete_case_study_treatment(
   id uuid
 ) returns public.case_study_treatment as
 $$
@@ -251,6 +278,7 @@ create table public.case_study_treatment_file (
 
   case_study_treatment_id uuid not null references public.case_study_treatment(id) on delete cascade,
   file_id                 uuid not null references public.file(id) on delete cascade,
+  unique(case_study_treatment_id, file_id),
 
   created_at created_timestamptz not null
 );
@@ -260,40 +288,13 @@ grant select, insert, delete on public.case_study_treatment_file to viewer;
 create index case_study_treatment_file_case_study_treatment_id_idx on public.case_study_treatment_file (case_study_treatment_id);
 create index case_study_treatment_file_file_id_idx on public.case_study_treatment_file (file_id);
 
-----
-
-create or replace function public.create_case_study_treatment_file(
-  case_study_treatment_id uuid,
-  file_name               text,
-  file_data               bytea
-) returns public.case_study_treatment_file as
-$$
-  with created_file as (
-    insert into public.file (name, data, created_by)
-      values (create_case_study_treatment_file.file_name, create_case_study_treatment_file.file_data, public.viewer_user_id())
-    returning *
-  )
-  insert into public.case_study_treatment_file (case_study_treatment_id, file_id)
-    select create_case_study_treatment_file.case_study_treatment_id, id from created_file
-  returning *
-$$
-language sql volatile;
-
-create or replace function public.delete_case_study_treatment_file(
-  id uuid
-) returns public.case_study_treatment_file as
-$$
-  with deleted as (
-    delete from public.case_study_treatment_file
-    where id = delete_case_study_treatment_file.id
-    returning *
-  )
-  delete from public.file
-    using deleted
-  where deleted.file_id = file.id
-  returning deleted.*
-$$
-language sql volatile;
+create function public.file_case_study_treatment_file(
+  file public.file
+) returns public.case_study_treatment_file as $$
+  select * from public.case_study_treatment_file
+  where case_study_treatment_file.file_id = file.id
+  -- unnecessary limit 1, there's a constraint
+$$ language sql stable strict;
 
 ----
 
@@ -309,10 +310,12 @@ create table public.case_study_conclusion (
   id uuid primary key default uuid_generate_v4(),
 
   case_study_id uuid unique not null references public.case_study(id) on delete cascade,
+  constraint one_conclusion_per_case_study unique(case_study_id),
 
   "type" public.case_study_conclusion_type not null,
 
-  description text not null check(length(description) >= 3),
+  description         text not null check(length(description) >= 3),
+  private_description text check(length(private_description) >= 3),
 
   concluded_at timestamptz not null,
 
@@ -330,11 +333,12 @@ create index case_study_conclusion_created_by_idx on public.case_study_conclusio
 
 ----
 
-create or replace function public.create_case_study_conclusion(
+create function public.create_case_study_conclusion(
   case_study_id uuid,
   "type"        public.case_study_conclusion_type,
   concluded_at  timestamptz,
-  description   text
+  description   text,
+  private_description text = null
 ) returns public.case_study_conclusion as
 $$
   insert into public.case_study_conclusion (case_study_id, "type", concluded_at, description, created_by)
@@ -343,11 +347,12 @@ $$
 $$
 language sql volatile;
 
-create or replace function public.update_case_study_conclusion(
+create function public.update_case_study_conclusion(
   id           uuid,
   "type"       public.case_study_conclusion_type,
   concluded_at timestamptz,
-  description  text
+  description  text,
+  private_description text = null
 ) returns public.case_study_conclusion as
 $$
   update public.case_study_conclusion set
@@ -361,7 +366,7 @@ $$
 $$
 language sql volatile;
 
-create or replace function public.delete_case_study_conclusion(
+create function public.delete_case_study_conclusion(
   id uuid
 ) returns public.case_study_conclusion as
 $$
@@ -371,6 +376,13 @@ $$
 $$
 language sql volatile;
 
+create function public.case_study_concluded(
+  case_study public.case_study
+) returns boolean as $$
+  select exists(select from public.case_study_conclusion where case_study_id = case_study.id)
+$$ language sql stable strict;
+comment on function public.case_study_concluded is '@notNull';
+
 ----
 
 create table public.case_study_conclusion_file (
@@ -378,6 +390,7 @@ create table public.case_study_conclusion_file (
 
   case_study_conclusion_id uuid not null references public.case_study_conclusion(id) on delete cascade,
   file_id                  uuid not null references public.file(id) on delete cascade,
+  unique(case_study_conclusion_id, file_id),
 
   created_at created_timestamptz not null
 );
@@ -387,37 +400,10 @@ grant select, insert, delete on public.case_study_conclusion_file to viewer;
 create index case_study_conclusion_file_case_study_conclusion_id_idx on public.case_study_conclusion_file (case_study_conclusion_id);
 create index case_study_conclusion_file_file_id_idx on public.case_study_conclusion_file (file_id);
 
-----
-
-create or replace function public.create_case_study_conclusion_file(
-  case_study_conclusion_id uuid,
-  file_name                text,
-  file_data                bytea
-) returns public.case_study_conclusion_file as
-$$
-  with created_file as (
-    insert into public.file (name, data, created_by)
-      values (create_case_study_conclusion_file.file_name, create_case_study_conclusion_file.file_data, public.viewer_user_id())
-    returning *
-  )
-  insert into public.case_study_conclusion_file (case_study_conclusion_id, file_id)
-    select create_case_study_conclusion_file.case_study_conclusion_id, id from created_file
-  returning *
-$$
-language sql volatile;
-
-create or replace function public.delete_case_study_conclusion_file(
-  id uuid
-) returns public.case_study_conclusion_file as
-$$
-  with deleted as (
-    delete from public.case_study_conclusion_file
-    where id = delete_case_study_conclusion_file.id
-    returning *
-  )
-  delete from public.file
-    using deleted
-  where deleted.file_id = file.id
-  returning deleted.*
-$$
-language sql volatile;
+create function public.file_case_study_conclusion_file(
+  file public.file
+) returns public.case_study_conclusion_file as $$
+  select * from public.case_study_conclusion_file
+  where case_study_conclusion_file.file_id = file.id
+  -- unnecessary limit 1, there's a constraint
+$$ language sql stable strict;

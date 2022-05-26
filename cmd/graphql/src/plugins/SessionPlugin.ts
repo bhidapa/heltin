@@ -1,9 +1,12 @@
-import { makeExtendSchemaPlugin, gql } from "graphile-utils";
-import { Context } from "../index";
-
-export interface Session {
-  user_id: string;
-}
+/**
+ *
+ * SessionPlugin
+ *
+ */
+import { makeExtendSchemaPlugin, gql } from 'graphile-utils';
+import { writeInternalError } from '../utils';
+import { Context } from '../index';
+import db from '../db';
 
 export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
   typeDefs: gql`
@@ -28,16 +31,12 @@ export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
       async login(
         _parent,
         args,
-        context,
+        { req, res, pgRootPool, pgClient }: Context,
         _resolveInfo,
-        { selectGraphQLResultFromTable }
+        { selectGraphQLResultFromTable },
       ) {
-        const { req, pgRootPool, pgClient } = context as Context;
-
         const { email, password } = args.input;
-        const {
-          rows: [user],
-        } = await pgRootPool.query(
+        const user = await db(pgRootPool).queryRow<{ id: string }>(
           `select
             pub_user.id
           from public.user as pub_user
@@ -45,60 +44,52 @@ export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
           where pub_user.email = $1
           and not priv_user.disabled
           and priv_user.password = crypt($2, priv_user.password)`,
-          [email, password]
+          email,
+          password,
         );
-        if (!user?.id) throw new Error("Wrong credentials");
-        req.session.user_id = user.id;
+        if (!user?.id) {
+          throw new Error('Wrong credentials');
+        }
 
-        await new Promise<void>((resolve, reject) =>
-          req.session.save((err) => (err ? reject(err) : resolve()))
-        );
+        try {
+          await req.updateSession(user.id);
+        } catch (err) {
+          writeInternalError(res, err);
+          return; // already responded
+        }
 
-        // set relevant settings for currently running client for immediate access
-        await pgClient.query("set role viewer");
-        await pgClient.query("select set_config($1, $2, true)", [
-          "session.user_id",
+        await db(pgClient).exec('set role viewer');
+        await db(pgClient).exec(
+          'select set_config($1, $2, true)',
+          'session.user_id',
           user.id,
-        ]);
+        );
 
         const sql = build.pgSql;
         const [data] = await selectGraphQLResultFromTable(
           sql.fragment`public.user`,
           (tableAlias, sqlBuilder) => {
             sqlBuilder.where(
-              sql.fragment`${tableAlias}.id = ${sql.value(user.id)}`
+              sql.fragment`${tableAlias}.id = ${sql.value(user.id)}`,
             );
-          }
+          },
         );
         return { query: build.$$isQuery, data };
       },
-      async logout(_parent, _args, context) {
-        const { req, pgClient } = context as Context;
-
-        const somethingToDestroy = Boolean(req.session.user_id);
-
-        await new Promise<void>((resolve, reject) =>
-          req.session.destroy((err) => (err ? reject(err) : resolve()))
-        );
-
-        await pgClient.query("set role anonymous");
-        await pgClient.query("reset session.user_id");
-
-        return somethingToDestroy;
+      async logout(
+        _parent,
+        _args,
+        { req, pgClient }: Context,
+      ): Promise<boolean> {
+        await db(pgClient).exec('set role anonymous');
+        await db(pgClient).exec('reset session.user_id');
+        return await req.deleteSession();
       },
-      async logoutOthers(_parent, _args, context) {
-        const { req, pgRootPool } = context as Context;
-
-        if (!req.session.user_id) throw new Error("Unauthorized");
-
-        const { rows } = await pgRootPool.query(
-          `delete from private.session
-          where sess->>'user_id' = $1
-          and sid <> $2
-          returning 1`,
-          [req.session.user_id, req.sessionID]
-        );
-        return rows.length > 0;
+      async logoutOthers(_parent, _args, { req }: Context): Promise<Boolean> {
+        if (!req.session) {
+          throw new Error('Unauthorized');
+        }
+        return await req.deleteAllSessions(true);
       },
     },
   },

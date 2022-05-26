@@ -28,14 +28,8 @@ func UserFromContext(ctx context.Context) (userID uu.ID, err error) {
 	return userID, nil
 }
 
-func TransactionAsUser(ctx context.Context, txFunc func(ctx context.Context) error) (err error) {
+func TransactionAsUser(ctx context.Context, userID uu.ID, txFunc func(ctx context.Context) error) (err error) {
 	return db.Transaction(ctx, func(ctx context.Context) (err error) {
-		userID, err := UserFromContext(ctx)
-		if err != nil {
-			return err
-		}
-
-		// impersonate user in transaction
 		err = db.Conn(ctx).Exec(fmt.Sprintf("set local session.user_id to '%s'; set role viewer;", userID))
 		if err != nil {
 			return err
@@ -47,7 +41,14 @@ func TransactionAsUser(ctx context.Context, txFunc func(ctx context.Context) err
 				err = errs.Combine(err, e)
 			}
 		}()
-
 		return txFunc(ctx)
 	})
+}
+
+func TransactionAsUserFromContext(ctx context.Context, txFunc func(ctx context.Context) error) (err error) {
+	userID, err := UserFromContext(ctx)
+	if err != nil {
+		return err
+	}
+	return TransactionAsUser(ctx, userID, txFunc)
 }

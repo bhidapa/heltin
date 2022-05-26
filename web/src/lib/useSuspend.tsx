@@ -3,8 +3,8 @@
  * useSuspend
  *
  */
+import { useCallback, useState } from 'react';
 
-import { useState, useCallback } from 'react';
 import { usePanic } from './usePanic';
 
 interface Sink {
