@@ -577,6 +577,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
                         className="btn btn-success"
                         href={`/api/file/${reportFileRowId}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <i className="fa-solid fa-arrow-up-right-from-square"></i>
                         &nbsp;
