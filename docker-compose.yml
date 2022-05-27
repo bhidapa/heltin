@@ -42,7 +42,7 @@ services:
     networks:
       - local
     environment:
-      - POSTGRES_HOST=postgres
+      - POSTGRES_HOST=database
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -69,7 +69,7 @@ services:
     networks:
       - local
     environment:
-      - POSTGRES_HOST=postgres
+      - POSTGRES_HOST=database
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
