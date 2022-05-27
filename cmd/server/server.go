@@ -25,10 +25,10 @@ import (
 
 var config struct {
 	Port           int      `env:"SERVER_PORT"`
+	TLSPort        int      `env:"SERVER_TLS_PORT"`
+	CertDir        fs.File  `env:"CERT_DIR"`
 	AppDomains     []string `env:"APP_DOMAINS"`
 	AllowedOrigins []string `env:"ALLOWED_ORIGINS"`
-	TLS            bool     `env:"TLS"`
-	CertDir        fs.File  `env:"CERT_DIR"`
 	AppDir         fs.File  `env:"APP_DIR"`
 	GraphQLEndoint string   `env:"GRAPHQL_ENDPOINT"`
 }
@@ -37,14 +37,6 @@ func main() {
 	err := env.Parse(&config)
 	if err != nil {
 		panic(err)
-	}
-
-	if config.Port == 0 {
-		if config.TLS {
-			config.Port = 443
-		} else {
-			config.Port = 80
-		}
 	}
 
 	log.Logger = log.Logger.WithPrefix("server: ")
@@ -120,8 +112,13 @@ func main() {
 			Log()
 	}
 
+	serverAddr := fmt.Sprintf(":%d", config.Port)
+	if config.TLSPort != 0 {
+		serverAddr = fmt.Sprintf(":%d", config.TLSPort)
+	}
+
 	server := &http.Server{
-		Addr:         fmt.Sprintf(":%d", config.Port),
+		Addr:         serverAddr,
 		Handler:      handler,
 		ErrorLog:     log.ErrorWriter().StdLogger(),
 		IdleTimeout:  60 * time.Second,
@@ -136,7 +133,7 @@ func main() {
 		panic(err)
 	}
 
-	if config.TLS {
+	if config.TLSPort != 0 {
 		certManager := autocert.Manager{
 			Email:      "dev@heltin.app",
 			Prompt:     autocert.AcceptTOS,
@@ -146,11 +143,11 @@ func main() {
 
 		go func() {
 			log.Info("autocert manager listening").
-				Uint16("port", 80).
+				Int("port", config.Port).
 				Log()
 
 			err := http.ListenAndServe(
-				":80",
+				fmt.Sprintf(":%d", config.Port),
 				// redirect to https
 				certManager.HTTPHandler(http.HandlerFunc((func(w http.ResponseWriter, req *http.Request) {
 					target := "https://" + req.Host + req.URL.Path

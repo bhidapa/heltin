@@ -13,10 +13,10 @@ services:
   server:
     restart: unless-stopped
     environment:
-      - APP_DOMAINS=${APP_DOMAINS}
-      - TLS=true
+      - SERVER_PORT=80
+      - SERVER_TLS_PORT=443
       - CERT_DIR=/srv/certs
-      - SERVER_PORT=443 # is the default already, but defined for healtchecks
+      - APP_DOMAINS=${APP_DOMAINS}
     volumes:
       - server-certs:/srv/certs
     ports:
