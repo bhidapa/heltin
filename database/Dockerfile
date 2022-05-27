@@ -27,7 +27,7 @@ RUN echo "\n" "# pgBackRest #" "\n" \
   "wal_level = replica" >> /usr/share/postgresql/postgresql.conf.sample
 RUN set -eux; \
   mkdir -p /tmp/pgbackrest-release; cd /tmp/pgbackrest-release; \
-  curl -s -L https://github.com/pgbackrest/pgbackrest/archive/release/2.37.tar.gz | tar xvzf - --strip-components=1; \
+  curl -s -L https://github.com/pgbackrest/pgbackrest/archive/release/2.39.tar.gz | tar xvzf - --strip-components=1; \
   cd src; \
   ./configure; make; \
   mv pgbackrest /usr/bin; chmod 755 /usr/bin/pgbackrest; \

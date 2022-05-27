@@ -18,7 +18,7 @@ RUN set -eux; \
   go build -v -o /heltin-server
 
 # build web
-FROM node:17 as web
+FROM node:18 as web
 
 WORKDIR /web
 
@@ -35,7 +35,7 @@ ARG VITE_APP_VER
 RUN VITE_APP_VER=$VITE_APP_VER yarn build
 
 # server
-FROM alpine:3.13
+FROM alpine:3.16
 
 # necessary for healthchecks
 RUN apk --update --no-cache add curl
