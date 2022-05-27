@@ -105,5 +105,6 @@ jobs:
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
+            server.args.VITE_APP_VER=${{ steps.shortsha.outputs.shortsha }}
           targets: web
           push: true
