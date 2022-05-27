@@ -36,7 +36,6 @@ jobs:
         run: yarn install --immutable
       - name: Lint
         run: yarn lint
-
   type-check:
     name: Type check
     runs-on: ubuntu-latest
@@ -59,7 +58,6 @@ jobs:
         run: yarn install --immutable
       - name: Type check
         run: yarn type-check
-
   graphql-check:
     name: GraphQL check
     runs-on: ubuntu-latest
@@ -82,27 +80,30 @@ jobs:
         run: yarn install --immutable
       - name: GraphQL check
         run: yarn relay --validate
-
-  # TODO:
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   if: "!contains(github.event.head_commit.message, '[skip ci]')"
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Set up node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: current
-  #     - name: Cache
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: web/.yarn/cache
-  #         key: ${{ runner.os }}-web-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-web-yarn-cache-
-  #     - name: Install
-  #       run: yarn install --immutable
-  #     - name: Test
-  #       run: yarn test --forceExit
+  release:
+    name: Release
+    if: github.ref == 'refs/heads/master'
+    needs: [lint, type-check, graphql-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get short commit SHA
+        id: shortsha
+        run: echo "::set-output name=shortsha::$(git rev-parse --short HEAD)"
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/bake-action@v2
+        with:
+          set: |
+            *.cache-from=type=gha
+            *.cache-to=type=gha,mode=max
+          targets: web
+          push: true
