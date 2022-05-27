@@ -3,7 +3,7 @@ volumes:
     driver: "local"
 
 services:
-  postgres:
+  database:
     restart: unless-stopped
   graphql:
     restart: unless-stopped

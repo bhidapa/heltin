@@ -6,7 +6,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-CONTAINER=$(docker ps -q -f volume=heltin_postgres-data)
+CONTAINER=$(docker ps -q -f volume=heltin_database-data)
 DUMP_NAME="$1"
 
 if [ -z "$CONTAINER" ]; then

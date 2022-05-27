@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-CONTAINER=$(docker ps -q -f volume=heltin_postgres-data)
-DUMP_NAME=postgres_data_dump_$(date +%d-%m-%Y-%H-%M-%S).sql
+CONTAINER=$(docker ps -q -f volume=heltin_database-data)
+DUMP_NAME=database_data_dump_$(date +%d-%m-%Y-%H-%M-%S).sql
 
 if [ -z "$CONTAINER" ]; then
   echo "No matching container found, is it running?"

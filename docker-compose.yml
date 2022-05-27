@@ -1,5 +1,5 @@
 volumes:
-  postgres-data:
+  database-data:
     driver: "local"
   pgbackrest-repo:
     driver: "local"
@@ -9,8 +9,8 @@ networks:
     driver: "bridge"
 
 services:
-  postgres:
-    image: ghcr.io/bhidapa/heltin-postgres
+  database:
+    image: ghcr.io/bhidapa/heltin-database
     build:
       context: .
       dockerfile: ./database/Dockerfile
@@ -24,7 +24,7 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - database-data:/var/lib/postgresql/data
       - pgbackrest-repo:/var/lib/pgbackrest
     healthcheck:
       test: psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1 || exit 1
@@ -59,7 +59,7 @@ services:
       interval: 7s
       timeout: 3s
     depends_on:
-      postgres:
+      database:
         condition: service_healthy
   server:
     image: ghcr.io/bhidapa/heltin-server
@@ -83,7 +83,7 @@ services:
       interval: 7s
       timeout: 3s
     depends_on:
-      postgres:
+      database:
         condition: service_healthy
       graphql:
         condition: service_healthy

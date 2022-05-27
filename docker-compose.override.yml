@@ -1,5 +1,5 @@
 services:
-  postgres:
+  database:
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
