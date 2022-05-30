@@ -12,7 +12,7 @@ import { useNavigate } from '@tanstack/react-location';
 import printJS from 'print-js';
 
 import { Tooltip } from 'lib/Tooltip';
-import { formatDatetimeLocal, parseDatetimeLocal } from 'lib/date';
+import { formatDate } from 'lib/date';
 import { usePromiseMutation } from 'lib/relay';
 import { buildHeaders, checkResponse } from 'lib/request';
 import { buildReportToast, createToast, deleteToast, printToast, saveToast } from 'lib/toasts';
@@ -122,7 +122,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
 
   const defaultValues = {
     type: conclusion?.type ?? 'TREATMENT_COMPLETION',
-    concludedAt: formatDatetimeLocal(conclusion?.concludedAt) ?? '',
+    concludedAt: formatDate(conclusion?.concludedAt ?? new Date()),
     description: conclusion?.description ?? '',
     privateDescription: conclusion?.privateDescription ?? null,
   };
@@ -150,7 +150,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
                   input: {
                     ...values,
                     rowId: caseStudy.rowId,
-                    concludedAt: parseDatetimeLocal(values.concludedAt),
+                    concludedAt: formatDate(values.concludedAt),
                   },
                 },
               });
@@ -169,7 +169,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
                 input: {
                   ...values,
                   caseStudyRowId: caseStudy.rowId,
-                  concludedAt: parseDatetimeLocal(values.concludedAt),
+                  concludedAt: formatDate(values.concludedAt),
                 },
               },
               updater: (store) => {
@@ -239,8 +239,8 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
           </label>
           <input
             {...register('concludedAt')}
-            type="datetime-local"
-            placeholder="YYYY-MM-DDTHH:MM" // for browsers that don't support the date input
+            type="date"
+            placeholder="YYYY-MM-DD" // for browsers that don't support the date input
             className="form-control"
             id="concludedAt"
             required
