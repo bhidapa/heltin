@@ -87,6 +87,11 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
               rowId
               clientRowId
               ...CaseStudyTreatmentManage_caseStudy
+              client: clientByClientRowId {
+                ...ClientCaseStudies_client
+                ...ClientsTable_client
+              }
+              ...ClientsCaseStudiesDetailsPage_caseStudy
             }
             ...CaseStudyTreatmentManage_treatment
           }
@@ -103,8 +108,14 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
             rowId
             caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
               ...CaseStudyTreatmentManage_caseStudy
+              ...ClientsCaseStudiesDetailsPage_caseStudy
             }
             ...CaseStudyTreatmentManage_treatment
+            eventsByCaseStudyTreatmentRowId {
+              nodes {
+                ...EventsTable_events
+              }
+            }
           }
         }
       }
@@ -117,10 +128,13 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
         deleteCaseStudyTreatment(input: $input) {
           treatment: caseStudyTreatment {
             rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              ...CaseStudyTreatmentManage_caseStudy
+            caseStudyByCaseStudyRowId {
+              clientByClientRowId {
+                ...ClientCaseStudies_client
+                ...ClientsTable_client
+              }
+              ...ClientsCaseStudiesDetailsPage_caseStudy
             }
-            ...CaseStudyTreatmentManage_treatment
           }
         }
       }

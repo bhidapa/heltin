@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6a7b42447118c29c492a03967a4556c5>>
+ * @generated SignedSource<<2140a26c89a9d5715331e507c3a5ae8f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -31,7 +31,10 @@ export type CaseStudyTreatmentManageCreateMutation$data = {
       readonly caseStudy: {
         readonly rowId: string;
         readonly clientRowId: string | null;
-        readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy">;
+        readonly client: {
+          readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
+        } | null;
+        readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
     } | null;
@@ -82,7 +85,172 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "fullName",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "concluded",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v9 = {
+  "alias": "conclusion",
+  "args": null,
+  "concreteType": "CaseStudyConclusion",
+  "kind": "LinkedField",
+  "name": "caseStudyConclusionByCaseStudyRowId",
+  "plural": false,
+  "selections": [
+    (v8/*: any*/),
+    (v6/*: any*/)
+  ],
+  "storageKey": null
+},
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "createdAt",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "startedAt",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "endedAt",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "EventsConnection",
+  "kind": "LinkedField",
+  "name": "sortedEvents",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Event",
+      "kind": "LinkedField",
+      "name": "nodes",
+      "plural": true,
+      "selections": [
+        (v6/*: any*/),
+        (v8/*: any*/),
+        (v3/*: any*/),
+        {
+          "alias": "caseStudy",
+          "args": null,
+          "concreteType": "CaseStudy",
+          "kind": "LinkedField",
+          "name": "caseStudyByCaseStudyRowId",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            (v4/*: any*/),
+            (v10/*: any*/),
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": "formResponse",
+          "args": null,
+          "concreteType": "FormResponse",
+          "kind": "LinkedField",
+          "name": "formResponseByFormResponseRowId",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            {
+              "alias": "form",
+              "args": null,
+              "concreteType": "Form",
+              "kind": "LinkedField",
+              "name": "formByFormRowId",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
+                },
+                (v6/*: any*/)
+              ],
+              "storageKey": null
+            },
+            (v10/*: any*/),
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": "treatment",
+          "args": null,
+          "concreteType": "CaseStudyTreatment",
+          "kind": "LinkedField",
+          "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            (v4/*: any*/),
+            (v11/*: any*/),
+            (v12/*: any*/),
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": "conclusion",
+          "args": null,
+          "concreteType": "CaseStudyConclusion",
+          "kind": "LinkedField",
+          "name": "caseStudyConclusionByCaseStudyConclusionRowId",
+          "plural": false,
+          "selections": [
+            (v2/*: any*/),
+            (v8/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "concludedAt",
+              "storageKey": null
+            },
+            (v6/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -125,6 +293,32 @@ return {
                       "args": null,
                       "kind": "FragmentSpread",
                       "name": "CaseStudyTreatmentManage_caseStudy"
+                    },
+                    {
+                      "alias": "client",
+                      "args": null,
+                      "concreteType": "Client",
+                      "kind": "LinkedField",
+                      "name": "clientByClientRowId",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "ClientCaseStudies_client"
+                        },
+                        {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "ClientsTable_client"
+                        }
+                      ],
+                      "storageKey": null
+                    },
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "ClientsCaseStudiesDetailsPage_caseStudy"
                     }
                   ],
                   "storageKey": null
@@ -190,18 +384,169 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      {
+                        "alias": "caseStudies",
+                        "args": [
+                          {
+                            "kind": "Literal",
+                            "name": "orderBy",
+                            "value": [
+                              "CREATED_AT_DESC"
+                            ]
+                          }
+                        ],
+                        "concreteType": "CaseStudiesConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudiesByClientRowId",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "CaseStudy",
+                            "kind": "LinkedField",
+                            "name": "nodes",
+                            "plural": true,
+                            "selections": [
+                              (v6/*: any*/),
+                              (v2/*: any*/),
+                              (v4/*: any*/),
+                              (v7/*: any*/),
+                              (v9/*: any*/),
+                              (v13/*: any*/)
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
+                      },
                       {
                         "alias": null,
                         "args": null,
                         "kind": "ScalarField",
-                        "name": "fullName",
+                        "name": "number",
                         "storageKey": null
                       },
-                      (v5/*: any*/)
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ClientAssignedTherapist",
+                        "kind": "LinkedField",
+                        "name": "latestAssignedTherapist",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": "therapist",
+                            "args": null,
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByTherapistRowId",
+                            "plural": false,
+                            "selections": [
+                              (v2/*: any*/),
+                              (v5/*: any*/),
+                              (v6/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          (v6/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": "treatments",
+                        "args": null,
+                        "concreteType": "CaseStudyTreatmentsConnection",
+                        "kind": "LinkedField",
+                        "name": "caseStudyTreatmentsByCaseStudiesClientRowId",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "totalCount",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  (v7/*: any*/),
+                  (v9/*: any*/),
+                  {
+                    "alias": "assignedTherapists",
+                    "args": [
+                      {
+                        "kind": "Literal",
+                        "name": "orderBy",
+                        "value": [
+                          "CREATED_AT_ASC"
+                        ]
+                      }
+                    ],
+                    "concreteType": "CaseStudyTherapistsConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudyTherapistsByCaseStudyRowId",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "CaseStudyTherapist",
+                        "kind": "LinkedField",
+                        "name": "nodes",
+                        "plural": true,
+                        "selections": [
+                          (v6/*: any*/),
+                          (v2/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "primary",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": "therapist",
+                            "args": null,
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByTherapistRowId",
+                            "plural": false,
+                            "selections": [
+                              (v2/*: any*/),
+                              (v8/*: any*/),
+                              (v5/*: any*/),
+                              (v6/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          (v10/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ClientExtension",
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "__id",
+                            "storageKey": null
+                          }
+                        ]
+                      }
+                    ],
+                    "storageKey": "caseStudyTherapistsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
+                  },
+                  (v13/*: any*/),
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -213,20 +558,8 @@ return {
                 "storageKey": null
               },
               (v4/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "startedAt",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "endedAt",
-                "storageKey": null
-              },
+              (v11/*: any*/),
+              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -248,7 +581,7 @@ return {
                 "name": "score",
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v6/*: any*/)
             ],
             "storageKey": null
           }
@@ -258,18 +591,18 @@ return {
     ]
   },
   "params": {
-    "cacheID": "29529f3664dfed71f5b33ab3c811c86e",
+    "cacheID": "c19b62e59c028b526e2301c70fee5bbc",
     "id": null,
     "metadata": {},
     "name": "CaseStudyTreatmentManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyTreatmentManageCreateMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        rowId\n        clientRowId\n        ...CaseStudyTreatmentManage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n"
+    "text": "mutation CaseStudyTreatmentManageCreateMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        rowId\n        clientRowId\n        ...CaseStudyTreatmentManage_caseStudy\n        client: clientByClientRowId {\n          ...ClientCaseStudies_client\n          ...ClientsTable_client\n          id\n        }\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "d1d9649a2c42fca24256fc8e9feca92d";
+  (node as any).hash = "5d0b49acbc39f1b9233c5cef4d3cd64b";
 }
 
 export default node;

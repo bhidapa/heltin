@@ -6,7 +6,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
-import { graphql, usePreloadedQuery } from 'react-relay';
+import { graphql, useFragment, usePreloadedQuery } from 'react-relay';
 
 import { Link, useMatch } from '@tanstack/react-location';
 
@@ -19,12 +19,14 @@ import { CaseStudyAssignedTherapistsManage } from 'modules/CaseStudy/CaseStudyAs
 import { CaseStudyManage } from 'modules/CaseStudy/CaseStudyManage';
 import { EventsTable } from 'modules/EventsTable';
 
+import { ClientsCaseStudiesDetailsPage_caseStudy$key } from './__generated__/ClientsCaseStudiesDetailsPage_caseStudy.graphql';
+
 export interface ClientsCaseStudiesDetailsPageProps {}
 
 export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPageProps> = () => {
   const match = useMatch<LocationGenerics>();
 
-  const { client, caseStudy, filterForms, ...query } = usePreloadedQuery(
+  const { client, filterForms, ...query } = usePreloadedQuery(
     graphql`
       query ClientsCaseStudiesDetailsPageQuery($clientRowId: UUID!, $caseStudyRowId: UUID!) {
         client: clientByRowId(rowId: $clientRowId) {
@@ -33,17 +35,8 @@ export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPa
           ...CaseStudyManage_client
         }
         caseStudy: caseStudyByRowId(rowId: $caseStudyRowId) {
-          rowId
           title
-          clientRowId
-          concluded
-          ...CaseStudyManage_caseStudy
-          ...CaseStudyAssignedTherapistsManage_casyStudy
-          sortedEvents {
-            nodes {
-              ...EventsTable_events
-            }
-          }
+          ...ClientsCaseStudiesDetailsPage_caseStudy
         }
         filterForms {
           nodes {
@@ -55,6 +48,25 @@ export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPa
       }
     `,
     match.data.clientsCaseStudiesDetailsPageQuery!,
+  );
+
+  const caseStudy = useFragment<ClientsCaseStudiesDetailsPage_caseStudy$key>(
+    graphql`
+      fragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {
+        rowId
+        title
+        clientRowId
+        concluded
+        ...CaseStudyManage_caseStudy
+        ...CaseStudyAssignedTherapistsManage_casyStudy
+        sortedEvents {
+          nodes {
+            ...EventsTable_events
+          }
+        }
+      }
+    `,
+    query.caseStudy,
   );
 
   if (!client || !caseStudy) {
