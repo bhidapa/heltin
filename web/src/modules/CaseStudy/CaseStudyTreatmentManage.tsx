@@ -3,12 +3,14 @@
  * CaseStudyTreatmentManage
  *
  */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedList, FormattedMessage, FormattedNumber } from 'react-intl';
 import { fetchQuery, graphql, useFragment } from 'react-relay';
 
 import { useNavigate } from '@tanstack/react-location';
+import addHours from 'date-fns/addHours';
+import roundToNearestMinutes from 'date-fns/roundToNearestMinutes';
 import printJS from 'print-js';
 
 import { ExplanationTooltip, Tooltip } from 'lib/Tooltip';
@@ -125,11 +127,18 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     `,
   );
 
+  const now = useMemo(() => {
+    const startedAt = roundToNearestMinutes(Date.now(), { nearestTo: 15 });
+    return {
+      startedAt: formatDatetimeLocal(startedAt)!,
+      endedAt: formatDatetimeLocal(addHours(startedAt, 1))!,
+    };
+  }, []);
   const defaultValues = {
     external: treatment?.external ?? false,
     title: treatment?.title ?? '',
-    startedAt: formatDatetimeLocal(treatment?.startedAt) ?? '',
-    endedAt: formatDatetimeLocal(treatment?.endedAt) ?? '',
+    startedAt: formatDatetimeLocal(treatment?.startedAt) ?? now.startedAt,
+    endedAt: formatDatetimeLocal(treatment?.endedAt) ?? now.endedAt,
     description: treatment?.description ?? '',
     privateDescription: treatment?.privateDescription ?? null,
   };
