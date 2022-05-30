@@ -249,22 +249,6 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
       </div>
 
       <div className="form-row">
-        <label htmlFor="description" className="required">
-          <FormattedMessage id="DESCRIPTION_FOR_REPORT" />
-        </label>
-        <textarea
-          {...register('description')}
-          id="description"
-          required
-          className="form-control"
-          style={{ minHeight: '30rem' }}
-        />
-        <div className="form-text w-full">
-          <FormattedMessage id="DESCRIPTION_FOR_REPORT_FORM_TEXT" />
-        </div>
-      </div>
-
-      <div className="form-row">
         <label htmlFor="privateDescription">
           <FormattedMessage id="NOTES_FOR_THERAPIST" />
         </label>
@@ -275,6 +259,16 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
         />
         <div className="form-text w-full">
           <FormattedMessage id="NOTES_FOR_THERAPIST_FORM_TEXT" />
+        </div>
+      </div>
+
+      <div className="form-row">
+        <label htmlFor="description" className="required">
+          <FormattedMessage id="DESCRIPTION_FOR_REPORT" />
+        </label>
+        <textarea {...register('description')} id="description" required className="form-control" />
+        <div className="form-text w-full">
+          <FormattedMessage id="DESCRIPTION_FOR_REPORT_FORM_TEXT" />
         </div>
       </div>
 
