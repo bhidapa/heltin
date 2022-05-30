@@ -77,6 +77,12 @@ export const FormManage: React.FC<FormManageProps> = (props) => {
       createFormResponse(input: $input) {
         formResponse {
           rowId
+          caseStudyByCaseStudyRowId {
+            clientByClientRowId {
+              ...ClientCaseStudies_client
+            }
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+          }
         }
       }
     }
@@ -104,6 +110,12 @@ export const FormManage: React.FC<FormManageProps> = (props) => {
       deleteFormResponse(input: $input) {
         formResponse {
           rowId
+          caseStudyByCaseStudyRowId {
+            clientByClientRowId {
+              ...ClientCaseStudies_client
+            }
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+          }
         }
       }
     }
