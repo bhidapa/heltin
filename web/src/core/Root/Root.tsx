@@ -19,6 +19,7 @@ import { getRoutes } from 'core/routes';
 
 import BHIDAPALogo from 'assets/BHIDAPA-logo-blue-90x90.png';
 
+import { RootRestoreScroll } from './RootRestoreScroll';
 import { RootSearch } from './RootSearch';
 import { RootQuery } from './__generated__/RootQuery.graphql';
 
@@ -186,11 +187,15 @@ export const Root: React.FC<RootProps> = (props) => {
           </>
         )}
 
-        <div className="content-wrapper">
-          <Boundary>
-            <Outlet />
-          </Boundary>
-        </div>
+        <RootRestoreScroll>
+          {(setEl) => (
+            <div ref={setEl} className="content-wrapper">
+              <Boundary>
+                <Outlet />
+              </Boundary>
+            </div>
+          )}
+        </RootRestoreScroll>
 
         <nav className="navbar navbar-fixed-bottom">
           <div className="container-fluid justify-content-between">
