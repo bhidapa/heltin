@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2140a26c89a9d5715331e507c3a5ae8f>>
+ * @generated SignedSource<<829384e10d0a42892f4c7e836dbd5ed6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -34,7 +34,7 @@ export type CaseStudyTreatmentManageCreateMutation$data = {
         readonly client: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
         } | null;
-        readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
+        readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy" | "CaseStudyTreatmentManage_caseStudy">;
       };
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
     } | null;
@@ -78,38 +78,31 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "id",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "fullName",
+  "name": "title",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "concluded",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "concluded",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v9 = {
+v8 = {
   "alias": "conclusion",
   "args": null,
   "concreteType": "CaseStudyConclusion",
@@ -117,33 +110,33 @@ v9 = {
   "name": "caseStudyConclusionByCaseStudyRowId",
   "plural": false,
   "selections": [
-    (v8/*: any*/),
-    (v6/*: any*/)
+    (v7/*: any*/),
+    (v4/*: any*/)
   ],
   "storageKey": null
 },
-v10 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "createdAt",
   "storageKey": null
 },
-v11 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "startedAt",
   "storageKey": null
 },
-v12 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "endedAt",
   "storageKey": null
 },
-v13 = {
+v12 = {
   "alias": null,
   "args": null,
   "concreteType": "EventsConnection",
@@ -159,8 +152,8 @@ v13 = {
       "name": "nodes",
       "plural": true,
       "selections": [
-        (v6/*: any*/),
-        (v8/*: any*/),
+        (v4/*: any*/),
+        (v7/*: any*/),
         (v3/*: any*/),
         {
           "alias": "caseStudy",
@@ -171,9 +164,9 @@ v13 = {
           "plural": false,
           "selections": [
             (v2/*: any*/),
-            (v4/*: any*/),
-            (v10/*: any*/),
-            (v6/*: any*/)
+            (v5/*: any*/),
+            (v9/*: any*/),
+            (v4/*: any*/)
           ],
           "storageKey": null
         },
@@ -201,12 +194,12 @@ v13 = {
                   "name": "name",
                   "storageKey": null
                 },
-                (v6/*: any*/)
+                (v4/*: any*/)
               ],
               "storageKey": null
             },
-            (v10/*: any*/),
-            (v6/*: any*/)
+            (v9/*: any*/),
+            (v4/*: any*/)
           ],
           "storageKey": null
         },
@@ -219,10 +212,10 @@ v13 = {
           "plural": false,
           "selections": [
             (v2/*: any*/),
-            (v4/*: any*/),
+            (v5/*: any*/),
+            (v10/*: any*/),
             (v11/*: any*/),
-            (v12/*: any*/),
-            (v6/*: any*/)
+            (v4/*: any*/)
           ],
           "storageKey": null
         },
@@ -235,7 +228,7 @@ v13 = {
           "plural": false,
           "selections": [
             (v2/*: any*/),
-            (v8/*: any*/),
+            (v7/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -243,7 +236,7 @@ v13 = {
               "name": "concludedAt",
               "storageKey": null
             },
-            (v6/*: any*/)
+            (v4/*: any*/)
           ],
           "storageKey": null
         }
@@ -251,6 +244,13 @@ v13 = {
       "storageKey": null
     }
   ],
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "fullName",
   "storageKey": null
 };
 return {
@@ -290,11 +290,6 @@ return {
                     (v2/*: any*/),
                     (v3/*: any*/),
                     {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "CaseStudyTreatmentManage_caseStudy"
-                    },
-                    {
                       "alias": "client",
                       "args": null,
                       "concreteType": "Client",
@@ -319,6 +314,11 @@ return {
                       "args": null,
                       "kind": "FragmentSpread",
                       "name": "ClientsCaseStudiesDetailsPage_caseStudy"
+                    },
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "CaseStudyTreatmentManage_caseStudy"
                     }
                   ],
                   "storageKey": null
@@ -374,7 +374,6 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  (v4/*: any*/),
                   {
                     "alias": "client",
                     "args": null,
@@ -384,8 +383,6 @@ return {
                     "plural": false,
                     "selections": [
                       (v2/*: any*/),
-                      (v5/*: any*/),
-                      (v6/*: any*/),
                       {
                         "alias": "caseStudies",
                         "args": [
@@ -410,12 +407,12 @@ return {
                             "name": "nodes",
                             "plural": true,
                             "selections": [
-                              (v6/*: any*/),
-                              (v2/*: any*/),
                               (v4/*: any*/),
-                              (v7/*: any*/),
-                              (v9/*: any*/),
-                              (v13/*: any*/)
+                              (v2/*: any*/),
+                              (v5/*: any*/),
+                              (v6/*: any*/),
+                              (v8/*: any*/),
+                              (v12/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -429,6 +426,7 @@ return {
                         "name": "number",
                         "storageKey": null
                       },
+                      (v13/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -446,12 +444,12 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v5/*: any*/),
-                              (v6/*: any*/)
+                              (v13/*: any*/),
+                              (v4/*: any*/)
                             ],
                             "storageKey": null
                           },
-                          (v6/*: any*/)
+                          (v4/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -472,12 +470,14 @@ return {
                           }
                         ],
                         "storageKey": null
-                      }
+                      },
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v5/*: any*/),
+                  (v6/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": "assignedTherapists",
                     "args": [
@@ -502,7 +502,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v6/*: any*/),
+                          (v4/*: any*/),
                           (v2/*: any*/),
                           {
                             "alias": null,
@@ -520,13 +520,13 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v8/*: any*/),
-                              (v5/*: any*/),
-                              (v6/*: any*/)
+                              (v7/*: any*/),
+                              (v13/*: any*/),
+                              (v4/*: any*/)
                             ],
                             "storageKey": null
                           },
-                          (v10/*: any*/)
+                          (v9/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -545,8 +545,8 @@ return {
                     ],
                     "storageKey": "caseStudyTherapistsByCaseStudyRowId(orderBy:[\"CREATED_AT_ASC\"])"
                   },
-                  (v13/*: any*/),
-                  (v6/*: any*/)
+                  (v12/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -557,9 +557,9 @@ return {
                 "name": "external",
                 "storageKey": null
               },
-              (v4/*: any*/),
+              (v5/*: any*/),
+              (v10/*: any*/),
               (v11/*: any*/),
-              (v12/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -581,7 +581,7 @@ return {
                 "name": "score",
                 "storageKey": null
               },
-              (v6/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           }
@@ -591,18 +591,18 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c19b62e59c028b526e2301c70fee5bbc",
+    "cacheID": "082d6e3eb4b80a40242d314143f3d40d",
     "id": null,
     "metadata": {},
     "name": "CaseStudyTreatmentManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyTreatmentManageCreateMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        rowId\n        clientRowId\n        ...CaseStudyTreatmentManage_caseStudy\n        client: clientByClientRowId {\n          ...ClientCaseStudies_client\n          ...ClientsTable_client\n          id\n        }\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyTreatmentManageCreateMutation(\n  $input: CreateCaseStudyTreatmentInput!\n) {\n  createCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        rowId\n        clientRowId\n        client: clientByClientRowId {\n          ...ClientCaseStudies_client\n          ...ClientsTable_client\n          id\n        }\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        ...CaseStudyTreatmentManage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "5d0b49acbc39f1b9233c5cef4d3cd64b";
+  (node as any).hash = "82cb8db87477e4707947338898bd0d47";
 }
 
 export default node;

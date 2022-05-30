@@ -86,12 +86,12 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
             caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
               rowId
               clientRowId
-              ...CaseStudyTreatmentManage_caseStudy
               client: clientByClientRowId {
                 ...ClientCaseStudies_client
                 ...ClientsTable_client
               }
               ...ClientsCaseStudiesDetailsPage_caseStudy
+              ...CaseStudyTreatmentManage_caseStudy
             }
             ...CaseStudyTreatmentManage_treatment
           }

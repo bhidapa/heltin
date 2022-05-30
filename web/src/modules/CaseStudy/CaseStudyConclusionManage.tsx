@@ -77,6 +77,11 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
               rowId
               clientRowId
               concluded
+              client: clientByClientRowId {
+                ...ClientCaseStudies_client
+                ...ClientsTable_client
+              }
+              ...ClientsCaseStudiesDetailsPage_caseStudy
               ...CaseStudyConclusionManage_caseStudy
             }
             ...CaseStudyConclusionManage_conclusion
@@ -95,8 +100,14 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
             caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
               concluded
               ...CaseStudyConclusionManage_caseStudy
+              ...ClientsCaseStudiesDetailsPage_caseStudy
             }
             ...CaseStudyConclusionManage_conclusion
+            eventsByCaseStudyConclusionRowId {
+              nodes {
+                ...EventsTable_events
+              }
+            }
           }
         }
       }
@@ -109,11 +120,13 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
         deleteCaseStudyConclusion(input: $input) {
           conclusion: caseStudyConclusion {
             rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              concluded
-              ...CaseStudyConclusionManage_caseStudy
+            caseStudyByCaseStudyRowId {
+              clientByClientRowId {
+                ...ClientCaseStudies_client
+                ...ClientsTable_client
+              }
+              ...ClientsCaseStudiesDetailsPage_caseStudy
             }
-            ...CaseStudyConclusionManage_conclusion
           }
         }
       }
