@@ -130,7 +130,7 @@ export const Files: React.FC<FilesProps> = (props) => {
           {files.map((file) => (
             <tr key={file.id}>
               <td>
-                <a href={file.link} download={file.name}>
+                <a href={file.link}>
                   <i className="fa-solid fa-download"></i>&nbsp;{file.name}
                 </a>
               </td>
