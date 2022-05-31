@@ -80,10 +80,10 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study might not be a therapist
-		TherapistName     nullable.NonEmptyString `db:"therapist_name"`
-		TherapistTypeType professional.Type       `db:"therapist_type"`
-		TherapistType     string                  `db:"-"`
-		TherapistSubType  nullable.NonEmptyString `db:"therapist_sub_type"`
+		TherapistName        nullable.NonEmptyString `db:"therapist_name"`
+		TherapistType        professional.Type       `db:"therapist_type"`
+		TherapistTypeMessage string                  `db:"-"`
+		TherapistSubType     nullable.NonEmptyString `db:"therapist_sub_type"`
 
 		ClientName    string                  `db:"client_name"`
 		ClientDOBDate date.Date               `db:"client_dob"`
@@ -131,7 +131,9 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	}
 
 	// TODO: use requester language
-	conclusion.TherapistType = conclusion.TherapistTypeType.Message(language.BA, true)
+	if conclusion.TherapistType != professional.TypeOther {
+		conclusion.TherapistTypeMessage = conclusion.TherapistType.Message(language.BA)
+	}
 
 	conclusion.ClientDOB = conclusion.ClientDOBDate.Format("02.01.2006.")
 

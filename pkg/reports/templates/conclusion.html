@@ -15,9 +15,7 @@
   </head>
   <body>
     <main>
-      <h1 style="margin-top: 0">
-        Mišljenje i preporuka {{ .Conclusion.TherapistType }}
-      </h1>
+      <h1 style="margin-top: 0">Mišljenje i preporuka</h1>
       <br />
 
       <div style="display: flex; justify-content: space-between">
@@ -53,7 +51,7 @@
         <div>
           {{ .Conclusion.TherapistName }}
           <br />
-          {{ .Conclusion.TherapistType }}
+          {{ .Conclusion.TherapistTypeMessage }}
         </div>
       </div>
     </main>
