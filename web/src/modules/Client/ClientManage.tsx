@@ -65,6 +65,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             rowId
           }
         }
+
+        canViewerDelete
       }
     `,
     clientRef,
@@ -349,8 +351,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             <button
               type="button"
               className="btn btn-danger"
-              disabled={formState.isSubmitting}
-              aria-disabled={formState.isSubmitting}
+              disabled={!client.canViewerDelete || formState.isSubmitting}
+              aria-disabled={!client.canViewerDelete || formState.isSubmitting}
               onClick={() => (shouldDeleteRef.current = true) && submit()}
             >
               <i className="fa-solid fa-ban"></i>

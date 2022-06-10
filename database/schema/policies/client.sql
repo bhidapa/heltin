@@ -99,11 +99,11 @@ create policy update_client_is_created_by on public.client
 
 ---- delete
 
-create policy delete_client_is_admin on public.client
+create policy delete_client_can_viewer_delete on public.client
   as permissive
   for delete
   using (
-    (select public.user_is_admin(public.viewer()))
+    public.client_can_viewer_delete(client)
   );
 
 ----

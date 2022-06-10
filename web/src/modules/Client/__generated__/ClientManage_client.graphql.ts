@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<79f7a0d6a19b84956cff27018eb19c77>>
+ * @generated SignedSource<<c56799bfa3e59dd8dd780846023d31bd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type Gender = "FEMALE" | "MALE";
 import { FragmentRefs } from "relay-runtime";
 export type ClientManage_client$data = {
   readonly address: string;
+  readonly canViewerDelete: boolean;
   readonly city: string;
   readonly createdBy: {
     readonly fullName: string;
@@ -191,6 +192,13 @@ return {
       },
       "action": "THROW",
       "path": "createdBy"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "canViewerDelete",
+      "storageKey": null
     }
   ],
   "type": "Client",
@@ -199,7 +207,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "92a06da2ab98352add1131d8def9a6e0";
+  (node as any).hash = "b11268849be3ba128b02dfdecd4b710d";
 }
 
 export default node;

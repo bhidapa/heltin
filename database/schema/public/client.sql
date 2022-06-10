@@ -75,6 +75,15 @@ comment on function public.client_full_name is '@notNull';
 
 ----
 
+create function public.client_can_viewer_delete(
+  client public.client
+) returns boolean as $$
+  select public.user_is_admin(public.viewer())
+$$ language sql stable strict;
+comment on function public.client_can_viewer_delete is '@notNull';
+
+----
+
 create table public.client_assigned_therapist (
   id uuid primary key default uuid_generate_v4(),
 
