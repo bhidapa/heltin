@@ -26,6 +26,9 @@ import { ClientsCaseStudiesConclusionDetailsPageQuery } from './pages/ClientsPag
 import { ClientsCaseStudiesDetailsPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesDetailsPageQuery.graphql';
 import { ClientsCaseStudiesTreatmentsCreatePageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsCreatePageQuery.graphql';
 import { ClientsCaseStudiesTreatmentsDetailsPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsDetailsPageQuery.graphql';
+import { UsersCreatePageQuery } from './pages/UsersPage/__generated__/UsersCreatePageQuery.graphql';
+import { UsersDetailsPageQuery } from './pages/UsersPage/__generated__/UsersDetailsPageQuery.graphql';
+import { UsersPageQuery } from './pages/UsersPage/__generated__/UsersPageQuery.graphql';
 
 export type LocationGenerics = MakeGenerics<{
   Params: {
@@ -33,6 +36,7 @@ export type LocationGenerics = MakeGenerics<{
     caseStudyRowId: string;
     treatmentRowId: string;
     therapistRowId: string;
+    userRowId: string;
     conclusionRowId: string;
     formId: string;
     formResponseId: string;
@@ -63,6 +67,10 @@ export type LocationGenerics = MakeGenerics<{
     therapistsPageQuery: PreloadedQuery<TherapistsPageQuery>;
     therapistsCreatePageQuery: PreloadedQuery<TherapistsCreatePageQuery>;
     therapistsDetailsPageQuery: PreloadedQuery<TherapistsDetailsPageQuery>;
+    // users
+    usersPageQuery: PreloadedQuery<UsersPageQuery>;
+    usersCreatePageQuery: PreloadedQuery<UsersCreatePageQuery>;
+    usersDetailsPageQuery: PreloadedQuery<UsersDetailsPageQuery>;
   };
   RouteMeta: {
     breadcrumb: (data: Partial<LocationGenerics['LoaderData']>) => React.ReactElement;

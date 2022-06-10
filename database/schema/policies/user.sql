@@ -13,30 +13,26 @@ create policy viewer_user_select on public.user
   to viewer
   using (true);
 
-create policy viewer_user_update on public.user
+create policy user_can_viewer_insert on public.user
+  for insert
+  to viewer
+  with check (
+    public.user_can_insert_user(public.viewer())
+  );
+
+create policy user_can_viewer_update on public.user
   for update
   to viewer
   using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
-    public.user_is_admin(public.viewer())
-    or "user".id = public.viewer_user_id()
+    public.user_can_viewer_update("user")
   );
 
-create policy viewer_user_insert on public.user
-  for insert
-  to viewer
-  with check (
-    public.user_is_admin(public.viewer())
-  );
-
-create policy viewer_user_delete on public.user
+create policy user_can_viewer_delete on public.user
   for delete
   to viewer
   using (
-     -- viewer is admin
-    public.user_is_admin(public.viewer())
-    -- or himself
-    or "user".id = public.viewer_user_id()
+    public.user_can_viewer_delete("user")
   );
 
 alter table public.user enable row level security;

@@ -67,6 +67,16 @@ import clientsCaseStudiesTreatmentsCreatePageQuery, {
 import clientsCaseStudiesTreatmentsDetailsPageQuery, {
   ClientsCaseStudiesTreatmentsDetailsPageQuery,
 } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsDetailsPageQuery.graphql';
+import { UsersDetailsPageBreadcrumb } from './pages/UsersPage/UsersDetailsPageBreadcrumb';
+import usersCreatePageQuery, {
+  UsersCreatePageQuery,
+} from './pages/UsersPage/__generated__/UsersCreatePageQuery.graphql';
+import usersDetailsPageQuery, {
+  UsersDetailsPageQuery,
+} from './pages/UsersPage/__generated__/UsersDetailsPageQuery.graphql';
+import usersPageQuery, {
+  UsersPageQuery,
+} from './pages/UsersPage/__generated__/UsersPageQuery.graphql';
 
 export function getRoutes(viewerRef: routes_viewer$key | null): Route<LocationGenerics>[] {
   const viewer = readInlineData(
@@ -116,6 +126,7 @@ export function getRoutes(viewerRef: routes_viewer$key | null): Route<LocationGe
     },
     ...getClientsRoutes(viewer),
     ...getTherapistsRoutes(),
+    ...(viewer.isAdmin ? getUsersRoutes() : []),
     {
       path: 'logout',
       element: () =>
@@ -531,6 +542,78 @@ function getTherapistsRoutes(): Route<LocationGenerics>[] {
           meta: {
             breadcrumb: (data) => (
               <TherapistsDetailsPageBreadcrumb query={data.therapistsDetailsPageQuery!} />
+            ),
+          },
+        },
+        {
+          element: <NotFound />,
+        },
+      ],
+    },
+  ];
+}
+
+function getUsersRoutes(): Route<LocationGenerics>[] {
+  return [
+    {
+      path: 'users',
+      loader: (match) => ({
+        usersPageQuery: loadQuery<UsersPageQuery>(environment, usersPageQuery, {
+          q: match.search.q,
+          count: parseInt(match.search.count || '20'),
+        }),
+      }),
+      unloader: (match) => {
+        match.data.usersPageQuery?.dispose();
+      },
+      meta: {
+        breadcrumb: () => <FormattedMessage id="USERS" />,
+      },
+      children: [
+        {
+          path: '/',
+          element: () => import('core/pages/UsersPage').then(({ UsersPage }) => <UsersPage />),
+        },
+        {
+          path: 'create',
+          loader: () => ({
+            usersCreatePageQuery: loadQuery<UsersCreatePageQuery>(
+              environment,
+              usersCreatePageQuery,
+              {},
+              { fetchPolicy: 'network-only' }, // always get the latest info for creating users
+            ),
+          }),
+          unloader: (match) => {
+            match.data.usersCreatePageQuery?.dispose();
+          },
+          element: () =>
+            import('core/pages/UsersPage/UsersCreatePage').then(({ UsersCreatePage }) => (
+              <UsersCreatePage />
+            )),
+          meta: {
+            breadcrumb: () => <FormattedMessage id="NEW_USER" />,
+          },
+        },
+        {
+          path: ':userRowId',
+          loader: (match) => ({
+            usersDetailsPageQuery: loadQuery<UsersDetailsPageQuery>(
+              environment,
+              usersDetailsPageQuery,
+              { rowId: match.params.userRowId },
+            ),
+          }),
+          unloader: (match) => {
+            match.data.usersDetailsPageQuery?.dispose();
+          },
+          element: () =>
+            import('core/pages/UsersPage/UsersDetailsPage').then(({ UsersDetailsPage }) => (
+              <UsersDetailsPage />
+            )),
+          meta: {
+            breadcrumb: (data) => (
+              <UsersDetailsPageBreadcrumb query={data.usersDetailsPageQuery!} />
             ),
           },
         },

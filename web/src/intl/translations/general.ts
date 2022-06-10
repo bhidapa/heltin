@@ -57,6 +57,10 @@ export const messages: Messages = {
     en: 'Users',
     hr: 'Korisnici',
   },
+  NEW_USER: {
+    en: 'New users',
+    hr: 'Novi korisnik',
+  },
   TYPE: {
     en: 'Type',
     hr: 'Tip',
@@ -333,6 +337,10 @@ export const messages: Messages = {
     en: 'Password',
     hr: 'Šifra',
   },
+  NEW_PASSWORD: {
+    en: 'New password',
+    hr: 'Nova šifra',
+  },
   WELCOME: {
     en: 'Welcome!',
     hr: 'Dobro došli!',
@@ -428,5 +436,13 @@ export const messages: Messages = {
   DISCRETE_CLIENT_FORM_TEXT: {
     en: 'Discrete clients can only be accessed exclusively by the assigned therapists.',
     hr: 'Diskretnim klijentima imaju pristup isključivo dodijeljeni terapeuti.',
+  },
+  ADMINISTRATOR: {
+    en: 'Administrator',
+    hr: 'Administrator',
+  },
+  EMAIL: {
+    en: 'E-Mail',
+    hr: 'E-Mail',
   },
 };
