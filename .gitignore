@@ -11,4 +11,4 @@
 .gitsecret/keys/random_seed
 secrets/*
 !secrets/*.secret
-**/postgres_data_dump*
+**/database_data_dump*
