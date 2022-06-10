@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<40b69401a83fed7aa22077ebcca58f99>>
+ * @generated SignedSource<<b6ec5205bbf9a8e4f3c927479dea4442>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientManage_viewer$data = {
+  readonly canInsertClient: boolean;
   readonly isAdmin: boolean;
   readonly isTherapist: boolean;
   readonly " $fragmentType": "ClientManage_viewer";
@@ -39,6 +40,13 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "isTherapist",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "canInsertClient",
+      "storageKey": null
     }
   ],
   "type": "User",
@@ -46,7 +54,7 @@ const node: ReaderFragment = {
 };
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "611815effd9b11dc9d2c3d60ca78fb0f";
+  (node as any).hash = "34f6722db5f60d0b9fd34dba34772bc5";
 }
 
 export default node;

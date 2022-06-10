@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b6a795d277d18c8fc8d1484e9f736e41>>
+ * @generated SignedSource<<01707a2930a91a9ab15345dae774fd6d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -95,6 +95,13 @@ return {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
+            "name": "canInsertClient",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
             "storageKey": null
           }
@@ -105,12 +112,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eb3f3f8d5a268d66a4a4c3d25c07721b",
+    "cacheID": "8787f047e9fd29948d4b72df5e6f639c",
     "id": null,
     "metadata": {},
     "name": "ClientsCreatePageQuery",
     "operationKind": "query",
-    "text": "query ClientsCreatePageQuery {\n  viewer {\n    ...ClientManage_viewer\n    id\n  }\n  nextAvailableClientNumber\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n}\n"
+    "text": "query ClientsCreatePageQuery {\n  viewer {\n    ...ClientManage_viewer\n    id\n  }\n  nextAvailableClientNumber\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n  canInsertClient\n}\n"
   }
 };
 })();

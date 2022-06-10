@@ -50,51 +50,21 @@ create policy select_client_has_case_study_with_therapist_assigned on public.cli
 
 ---- insert
 
-create policy insert_client_is_admin on public.client
+create policy insert_client_can_viewer_insert on public.client
   as permissive
   for insert
   with check (
-    (select public.user_is_admin(public.viewer()))
-  );
-
-create policy insert_client_is_assistant on public.client
-  as permissive
-  for insert
-  with check (
-    (select public.user_is_assistant(public.viewer()))
-  );
-
-create policy insert_client_is_therapist on public.client
-  as permissive
-  for insert
-  with check (
-    (select public.user_is_therapist(public.viewer()))
+    public.user_can_insert_client(public.viewer())
   );
 
 ---- update
 
-create policy update_client_is_admin on public.client
+create policy update_client_can_viewer_update on public.client
   as permissive
   for update
   using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
-    (select public.user_is_admin(public.viewer()))
-  );
-
-create policy update_client_is_assistant on public.client
-  as permissive
-  for update
-  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
-  with check (
-    (select public.user_is_assistant(public.viewer()))
-  );
-
-create policy update_client_is_created_by on public.client
-  as permissive
-  for update
-  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
-  with check (
-    client.created_by = (select public.viewer_user_id())
+    public.client_can_viewer_update(client)
   );
 
 ---- delete

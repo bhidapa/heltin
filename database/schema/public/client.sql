@@ -75,6 +75,24 @@ comment on function public.client_full_name is '@notNull';
 
 ----
 
+create function public.user_can_insert_client(
+  "user" public.user
+) returns boolean as $$
+  select public.user_is_admin("user")
+    or public.user_is_assistant("user")
+    or public.user_is_therapist("user")
+$$ language sql stable strict;
+comment on function public.user_can_insert_client is '@notNull';
+
+create function public.client_can_viewer_update(
+  client public.client
+) returns boolean as $$
+  select public.user_is_admin(public.viewer())
+    or public.user_is_assistant(public.viewer())
+    or client.created_by = public.viewer_user_id()
+$$ language sql stable strict;
+comment on function public.client_can_viewer_update is '@notNull';
+
 create function public.client_can_viewer_delete(
   client public.client
 ) returns boolean as $$

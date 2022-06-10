@@ -1518,6 +1518,7 @@ type User implements Node {
     """
     condition: FormResponseAnswerCondition
   ): FormResponseAnswersConnection!
+  canInsertClient: Boolean!
   firstName: String!
   fullName: String!
   isAdmin: Boolean!
@@ -1858,6 +1859,7 @@ type Client implements Node {
     condition: EventCondition
   ): EventsConnection!
   canViewerDelete: Boolean!
+  canViewerUpdate: Boolean!
 
   """Reads and enables pagination through a set of `CaseStudyTreatment`."""
   caseStudyTreatmentsByCaseStudiesClientRowId(

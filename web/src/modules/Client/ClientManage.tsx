@@ -42,6 +42,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
       fragment ClientManage_viewer on User {
         isAdmin
         isTherapist
+        canInsertClient
       }
     `,
     viewerRef,
@@ -78,6 +79,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           }
         }
 
+        canViewerUpdate
         canViewerDelete
       }
     `,
@@ -139,6 +141,9 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
       discrete: client?.discrete ?? false,
     },
   });
+
+  const canDelete = client?.canViewerDelete;
+  const canSave = client ? client.canViewerUpdate : viewer.canInsertClient;
 
   useUnsavedChangesPrompt(formState.isDirty);
 
@@ -235,7 +240,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
         <div className="form-row">
           <div className="col">
             <div className="custom-switch">
-              <input {...register('discrete')} type="checkbox" id="discrete" />
+              <input {...register('discrete')} type="checkbox" id="discrete" disabled={!canSave} />
               <label htmlFor="discrete">
                 <FormattedMessage id="DISCRETE" />
               </label>
@@ -258,6 +263,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="number"
             required
+            readOnly={!canSave}
           />
         </div>
 
@@ -271,6 +277,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="firstName"
             required
+            readOnly={!canSave}
           />
         </div>
 
@@ -284,6 +291,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="lastName"
             required
+            readOnly={!canSave}
           />
         </div>
 
@@ -293,7 +301,13 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           <label htmlFor="gender" className="required">
             <FormattedMessage id="GENDER" />
           </label>
-          <select {...register('gender')} id="gender" className="form-control" required>
+          <select
+            {...register('gender')}
+            id="gender"
+            className="form-control"
+            required
+            disabled={!canSave}
+          >
             <GenderSelectOptions hideEmptyOption />
           </select>
         </div>
@@ -309,6 +323,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="dateOfBirth"
             required
+            readOnly={!canSave}
           />
         </div>
       </div>
@@ -321,6 +336,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             type="email"
             className="form-control"
             id="email"
+            readOnly={!canSave}
           />
           <div className="form-text">
             <FormattedMessage id="CLIENT_EMAIL_FORM_TEXT" />
@@ -339,6 +355,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="telephone"
             required
+            readOnly={!canSave}
           />
         </div>
       </div>
@@ -354,13 +371,21 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             className="form-control"
             id="address"
             required
+            readOnly={!canSave}
           />
         </div>
         <div className="col-md-4">
           <label htmlFor="city" className="required">
             <FormattedMessage id="CITY" />
           </label>
-          <input {...register('city')} type="text" className="form-control" id="city" required />
+          <input
+            {...register('city')}
+            type="text"
+            className="form-control"
+            id="city"
+            required
+            readOnly={!canSave}
+          />
         </div>
       </div>
 
@@ -369,7 +394,7 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           <label htmlFor="note">
             <FormattedMessage id="NOTE" />
           </label>
-          <textarea {...register('note')} className="form-control" id="note" />
+          <textarea {...register('note')} className="form-control" id="note" readOnly={!canSave} />
         </div>
       </div>
 
@@ -379,8 +404,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             <button
               type="button"
               className="btn btn-danger"
-              disabled={!client.canViewerDelete || formState.isSubmitting}
-              aria-disabled={!client.canViewerDelete || formState.isSubmitting}
+              disabled={!canDelete || formState.isSubmitting}
+              aria-disabled={!canDelete || formState.isSubmitting}
               onClick={() => (shouldDeleteRef.current = true) && submit()}
             >
               <i className="fa-solid fa-ban"></i>
@@ -394,8 +419,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           <button
             type="submit"
             className="btn btn-primary btn-lg"
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
+            disabled={!canSave || formState.isSubmitting}
+            aria-disabled={!canSave || formState.isSubmitting}
           >
             <i className="fa-solid fa-floppy-disk"></i>
             &nbsp;

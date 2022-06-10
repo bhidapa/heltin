@@ -28,6 +28,9 @@ export const ClientsPage: React.FC<ClientsPageProps> = () => {
         # filters
         $q: String
       ) {
+        viewer @required(action: THROW) {
+          canInsertClient
+        }
         ...ClientsTable_query
           @arguments(
             # pagination
@@ -53,13 +56,15 @@ export const ClientsPage: React.FC<ClientsPageProps> = () => {
             <FormattedMessage id="CLIENTS" />
           </h2>
         </div>
-        <div className="col text-right">
-          <Link to="create" search className="btn btn-primary">
-            <i className="fa-solid fa-plus"></i>
-            &nbsp;
-            <FormattedMessage id="NEW_CLIENT" />
-          </Link>
-        </div>
+        {query.viewer.canInsertClient && (
+          <div className="col text-right">
+            <Link to="create" search className="btn btn-primary">
+              <i className="fa-solid fa-plus"></i>
+              &nbsp;
+              <FormattedMessage id="NEW_CLIENT" />
+            </Link>
+          </div>
+        )}
       </div>
 
       <ClientsTable query={query} />
