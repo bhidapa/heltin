@@ -53,8 +53,11 @@ export const RootRestoreScroll: React.FC<RootRestoreScrollProps> = (props) => {
     if (wasPending && !pending) {
       const el = elRef.current;
       if (el) {
+        // store the scrollTop so that it doesn't get overwritten while animation frame is pending
+        const scrollTop = scrollTopsRef.current[locationKeyRef.current] || 0;
+
         requestAnimationFrame(() => {
-          el.scrollTop = scrollTopsRef.current[locationKeyRef.current] || 0;
+          el.scrollTop = scrollTop;
         });
       }
     }
