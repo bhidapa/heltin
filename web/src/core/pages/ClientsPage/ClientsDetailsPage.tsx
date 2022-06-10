@@ -29,6 +29,7 @@ export const ClientsDetailsPage: React.FC<ClientsDetailsPageProps> = () => {
         viewer @required(action: THROW) {
           isAdmin
           isTherapist
+          ...ClientManage_viewer
         }
         client: clientByRowId(rowId: $rowId) {
           fullName
@@ -64,7 +65,7 @@ export const ClientsDetailsPage: React.FC<ClientsDetailsPageProps> = () => {
         </div>
       </div>
 
-      <ClientManage client={client} nextAvailableClientNumber={null} />
+      <ClientManage viewer={viewer} client={client} nextAvailableClientNumber={null} />
 
       <div className="content">
         <hr />

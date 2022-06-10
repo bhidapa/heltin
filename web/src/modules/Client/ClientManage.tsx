@@ -23,17 +23,29 @@ import { ClientManageCreateMutation } from './__generated__/ClientManageCreateMu
 import { ClientManageDeleteMutation } from './__generated__/ClientManageDeleteMutation.graphql';
 import { ClientManageUpdateMutation } from './__generated__/ClientManageUpdateMutation.graphql';
 import { ClientManage_client$key, Gender } from './__generated__/ClientManage_client.graphql';
+import { ClientManage_viewer$key } from './__generated__/ClientManage_viewer.graphql';
 
 export interface ClientManageProps {
+  viewer: ClientManage_viewer$key;
   client: ClientManage_client$key | null;
   nextAvailableClientNumber: number | null;
 }
 
 export const ClientManage: React.FC<ClientManageProps> = (props) => {
-  const { client: clientRef, nextAvailableClientNumber } = props;
+  const { viewer: viewerRef, client: clientRef, nextAvailableClientNumber } = props;
 
   const navigate = useNavigate();
   const { confirmDelete } = useConfirm();
+
+  const viewer = useFragment(
+    graphql`
+      fragment ClientManage_viewer on User {
+        isAdmin
+        isTherapist
+      }
+    `,
+    viewerRef,
+  );
 
   const client = useFragment(
     graphql`
@@ -218,6 +230,22 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           <FormattedMessage id="NEW_CLIENT" />
         )}
       </h2>
+
+      {(viewer.isAdmin || viewer.isTherapist) && (
+        <div className="form-row">
+          <div className="col">
+            <div className="custom-switch">
+              <input {...register('discrete')} type="checkbox" id="discrete" />
+              <label htmlFor="discrete">
+                <FormattedMessage id="DISCRETE" />
+              </label>
+            </div>
+            <div className="form-text">
+              <FormattedMessage id="DISCRETE_CLIENT_FORM_TEXT" />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="form-row row-eq-spacing-md">
         <div className="col-md-2 col-lg-2">

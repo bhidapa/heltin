@@ -421,4 +421,12 @@ export const messages: Messages = {
     en: 'Other...',
     hr: 'Drugo...',
   },
+  DISCRETE: {
+    en: 'Discrete',
+    hr: 'Diskretan',
+  },
+  DISCRETE_CLIENT_FORM_TEXT: {
+    en: 'Discrete clients can only be accessed exclusively by the assigned therapists.',
+    hr: 'Diskretnim klijentima imaju pristup isključivo dodijeljeni terapeuti.',
+  },
 };

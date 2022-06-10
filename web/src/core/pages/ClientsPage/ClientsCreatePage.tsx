@@ -19,9 +19,12 @@ export interface ClientsCreatePageProps {}
 export const ClientsCreatePage: React.FC<ClientsCreatePageProps> = () => {
   const match = useMatch<LocationGenerics>();
 
-  const { nextAvailableClientNumber } = usePreloadedQuery(
+  const { viewer, nextAvailableClientNumber } = usePreloadedQuery(
     graphql`
       query ClientsCreatePageQuery {
+        viewer @required(action: THROW) {
+          ...ClientManage_viewer
+        }
         nextAvailableClientNumber
       }
     `,
@@ -44,7 +47,11 @@ export const ClientsCreatePage: React.FC<ClientsCreatePageProps> = () => {
         </div>
       </div>
 
-      <ClientManage client={null} nextAvailableClientNumber={nextAvailableClientNumber} />
+      <ClientManage
+        viewer={viewer}
+        client={null}
+        nextAvailableClientNumber={nextAvailableClientNumber}
+      />
     </div>
   );
 };
