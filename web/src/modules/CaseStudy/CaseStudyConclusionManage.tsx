@@ -140,11 +140,16 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     privateDescription: conclusion?.privateDescription ?? null,
   };
 
-  const { register, handleSubmit, reset, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm({
     defaultValues,
   });
 
-  useUnsavedChangesPrompt(formState.isDirty);
+  useUnsavedChangesPrompt(isDirty);
 
   const { confirmDelete } = useConfirm();
 
@@ -170,6 +175,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
               if (!data.updateCaseStudyConclusion?.conclusion) {
                 throw new Error('Forbidden');
               }
+              setReportFileRowId(undefined);
               reset(values);
             })(),
           );
@@ -329,12 +335,14 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
           <div className="row justify-content-end align-items-center">
             <div className="col-auto mr-0 mr-sm-20">
               {(() => {
+                const saveFirst = isDirty || !conclusion;
+
                 const buildReportButton = (
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    disabled={reportFileRowId === null || !conclusion}
-                    aria-disabled={reportFileRowId === null || !conclusion}
+                    disabled={reportFileRowId === null || saveFirst}
+                    aria-disabled={reportFileRowId === null || saveFirst}
                     onClick={() => {
                       setReportFileRowId(null);
                       buildReportToast(
@@ -385,7 +393,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
                   </button>
                 );
 
-                if (reportFileRowId) {
+                if (reportFileRowId && !saveFirst) {
                   return (
                     <div className="btn-group" role="group">
                       <a
@@ -424,7 +432,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
 
                 return (
                   <Tooltip
-                    disabled={Boolean(conclusion)}
+                    disabled={!saveFirst}
                     content={<FormattedMessage id="PLEASE_SAVE_CONCLUSION_FIRST" />}
                   >
                     <span>{buildReportButton}</span>

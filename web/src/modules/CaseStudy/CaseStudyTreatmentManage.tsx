@@ -157,11 +157,18 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     privateDescription: treatment?.privateDescription ?? null,
   };
 
-  const { register, handleSubmit, reset, formState, control, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+    control,
+    setValue,
+  } = useForm({
     defaultValues,
   });
 
-  useUnsavedChangesPrompt(formState.isDirty);
+  useUnsavedChangesPrompt(isDirty);
 
   const { confirmDelete } = useConfirm();
 
@@ -188,6 +195,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
               if (!data.updateCaseStudyTreatment?.treatment) {
                 throw new Error('Forbidden');
               }
+              setReportFileRowId(undefined);
               reset(values);
             })(),
           );
@@ -517,12 +525,14 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
           <div className="row justify-content-end align-items-center">
             <div className="col-auto mr-0 mr-sm-20">
               {(() => {
+                const saveFirst = !treatment || isDirty;
+
                 const buildReportButton = (
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    disabled={reportFileRowId === null || !treatment}
-                    aria-disabled={reportFileRowId === null || !treatment}
+                    disabled={reportFileRowId === null || saveFirst}
+                    aria-disabled={reportFileRowId === null || saveFirst}
                     onClick={() => {
                       setReportFileRowId(null);
                       buildReportToast(
@@ -573,7 +583,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
                   </button>
                 );
 
-                if (reportFileRowId) {
+                if (reportFileRowId && !saveFirst) {
                   return (
                     <div className="btn-group" role="group">
                       <a
@@ -612,7 +622,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
 
                 return (
                   <Tooltip
-                    disabled={Boolean(treatment)}
+                    disabled={!saveFirst}
                     content={<FormattedMessage id="PLEASE_SAVE_TREATMENT_FIRST" />}
                   >
                     <span>{buildReportButton}</span>
