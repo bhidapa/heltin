@@ -18,6 +18,27 @@ grant all on table public.user to viewer;
 -- hide the table rows to prevent data leakage
 grant select on table public.user to anonymous;
 
+create function public.viewer_user_id()
+returns uuid as $$
+begin
+  return nullif(current_setting('session.user_id', true), '')::uuid;
+end;
+$$ language plpgsql stable
+cost 100000; -- so that the planner calls the function as little as possible
+
+create function public.viewer()
+returns public.user as $$
+declare
+  vwr public.user;
+begin
+  select * into vwr from public.user where id = public.viewer_user_id();
+  return vwr;
+end;
+$$ language plpgsql stable
+cost 100000; -- so that the planner calls the function as little as possible
+
+comment on function public.viewer is 'Currently authenticated `User`.';
+
 ----
 
 create function public.create_user(

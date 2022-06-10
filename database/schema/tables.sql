@@ -5,8 +5,6 @@
 
 \ir private/session.sql
 
-\ir public/viewer.sql
-
 \ir public/assistant_and_therapist.sql
 
 \ir public/file.sql
