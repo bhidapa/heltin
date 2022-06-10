@@ -1,8 +1,0 @@
-schema:
-  - ../cmd/graphql/schema.graphql
-  - ./relay-directives.graphql
-documents:
-  - ./src/core/**/*.ts
-  - ./src/core/**/*.tsx
-  - ./src/modules/**/*.ts
-  - ./src/modules/**/*.tsx
