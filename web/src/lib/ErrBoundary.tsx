@@ -23,7 +23,7 @@ export class ErrBoundary extends React.PureComponent<{ children: React.ReactElem
             &nbsp;
             <FormattedMessage id="OOPS_SOMETHING_WENT_WRONG" />
           </h2>
-          <details className="collapse-panel">
+          <details className="collapse-panel" open>
             <summary className="collapse-header text-muted">
               <FormattedMessage id="SHOW_ERROR_DETAILS" />
             </summary>
