@@ -66,15 +66,18 @@ export const ClientsDetailsPage: React.FC<ClientsDetailsPageProps> = () => {
 
       <ClientManage client={client} nextAvailableClientNumber={null} />
 
+      <div className="content">
+        <hr />
+      </div>
+
+      <ClientAssignedTherapistsManage query={query} client={client} />
+
       {(viewer.isAdmin || viewer.isTherapist) && (
         <>
           <div className="content">
             <hr />
           </div>
-          <ClientAssignedTherapistsManage query={query} client={client} />
-          <div className="content">
-            <hr />
-          </div>
+
           <ClientCaseStudies client={client} forms={filterForms?.nodes || []} />
         </>
       )}
