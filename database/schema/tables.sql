@@ -7,6 +7,8 @@
 
 \ir public/viewer.sql
 
+\ir public/assistant_and_therapist.sql
+
 \ir public/file.sql
 
 \ir public/client.sql
