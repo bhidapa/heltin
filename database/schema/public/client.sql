@@ -145,8 +145,10 @@ create function public.create_client(
   email         email_address = null,
   note          text = null,
   discrete      boolean = null -- not seen by public.assistant
-) returns public.client as
-$$
+) returns public.client as $$
+declare
+  created_client public.client;
+begin
   insert into public.client (
     "number",
     first_name,
@@ -174,9 +176,18 @@ $$
     coalesce(create_client.discrete, false),
     public.viewer_user_id()
   )
-  returning *
-$$
-language sql volatile;
+  returning * into created_client;
+
+  -- if a therapist is creating a client, assign immediately
+  if public.user_is_therapist(public.viewer())
+  then
+    insert into public.client_assigned_therapist (client_id, therapist_id, created_by)
+    values (created_client.id, (select id from public.therapist where user_id = public.viewer_user_id()), public.viewer_user_id());
+  end if;
+
+  return created_client;
+end
+$$ language plpgsql volatile;
 
 create function public.update_client(
   id            uuid,
