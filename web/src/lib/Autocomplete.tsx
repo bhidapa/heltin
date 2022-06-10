@@ -159,7 +159,10 @@ export function Autocomplete<T>(props: AutocompleteProps<T>): React.ReactElement
               className="btn"
               disabled={disabled || readOnly || !selectedItem}
               aria-disabled={disabled || readOnly || !selectedItem}
-              onClick={() => selectItem(null as any)}
+              onClick={() => {
+                selectItem(null as any);
+                inputRef.current?.focus();
+              }}
             >
               <i className="fa-solid fa-xmark"></i>
             </button>
