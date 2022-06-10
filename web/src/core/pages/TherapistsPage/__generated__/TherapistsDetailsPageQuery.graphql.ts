@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f7689a6022f98549de24f628fcdf49b6>>
+ * @generated SignedSource<<a6893a92826f4268adc02fc847f37d54>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -163,8 +163,20 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "canViewerInsertTherapist",
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "viewer",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "canInsertTherapist",
+                "storageKey": null
+              },
+              (v3/*: any*/)
+            ],
             "storageKey": null
           },
           (v3/*: any*/)
@@ -283,12 +295,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "033f530d6e968c7e5692c5ef76e571f8",
+    "cacheID": "3a44c1484498b32c6b21823bcfed9f98",
     "id": null,
     "metadata": {},
     "name": "TherapistsDetailsPageQuery",
     "operationKind": "query",
-    "text": "query TherapistsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  query {\n    ...TherapistManage_query\n    id\n  }\n  therapist: therapistByRowId(rowId: $rowId) {\n    fullName\n    ...TherapistManage_therapist\n    id\n  }\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n  canViewerInsertTherapist\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  canViewerUpdate\n  canViewerDelete\n  updatedAt\n}\n"
+    "text": "query TherapistsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  query {\n    ...TherapistManage_query\n    id\n  }\n  therapist: therapistByRowId(rowId: $rowId) {\n    fullName\n    ...TherapistManage_therapist\n    id\n  }\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n  viewer {\n    canInsertTherapist\n    id\n  }\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  canViewerUpdate\n  canViewerDelete\n  updatedAt\n}\n"
   }
 };
 })();

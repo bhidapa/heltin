@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cb20c23b483d5708276c6502084b05f8>>
+ * @generated SignedSource<<d8ac000a611cedbdd52d995cbcaef136>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,9 @@ export type TherapistsPageQuery$variables = {
   q?: string | null;
 };
 export type TherapistsPageQuery$data = {
-  readonly canViewerInsertTherapist: boolean;
+  readonly viewer: {
+    readonly canInsertTherapist: boolean;
+  };
   readonly " $fragmentSpreads": FragmentRefs<"TherapistsTable_query">;
 };
 export type TherapistsPageQuery = {
@@ -46,10 +48,17 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "canViewerInsertTherapist",
+  "name": "canInsertTherapist",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -74,6 +83,23 @@ return {
     "name": "TherapistsPageQuery",
     "selections": [
       {
+        "kind": "RequiredField",
+        "field": {
+          "alias": null,
+          "args": null,
+          "concreteType": "User",
+          "kind": "LinkedField",
+          "name": "viewer",
+          "plural": false,
+          "selections": [
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        },
+        "action": "THROW",
+        "path": "viewer"
+      },
+      {
         "args": [
           {
             "kind": "Variable",
@@ -93,8 +119,7 @@ return {
         ],
         "kind": "FragmentSpread",
         "name": "TherapistsTable_query"
-      },
-      (v1/*: any*/)
+      }
     ],
     "type": "Query",
     "abstractKey": null
@@ -107,7 +132,20 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v1/*: any*/),
+          (v2/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v3/*: any*/),
         "concreteType": "TherapistsConnection",
         "kind": "LinkedField",
         "name": "filterTherapists",
@@ -164,13 +202,7 @@ return {
                     "name": "enabled",
                     "storageKey": null
                   },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v2/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -221,7 +253,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "filters": [
           "searchText"
         ],
@@ -229,23 +261,22 @@ return {
         "key": "TherapistsTable_filterTherapists",
         "kind": "LinkedHandle",
         "name": "filterTherapists"
-      },
-      (v1/*: any*/)
+      }
     ]
   },
   "params": {
-    "cacheID": "d31a2da1708c8f8ba1f993abc43491f5",
+    "cacheID": "8b48b3810533a11ae6e9ca4928a2cd4c",
     "id": null,
     "metadata": {},
     "name": "TherapistsPageQuery",
     "operationKind": "query",
-    "text": "query TherapistsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  ...TherapistsTable_query_XhAmI\n  canViewerInsertTherapist\n}\n\nfragment TherapistsTable_query_XhAmI on Query {\n  filterTherapists(first: $count, after: $cursor, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        type\n        fullName\n        enabled\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TherapistsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertTherapist\n    id\n  }\n  ...TherapistsTable_query_XhAmI\n}\n\nfragment TherapistsTable_query_XhAmI on Query {\n  filterTherapists(first: $count, after: $cursor, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        type\n        fullName\n        enabled\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "5f35772e84dd3251f3584d34f159b72d";
+  (node as any).hash = "11560be94c7496fbbda8382bf0517c1d";
 }
 
 export default node;

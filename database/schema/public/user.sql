@@ -206,11 +206,13 @@ comment on function public.therapist_full_name is '@notNull';
 
 ----
 
-create function public.can_viewer_insert_therapist()
+create function public.user_can_insert_therapist(
+  "user" public.user
+)
 returns boolean as $$
-  select public.user_is_admin(public.viewer())
+  select public.user_is_admin("user")
 $$ language sql stable strict;
-comment on function public.can_viewer_insert_therapist is '@notNull';
+comment on function public.user_can_insert_therapist is '@notNull';
 
 create function public.therapist_can_viewer_update(
   therapist public.therapist

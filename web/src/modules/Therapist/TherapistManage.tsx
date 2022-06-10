@@ -47,7 +47,9 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
     graphql`
       fragment TherapistManage_query on Query {
         ...AutocompleteUser_query
-        canViewerInsertTherapist
+        viewer @required(action: THROW) {
+          canInsertTherapist
+        }
       }
     `,
     queryRef,
@@ -137,7 +139,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
   });
 
   const canDelete = therapist?.canViewerDelete;
-  const canSave = query.canViewerInsertTherapist || therapist?.canViewerUpdate;
+  const canSave = therapist ? therapist.canViewerUpdate : query.viewer.canInsertTherapist;
 
   useUnsavedChangesPrompt(formState.isDirty);
 

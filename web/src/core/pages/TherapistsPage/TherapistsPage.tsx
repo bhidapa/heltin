@@ -28,6 +28,9 @@ export const TherapistsPage: React.FC<TherapistsPageProps> = () => {
         # filters
         $q: String
       ) {
+        viewer @required(action: THROW) {
+          canInsertTherapist
+        }
         ...TherapistsTable_query
           @arguments(
             # pagination
@@ -36,7 +39,6 @@ export const TherapistsPage: React.FC<TherapistsPageProps> = () => {
             # filters
             q: $q
           )
-        canViewerInsertTherapist
       }
     `,
     match.data.therapistsPageQuery!,
@@ -54,7 +56,7 @@ export const TherapistsPage: React.FC<TherapistsPageProps> = () => {
             <FormattedMessage id="THERAPISTS" />
           </h2>
         </div>
-        {query.canViewerInsertTherapist && (
+        {query.viewer.canInsertTherapist && (
           <div className="col text-right">
             <Link to="create" search className="btn btn-primary">
               <i className="fa-solid fa-plus"></i>

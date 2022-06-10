@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<59c42b425ac721ef00ea6fc8669be277>>
+ * @generated SignedSource<<53ce2ae47c28179a3ff68b6d524a2afd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,15 @@ export type TherapistsCreatePageQuery = {
   variables: TherapistsCreatePageQuery$variables;
 };
 
-const node: ConcreteRequest = {
+const node: ConcreteRequest = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -63,13 +71,7 @@ const node: ConcreteRequest = {
             "name": "nodes",
             "plural": true,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
+              (v0/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -93,21 +95,34 @@ const node: ConcreteRequest = {
       {
         "alias": null,
         "args": null,
-        "kind": "ScalarField",
-        "name": "canViewerInsertTherapist",
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "canInsertTherapist",
+            "storageKey": null
+          },
+          (v0/*: any*/)
+        ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a3916cf4e30044651faa357538f4e603",
+    "cacheID": "5cd5b986a725133255d668fc4dab866e",
     "id": null,
     "metadata": {},
     "name": "TherapistsCreatePageQuery",
     "operationKind": "query",
-    "text": "query TherapistsCreatePageQuery {\n  ...TherapistManage_query\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n  canViewerInsertTherapist\n}\n"
+    "text": "query TherapistsCreatePageQuery {\n  ...TherapistManage_query\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n  viewer {\n    canInsertTherapist\n    id\n  }\n}\n"
   }
 };
+})();
 
 if (import.meta.env.DEV) {
   (node as any).hash = "2745f8ff51d46dc305df763fd3eb50d8";

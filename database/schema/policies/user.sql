@@ -91,7 +91,7 @@ create policy insert_therapist_can_viewer_insert on public.therapist
   for insert
   to viewer
   with check (
-    public.can_viewer_insert_therapist()
+    public.user_can_insert_therapist(public.viewer())
   );
 
 create policy update_therapist_can_viewer_update on public.therapist
