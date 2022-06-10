@@ -33,8 +33,8 @@
 1.  Make sure that you have [Docker](https://www.docker.com/products/docker-engine) installed
 2.  Clone this repo using `git clone https://github.com/bhidapa/heltin.git` and cd into it
 3.  Run `docker compose up` to start the stack<br>
-    - Postgres database will be exposed at: **[postgres://localhost:54321/heltin](postgres://localhost:54321/heltin)**
-    - GraphQL endpoint will be located at: **[http://localhost:50000/graphql](http://localhost:50000/graphql)**<br>
+    - Postgres database at: **[postgres://localhost:54321/heltin](postgres://localhost:54321/heltin)**
+    - GraphQL endpoint at: **[http://localhost:50000/graphql](http://localhost:50000/graphql)**<br>
       _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:50000/graphiql](http://localhost:50000/graphiql)_
-    - The application will be located at: **[http://localhost:8080](http://localhost:8080)**<br>
+    - Web application at: **[http://localhost:8080](http://localhost:8080)**<br>
       _Use `john@doe.com:password` to login_
