@@ -36,6 +36,7 @@ export const TherapistsPage: React.FC<TherapistsPageProps> = () => {
             # filters
             q: $q
           )
+        canViewerInsertTherapist
       }
     `,
     match.data.therapistsPageQuery!,
@@ -53,13 +54,15 @@ export const TherapistsPage: React.FC<TherapistsPageProps> = () => {
             <FormattedMessage id="THERAPISTS" />
           </h2>
         </div>
-        <div className="col text-right">
-          <Link to="create" search className="btn btn-primary">
-            <i className="fa-solid fa-plus"></i>
-            &nbsp;
-            <FormattedMessage id="NEW_THERAPIST" />
-          </Link>
-        </div>
+        {query.canViewerInsertTherapist && (
+          <div className="col text-right">
+            <Link to="create" search className="btn btn-primary">
+              <i className="fa-solid fa-plus"></i>
+              &nbsp;
+              <FormattedMessage id="NEW_THERAPIST" />
+            </Link>
+          </div>
+        )}
       </div>
 
       <TherapistsTable query={query} />

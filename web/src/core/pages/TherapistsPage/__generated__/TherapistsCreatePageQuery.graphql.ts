@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6f42e257dd72c1c2a859fb7edc6f61e>>
+ * @generated SignedSource<<59c42b425ac721ef00ea6fc8669be277>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -89,16 +89,23 @@ const node: ConcreteRequest = {
           }
         ],
         "storageKey": "filterUsers(first:10)"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "canViewerInsertTherapist",
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "55b735c79f281b317a951de7238b8190",
+    "cacheID": "a3916cf4e30044651faa357538f4e603",
     "id": null,
     "metadata": {},
     "name": "TherapistsCreatePageQuery",
     "operationKind": "query",
-    "text": "query TherapistsCreatePageQuery {\n  ...TherapistManage_query\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n}\n"
+    "text": "query TherapistsCreatePageQuery {\n  ...TherapistManage_query\n}\n\nfragment AutocompleteUser_query on Query {\n  filterUsers(first: 10) {\n    nodes {\n      id\n      rowId\n      email\n    }\n  }\n}\n\nfragment TherapistManage_query on Query {\n  ...AutocompleteUser_query\n  canViewerInsertTherapist\n}\n"
   }
 };
 

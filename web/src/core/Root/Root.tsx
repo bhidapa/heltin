@@ -169,19 +169,17 @@ export const Root: React.FC<RootProps> = (props) => {
                   </span>
                   <FormattedMessage id="CLIENTS" />
                 </Link>
-                {viewer.isAdmin && (
-                  <Link
-                    to="/therapists"
-                    className="sidebar-link sidebar-link-with-icon"
-                    activeOptions={{ exact: true }}
-                    getActiveProps={() => ({ className: 'active' })}
-                  >
-                    <span className="sidebar-icon" style={{ color: 'inherit' }}>
-                      <i className="fa fa-user-doctor" aria-hidden="true"></i>
-                    </span>
-                    <FormattedMessage id="THERAPISTS" />
-                  </Link>
-                )}
+                <Link
+                  to="/therapists"
+                  className="sidebar-link sidebar-link-with-icon"
+                  activeOptions={{ exact: true }}
+                  getActiveProps={() => ({ className: 'active' })}
+                >
+                  <span className="sidebar-icon" style={{ color: 'inherit' }}>
+                    <i className="fa fa-user-doctor" aria-hidden="true"></i>
+                  </span>
+                  <FormattedMessage id="THERAPISTS" />
+                </Link>
               </div>
             </div>
           </>

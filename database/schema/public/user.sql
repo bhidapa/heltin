@@ -206,6 +206,30 @@ comment on function public.therapist_full_name is '@notNull';
 
 ----
 
+create function public.can_viewer_insert_therapist()
+returns boolean as $$
+  select public.user_is_admin(public.viewer())
+$$ language sql stable strict;
+comment on function public.can_viewer_insert_therapist is '@notNull';
+
+create function public.therapist_can_viewer_update(
+  therapist public.therapist
+) returns boolean as $$
+  select
+    therapist.user_id = public.viewer_user_id()
+    or public.user_is_admin(public.viewer())
+$$ language sql stable strict;
+comment on function public.therapist_can_viewer_update is '@notNull';
+
+create function public.therapist_can_viewer_delete(
+  therapist public.therapist
+) returns boolean as $$
+  select public.user_is_admin(public.viewer())
+$$ language sql stable strict;
+comment on function public.therapist_can_viewer_delete is '@notNull';
+
+----
+
 create function public.create_therapist(
   "type"        public.therapist_type,
   email         email_address,

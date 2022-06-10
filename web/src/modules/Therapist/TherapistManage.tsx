@@ -47,6 +47,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
     graphql`
       fragment TherapistManage_query on Query {
         ...AutocompleteUser_query
+        canViewerInsertTherapist
       }
     `,
     queryRef,
@@ -70,6 +71,9 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
         user: userByUserRowId {
           ...AutocompleteUser_item @relay(mask: false)
         }
+
+        canViewerUpdate
+        canViewerDelete
 
         updatedAt
       }
@@ -131,6 +135,9 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
       user: therapist?.user ?? null,
     },
   });
+
+  const canDelete = therapist?.canViewerDelete;
+  const canSave = query.canViewerInsertTherapist || therapist?.canViewerUpdate;
 
   useUnsavedChangesPrompt(formState.isDirty);
 
@@ -240,7 +247,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
       <div className="form-row">
         <div className="col">
           <div className="custom-switch">
-            <input {...register('enabled')} type="checkbox" id="enabled" />
+            <input {...register('enabled')} type="checkbox" id="enabled" disabled={!canSave} />
             <label htmlFor="enabled">
               <FormattedMessage id="ENABLED" />
             </label>
@@ -253,7 +260,9 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <Controller
             control={control}
             name="user"
-            render={({ field: { ref, ...field } }) => <AutocompleteUser {...field} query={query} />}
+            render={({ field: { ref, ...field } }) => (
+              <AutocompleteUser {...field} query={query} readOnly={!canSave} />
+            )}
           />
           <div className="form-text">
             <FormattedMessage id="THERAPIST_USER_FORM_TEXT" />
@@ -266,7 +275,13 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <label htmlFor="type" className="required">
             <FormattedMessage id="TYPE" />
           </label>
-          <select {...register('type')} id="type" className="form-control" required>
+          <select
+            {...register('type')}
+            id="type"
+            className="form-control"
+            required
+            disabled={!canSave}
+          >
             <TherapistTypeSelectOptions hideEmptyOption />
           </select>
         </div>
@@ -282,6 +297,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             type="text"
             className="form-control"
             id="title"
+            readOnly={!canSave}
           />
         </div>
 
@@ -295,6 +311,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             className="form-control"
             id="firstName"
             required
+            readOnly={!canSave}
           />
         </div>
 
@@ -308,6 +325,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             className="form-control"
             id="lastName"
             required
+            readOnly={!canSave}
           />
         </div>
 
@@ -317,7 +335,13 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <label htmlFor="gender" className="required">
             <FormattedMessage id="GENDER" />
           </label>
-          <select {...register('gender')} id="gender" className="form-control" required>
+          <select
+            {...register('gender')}
+            id="gender"
+            className="form-control"
+            required
+            disabled={!canSave}
+          >
             <GenderSelectOptions hideEmptyOption />
           </select>
         </div>
@@ -333,6 +357,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             className="form-control"
             id="dateOfBirth"
             required
+            readOnly={!canSave}
           />
         </div>
       </div>
@@ -347,38 +372,45 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             type="text"
             className="form-control"
             id="telephone"
+            readOnly={!canSave}
           />
         </div>
         <div className="col-sm">
           <label htmlFor="email" className="required">
             E-Mail
           </label>
-          <input {...register('email')} type="email" className="form-control" id="email" required />
+          <input
+            {...register('email')}
+            type="email"
+            className="form-control"
+            id="email"
+            required
+            readOnly={!canSave}
+          />
         </div>
       </div>
 
       <div className="form-row align-items-center">
-        {therapist && (
-          <div className="col">
-            <button
-              type="button"
-              className="btn btn-danger"
-              disabled={formState.isSubmitting}
-              onClick={() => (shouldDeleteRef.current = true) && submit()}
-            >
-              <i className="fa-solid fa-ban"></i>
-              &nbsp;
-              <FormattedMessage id="DELETE" />
-            </button>
-          </div>
-        )}
+        <div className="col">
+          <button
+            type="button"
+            className="btn btn-danger"
+            disabled={!canDelete || formState.isSubmitting}
+            aria-disabled={!canDelete || formState.isSubmitting}
+            onClick={() => (shouldDeleteRef.current = true) && submit()}
+          >
+            <i className="fa-solid fa-ban"></i>
+            &nbsp;
+            <FormattedMessage id="DELETE" />
+          </button>
+        </div>
 
         <div className="col text-right">
           <button
             type="submit"
             className="btn btn-primary btn-lg"
-            disabled={formState.isSubmitting}
-            aria-disabled={formState.isSubmitting}
+            disabled={!canSave || formState.isSubmitting}
+            aria-disabled={!canSave || formState.isSubmitting}
           >
             <i className="fa-solid fa-floppy-disk"></i>
             &nbsp;

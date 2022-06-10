@@ -87,34 +87,26 @@ create policy select_therapist_anyone on public.therapist
   to viewer
   using (true);
 
-create policy insert_therapist_only_admin on public.therapist
+create policy insert_therapist_can_viewer_insert on public.therapist
   for insert
   to viewer
   with check (
-    public.user_is_admin(public.viewer())
+    public.can_viewer_insert_therapist()
   );
 
-create policy update_therapist_is_admin on public.therapist
+create policy update_therapist_can_viewer_update on public.therapist
   for update
   to viewer
   using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
   with check (
-    public.user_is_admin(public.viewer())
+    public.therapist_can_viewer_update(therapist)
   );
 
-create policy update_therapist_is_self on public.therapist
-  for update
-  to viewer
-  using (true) -- always allow row access, otherwise no row will be provided to "with check" and the operation will succeed without providing results
-  with check (
-    therapist.user_id = public.viewer_user_id()
-  );
-
-create policy delete_therapist_only_admin on public.therapist
+create policy delete_therapist_can_viewer_delete on public.therapist
   for delete
   to viewer
   using (
-    public.user_is_admin(public.viewer())
+    public.therapist_can_viewer_delete(therapist)
   );
 
 alter table public.therapist enable row level security;

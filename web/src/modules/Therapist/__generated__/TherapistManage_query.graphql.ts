@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c1d3db323ca2dad5295a9308a736258c>>
+ * @generated SignedSource<<f8beda97dfc684e094aeb6b42467b0c7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TherapistManage_query$data = {
+  readonly canViewerInsertTherapist: boolean;
   readonly " $fragmentSpreads": FragmentRefs<"AutocompleteUser_query">;
   readonly " $fragmentType": "TherapistManage_query";
 };
@@ -29,6 +30,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "AutocompleteUser_query"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "canViewerInsertTherapist",
+      "storageKey": null
     }
   ],
   "type": "Query",
@@ -36,7 +44,7 @@ const node: ReaderFragment = {
 };
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "8db98c32eef0a8fdd07bc97099d2af70";
+  (node as any).hash = "be2453516e94ad12ff86a6193b24e544";
 }
 
 export default node;

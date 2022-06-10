@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5333141ecd4a362204107792dc3d06f6>>
+ * @generated SignedSource<<7777e92ef35c5246119ca28ef45418c1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -234,6 +234,20 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "canViewerUpdate",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "canViewerDelete",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "updatedAt",
                 "storageKey": null
               },
@@ -247,12 +261,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "07a42c18d3845ceca18b8b679978779f",
+    "cacheID": "da68f71b39db299fe1e73528e68bb91d",
     "id": null,
     "metadata": {},
     "name": "TherapistManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation TherapistManageUpdateMutation(\n  $input: UpdateTherapistInput!\n) {\n  updateTherapist(input: $input) {\n    therapist {\n      rowId\n      ...TherapistManage_therapist\n      ...TherapistsTable_therapist\n      id\n    }\n  }\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  updatedAt\n}\n\nfragment TherapistsTable_therapist on Therapist {\n  rowId\n  type\n  fullName\n  enabled\n}\n"
+    "text": "mutation TherapistManageUpdateMutation(\n  $input: UpdateTherapistInput!\n) {\n  updateTherapist(input: $input) {\n    therapist {\n      rowId\n      ...TherapistManage_therapist\n      ...TherapistsTable_therapist\n      id\n    }\n  }\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  canViewerUpdate\n  canViewerDelete\n  updatedAt\n}\n\nfragment TherapistsTable_therapist on Therapist {\n  rowId\n  type\n  fullName\n  enabled\n}\n"
   }
 };
 })();

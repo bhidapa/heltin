@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4f40a379ee9d3f5d40e468d2b11ee358>>
+ * @generated SignedSource<<322402a23536c5f8369cb282fe831da5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,8 @@ export type Gender = "FEMALE" | "MALE";
 export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type TherapistManage_therapist$data = {
+  readonly canViewerDelete: boolean;
+  readonly canViewerUpdate: boolean;
   readonly dateOfBirth: string;
   readonly disabled: boolean;
   readonly email: string;
@@ -155,6 +157,20 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "canViewerUpdate",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "canViewerDelete",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "updatedAt",
       "storageKey": null
     }
@@ -165,7 +181,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "681915f3d77f75a0bb2bc07822a5bdb2";
+  (node as any).hash = "b3ead81ffd5004d6f73c82b54781352b";
 }
 
 export default node;

@@ -609,6 +609,7 @@ type Query implements Node {
   therapistByFirstNameAndLastNameAndDateOfBirth(firstName: String!, lastName: String!, dateOfBirth: Date!): Therapist
   userByRowId(rowId: UUID!): User
   userByEmail(email: EmailAddress!): User
+  canViewerInsertTherapist: Boolean!
 
   """Reads and enables pagination through a set of `Client`."""
   filterClients(
@@ -1671,6 +1672,8 @@ type Therapist implements Node {
     """
     condition: CaseStudyTherapistCondition
   ): CaseStudyTherapistsConnection!
+  canViewerDelete: Boolean!
+  canViewerUpdate: Boolean!
   enabled: Boolean!
   fullName: String!
 }

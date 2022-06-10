@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ae2aa0770f42294027fab1018858be81>>
+ * @generated SignedSource<<cb20c23b483d5708276c6502084b05f8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type TherapistsPageQuery$variables = {
   q?: string | null;
 };
 export type TherapistsPageQuery$data = {
+  readonly canViewerInsertTherapist: boolean;
   readonly " $fragmentSpreads": FragmentRefs<"TherapistsTable_query">;
 };
 export type TherapistsPageQuery = {
@@ -41,7 +42,14 @@ var v0 = [
     "name": "q"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "canViewerInsertTherapist",
+  "storageKey": null
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "after",
@@ -85,7 +93,8 @@ return {
         ],
         "kind": "FragmentSpread",
         "name": "TherapistsTable_query"
-      }
+      },
+      (v1/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -98,7 +107,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "TherapistsConnection",
         "kind": "LinkedField",
         "name": "filterTherapists",
@@ -212,7 +221,7 @@ return {
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "filters": [
           "searchText"
         ],
@@ -220,22 +229,23 @@ return {
         "key": "TherapistsTable_filterTherapists",
         "kind": "LinkedHandle",
         "name": "filterTherapists"
-      }
+      },
+      (v1/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "837fd1309608d95cc6c1900c23f6d0aa",
+    "cacheID": "d31a2da1708c8f8ba1f993abc43491f5",
     "id": null,
     "metadata": {},
     "name": "TherapistsPageQuery",
     "operationKind": "query",
-    "text": "query TherapistsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  ...TherapistsTable_query_XhAmI\n}\n\nfragment TherapistsTable_query_XhAmI on Query {\n  filterTherapists(first: $count, after: $cursor, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        type\n        fullName\n        enabled\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query TherapistsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  ...TherapistsTable_query_XhAmI\n  canViewerInsertTherapist\n}\n\nfragment TherapistsTable_query_XhAmI on Query {\n  filterTherapists(first: $count, after: $cursor, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        type\n        fullName\n        enabled\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "2e1314d2eeddfbad292527a5a35abc40";
+  (node as any).hash = "5f35772e84dd3251f3584d34f159b72d";
 }
 
 export default node;

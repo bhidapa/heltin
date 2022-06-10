@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a98ddde9f105933f3076253f5f6d71ff>>
+ * @generated SignedSource<<997f05cfa232d3a204a979ca1b117b81>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -282,6 +282,20 @@ return {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
+                    "name": "canViewerUpdate",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "canViewerDelete",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "updatedAt",
                     "storageKey": null
                   },
@@ -298,12 +312,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7702e54e1cc95eeadc144789567e8dac",
+    "cacheID": "c9fee49599684e627074bd900b97fc24",
     "id": null,
     "metadata": {},
     "name": "TherapistManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation TherapistManageCreateMutation(\n  $input: CreateTherapistInput!\n) {\n  createTherapist(input: $input) {\n    therapist {\n      rowId\n      id\n    }\n    therapistEdge {\n      node {\n        rowId\n        ...TherapistManage_therapist\n        ...TherapistsTable_therapist\n        id\n      }\n    }\n  }\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  updatedAt\n}\n\nfragment TherapistsTable_therapist on Therapist {\n  rowId\n  type\n  fullName\n  enabled\n}\n"
+    "text": "mutation TherapistManageCreateMutation(\n  $input: CreateTherapistInput!\n) {\n  createTherapist(input: $input) {\n    therapist {\n      rowId\n      id\n    }\n    therapistEdge {\n      node {\n        rowId\n        ...TherapistManage_therapist\n        ...TherapistsTable_therapist\n        id\n      }\n    }\n  }\n}\n\nfragment TherapistManage_therapist on Therapist {\n  rowId\n  enabled\n  disabled\n  type\n  title\n  fullName\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  email\n  user: userByUserRowId {\n    id\n    rowId\n    email\n  }\n  canViewerUpdate\n  canViewerDelete\n  updatedAt\n}\n\nfragment TherapistsTable_therapist on Therapist {\n  rowId\n  type\n  fullName\n  enabled\n}\n"
   }
 };
 })();

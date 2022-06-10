@@ -115,7 +115,7 @@ export function getRoutes(viewerRef: routes_viewer$key | null): Route<LocationGe
       // children: [...],
     },
     ...getClientsRoutes(viewer),
-    ...(viewer.isAdmin ? getTherapistsRoutes() : []),
+    ...getTherapistsRoutes(),
     {
       path: 'logout',
       element: () =>
