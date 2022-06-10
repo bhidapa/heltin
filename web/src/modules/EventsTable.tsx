@@ -51,6 +51,7 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
 
         treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {
           rowId
+          external
           title
           startedAt
           endedAt
@@ -152,9 +153,15 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
               return (
                 <tr key={event.id}>
                   <td>
-                    <Tooltip content={<FormattedMessage id="TREATMENT" />}>
-                      <i className="fa-solid fa-hand-holding-medical"></i>
-                    </Tooltip>
+                    {event.treatment?.external ? (
+                      <Tooltip content={<FormattedMessage id="EXTERNAL_TREATMENT" />}>
+                        <i className="fa-solid fa-truck-medical"></i>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip content={<FormattedMessage id="TREATMENT" />}>
+                        <i className="fa-solid fa-hand-holding-medical"></i>
+                      </Tooltip>
+                    )}
                   </td>
                   <td>
                     <Link

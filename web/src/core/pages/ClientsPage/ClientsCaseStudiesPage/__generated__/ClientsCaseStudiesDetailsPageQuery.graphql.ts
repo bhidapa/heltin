@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3d765c9fdd7c95b355f6f4656352b42f>>
+ * @generated SignedSource<<740c861875d55dfcbbd14763ab70f683>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -387,6 +387,13 @@ return {
                     "plural": false,
                     "selections": [
                       (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "external",
+                        "storageKey": null
+                      },
                       (v6/*: any*/),
                       {
                         "alias": null,
@@ -496,12 +503,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "7577a6be37a749ac2c91d633b71324b9",
+    "cacheID": "95cd8ee378bed8fb54876b688a512f04",
     "id": null,
     "metadata": {},
     "name": "ClientsCaseStudiesDetailsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsCaseStudiesDetailsPageQuery(\n  $clientRowId: UUID!\n  $caseStudyRowId: UUID!\n) {\n  client: clientByRowId(rowId: $clientRowId) {\n    rowId\n    fullName\n    ...CaseStudyManage_client\n    id\n  }\n  caseStudy: caseStudyByRowId(rowId: $caseStudyRowId) {\n    title\n    ...ClientsCaseStudiesDetailsPage_caseStudy\n    id\n  }\n  filterForms {\n    nodes {\n      rowId\n      name\n      id\n    }\n  }\n  ...CaseStudyAssignedTherapistsManage_query\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "query ClientsCaseStudiesDetailsPageQuery(\n  $clientRowId: UUID!\n  $caseStudyRowId: UUID!\n) {\n  client: clientByRowId(rowId: $clientRowId) {\n    rowId\n    fullName\n    ...CaseStudyManage_client\n    id\n  }\n  caseStudy: caseStudyByRowId(rowId: $caseStudyRowId) {\n    title\n    ...ClientsCaseStudiesDetailsPage_caseStudy\n    id\n  }\n  filterForms {\n    nodes {\n      rowId\n      name\n      id\n    }\n  }\n  ...CaseStudyAssignedTherapistsManage_query\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyManage_client on Client {\n  rowId\n  fullName\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();

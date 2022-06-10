@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5d098cbe32d26e8db061245651a53ad1>>
+ * @generated SignedSource<<d4609ec5ccc508b9d30e7b341d181c57>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -34,6 +34,7 @@ export type EventsTable_events$data = ReadonlyArray<{
   readonly id: string;
   readonly treatment: {
     readonly endedAt: string;
+    readonly external: boolean;
     readonly rowId: string;
     readonly startedAt: string;
     readonly title: string;
@@ -152,6 +153,13 @@ return {
       "plural": false,
       "selections": [
         (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "external",
+          "storageKey": null
+        },
         (v2/*: any*/),
         {
           "alias": null,
@@ -197,7 +205,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "f18cd3e5b02f32e4bd7a5d36e8017599";
+  (node as any).hash = "467861595a550ed3802aebb5c714738a";
 }
 
 export default node;
