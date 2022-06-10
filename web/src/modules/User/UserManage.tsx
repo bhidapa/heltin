@@ -226,6 +226,9 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
               <FormattedMessage id="ENABLED" />
             </label>
           </div>
+          <div className="form-text">
+            <FormattedMessage id="CAN_USER_ACCESS_HELTIN" />
+          </div>
         </div>
       </div>
 

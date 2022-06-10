@@ -121,9 +121,9 @@ export const TherapistsTable: React.FC<TherapistsTableProps> = (props) => {
               <FormattedMessage id="FULL_NAME" />
             </th>
             <th className="text-right">
-              <Tooltip content={<FormattedMessage id="CAN_THERAPIST_USE_HELTIN" />}>
+              <Tooltip content={<FormattedMessage id="IS_THERAPIST_VISIBLE_IN_HELTIN" />}>
                 <span>
-                  <FormattedMessage id="ENABLED" />
+                  <FormattedMessage id="VISIBLE" />
                 </span>
               </Tooltip>
             </th>

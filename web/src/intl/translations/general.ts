@@ -445,4 +445,8 @@ export const messages: Messages = {
     en: 'E-Mail',
     hr: 'E-Mail',
   },
+  VISIBLE: {
+    en: 'Visible',
+    hr: 'Vidljiv',
+  },
 };

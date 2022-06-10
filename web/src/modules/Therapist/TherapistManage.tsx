@@ -251,8 +251,11 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <div className="custom-switch">
             <input {...register('enabled')} type="checkbox" id="enabled" disabled={!canSave} />
             <label htmlFor="enabled">
-              <FormattedMessage id="ENABLED" />
+              <FormattedMessage id="VISIBLE" />
             </label>
+          </div>
+          <div className="form-text">
+            <FormattedMessage id="IS_THERAPIST_VISIBLE_IN_HELTIN" />
           </div>
         </div>
       </div>

@@ -10,6 +10,8 @@ import { graphql, usePaginationFragment } from 'react-relay';
 
 import { Link, useNavigate, useSearch } from '@tanstack/react-location';
 
+import { Tooltip } from 'lib/Tooltip';
+
 import { LocationGenerics } from 'core/location';
 
 import { UsersTableRefetchQuery } from './__generated__/UsersTableRefetchQuery.graphql';
@@ -119,7 +121,11 @@ export const UsersTable: React.FC<UsersTableProps> = (props) => {
               <FormattedMessage id="EMAIL" />
             </th>
             <th className="text-right">
-              <FormattedMessage id="ENABLED" />
+              <Tooltip content={<FormattedMessage id="CAN_USER_ACCESS_HELTIN" />}>
+                <span>
+                  <FormattedMessage id="ENABLED" />
+                </span>
+              </Tooltip>
             </th>
           </tr>
         </thead>

@@ -109,9 +109,13 @@ export const messages: Messages = {
     en: 'Other',
     hr: 'Ostalo',
   },
-  CAN_THERAPIST_USE_HELTIN: {
-    en: 'Can the therapist use heltin?',
-    hr: 'Da li može terapeut koristiti heltin?',
+  CAN_USER_ACCESS_HELTIN: {
+    en: 'Can user access heltin?',
+    hr: 'Da li korisnik može pristupiti heltin-u?',
+  },
+  IS_THERAPIST_VISIBLE_IN_HELTIN: {
+    en: 'Is therapist visible during searches in heltin?',
+    hr: 'Da li je terapeut vidljiv tokom pretrage heltin-a?',
   },
   THERAPIST_USER_FORM_TEXT: {
     en: 'heltin user which is actually this therapist.',

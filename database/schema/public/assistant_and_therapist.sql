@@ -81,7 +81,7 @@ create table public.therapist (
 
   gender public.gender not null,
 
-  disabled boolean not null default false,
+  disabled boolean not null default false, -- TODO: rename to `visible`, maybe?
 
   fulltext text not null generated always as (
     email || ' ' ||
