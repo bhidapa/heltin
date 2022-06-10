@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b540d0b68caf32bf962f46ac420124ec>>
+ * @generated SignedSource<<304a914b1b955fdba56d4f403f625a0a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,8 +19,8 @@ export type TherapistsTableRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"TherapistsTable_query">;
 };
 export type TherapistsTableRefetchQuery = {
-  variables: TherapistsTableRefetchQuery$variables;
   response: TherapistsTableRefetchQuery$data;
+  variables: TherapistsTableRefetchQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

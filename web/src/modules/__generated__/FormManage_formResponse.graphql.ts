@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2e97cec18af93b69fbd7c998303cd67a>>
+ * @generated SignedSource<<4368aa1ac8cd69370dd806ff8a7b5d2c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,8 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FormManage_formResponse$data = {
-  readonly rowId: string;
   readonly formRowId: string;
+  readonly rowId: string;
   readonly " $fragmentSpreads": FragmentRefs<"FormManageBuildDefaultValues_formResponse">;
   readonly " $fragmentType": "FormManage_formResponse";
 };

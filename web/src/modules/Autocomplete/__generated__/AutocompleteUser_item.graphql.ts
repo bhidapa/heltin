@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8e963178e37edc00de67c08de7546827>>
+ * @generated SignedSource<<9cc8d553df09ca8f7a28eefa492abca4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AutocompleteUser_item$data = {
+  readonly email: string;
   readonly id: string;
   readonly rowId: string;
-  readonly email: string;
   readonly " $fragmentType": "AutocompleteUser_item";
 };
 export type AutocompleteUser_item$key = {

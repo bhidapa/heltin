@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<deffaab45f7affcb04f1d3cd9334de34>>
+ * @generated SignedSource<<bad71aff546d2307c33fb35e0a531622>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,16 +15,16 @@ export type ClientsCaseStudiesConclusionCreatePageQuery$variables = {
 };
 export type ClientsCaseStudiesConclusionCreatePageQuery$data = {
   readonly caseStudy: {
-    readonly title: string;
     readonly client: {
       readonly fullName: string;
     };
+    readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy">;
   } | null;
 };
 export type ClientsCaseStudiesConclusionCreatePageQuery = {
-  variables: ClientsCaseStudiesConclusionCreatePageQuery$variables;
   response: ClientsCaseStudiesConclusionCreatePageQuery$data;
+  variables: ClientsCaseStudiesConclusionCreatePageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f28fb28c9a8c8eb633a36e667ea05568>>
+ * @generated SignedSource<<9cc15bcffadc11d6831d01199a19a9d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,8 +25,8 @@ export type CaseStudyManageDeleteMutation$data = {
   } | null;
 };
 export type CaseStudyManageDeleteMutation = {
-  variables: CaseStudyManageDeleteMutation$variables;
   response: CaseStudyManageDeleteMutation$data;
+  variables: CaseStudyManageDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<30ee67b4878a6cf109d77a4d665bfa1a>>
+ * @generated SignedSource<<a3b11b79b6ff5f3bdcc5a937dbb81aa8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,19 +9,19 @@
 // @ts-nocheck
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type TherapistsTable_query$data = {
   readonly filterTherapists: {
-    readonly totalCount: number;
     readonly edges: ReadonlyArray<{
       readonly node: {
+        readonly enabled: boolean;
+        readonly fullName: string;
         readonly rowId: string;
         readonly type: TherapistType;
-        readonly fullName: string;
-        readonly enabled: boolean;
       };
     }>;
+    readonly totalCount: number;
   };
   readonly " $fragmentType": "TherapistsTable_query";
 };
@@ -31,6 +31,7 @@ export type TherapistsTable_query$key = {
 };
 
 import TherapistsTableRefetchQuery_graphql from './TherapistsTableRefetchQuery.graphql';
+
 const node: ReaderFragment = (function(){
 var v0 = [
   "filterTherapists"

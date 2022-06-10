@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f73fe5feb97506c13f14cd2dfd1e09c9>>
+ * @generated SignedSource<<3d765c9fdd7c95b355f6f4656352b42f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,30 +11,30 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsCaseStudiesDetailsPageQuery$variables = {
-  clientRowId: string;
   caseStudyRowId: string;
+  clientRowId: string;
 };
 export type ClientsCaseStudiesDetailsPageQuery$data = {
-  readonly client: {
-    readonly rowId: string;
-    readonly fullName: string;
-    readonly " $fragmentSpreads": FragmentRefs<"CaseStudyManage_client">;
-  } | null;
   readonly caseStudy: {
     readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
   } | null;
+  readonly client: {
+    readonly fullName: string;
+    readonly rowId: string;
+    readonly " $fragmentSpreads": FragmentRefs<"CaseStudyManage_client">;
+  } | null;
   readonly filterForms: {
     readonly nodes: ReadonlyArray<{
-      readonly rowId: string;
       readonly name: string;
+      readonly rowId: string;
     }>;
   } | null;
   readonly " $fragmentSpreads": FragmentRefs<"CaseStudyAssignedTherapistsManage_query">;
 };
 export type ClientsCaseStudiesDetailsPageQuery = {
-  variables: ClientsCaseStudiesDetailsPageQuery$variables;
   response: ClientsCaseStudiesDetailsPageQuery$data;
+  variables: ClientsCaseStudiesDetailsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

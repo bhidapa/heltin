@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<43de3eb6ece5f6a92d3eedffcf34ec7b>>
+ * @generated SignedSource<<2cb74029c8450fb44d3163196214025b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,20 +9,19 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type ClientAssignedTherapistsManage_client$data = {
-  readonly rowId: string;
   readonly assignedTherapists: {
     readonly nodes: ReadonlyArray<{
+      readonly createdAt: string;
       readonly id: string;
       readonly rowId: string;
       readonly therapist: {
+        readonly fullName: string;
         readonly rowId: string;
         readonly type: TherapistType;
-        readonly fullName: string;
       };
-      readonly createdAt: string;
     }>;
   };
   readonly latestAssignedTherapist: {
@@ -30,6 +29,7 @@ export type ClientAssignedTherapistsManage_client$data = {
       readonly fullName: string;
     } | null;
   } | null;
+  readonly rowId: string;
   readonly " $fragmentType": "ClientAssignedTherapistsManage_client";
 };
 export type ClientAssignedTherapistsManage_client$key = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e39d4a8f75111f363a303139af45cbc5>>
+ * @generated SignedSource<<2043d8b02533b936eef7c221d0e50dae>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,8 +24,8 @@ export type ClientManageDeleteMutation$data = {
   } | null;
 };
 export type ClientManageDeleteMutation = {
-  variables: ClientManageDeleteMutation$variables;
   response: ClientManageDeleteMutation$data;
+  variables: ClientManageDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

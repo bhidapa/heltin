@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7b8ceff3a58b009c59033b9fe8e4d1ef>>
+ * @generated SignedSource<<b0acaea203a7706b80adcb956173fb9e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type TherapistsTable_therapist$data = {
+  readonly enabled: boolean;
+  readonly fullName: string;
   readonly rowId: string;
   readonly type: TherapistType;
-  readonly fullName: string;
-  readonly enabled: boolean;
   readonly " $fragmentType": "TherapistsTable_therapist";
 };
 export type TherapistsTable_therapist$key = {

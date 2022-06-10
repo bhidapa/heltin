@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1fa61cb8236e342be1754a47a3876315>>
+ * @generated SignedSource<<8fa91a330c9b1e302bc270ac534fb777>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,8 +23,8 @@ export type TherapistsDetailsPageQuery$data = {
   } | null;
 };
 export type TherapistsDetailsPageQuery = {
-  variables: TherapistsDetailsPageQuery$variables;
   response: TherapistsDetailsPageQuery$data;
+  variables: TherapistsDetailsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

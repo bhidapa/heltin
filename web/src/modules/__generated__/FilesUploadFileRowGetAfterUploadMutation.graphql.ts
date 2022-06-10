@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<094e2a11bdb5da1c06a5023d01e58739>>
+ * @generated SignedSource<<895e4f33883c11dff198c67e383414a3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,30 +20,30 @@ export type FilesUploadFileRowGetAfterUploadMutation$variables = {
 export type FilesUploadFileRowGetAfterUploadMutation$data = {
   readonly getFileAfterUpload: {
     readonly file: {
-      readonly caseStudyTreatmentFile: {
-        readonly id: string;
-        readonly fileByFileRowId: {
-          readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
-        } | null;
-      } | null;
       readonly caseStudyConclusionFile: {
-        readonly id: string;
         readonly fileByFileRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
         } | null;
+        readonly id: string;
+      } | null;
+      readonly caseStudyTreatmentFile: {
+        readonly fileByFileRowId: {
+          readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
+        } | null;
+        readonly id: string;
       } | null;
       readonly formResponseFile: {
-        readonly id: string;
         readonly fileByFileRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
         } | null;
+        readonly id: string;
       } | null;
     } | null;
   } | null;
 };
 export type FilesUploadFileRowGetAfterUploadMutation = {
-  variables: FilesUploadFileRowGetAfterUploadMutation$variables;
   response: FilesUploadFileRowGetAfterUploadMutation$data;
+  variables: FilesUploadFileRowGetAfterUploadMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

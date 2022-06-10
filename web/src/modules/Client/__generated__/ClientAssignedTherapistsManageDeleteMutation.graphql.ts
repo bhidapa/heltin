@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2273b665f152032194da417d0f37b255>>
+ * @generated SignedSource<<3ef2188d6997e21056348ff0a1e9c614>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,8 +25,8 @@ export type ClientAssignedTherapistsManageDeleteMutation$data = {
   } | null;
 };
 export type ClientAssignedTherapistsManageDeleteMutation = {
-  variables: ClientAssignedTherapistsManageDeleteMutation$variables;
   response: ClientAssignedTherapistsManageDeleteMutation$data;
+  variables: ClientAssignedTherapistsManageDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

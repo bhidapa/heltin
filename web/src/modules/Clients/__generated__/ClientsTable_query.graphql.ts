@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c68de2d7ef1c3ae3f083c7da8b57aa34>>
+ * @generated SignedSource<<04916cb6f1546355d9faebec651f9bff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,23 +12,23 @@ import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_query$data = {
   readonly filterClients: {
-    readonly totalCount: number;
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly rowId: string;
-        readonly number: number;
         readonly fullName: string;
         readonly latestAssignedTherapist: {
           readonly therapist: {
-            readonly rowId: string;
             readonly fullName: string;
+            readonly rowId: string;
           };
         } | null;
+        readonly number: number;
+        readonly rowId: string;
         readonly treatments: {
           readonly totalCount: number;
         };
       };
     }>;
+    readonly totalCount: number;
   };
   readonly " $fragmentType": "ClientsTable_query";
 };
@@ -38,6 +38,7 @@ export type ClientsTable_query$key = {
 };
 
 import ClientsTableRefetchQuery_graphql from './ClientsTableRefetchQuery.graphql';
+
 const node: ReaderFragment = (function(){
 var v0 = [
   "filterClients"

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c5135cc760897f333e55c33c09bd506f>>
+ * @generated SignedSource<<d9f6dba458f5d837abaae39edd3b65cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,9 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateFormResponseInput = {
+  answers: any;
   clientMutationId?: string | null;
   formResponseRowId: string;
-  answers: any;
 };
 export type FormManageUpdateFormResponseMutation$variables = {
   input: UpdateFormResponseInput;
@@ -27,13 +27,13 @@ export type FormManageUpdateFormResponseMutation$data = {
         };
         readonly " $fragmentSpreads": FragmentRefs<"FormManage_form">;
       } | null;
-      readonly " $fragmentSpreads": FragmentRefs<"FormManage_formResponse" | "FormManageBuildDefaultValues_formResponse">;
+      readonly " $fragmentSpreads": FragmentRefs<"FormManageBuildDefaultValues_formResponse" | "FormManage_formResponse">;
     } | null;
   } | null;
 };
 export type FormManageUpdateFormResponseMutation = {
-  variables: FormManageUpdateFormResponseMutation$variables;
   response: FormManageUpdateFormResponseMutation$data;
+  variables: FormManageUpdateFormResponseMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

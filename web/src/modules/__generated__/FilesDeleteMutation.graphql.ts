@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9309c056808bc48c1ba23e4eb4a8fcad>>
+ * @generated SignedSource<<0a7021e19b4f37eb3272ff20a8c07954>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,8 +24,8 @@ export type FilesDeleteMutation$data = {
   } | null;
 };
 export type FilesDeleteMutation = {
-  variables: FilesDeleteMutation$variables;
   response: FilesDeleteMutation$data;
+  variables: FilesDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

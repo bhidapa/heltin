@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e9994523dd216602b409ed4d3ede19f>>
+ * @generated SignedSource<<5333141ecd4a362204107792dc3d06f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,20 +10,20 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Gender = "MALE" | "FEMALE";
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type Gender = "FEMALE" | "MALE";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type UpdateTherapistInput = {
   clientMutationId?: string | null;
-  rowId: string;
-  type: TherapistType;
+  dateOfBirth: string;
+  disabled: boolean;
   email: string;
   firstName: string;
-  lastName: string;
-  dateOfBirth: string;
   gender: Gender;
-  disabled: boolean;
+  lastName: string;
+  rowId: string;
   telephone?: string | null;
   title?: string | null;
+  type: TherapistType;
   userRowId?: string | null;
 };
 export type TherapistManageUpdateMutation$variables = {
@@ -38,8 +38,8 @@ export type TherapistManageUpdateMutation$data = {
   } | null;
 };
 export type TherapistManageUpdateMutation = {
-  variables: TherapistManageUpdateMutation$variables;
   response: TherapistManageUpdateMutation$data;
+  variables: TherapistManageUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

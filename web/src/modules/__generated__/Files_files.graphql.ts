@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bcf5c09a470c7e7a814dc3991b74b1d6>>
+ * @generated SignedSource<<42adbb4683298e9b2dfbfc04201be818>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,17 +11,17 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Files_files$data = ReadonlyArray<{
+  readonly createdAt: string;
+  readonly createdBy: {
+    readonly fullName: string;
+    readonly isTherapist: boolean;
+    readonly rowId: string;
+  };
   readonly id: string;
-  readonly rowId: string;
   readonly link: string;
   readonly name: string;
   readonly protected: boolean;
-  readonly createdAt: string;
-  readonly createdBy: {
-    readonly rowId: string;
-    readonly fullName: string;
-    readonly isTherapist: boolean;
-  };
+  readonly rowId: string;
   readonly " $fragmentType": "Files_files";
 }>;
 export type Files_files$key = ReadonlyArray<{

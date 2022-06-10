@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<84be3b1bcc8742ff5df383c68061a9ef>>
+ * @generated SignedSource<<c87181a44011b0896b9d29f2d09b5061>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,8 @@ export type ClientsCreatePageQuery$data = {
   readonly nextAvailableClientNumber: number;
 };
 export type ClientsCreatePageQuery = {
-  variables: ClientsCreatePageQuery$variables;
   response: ClientsCreatePageQuery$data;
+  variables: ClientsCreatePageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1485a33e313010bb549fd3a5a678d379>>
+ * @generated SignedSource<<23a52e4c8a720d378cf20e00e3917544>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,8 @@ export type LogoutPageMutation$data = {
   readonly logout: boolean;
 };
 export type LogoutPageMutation = {
-  variables: LogoutPageMutation$variables;
   response: LogoutPageMutation$data;
+  variables: LogoutPageMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

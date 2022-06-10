@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8cc3daf0bd910e18abcacff9721bbe71>>
+ * @generated SignedSource<<eb0b654927ad2dc8c6f67af45b867267>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,19 +20,19 @@ export type CaseStudyConclusionManageDeleteMutation$variables = {
 export type CaseStudyConclusionManageDeleteMutation$data = {
   readonly deleteCaseStudyConclusion: {
     readonly conclusion: {
-      readonly rowId: string;
       readonly caseStudyByCaseStudyRowId: {
         readonly clientByClientRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
         } | null;
         readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
       } | null;
+      readonly rowId: string;
     } | null;
   } | null;
 };
 export type CaseStudyConclusionManageDeleteMutation = {
-  variables: CaseStudyConclusionManageDeleteMutation$variables;
   response: CaseStudyConclusionManageDeleteMutation$data;
+  variables: CaseStudyConclusionManageDeleteMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

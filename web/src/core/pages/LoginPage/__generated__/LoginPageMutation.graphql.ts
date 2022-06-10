@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2fef62d43108e36ce61d2b66aa0a5efd>>
+ * @generated SignedSource<<86e51f97c911afdbf5b0e023bb9cf66c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,8 +25,8 @@ export type LoginPageMutation$data = {
   } | null;
 };
 export type LoginPageMutation = {
-  variables: LoginPageMutation$variables;
   response: LoginPageMutation$data;
+  variables: LoginPageMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<db38a78295e004c049905c56723b317a>>
+ * @generated SignedSource<<1b43c4763455693385cacd814cdd70cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,17 +11,17 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FormManage_form$data = {
-  readonly rowId: string;
-  readonly name: string;
   readonly description: string | null;
   readonly formQuestions: {
     readonly nodes: ReadonlyArray<{
-      readonly rowId: string;
       readonly required: boolean;
+      readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"FormManageQuestion_question">;
     }>;
     readonly " $fragmentSpreads": FragmentRefs<"FormManageBuildDefaultValues_formQuestions">;
   };
+  readonly name: string;
+  readonly rowId: string;
   readonly " $fragmentType": "FormManage_form";
 };
 export type FormManage_form$key = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<94b3ccc88377aaaf68c7d1f24766232c>>
+ * @generated SignedSource<<904f4f7e653bea06babec6ddb318b14a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,17 +13,17 @@ import { FragmentRefs } from "relay-runtime";
 export type RootQuery$variables = {};
 export type RootQuery$data = {
   readonly viewer: {
-    readonly id: string;
-    readonly fullName: string;
-    readonly firstName: string;
     readonly email: string;
+    readonly firstName: string;
+    readonly fullName: string;
+    readonly id: string;
     readonly isAdmin: boolean;
     readonly " $fragmentSpreads": FragmentRefs<"routes_viewer">;
   } | null;
 };
 export type RootQuery = {
-  variables: RootQuery$variables;
   response: RootQuery$data;
+  variables: RootQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

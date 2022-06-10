@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a491c9bad72e0cb830ffb498511a26b>>
+ * @generated SignedSource<<d679d1ec4bf46fd9b542d3be71354ebb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,8 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientCaseStudies_forms$data = ReadonlyArray<{
-  readonly rowId: string;
   readonly name: string;
+  readonly rowId: string;
   readonly " $fragmentType": "ClientCaseStudies_forms";
 }>;
 export type ClientCaseStudies_forms$key = ReadonlyArray<{

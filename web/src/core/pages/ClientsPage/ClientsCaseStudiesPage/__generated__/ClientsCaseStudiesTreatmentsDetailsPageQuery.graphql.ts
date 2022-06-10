@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<015e1ef0f67f43cf89fff89b942ff26e>>
+ * @generated SignedSource<<ba1e05108bcdbc323e2666b44201de25>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,16 +19,16 @@ export type ClientsCaseStudiesTreatmentsDetailsPageQuery$data = {
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy">;
   } | null;
   readonly treatment: {
-    readonly id: string;
-    readonly rowId: string;
-    readonly title: string;
-    readonly caseStudyRowId: string;
     readonly caseStudy: {
-      readonly title: string;
       readonly client: {
         readonly fullName: string;
       };
+      readonly title: string;
     };
+    readonly caseStudyRowId: string;
+    readonly id: string;
+    readonly rowId: string;
+    readonly title: string;
     readonly treatmentFiles: {
       readonly __id: string;
       readonly nodes: ReadonlyArray<{
@@ -41,8 +41,8 @@ export type ClientsCaseStudiesTreatmentsDetailsPageQuery$data = {
   };
 };
 export type ClientsCaseStudiesTreatmentsDetailsPageQuery = {
-  variables: ClientsCaseStudiesTreatmentsDetailsPageQuery$variables;
   response: ClientsCaseStudiesTreatmentsDetailsPageQuery$data;
+  variables: ClientsCaseStudiesTreatmentsDetailsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

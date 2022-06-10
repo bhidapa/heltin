@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f51744066287ee465b60ca12ef14888>>
+ * @generated SignedSource<<d42ff5193da00e5bdf651c7e456141a7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,14 +9,14 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionManage_conclusion$data = {
+  readonly concludedAt: string;
+  readonly description: string;
+  readonly privateDescription: string | null;
   readonly rowId: string;
   readonly type: CaseStudyConclusionType;
-  readonly privateDescription: string | null;
-  readonly description: string;
-  readonly concludedAt: string;
   readonly " $fragmentType": "CaseStudyConclusionManage_conclusion";
 };
 export type CaseStudyConclusionManage_conclusion$key = {

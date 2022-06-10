@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e620e3d7ed1b6412088b314408ce254>>
+ * @generated SignedSource<<5d098cbe32d26e8db061245651a53ad1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,36 +9,36 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
-export type EventType = "CREATE_CLIENT" | "CREATE_CASE_STUDY" | "CREATE_CASE_STUDY_TREATMENT" | "CONCLUDE_CASE_STUDY" | "FORM_RESPONSE";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
+export type EventType = "CONCLUDE_CASE_STUDY" | "CREATE_CASE_STUDY" | "CREATE_CASE_STUDY_TREATMENT" | "CREATE_CLIENT" | "FORM_RESPONSE";
 import { FragmentRefs } from "relay-runtime";
 export type EventsTable_events$data = ReadonlyArray<{
-  readonly id: string;
-  readonly type: EventType;
-  readonly clientRowId: string;
   readonly caseStudy: {
+    readonly createdAt: string;
     readonly rowId: string;
     readonly title: string;
-    readonly createdAt: string;
+  } | null;
+  readonly clientRowId: string;
+  readonly conclusion: {
+    readonly concludedAt: string;
+    readonly rowId: string;
+    readonly type: CaseStudyConclusionType;
   } | null;
   readonly formResponse: {
-    readonly rowId: string;
+    readonly createdAt: string;
     readonly form: {
       readonly name: string;
     } | null;
-    readonly createdAt: string;
+    readonly rowId: string;
   } | null;
+  readonly id: string;
   readonly treatment: {
-    readonly rowId: string;
-    readonly title: string;
-    readonly startedAt: string;
     readonly endedAt: string;
-  } | null;
-  readonly conclusion: {
     readonly rowId: string;
-    readonly type: CaseStudyConclusionType;
-    readonly concludedAt: string;
+    readonly startedAt: string;
+    readonly title: string;
   } | null;
+  readonly type: EventType;
   readonly " $fragmentType": "EventsTable_events";
 }>;
 export type EventsTable_events$key = ReadonlyArray<{

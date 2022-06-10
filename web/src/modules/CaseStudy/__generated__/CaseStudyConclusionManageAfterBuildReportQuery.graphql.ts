@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f9e058744c807789531b96754d1351c5>>
+ * @generated SignedSource<<20343ca1196fa22ecc611c1d1b7e86ee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,8 +26,8 @@ export type CaseStudyConclusionManageAfterBuildReportQuery$data = {
   } | null;
 };
 export type CaseStudyConclusionManageAfterBuildReportQuery = {
-  variables: CaseStudyConclusionManageAfterBuildReportQuery$variables;
   response: CaseStudyConclusionManageAfterBuildReportQuery$data;
+  variables: CaseStudyConclusionManageAfterBuildReportQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

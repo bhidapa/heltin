@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<516a5dadc968da68f4e0298690f6bed8>>
+ * @generated SignedSource<<3abdb1ced64d28480e0bd9affc08f5c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type ClientsCaseStudiesFormsResponsePageQuery$variables = {
 };
 export type ClientsCaseStudiesFormsResponsePageQuery$data = {
   readonly formResponse: {
-    readonly rowId: string;
     readonly form: {
       readonly name: string;
       readonly " $fragmentSpreads": FragmentRefs<"FormManage_form">;
@@ -28,12 +27,13 @@ export type ClientsCaseStudiesFormsResponsePageQuery$data = {
         };
       }>;
     };
+    readonly rowId: string;
     readonly " $fragmentSpreads": FragmentRefs<"FormManage_formResponse">;
   } | null;
 };
 export type ClientsCaseStudiesFormsResponsePageQuery = {
-  variables: ClientsCaseStudiesFormsResponsePageQuery$variables;
   response: ClientsCaseStudiesFormsResponsePageQuery$data;
+  variables: ClientsCaseStudiesFormsResponsePageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

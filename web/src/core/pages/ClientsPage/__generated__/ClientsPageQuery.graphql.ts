@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ecf064272f3eed5eff60ac661c21cab2>>
+ * @generated SignedSource<<2292e14706faf36d1c493e3164a8cffd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,8 +19,8 @@ export type ClientsPageQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ClientsTable_query">;
 };
 export type ClientsPageQuery = {
-  variables: ClientsPageQuery$variables;
   response: ClientsPageQuery$data;
+  variables: ClientsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

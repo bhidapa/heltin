@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<520235e3a72162cdcf028082de843275>>
+ * @generated SignedSource<<79f7a0d6a19b84956cff27018eb19c77>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,22 +9,28 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type Gender = "MALE" | "FEMALE";
+export type Gender = "FEMALE" | "MALE";
 import { FragmentRefs } from "relay-runtime";
 export type ClientManage_client$data = {
-  readonly rowId: string;
-  readonly fullName: string;
-  readonly number: number;
-  readonly firstName: string;
-  readonly lastName: string;
-  readonly dateOfBirth: string;
-  readonly telephone: string;
-  readonly gender: Gender;
-  readonly city: string;
   readonly address: string;
-  readonly email: string | null;
-  readonly note: string | null;
+  readonly city: string;
+  readonly createdBy: {
+    readonly fullName: string;
+    readonly therapist: {
+      readonly rowId: string;
+    } | null;
+  };
+  readonly dateOfBirth: string;
   readonly discrete: boolean;
+  readonly email: string | null;
+  readonly firstName: string;
+  readonly fullName: string;
+  readonly gender: Gender;
+  readonly lastName: string;
+  readonly note: string | null;
+  readonly number: number;
+  readonly rowId: string;
+  readonly telephone: string;
   readonly updatedAt: string;
   readonly updatedBy: {
     readonly fullName: string;
@@ -32,12 +38,6 @@ export type ClientManage_client$data = {
       readonly rowId: string;
     } | null;
   } | null;
-  readonly createdBy: {
-    readonly fullName: string;
-    readonly therapist: {
-      readonly rowId: string;
-    } | null;
-  };
   readonly " $fragmentType": "ClientManage_client";
 };
 export type ClientManage_client$key = {

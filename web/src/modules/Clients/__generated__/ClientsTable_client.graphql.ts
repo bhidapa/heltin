@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a84703c715c921679a3a63a471ed1cc3>>
+ * @generated SignedSource<<ebb5fddbb88b3142b2ae5dbbfd6402d3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,15 +11,15 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_client$data = {
-  readonly rowId: string;
-  readonly number: number;
   readonly fullName: string;
   readonly latestAssignedTherapist: {
     readonly therapist: {
-      readonly rowId: string;
       readonly fullName: string;
+      readonly rowId: string;
     };
   } | null;
+  readonly number: number;
+  readonly rowId: string;
   readonly treatments: {
     readonly totalCount: number;
   };

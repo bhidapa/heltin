@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<465a18265e7dbe9e7eeff15d0f80be56>>
+ * @generated SignedSource<<2d516b74d6e17e7b08550ef35035a999>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,14 +10,14 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type UpdateCaseStudyConclusionInput = {
   clientMutationId?: string | null;
-  rowId: string;
-  type: CaseStudyConclusionType;
   concludedAt: string;
   description: string;
   privateDescription?: string | null;
+  rowId: string;
+  type: CaseStudyConclusionType;
 };
 export type CaseStudyConclusionManageUpdateMutation$variables = {
   input: UpdateCaseStudyConclusionInput;
@@ -25,7 +25,6 @@ export type CaseStudyConclusionManageUpdateMutation$variables = {
 export type CaseStudyConclusionManageUpdateMutation$data = {
   readonly updateCaseStudyConclusion: {
     readonly conclusion: {
-      readonly rowId: string;
       readonly caseStudy: {
         readonly concluded: boolean;
         readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
@@ -35,13 +34,14 @@ export type CaseStudyConclusionManageUpdateMutation$data = {
           readonly " $fragmentSpreads": FragmentRefs<"EventsTable_events">;
         }>;
       };
+      readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_conclusion">;
     } | null;
   } | null;
 };
 export type CaseStudyConclusionManageUpdateMutation = {
-  variables: CaseStudyConclusionManageUpdateMutation$variables;
   response: CaseStudyConclusionManageUpdateMutation$data;
+  variables: CaseStudyConclusionManageUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

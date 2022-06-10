@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8f6a23d973c9b35663efbe77dfec50f0>>
+ * @generated SignedSource<<72ad2df275e15a7d65eafbe93bc2c24b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type AutocompleteTherapistRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AutocompleteTherapist_query">;
 };
 export type AutocompleteTherapistRefetchQuery = {
-  variables: AutocompleteTherapistRefetchQuery$variables;
   response: AutocompleteTherapistRefetchQuery$data;
+  variables: AutocompleteTherapistRefetchQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

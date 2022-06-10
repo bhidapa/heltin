@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b2440bda18f4cfe56b6b74abe294f887>>
+ * @generated SignedSource<<923e6df7c497935d016e07b0b2864d26>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,9 +13,9 @@ import { FragmentRefs } from "relay-runtime";
 export type AutocompleteUser_query$data = {
   readonly filterUsers: {
     readonly nodes: ReadonlyArray<{
+      readonly email: string;
       readonly id: string;
       readonly rowId: string;
-      readonly email: string;
     }>;
   };
   readonly " $fragmentType": "AutocompleteUser_query";
@@ -26,6 +26,7 @@ export type AutocompleteUser_query$key = {
 };
 
 import AutocompleteUserRefetchQuery_graphql from './AutocompleteUserRefetchQuery.graphql';
+
 const node: ReaderFragment = {
   "argumentDefinitions": [
     {

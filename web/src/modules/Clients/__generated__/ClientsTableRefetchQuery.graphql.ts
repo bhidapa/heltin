@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<442e608f6060296cb45af47a254d1fde>>
+ * @generated SignedSource<<d7aaafba9d0c08dc70889dba6508cfee>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,8 +19,8 @@ export type ClientsTableRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ClientsTable_query">;
 };
 export type ClientsTableRefetchQuery = {
-  variables: ClientsTableRefetchQuery$variables;
   response: ClientsTableRefetchQuery$data;
+  variables: ClientsTableRefetchQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

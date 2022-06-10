@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<829384e10d0a42892f4c7e836dbd5ed6>>
+ * @generated SignedSource<<a63eac0ac98e1e0d0b57196685941dc6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,15 +11,15 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyTreatmentInput = {
-  clientMutationId?: string | null;
   caseStudyRowId: string;
-  external: boolean;
-  startedAt: string;
-  endedAt: string;
-  title: string;
+  clientMutationId?: string | null;
   description?: string | null;
+  endedAt: string;
+  external: boolean;
   privateDescription?: string | null;
   score?: number | null;
+  startedAt: string;
+  title: string;
 };
 export type CaseStudyTreatmentManageCreateMutation$variables = {
   input: CreateCaseStudyTreatmentInput;
@@ -27,22 +27,22 @@ export type CaseStudyTreatmentManageCreateMutation$variables = {
 export type CaseStudyTreatmentManageCreateMutation$data = {
   readonly createCaseStudyTreatment: {
     readonly treatment: {
-      readonly rowId: string;
       readonly caseStudy: {
-        readonly rowId: string;
-        readonly clientRowId: string | null;
         readonly client: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
         } | null;
-        readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy" | "CaseStudyTreatmentManage_caseStudy">;
+        readonly clientRowId: string | null;
+        readonly rowId: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
+      readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
     } | null;
   } | null;
 };
 export type CaseStudyTreatmentManageCreateMutation = {
-  variables: CaseStudyTreatmentManageCreateMutation$variables;
   response: CaseStudyTreatmentManageCreateMutation$data;
+  variables: CaseStudyTreatmentManageCreateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

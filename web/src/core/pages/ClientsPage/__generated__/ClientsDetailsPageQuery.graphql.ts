@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cdc4721d3e04a413b8b6f011e2aca98e>>
+ * @generated SignedSource<<de6a8971c5aaae165ce89b91dd9916c9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,24 +14,24 @@ export type ClientsDetailsPageQuery$variables = {
   rowId: string;
 };
 export type ClientsDetailsPageQuery$data = {
-  readonly viewer: {
-    readonly isAdmin: boolean;
-    readonly isTherapist: boolean;
-  };
   readonly client: {
     readonly fullName: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ClientManage_client" | "ClientAssignedTherapistsManage_client" | "ClientCaseStudies_client">;
+    readonly " $fragmentSpreads": FragmentRefs<"ClientAssignedTherapistsManage_client" | "ClientCaseStudies_client" | "ClientManage_client">;
   } | null;
   readonly filterForms: {
     readonly nodes: ReadonlyArray<{
       readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_forms">;
     }>;
   } | null;
+  readonly viewer: {
+    readonly isAdmin: boolean;
+    readonly isTherapist: boolean;
+  };
   readonly " $fragmentSpreads": FragmentRefs<"ClientAssignedTherapistsManage_query">;
 };
 export type ClientsDetailsPageQuery = {
-  variables: ClientsDetailsPageQuery$variables;
   response: ClientsDetailsPageQuery$data;
+  variables: ClientsDetailsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eee62716d78492b48743ad4846efd0fd>>
+ * @generated SignedSource<<5c06f5a07bbc3bd27f35963f5b2f980e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,10 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Root_viewer$data = {
-  readonly id: string;
-  readonly fullName: string;
-  readonly firstName: string;
   readonly email: string;
+  readonly firstName: string;
+  readonly fullName: string;
+  readonly id: string;
   readonly isAdmin: boolean;
   readonly " $fragmentSpreads": FragmentRefs<"routes_viewer">;
   readonly " $fragmentType": "Root_viewer";

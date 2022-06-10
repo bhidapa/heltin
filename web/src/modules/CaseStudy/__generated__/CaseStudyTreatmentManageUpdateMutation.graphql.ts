@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<97ae6269f035fb108a6e1795db7e9d22>>
+ * @generated SignedSource<<a41dee6843474d2c7ba8c975a01484f6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,14 +12,14 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateCaseStudyTreatmentInput = {
   clientMutationId?: string | null;
-  rowId: string;
-  external: boolean;
-  startedAt: string;
-  endedAt: string;
-  title: string;
   description?: string | null;
+  endedAt: string;
+  external: boolean;
   privateDescription?: string | null;
+  rowId: string;
   score?: number | null;
+  startedAt: string;
+  title: string;
 };
 export type CaseStudyTreatmentManageUpdateMutation$variables = {
   input: UpdateCaseStudyTreatmentInput;
@@ -27,7 +27,6 @@ export type CaseStudyTreatmentManageUpdateMutation$variables = {
 export type CaseStudyTreatmentManageUpdateMutation$data = {
   readonly updateCaseStudyTreatment: {
     readonly treatment: {
-      readonly rowId: string;
       readonly caseStudy: {
         readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
@@ -36,13 +35,14 @@ export type CaseStudyTreatmentManageUpdateMutation$data = {
           readonly " $fragmentSpreads": FragmentRefs<"EventsTable_events">;
         }>;
       };
+      readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
     } | null;
   } | null;
 };
 export type CaseStudyTreatmentManageUpdateMutation = {
-  variables: CaseStudyTreatmentManageUpdateMutation$variables;
   response: CaseStudyTreatmentManageUpdateMutation$data;
+  variables: CaseStudyTreatmentManageUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

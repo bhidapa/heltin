@@ -97,9 +97,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 17.0.35
-  resolution: "@types/node@npm:17.0.35"
-  checksum: 7a24946ae7fd20267ed92466384f594e448bfb151081158d565cc635d406ecb29ea8fb85fcd2a1f71efccf26fb5bd3c6f509bde56077eb8b832b847a6664bc62
+  version: 17.0.41
+  resolution: "@types/node@npm:17.0.41"
+  checksum: ddaf9e7decb487850a9bbfeb670b41c9d35c5b1597c4c4f889419b65042d776e9041ed533c7afc1bac30cad1e9dcfd984085b4a35312efe8ea5eaf0bd36a8191
   languageName: node
   linkType: hard
 
@@ -337,8 +337,8 @@ __metadata:
   linkType: hard
 
 "cacache@npm:^16.1.0":
-  version: 16.1.0
-  resolution: "cacache@npm:16.1.0"
+  version: 16.1.1
+  resolution: "cacache@npm:16.1.1"
   dependencies:
     "@npmcli/fs": ^2.1.0
     "@npmcli/move-file": ^2.0.0
@@ -358,7 +358,7 @@ __metadata:
     ssri: ^9.0.0
     tar: ^6.1.11
     unique-filename: ^1.1.1
-  checksum: ddfcf92f079f24ccecef4e2ca1e4428443787b61429b921803b020fd0f33d9ac829ac47837b74b40868d8ae4f1b2ed82e164cdaa5508fbd790eee005a9d88469
+  checksum: 488524617008b793f0249b0c4ea2c330c710ca997921376e15650cc2415a8054491ae2dee9f01382c2015602c0641f3f977faf2fa7361aa33d2637dcfb03907a
   languageName: node
   linkType: hard
 
@@ -845,13 +845,13 @@ __metadata:
   linkType: hard
 
 "get-intrinsic@npm:^1.0.2":
-  version: 1.1.1
-  resolution: "get-intrinsic@npm:1.1.1"
+  version: 1.1.2
+  resolution: "get-intrinsic@npm:1.1.2"
   dependencies:
     function-bind: ^1.1.1
     has: ^1.0.3
-    has-symbols: ^1.0.1
-  checksum: a9fe2ca8fa3f07f9b0d30fb202bcd01f3d9b9b6b732452e79c48e79f7d6d8d003af3f9e38514250e3553fdc83c61650851cb6870832ac89deaaceb08e3721a17
+    has-symbols: ^1.0.3
+  checksum: 252f45491f2ba88ebf5b38018020c7cc3279de54b1d67ffb70c0cdf1dfa8ab31cd56467b5d117a8b4275b7a4dde91f86766b163a17a850f036528a7b2faafb2b
   languageName: node
   linkType: hard
 
@@ -1008,11 +1008,11 @@ __metadata:
   linkType: hard
 
 "graphql-ws@npm:^5.6.2":
-  version: 5.8.2
-  resolution: "graphql-ws@npm:5.8.2"
+  version: 5.9.0
+  resolution: "graphql-ws@npm:5.9.0"
   peerDependencies:
     graphql: ">=0.11 <=16"
-  checksum: 2f7701ffc531f053c47fd42ea1fa4555775195f621f1ff767d668eef41ab1376900c1ef166c0063dbc81aa49a2aabd60becb517b8d1b7bc0b3dd687bd4d319a6
+  checksum: b13abfc4094314940f7ffd1e5c9fa34b6b1a64d477d3f1728740d04edd36e1191c83dcec3c2d7f3d6653995b1ba32edeb75f92921710d716b4cc7fc349d1f276
   languageName: node
   linkType: hard
 
@@ -1037,7 +1037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"has-symbols@npm:^1.0.1":
+"has-symbols@npm:^1.0.3":
   version: 1.0.3
   resolution: "has-symbols@npm:1.0.3"
   checksum: a054c40c631c0d5741a8285010a0777ea0c068f99ed43e5d6eb12972da223f8af553a455132fdb0801bdcfa0e0f443c0c03a68d8555aa529b3144b446c3f2410
@@ -1081,7 +1081,7 @@ __metadata:
     pg: ^8.7.3
     postgraphile: ^4.12.11
     prettier: ^2.6.2
-    typescript: ^4.7.2
+    typescript: ^4.7.3
   languageName: unknown
   linkType: soft
 
@@ -1543,8 +1543,8 @@ __metadata:
   linkType: hard
 
 "make-fetch-happen@npm:^10.0.3":
-  version: 10.1.5
-  resolution: "make-fetch-happen@npm:10.1.5"
+  version: 10.1.7
+  resolution: "make-fetch-happen@npm:10.1.7"
   dependencies:
     agentkeepalive: ^4.2.1
     cacache: ^16.1.0
@@ -1560,9 +1560,9 @@ __metadata:
     minipass-pipeline: ^1.2.4
     negotiator: ^0.6.3
     promise-retry: ^2.0.1
-    socks-proxy-agent: ^6.1.1
+    socks-proxy-agent: ^7.0.0
     ssri: ^9.0.0
-  checksum: b0b42a1ccdcbc3180749727a52cf6887d9df6218d8ca35101bb9f7ab35729dd166d99203b70149a19a818d1ba72de40b982002ddb0b308c548457f5725d6e7f6
+  checksum: 2b7301256e18a2f825c1c3cad14e11492428531ecdea04d846dc12c2d69658d65832746ce965e67c7f98b0d0506115674cf43676c3322709278620bfc886cf4a
   languageName: node
   linkType: hard
 
@@ -1673,11 +1673,11 @@ __metadata:
   linkType: hard
 
 "minipass@npm:^3.0.0, minipass@npm:^3.1.1, minipass@npm:^3.1.6":
-  version: 3.1.6
-  resolution: "minipass@npm:3.1.6"
+  version: 3.2.0
+  resolution: "minipass@npm:3.2.0"
   dependencies:
     yallist: ^4.0.0
-  checksum: 57a04041413a3531a65062452cb5175f93383ef245d6f4a2961d34386eb9aa8ac11ac7f16f791f5e8bbaf1dfb1ef01596870c88e8822215db57aa591a5bb0a77
+  checksum: acaa1d0d596300187a381d8e28bef2cd465285ff8032032a3da323a4a3c6997a7320d586f96cd42b317c758f48620382693ee76a543d2acb4f8ad549648445be
   languageName: node
   linkType: hard
 
@@ -1817,9 +1817,9 @@ __metadata:
   linkType: hard
 
 "object-inspect@npm:^1.9.0":
-  version: 1.12.1
-  resolution: "object-inspect@npm:1.12.1"
-  checksum: 5c7c3b641417606db7f545760cfdbc686870c4ac03c86d05f3e1194b19de39b48030f2145ef813e6e8228268d48408eceb9bdcfeb0a502d8d9e5a057982c31a0
+  version: 1.12.2
+  resolution: "object-inspect@npm:1.12.2"
+  checksum: a534fc1b8534284ed71f25ce3a496013b7ea030f3d1b77118f6b7b1713829262be9e6243acbcb3ef8c626e2b64186112cb7f6db74e37b2789b9c789ca23048b2
   languageName: node
   linkType: hard
 
@@ -2328,14 +2328,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"socks-proxy-agent@npm:^6.1.1":
-  version: 6.2.0
-  resolution: "socks-proxy-agent@npm:6.2.0"
+"socks-proxy-agent@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "socks-proxy-agent@npm:7.0.0"
   dependencies:
     agent-base: ^6.0.2
     debug: ^4.3.3
     socks: ^2.6.2
-  checksum: 6723fd64fb50334e2b340fd0a80fd8488ffc5bc43d85b7cf1d25612044f814dd7d6ea417fd47602159941236f7f4bd15669fa5d7e1f852598a31288e1a43967b
+  checksum: 720554370154cbc979e2e9ce6a6ec6ced205d02757d8f5d93fe95adae454fc187a5cbfc6b022afab850a5ce9b4c7d73e0f98e381879cf45f66317a4895953846
   languageName: node
   linkType: hard
 
@@ -2536,23 +2536,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.7.2":
-  version: 4.7.2
-  resolution: "typescript@npm:4.7.2"
+"typescript@npm:^4.7.3":
+  version: 4.7.3
+  resolution: "typescript@npm:4.7.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5163585e6b56410f77d5483b698d9489bbee8902c99029eb70cf6d21525a186530ce19a00951af84eefd4a131cc51d0959f5118e25e70ab61f45ac4057dbd1ef
+  checksum: fd13a1ce53790a36bb8350e1f5e5e384b5f6cb9b0635114a6d01d49cb99916abdcfbc13c7521cdae2f2d3f6d8bc4a8ae7625edf645a04ee940588cd5e7597b2f
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.7.2#~builtin<compat/typescript>":
-  version: 4.7.2
-  resolution: "typescript@patch:typescript@npm%3A4.7.2#~builtin<compat/typescript>::version=4.7.2&hash=7ad353"
+"typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>":
+  version: 4.7.3
+  resolution: "typescript@patch:typescript@npm%3A4.7.3#~builtin<compat/typescript>::version=4.7.3&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 7e2b9a9f4a70fb7616f1b0d986977f8e34a74f046202fa7f24fdee79589598277810fa216b3776c20c0683a9235872c73be34fdb93f67f98c1efaca40999422f
+  checksum: 137d18a77f52254a284960b16ab53d0619f57b69b5d585804b8413f798a1175ce3e774fb95e6a101868577aafe357d8fcfc9171f0dc9fc0c210e9ae59d107cc0
   languageName: node
   linkType: hard
 
@@ -2695,8 +2695,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^5.2.0 || ^6.0.0 || ^7.0.0, ws@npm:^7.4.2":
-  version: 7.5.7
-  resolution: "ws@npm:7.5.7"
+  version: 7.5.8
+  resolution: "ws@npm:7.5.8"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ^5.0.2
@@ -2705,7 +2705,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 5c1f669a166fb57560b4e07f201375137fa31d9186afde78b1508926345ce546332f109081574ddc4e38cc474c5406b5fc71c18d71eb75f6e2d2245576976cba
+  checksum: 49479ccf3ddab6500c5906fbcc316e9c8cd44b0ffb3903a6c1caf9b38cb9e06691685722a4c642cfa7d4c6eb390424fc3142cd4f8b940cfc7a9ce9761b1cd65b
   languageName: node
   linkType: hard
 

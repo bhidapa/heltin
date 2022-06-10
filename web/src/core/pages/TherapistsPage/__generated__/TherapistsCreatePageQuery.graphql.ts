@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e722d6dd973536843ec322de17063b38>>
+ * @generated SignedSource<<a6f42e257dd72c1c2a859fb7edc6f61e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,8 +15,8 @@ export type TherapistsCreatePageQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"TherapistManage_query">;
 };
 export type TherapistsCreatePageQuery = {
-  variables: TherapistsCreatePageQuery$variables;
   response: TherapistsCreatePageQuery$data;
+  variables: TherapistsCreatePageQuery$variables;
 };
 
 const node: ConcreteRequest = {

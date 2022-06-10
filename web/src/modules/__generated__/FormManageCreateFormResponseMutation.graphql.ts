@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d0cb9ce4a98cf6f406fd14bc33925784>>
+ * @generated SignedSource<<260eb8d2aea57158e980652bb4c85e21>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,10 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateFormResponseInput = {
+  answers: any;
+  caseStudyRowId: string;
   clientMutationId?: string | null;
   formRowId: string;
-  caseStudyRowId: string;
-  answers: any;
 };
 export type FormManageCreateFormResponseMutation$variables = {
   input: CreateFormResponseInput;
@@ -22,19 +22,19 @@ export type FormManageCreateFormResponseMutation$variables = {
 export type FormManageCreateFormResponseMutation$data = {
   readonly createFormResponse: {
     readonly formResponse: {
-      readonly rowId: string;
       readonly caseStudyByCaseStudyRowId: {
         readonly clientByClientRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client">;
         } | null;
         readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
       } | null;
+      readonly rowId: string;
     } | null;
   } | null;
 };
 export type FormManageCreateFormResponseMutation = {
-  variables: FormManageCreateFormResponseMutation$variables;
   response: FormManageCreateFormResponseMutation$data;
+  variables: FormManageCreateFormResponseMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

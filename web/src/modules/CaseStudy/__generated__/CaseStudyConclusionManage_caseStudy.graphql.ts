@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eecbadcf5b14088d114d5484f46aabbc>>
+ * @generated SignedSource<<88c8abe7c42f1ecb7d152b1e912ee3cc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionManage_caseStudy$data = {
+  readonly client: {
+    readonly fullName: string;
+    readonly rowId: string;
+  };
   readonly rowId: string;
   readonly title: string;
-  readonly client: {
-    readonly rowId: string;
-    readonly fullName: string;
-  };
   readonly " $fragmentType": "CaseStudyConclusionManage_caseStudy";
 };
 export type CaseStudyConclusionManage_caseStudy$key = {

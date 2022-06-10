@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb4e2ac4013b8da487e5827792a5ab73>>
+ * @generated SignedSource<<a98ddde9f105933f3076253f5f6d71ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,19 +10,19 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Gender = "MALE" | "FEMALE";
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type Gender = "FEMALE" | "MALE";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type CreateTherapistInput = {
   clientMutationId?: string | null;
-  type: TherapistType;
+  dateOfBirth: string;
+  disabled: boolean;
   email: string;
   firstName: string;
-  lastName: string;
-  dateOfBirth: string;
   gender: Gender;
-  disabled: boolean;
+  lastName: string;
   telephone?: string | null;
   title?: string | null;
+  type: TherapistType;
   userRowId?: string | null;
 };
 export type TherapistManageCreateMutation$variables = {
@@ -42,8 +42,8 @@ export type TherapistManageCreateMutation$data = {
   } | null;
 };
 export type TherapistManageCreateMutation = {
-  variables: TherapistManageCreateMutation$variables;
   response: TherapistManageCreateMutation$data;
+  variables: TherapistManageCreateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

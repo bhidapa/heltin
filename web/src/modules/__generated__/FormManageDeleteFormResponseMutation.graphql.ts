@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e0ce69699df0e1f3995df33a37efdaeb>>
+ * @generated SignedSource<<833defdeaa2706238ec6d83eec75be44>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,19 +20,19 @@ export type FormManageDeleteFormResponseMutation$variables = {
 export type FormManageDeleteFormResponseMutation$data = {
   readonly deleteFormResponse: {
     readonly formResponse: {
-      readonly rowId: string;
       readonly caseStudyByCaseStudyRowId: {
         readonly clientByClientRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client">;
         } | null;
         readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
       } | null;
+      readonly rowId: string;
     } | null;
   } | null;
 };
 export type FormManageDeleteFormResponseMutation = {
-  variables: FormManageDeleteFormResponseMutation$variables;
   response: FormManageDeleteFormResponseMutation$data;
+  variables: FormManageDeleteFormResponseMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

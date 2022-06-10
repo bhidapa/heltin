@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<87c255688f0b10016ce82ffa934f94f7>>
+ * @generated SignedSource<<7f406ca1d1a09ca62f69642795351071>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,9 +13,9 @@ import { FragmentRefs } from "relay-runtime";
 export type AutocompleteTherapist_query$data = {
   readonly filterTherapists: {
     readonly nodes: ReadonlyArray<{
+      readonly fullName: string;
       readonly id: string;
       readonly rowId: string;
-      readonly fullName: string;
     }>;
   };
   readonly " $fragmentType": "AutocompleteTherapist_query";
@@ -26,6 +26,7 @@ export type AutocompleteTherapist_query$key = {
 };
 
 import AutocompleteTherapistRefetchQuery_graphql from './AutocompleteTherapistRefetchQuery.graphql';
+
 const node: ReaderFragment = {
   "argumentDefinitions": [
     {

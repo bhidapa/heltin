@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<48a6fa9dc86967ced1308d9692c225d9>>
+ * @generated SignedSource<<0cba8b32715b233c323e6f88026f086c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,26 +9,26 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 import { FragmentRefs } from "relay-runtime";
 export type ClientCaseStudies_client$data = {
-  readonly rowId: string;
   readonly caseStudies: {
     readonly nodes: ReadonlyArray<{
-      readonly id: string;
-      readonly rowId: string;
-      readonly title: string;
       readonly concluded: boolean;
       readonly conclusion: {
         readonly type: CaseStudyConclusionType;
       } | null;
+      readonly id: string;
+      readonly rowId: string;
       readonly sortedEvents: {
         readonly nodes: ReadonlyArray<{
           readonly " $fragmentSpreads": FragmentRefs<"EventsTable_events">;
         }>;
       };
+      readonly title: string;
     }>;
   };
+  readonly rowId: string;
   readonly " $fragmentType": "ClientCaseStudies_client";
 };
 export type ClientCaseStudies_client$key = {

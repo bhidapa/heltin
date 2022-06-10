@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7f4c65577f1ca72c6844cf979768d9d9>>
+ * @generated SignedSource<<28bb18102af3e13996e865db03b4b0c1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AutocompleteTherapist_item$data = {
+  readonly fullName: string;
   readonly id: string;
   readonly rowId: string;
-  readonly fullName: string;
   readonly " $fragmentType": "AutocompleteTherapist_item";
 };
 export type AutocompleteTherapist_item$key = {

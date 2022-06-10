@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ed132bcc4ef23c0591eee132d3448ae>>
+ * @generated SignedSource<<03bf105defd9ec44620ef5c5d441443c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type ClientsCaseStudiesConclusionDetailsPageQuery$variables = {
   caseStudyRowId: string;
   conclusionRowId: string;
@@ -23,9 +23,7 @@ export type ClientsCaseStudiesConclusionDetailsPageQuery$data = {
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy">;
   } | null;
   readonly conclusion: {
-    readonly rowId: string;
     readonly caseStudyRowId: string;
-    readonly type: CaseStudyConclusionType;
     readonly concludedAt: string;
     readonly conclusionFiles: {
       readonly __id: string;
@@ -35,12 +33,14 @@ export type ClientsCaseStudiesConclusionDetailsPageQuery$data = {
         };
       }>;
     };
+    readonly rowId: string;
+    readonly type: CaseStudyConclusionType;
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_conclusion">;
   };
 };
 export type ClientsCaseStudiesConclusionDetailsPageQuery = {
-  variables: ClientsCaseStudiesConclusionDetailsPageQuery$variables;
   response: ClientsCaseStudiesConclusionDetailsPageQuery$data;
+  variables: ClientsCaseStudiesConclusionDetailsPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

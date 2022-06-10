@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38fe02aee38a87d7c74a6412b3315900>>
+ * @generated SignedSource<<4f40a379ee9d3f5d40e468d2b11ee358>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,28 +9,28 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type Gender = "MALE" | "FEMALE";
-export type TherapistType = "PSYCHOTHERAPIST" | "PSYCHOLOGIST" | "PSYCHIATRIST" | "NEUROLOGIST" | "PEDIATRIST" | "SOCIAL_WORKER" | "PEDAGOGUE" | "DEFECTOLOGIST" | "PHONETICIAN" | "NEUROPSYCHIATRIST" | "CLINICAL_PSYCHOLOGIST" | "SUPERVISOR" | "LOGOPED" | "OTHER";
+export type Gender = "FEMALE" | "MALE";
+export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type TherapistManage_therapist$data = {
-  readonly rowId: string;
-  readonly enabled: boolean;
-  readonly disabled: boolean;
-  readonly type: TherapistType;
-  readonly title: string | null;
-  readonly fullName: string;
-  readonly firstName: string;
-  readonly lastName: string;
   readonly dateOfBirth: string;
-  readonly telephone: string | null;
-  readonly gender: Gender;
+  readonly disabled: boolean;
   readonly email: string;
+  readonly enabled: boolean;
+  readonly firstName: string;
+  readonly fullName: string;
+  readonly gender: Gender;
+  readonly lastName: string;
+  readonly rowId: string;
+  readonly telephone: string | null;
+  readonly title: string | null;
+  readonly type: TherapistType;
+  readonly updatedAt: string;
   readonly user: {
+    readonly email: string;
     readonly id: string;
     readonly rowId: string;
-    readonly email: string;
   } | null;
-  readonly updatedAt: string;
   readonly " $fragmentType": "TherapistManage_therapist";
 };
 export type TherapistManage_therapist$key = {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c974047b123a1a0d99f79b663aa3e80>>
+ * @generated SignedSource<<74b96c3f2e67358785e41392f544a075>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,8 +20,8 @@ export type ClientsCaseStudiesFormsFillPageQuery$data = {
   } | null;
 };
 export type ClientsCaseStudiesFormsFillPageQuery = {
-  variables: ClientsCaseStudiesFormsFillPageQuery$variables;
   response: ClientsCaseStudiesFormsFillPageQuery$data;
+  variables: ClientsCaseStudiesFormsFillPageQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){

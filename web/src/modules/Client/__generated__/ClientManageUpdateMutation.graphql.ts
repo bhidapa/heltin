@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c06bc303c21ac091e41408f5b82cc07>>
+ * @generated SignedSource<<3e8c0d80cbe99de1e4ec7d459246a993>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,21 +10,21 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type Gender = "MALE" | "FEMALE";
+export type Gender = "FEMALE" | "MALE";
 export type UpdateClientInput = {
-  clientMutationId?: string | null;
-  rowId: string;
-  number: number;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  telephone: string;
-  gender: Gender;
-  city: string;
   address: string;
-  email?: string | null;
-  note?: string | null;
+  city: string;
+  clientMutationId?: string | null;
+  dateOfBirth: string;
   discrete?: boolean | null;
+  email?: string | null;
+  firstName: string;
+  gender: Gender;
+  lastName: string;
+  note?: string | null;
+  number: number;
+  rowId: string;
+  telephone: string;
 };
 export type ClientManageUpdateMutation$variables = {
   input: UpdateClientInput;
@@ -38,8 +38,8 @@ export type ClientManageUpdateMutation$data = {
   } | null;
 };
 export type ClientManageUpdateMutation = {
-  variables: ClientManageUpdateMutation$variables;
   response: ClientManageUpdateMutation$data;
+  variables: ClientManageUpdateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){

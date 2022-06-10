@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7b03aa59a2926117bfe50040f6e0ea13>>
+ * @generated SignedSource<<7b0735fbd20efcb67c45aafd89af68d7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,14 +10,14 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CaseStudyConclusionType = "TREATMENT_COMPLETION" | "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL";
+export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyConclusionInput = {
-  clientMutationId?: string | null;
   caseStudyRowId: string;
-  type: CaseStudyConclusionType;
+  clientMutationId?: string | null;
   concludedAt: string;
   description: string;
   privateDescription?: string | null;
+  type: CaseStudyConclusionType;
 };
 export type CaseStudyConclusionManageCreateMutation$variables = {
   input: CreateCaseStudyConclusionInput;
@@ -25,23 +25,23 @@ export type CaseStudyConclusionManageCreateMutation$variables = {
 export type CaseStudyConclusionManageCreateMutation$data = {
   readonly createCaseStudyConclusion: {
     readonly conclusion: {
-      readonly rowId: string;
       readonly caseStudy: {
-        readonly rowId: string;
-        readonly clientRowId: string | null;
-        readonly concluded: boolean;
         readonly client: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
         } | null;
-        readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy" | "CaseStudyConclusionManage_caseStudy">;
+        readonly clientRowId: string | null;
+        readonly concluded: boolean;
+        readonly rowId: string;
+        readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
+      readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_conclusion">;
     } | null;
   } | null;
 };
 export type CaseStudyConclusionManageCreateMutation = {
-  variables: CaseStudyConclusionManageCreateMutation$variables;
   response: CaseStudyConclusionManageCreateMutation$data;
+  variables: CaseStudyConclusionManageCreateMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
