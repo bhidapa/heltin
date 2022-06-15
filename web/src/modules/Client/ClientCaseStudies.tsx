@@ -70,7 +70,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
         </div>
         <div className="col col-auto">
           <Link to="case-studies/create" search className="btn btn-primary">
-            <i className="fa-solid fa-plus"></i>
+            <i className="fa-solid fa-file-medical"></i>
             &nbsp;
             <FormattedMessage id="NEW_CASE_STUDY" />
           </Link>
