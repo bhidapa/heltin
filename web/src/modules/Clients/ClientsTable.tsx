@@ -116,7 +116,6 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
             {([msg]) => (
               <input
                 {...register('q')}
-                autoFocus
                 type="search"
                 placeholder={msg + '...'}
                 className="form-control"

@@ -94,7 +94,6 @@ export const TherapistsTable: React.FC<TherapistsTableProps> = (props) => {
             {([msg]) => (
               <input
                 {...register('q')}
-                autoFocus
                 type="search"
                 placeholder={msg + '...'}
                 className="form-control"

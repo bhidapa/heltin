@@ -94,7 +94,6 @@ export const UsersTable: React.FC<UsersTableProps> = (props) => {
             {([msg]) => (
               <input
                 {...register('q')}
-                autoFocus
                 type="search"
                 placeholder={msg + '...'}
                 className="form-control"
