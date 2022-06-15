@@ -107,7 +107,7 @@ create function public.client_sorted_events(
 ) returns setof public."event" as $$
   select * from public."event"
   where "event".client_id = client.id
-  order by "event".created_at desc
+  order by "event".created_at asc
 $$ language sql stable strict;
 
 comment on function public.client_sorted_events is 'Events related to the client sorted by creation date in descending order (newest on the top).';
@@ -117,7 +117,7 @@ create function public.case_study_sorted_events(
 ) returns setof public."event" as $$
   select * from public."event"
   where "event".case_study_id = case_study.id
-  order by "event".created_at desc
+  order by "event".created_at asc
 $$ language sql stable strict;
 
 comment on function public.case_study_sorted_events is 'Events related to the case study sorted by creation date in descending order (newest on the top).';
