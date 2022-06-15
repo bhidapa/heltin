@@ -3,7 +3,7 @@
  * RootSearch
  *
  */
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
@@ -16,31 +16,9 @@ export interface RootSearchProps {}
 export const RootSearch: React.FC<RootSearchProps> = () => {
   const navigate = useNavigate<LocationGenerics>();
 
-  const searchRef = useRef<HTMLInputElement | null>(null);
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      // only works if no input is focused
-      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '')) {
-        return;
-      }
-
-      // "s" for clients search focus
-      if (event.key.toLowerCase() === 's') {
-        event.preventDefault(); // prevent typing in the "s" letter in the search field after focus
-        searchRef.current?.focus();
-      }
-    }
-
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, []);
-
   const { register, handleSubmit } = useForm({
     defaultValues: { q: '' },
   });
-  const { ref, ...rest } = register('q');
 
   return (
     <form
@@ -57,11 +35,7 @@ export const RootSearch: React.FC<RootSearchProps> = () => {
         <FormattedMessage id="SEARCH_CLIENTS">
           {([msg]) => (
             <input
-              {...rest}
-              ref={(el) => {
-                ref(el);
-                searchRef.current = el;
-              }}
+              {...register('q')}
               type="search"
               className="form-control"
               placeholder={msg?.toString() + '...'}
@@ -76,15 +50,6 @@ export const RootSearch: React.FC<RootSearchProps> = () => {
             </span>
           </button>
         </div>
-      </div>
-
-      <div className="mt-10 font-size-12">
-        <FormattedMessage
-          id="PRESS_KBD_TO_FOCUS"
-          values={{
-            kbd: <kbd>s</kbd>,
-          }}
-        />
       </div>
     </form>
   );

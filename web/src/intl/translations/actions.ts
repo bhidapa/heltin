@@ -89,10 +89,6 @@ export const messages: Messages = {
     en: 'Search clients',
     hr: 'Pretraži kartone',
   },
-  PRESS_KBD_TO_FOCUS: {
-    en: 'Press {kbd} to focus',
-    hr: 'Pritisnite {kbd} za fokus',
-  },
   PLEASE_SELECT_AN_ITEM: {
     en: 'Please select an item',
     hr: 'Molimo Vas da izaberete stavku',
