@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bdeef066f8d9facbcf09d89d9b266c0a>>
+ * @generated SignedSource<<91c8ae546e22288163be96293c1c1345>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -129,10 +129,17 @@ v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "totalCount",
   "storageKey": null
 },
 v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -491,6 +498,7 @@ return {
             "name": "caseStudiesByClientRowId",
             "plural": false,
             "selections": [
+              (v11/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -501,7 +509,7 @@ return {
                 "selections": [
                   (v5/*: any*/),
                   (v6/*: any*/),
-                  (v11/*: any*/),
+                  (v12/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -523,13 +531,20 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": null,
-                    "args": null,
+                    "alias": "someSortedEvents",
+                    "args": [
+                      {
+                        "kind": "Literal",
+                        "name": "first",
+                        "value": 5
+                      }
+                    ],
                     "concreteType": "EventsConnection",
                     "kind": "LinkedField",
                     "name": "sortedEvents",
                     "plural": false,
                     "selections": [
+                      (v11/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -556,7 +571,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v6/*: any*/),
-                              (v11/*: any*/),
+                              (v12/*: any*/),
                               (v10/*: any*/),
                               (v5/*: any*/)
                             ],
@@ -579,7 +594,7 @@ return {
                                 "name": "formByFormRowId",
                                 "plural": false,
                                 "selections": [
-                                  (v12/*: any*/),
+                                  (v13/*: any*/),
                                   (v5/*: any*/)
                                 ],
                                 "storageKey": null
@@ -605,7 +620,7 @@ return {
                                 "name": "external",
                                 "storageKey": null
                               },
-                              (v11/*: any*/),
+                              (v12/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -649,7 +664,7 @@ return {
                         "storageKey": null
                       }
                     ],
-                    "storageKey": null
+                    "storageKey": "sortedEvents(first:5)"
                   }
                 ],
                 "storageKey": null
@@ -678,7 +693,7 @@ return {
             "plural": true,
             "selections": [
               (v6/*: any*/),
-              (v12/*: any*/),
+              (v13/*: any*/),
               (v5/*: any*/)
             ],
             "storageKey": null
@@ -689,12 +704,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "80c954c89de1b34d1e9680d39766d846",
+    "cacheID": "a56bd4cececb9596761d28ace7cebfb0",
     "id": null,
     "metadata": {},
     "name": "ClientsDetailsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  ...ClientAssignedTherapistsManage_query\n  viewer {\n    isAdmin\n    isTherapist\n    ...ClientManage_viewer\n    id\n  }\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientManage_client\n    ...ClientAssignedTherapistsManage_client\n    ...ClientCaseStudies_client\n    id\n  }\n  filterForms {\n    nodes {\n      ...ClientCaseStudies_forms\n      id\n    }\n  }\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment ClientAssignedTherapistsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedTherapistsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      fullName\n      id\n    }\n    id\n  }\n}\n\nfragment ClientAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientCaseStudies_forms on Form {\n  rowId\n  name\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n  canInsertClient\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "query ClientsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  ...ClientAssignedTherapistsManage_query\n  viewer {\n    isAdmin\n    isTherapist\n    ...ClientManage_viewer\n    id\n  }\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientManage_client\n    ...ClientAssignedTherapistsManage_client\n    ...ClientCaseStudies_client\n    id\n  }\n  filterForms {\n    nodes {\n      ...ClientCaseStudies_forms\n      id\n    }\n  }\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment ClientAssignedTherapistsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedTherapistsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      fullName\n      id\n    }\n    id\n  }\n}\n\nfragment ClientAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientCaseStudies_forms on Form {\n  rowId\n  name\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n  canInsertClient\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();

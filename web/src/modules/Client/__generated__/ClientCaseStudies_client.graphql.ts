@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<abdae056aa620fd0ec5f9770d2beab51>>
+ * @generated SignedSource<<31214eff3a6d2a5b5e9325a7ec9bee5e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,13 +20,15 @@ export type ClientCaseStudies_client$data = {
       } | null;
       readonly id: string;
       readonly rowId: string;
-      readonly sortedEvents: {
+      readonly someSortedEvents: {
         readonly nodes: ReadonlyArray<{
           readonly " $fragmentSpreads": FragmentRefs<"EventsTable_events">;
         }>;
+        readonly totalCount: number;
       };
       readonly title: string;
     }>;
+    readonly totalCount: number;
   };
   readonly rowId: string;
   readonly " $fragmentType": "ClientCaseStudies_client";
@@ -42,6 +44,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "rowId",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
   "storageKey": null
 };
 return {
@@ -67,6 +76,7 @@ return {
       "name": "caseStudiesByClientRowId",
       "plural": false,
       "selections": [
+        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -116,13 +126,20 @@ return {
               "storageKey": null
             },
             {
-              "alias": null,
-              "args": null,
+              "alias": "someSortedEvents",
+              "args": [
+                {
+                  "kind": "Literal",
+                  "name": "first",
+                  "value": 5
+                }
+              ],
               "concreteType": "EventsConnection",
               "kind": "LinkedField",
               "name": "sortedEvents",
               "plural": false,
               "selections": [
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -140,7 +157,7 @@ return {
                   "storageKey": null
                 }
               ],
-              "storageKey": null
+              "storageKey": "sortedEvents(first:5)"
             }
           ],
           "storageKey": null
@@ -155,7 +172,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "f8a429483092cc18fadc87c18c3f3bf5";
+  (node as any).hash = "4f3db01cd3a7fcee625593c5e01d69f0";
 }
 
 export default node;

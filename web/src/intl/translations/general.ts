@@ -449,4 +449,8 @@ export const messages: Messages = {
     en: 'Visible',
     hr: 'Vidljiv',
   },
+  AND_N_MORE_ENTRIES: {
+    en: 'And {count} more {count, plural, one {entry} other {entries}}...',
+    hr: 'I još {count} {count, plural, one {unos} other {unosa}}...',
+  },
 };

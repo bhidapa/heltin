@@ -30,6 +30,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
       fragment ClientCaseStudies_client on Client {
         rowId
         caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
+          totalCount
           nodes {
             id
             rowId
@@ -38,7 +39,8 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
             conclusion: caseStudyConclusionByCaseStudyRowId {
               type
             }
-            sortedEvents {
+            someSortedEvents: sortedEvents(first: 5) {
+              totalCount
               nodes {
                 ...EventsTable_events
               }
@@ -165,7 +167,10 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
               )}
             </div>
 
-            <EventsTable events={caseStudy.sortedEvents.nodes} />
+            <EventsTable
+              events={caseStudy.someSortedEvents.nodes}
+              eventsTotalCount={caseStudy.someSortedEvents.totalCount}
+            />
           </div>
         ))
       )}

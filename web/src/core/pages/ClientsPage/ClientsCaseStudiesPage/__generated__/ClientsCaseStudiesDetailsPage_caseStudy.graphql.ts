@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ace9ce1b9782fff60cd1b341a9aa0009>>
+ * @generated SignedSource<<052e6a225d8a79b6a1fe59805cc9959a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type ClientsCaseStudiesDetailsPage_caseStudy$data = {
     readonly nodes: ReadonlyArray<{
       readonly " $fragmentSpreads": FragmentRefs<"EventsTable_events">;
     }>;
+    readonly totalCount: number;
   };
   readonly title: string;
   readonly " $fragmentSpreads": FragmentRefs<"CaseStudyAssignedTherapistsManage_casyStudy" | "CaseStudyManage_caseStudy">;
@@ -83,6 +84,13 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
+          "kind": "ScalarField",
+          "name": "totalCount",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "Event",
           "kind": "LinkedField",
           "name": "nodes",
@@ -105,7 +113,7 @@ const node: ReaderFragment = {
 };
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "0f64eede9593863b0adf7deb4a5bf5d8";
+  (node as any).hash = "081dbab6f0d32fd44373fcf4bb09c3b1";
 }
 
 export default node;

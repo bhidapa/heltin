@@ -60,6 +60,7 @@ export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPa
         ...CaseStudyManage_caseStudy
         ...CaseStudyAssignedTherapistsManage_casyStudy
         sortedEvents {
+          totalCount
           nodes {
             ...EventsTable_events
           }
@@ -176,6 +177,7 @@ export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPa
 
         <EventsTable
           events={caseStudy.sortedEvents.nodes}
+          eventsTotalCount={caseStudy.sortedEvents.totalCount}
           hideCaption // there's already a title
         />
       </div>

@@ -19,11 +19,12 @@ import { EventsTable_events$key } from './__generated__/EventsTable_events.graph
 
 export interface EventsTableProps {
   events: EventsTable_events$key;
+  eventsTotalCount: number;
   hideCaption?: boolean;
 }
 
 export const EventsTable: React.FC<EventsTableProps> = (props) => {
-  const { events: eventsRef, hideCaption } = props;
+  const { events: eventsRef, eventsTotalCount, hideCaption } = props;
 
   const match = useMatch<LocationGenerics>();
 
@@ -66,6 +67,8 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
     `,
     eventsRef,
   );
+
+  const moreEventsCount = eventsTotalCount - events.length;
 
   return (
     <table className="table table-striped">
@@ -226,6 +229,22 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
             <th className="text-muted">
               <FormattedMessage id="NO_ACTIVITIES" />
             </th>
+          </tr>
+        </tfoot>
+      )}
+
+      {moreEventsCount > 0 && (
+        <tfoot>
+          <tr>
+            <td></td>
+            <td className="text-muted">
+              <FormattedMessage
+                id="AND_N_MORE_ENTRIES"
+                values={{
+                  count: moreEventsCount,
+                }}
+              />
+            </td>
           </tr>
         </tfoot>
       )}

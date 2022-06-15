@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<185e8f84e736e201c9bdf6fb4af81978>>
+ * @generated SignedSource<<04a60bf061ffd0436bc6ad2fd6564a43>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -130,108 +130,106 @@ v11 = {
   "name": "endedAt",
   "storageKey": null
 },
-v12 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "Event",
-    "kind": "LinkedField",
-    "name": "nodes",
-    "plural": true,
-    "selections": [
-      (v5/*: any*/),
-      (v7/*: any*/),
-      (v6/*: any*/),
-      {
-        "alias": "caseStudy",
-        "args": null,
-        "concreteType": "CaseStudy",
-        "kind": "LinkedField",
-        "name": "caseStudyByCaseStudyRowId",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
-          (v8/*: any*/),
-          (v5/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": "formResponse",
-        "args": null,
-        "concreteType": "FormResponse",
-        "kind": "LinkedField",
-        "name": "formResponseByFormResponseRowId",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "alias": "form",
-            "args": null,
-            "concreteType": "Form",
-            "kind": "LinkedField",
-            "name": "formByFormRowId",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              },
-              (v5/*: any*/)
-            ],
-            "storageKey": null
-          },
-          (v8/*: any*/),
-          (v5/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": "treatment",
-        "args": null,
-        "concreteType": "CaseStudyTreatment",
-        "kind": "LinkedField",
-        "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          (v9/*: any*/),
-          (v3/*: any*/),
-          (v10/*: any*/),
-          (v11/*: any*/),
-          (v5/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": "conclusion",
-        "args": null,
-        "concreteType": "CaseStudyConclusion",
-        "kind": "LinkedField",
-        "name": "caseStudyConclusionByCaseStudyConclusionRowId",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          (v7/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "concludedAt",
-            "storageKey": null
-          },
-          (v5/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+v12 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Event",
+  "kind": "LinkedField",
+  "name": "nodes",
+  "plural": true,
+  "selections": [
+    (v5/*: any*/),
+    (v7/*: any*/),
+    (v6/*: any*/),
+    {
+      "alias": "caseStudy",
+      "args": null,
+      "concreteType": "CaseStudy",
+      "kind": "LinkedField",
+      "name": "caseStudyByCaseStudyRowId",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        (v3/*: any*/),
+        (v8/*: any*/),
+        (v5/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "formResponse",
+      "args": null,
+      "concreteType": "FormResponse",
+      "kind": "LinkedField",
+      "name": "formResponseByFormResponseRowId",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        {
+          "alias": "form",
+          "args": null,
+          "concreteType": "Form",
+          "kind": "LinkedField",
+          "name": "formByFormRowId",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            (v5/*: any*/)
+          ],
+          "storageKey": null
+        },
+        (v8/*: any*/),
+        (v5/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "treatment",
+      "args": null,
+      "concreteType": "CaseStudyTreatment",
+      "kind": "LinkedField",
+      "name": "caseStudyTreatmentByCaseStudyTreatmentRowId",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        (v9/*: any*/),
+        (v3/*: any*/),
+        (v10/*: any*/),
+        (v11/*: any*/),
+        (v5/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "conclusion",
+      "args": null,
+      "concreteType": "CaseStudyConclusion",
+      "kind": "LinkedField",
+      "name": "caseStudyConclusionByCaseStudyConclusionRowId",
+      "plural": false,
+      "selections": [
+        (v2/*: any*/),
+        (v7/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "concludedAt",
+          "storageKey": null
+        },
+        (v5/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -466,7 +464,16 @@ return {
                     "kind": "LinkedField",
                     "name": "sortedEvents",
                     "plural": false,
-                    "selections": (v12/*: any*/),
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
+                        "storageKey": null
+                      },
+                      (v12/*: any*/)
+                    ],
                     "storageKey": null
                   },
                   (v5/*: any*/)
@@ -505,7 +512,9 @@ return {
                 "kind": "LinkedField",
                 "name": "eventsByCaseStudyTreatmentRowId",
                 "plural": false,
-                "selections": (v12/*: any*/),
+                "selections": [
+                  (v12/*: any*/)
+                ],
                 "storageKey": null
               },
               (v5/*: any*/)
@@ -518,12 +527,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bab3abf6b266848f849f5bef4b84b632",
+    "cacheID": "e490d35b5c9ba9cd380479aa1f4a1ceb",
     "id": null,
     "metadata": {},
     "name": "CaseStudyTreatmentManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyTreatmentManageUpdateMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        ...CaseStudyTreatmentManage_caseStudy\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      eventsByCaseStudyTreatmentRowId {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyTreatmentManageUpdateMutation(\n  $input: UpdateCaseStudyTreatmentInput!\n) {\n  updateCaseStudyTreatment(input: $input) {\n    treatment: caseStudyTreatment {\n      rowId\n      caseStudy: caseStudyByCaseStudyRowId {\n        ...CaseStudyTreatmentManage_caseStudy\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      ...CaseStudyTreatmentManage_treatment\n      eventsByCaseStudyTreatmentRowId {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    totalCount\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();
