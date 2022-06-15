@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e325af1c8c1b709b51c359c1bfb2af2d>>
+ * @generated SignedSource<<d67b580f2a9178291b57635fc9ccb729>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,6 +36,10 @@ export type ClientsTable_query$data = {
       };
     }>;
     readonly totalCount: number;
+  };
+  readonly viewer: {
+    readonly isAdmin: boolean;
+    readonly isTherapist: boolean;
   };
   readonly " $fragmentType": "ClientsTable_query";
 };
@@ -114,6 +118,36 @@ return {
   },
   "name": "ClientsTable_query",
   "selections": [
+    {
+      "kind": "RequiredField",
+      "field": {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isTherapist",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      "action": "THROW",
+      "path": "viewer"
+    },
     {
       "kind": "RequiredField",
       "field": {
@@ -305,7 +339,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "05dbe8e95696f918557150810e7cdc2e";
+  (node as any).hash = "99e41913e1fcc1e7e1de7890ecd270db";
 }
 
 export default node;

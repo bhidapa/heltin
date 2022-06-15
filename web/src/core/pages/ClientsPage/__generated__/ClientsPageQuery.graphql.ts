@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1eb773e52b58b48d1c49854d872c7e50>>
+ * @generated SignedSource<<854e24bd8ee3e3d749d2efc24360e783>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -165,7 +165,21 @@ return {
         "plural": false,
         "selections": [
           (v1/*: any*/),
-          (v2/*: any*/)
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isAdmin",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "isTherapist",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       },
@@ -351,12 +365,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1dcdc0f5780c78010a7a51f63ab01fa1",
+    "cacheID": "63242344c6c4b551777cd9367aaabe83",
     "id": null,
     "metadata": {},
     "name": "ClientsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  viewer {\n    isAdmin\n    isTherapist\n    id\n  }\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

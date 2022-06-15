@@ -51,7 +51,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
   const count = parseInt(params.count || '20');
 
   const {
-    data: { filterClients },
+    data: { viewer, filterClients },
     hasNext,
     refetch,
     loadNext,
@@ -67,6 +67,10 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
         # filters
         q: { type: "String" }
       ) {
+        viewer @required(action: THROW) {
+          isAdmin
+          isTherapist
+        }
         filterClients(
           # pagination
           first: $count
@@ -95,6 +99,8 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
   const { register, handleSubmit } = useForm<{ q: string }>({
     defaultValues: { q: params.q || '' },
   });
+
+  const canViewHistory = viewer.isAdmin || viewer.isTherapist;
 
   return (
     <div className="content">
@@ -141,9 +147,11 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
             <th>
               <FormattedMessage id="ASSIGNED_THERAPIST" />
             </th>
-            <th className="text-right">
-              <FormattedMessage id="CASE_STUDIES" />
-            </th>
+            {canViewHistory && (
+              <th className="text-right">
+                <FormattedMessage id="CASE_STUDIES" />
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -162,23 +170,25 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
                   </Link>
                 )}
               </td>
-              <td className="text-right">
-                {node.caseStudies.nodes.map(({ rowId, title, concluded }) => (
-                  <Tooltip key={rowId} content={title}>
-                    <Link
-                      to={`/clients/${node.rowId}/case-studies/${rowId}`}
-                      search
-                      className={'ml-5' + (concluded ? ' text-secondary' : '')}
-                    >
-                      {concluded ? (
-                        <i className="fa-solid fa-lock"></i>
-                      ) : (
-                        <i className="fa-solid fa-lock-open"></i>
-                      )}
-                    </Link>
-                  </Tooltip>
-                ))}
-              </td>
+              {canViewHistory && (
+                <td className="text-right">
+                  {node.caseStudies.nodes.map(({ rowId, title, concluded }) => (
+                    <Tooltip key={rowId} content={title}>
+                      <Link
+                        to={`/clients/${node.rowId}/case-studies/${rowId}`}
+                        search
+                        className={'ml-5' + (concluded ? ' text-secondary' : '')}
+                      >
+                        {concluded ? (
+                          <i className="fa-solid fa-lock"></i>
+                        ) : (
+                          <i className="fa-solid fa-lock-open"></i>
+                        )}
+                      </Link>
+                    </Tooltip>
+                  ))}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>
