@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c948748a99bd412cd1eee67cbdbc516>>
+ * @generated SignedSource<<e33ef7825e23c243557eba9c4923c1a7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -372,7 +372,7 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": "caseStudiesAsc",
+                    "alias": "caseStudies",
                     "args": [
                       {
                         "kind": "Literal",
@@ -430,12 +430,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1d70ea1673028bf3ab32d898bccd290a",
+    "cacheID": "9cd90a0fa9a1f8a3986513527914b51d",
     "id": null,
     "metadata": {},
     "name": "ClientManageCreateMutation",
     "operationKind": "mutation",
-    "text": "mutation ClientManageCreateMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientManage_client\n        ...ClientsTable_client\n        id\n      }\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n  caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      title\n      concluded\n      id\n    }\n  }\n}\n"
+    "text": "mutation ClientManageCreateMutation(\n  $input: CreateClientInput!\n) {\n  createClient(input: $input) {\n    client {\n      rowId\n      id\n    }\n    clientEdge {\n      node {\n        rowId\n        ...ClientManage_client\n        ...ClientsTable_client\n        id\n      }\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      title\n      concluded\n      id\n    }\n  }\n}\n"
   }
 };
 })();

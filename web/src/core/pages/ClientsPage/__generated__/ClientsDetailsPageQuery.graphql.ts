@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b67a68c31081045f797f5ad584c2f89f>>
+ * @generated SignedSource<<bdeef066f8d9facbcf09d89d9b266c0a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -102,28 +102,37 @@ v7 = [
   },
   (v5/*: any*/)
 ],
-v8 = {
+v8 = [
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": [
+      "CREATED_AT_ASC"
+    ]
+  }
+],
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "type",
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "createdAt",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -411,15 +420,7 @@ return {
           },
           {
             "alias": "assignedTherapists",
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "orderBy",
-                "value": [
-                  "CREATED_AT_ASC"
-                ]
-              }
-            ],
+            "args": (v8/*: any*/),
             "concreteType": "ClientAssignedTherapistsConnection",
             "kind": "LinkedField",
             "name": "clientAssignedTherapistsByClientRowId",
@@ -444,13 +445,13 @@ return {
                     "plural": false,
                     "selections": [
                       (v6/*: any*/),
-                      (v8/*: any*/),
+                      (v9/*: any*/),
                       (v4/*: any*/),
                       (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v9/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -484,15 +485,7 @@ return {
           },
           {
             "alias": "caseStudies",
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "orderBy",
-                "value": [
-                  "CREATED_AT_DESC"
-                ]
-              }
-            ],
+            "args": (v8/*: any*/),
             "concreteType": "CaseStudiesConnection",
             "kind": "LinkedField",
             "name": "caseStudiesByClientRowId",
@@ -508,7 +501,7 @@ return {
                 "selections": [
                   (v5/*: any*/),
                   (v6/*: any*/),
-                  (v10/*: any*/),
+                  (v11/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -524,7 +517,7 @@ return {
                     "name": "caseStudyConclusionByCaseStudyRowId",
                     "plural": false,
                     "selections": [
-                      (v8/*: any*/),
+                      (v9/*: any*/),
                       (v5/*: any*/)
                     ],
                     "storageKey": null
@@ -546,7 +539,7 @@ return {
                         "plural": true,
                         "selections": [
                           (v5/*: any*/),
-                          (v8/*: any*/),
+                          (v9/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -563,8 +556,8 @@ return {
                             "plural": false,
                             "selections": [
                               (v6/*: any*/),
+                              (v11/*: any*/),
                               (v10/*: any*/),
-                              (v9/*: any*/),
                               (v5/*: any*/)
                             ],
                             "storageKey": null
@@ -586,12 +579,12 @@ return {
                                 "name": "formByFormRowId",
                                 "plural": false,
                                 "selections": [
-                                  (v11/*: any*/),
+                                  (v12/*: any*/),
                                   (v5/*: any*/)
                                 ],
                                 "storageKey": null
                               },
-                              (v9/*: any*/),
+                              (v10/*: any*/),
                               (v5/*: any*/)
                             ],
                             "storageKey": null
@@ -612,7 +605,7 @@ return {
                                 "name": "external",
                                 "storageKey": null
                               },
-                              (v10/*: any*/),
+                              (v11/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -640,7 +633,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v6/*: any*/),
-                              (v8/*: any*/),
+                              (v9/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -662,7 +655,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
+            "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
           },
           (v5/*: any*/)
         ],
@@ -685,7 +678,7 @@ return {
             "plural": true,
             "selections": [
               (v6/*: any*/),
-              (v11/*: any*/),
+              (v12/*: any*/),
               (v5/*: any*/)
             ],
             "storageKey": null
@@ -696,12 +689,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "17ea56047147594c6f7a8516dae5cde5",
+    "cacheID": "80c954c89de1b34d1e9680d39766d846",
     "id": null,
     "metadata": {},
     "name": "ClientsDetailsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  ...ClientAssignedTherapistsManage_query\n  viewer {\n    isAdmin\n    isTherapist\n    ...ClientManage_viewer\n    id\n  }\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientManage_client\n    ...ClientAssignedTherapistsManage_client\n    ...ClientCaseStudies_client\n    id\n  }\n  filterForms {\n    nodes {\n      ...ClientCaseStudies_forms\n      id\n    }\n  }\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment ClientAssignedTherapistsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedTherapistsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      fullName\n      id\n    }\n    id\n  }\n}\n\nfragment ClientAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientCaseStudies_forms on Form {\n  rowId\n  name\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n  canInsertClient\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "query ClientsDetailsPageQuery(\n  $rowId: UUID!\n) {\n  ...ClientAssignedTherapistsManage_query\n  viewer {\n    isAdmin\n    isTherapist\n    ...ClientManage_viewer\n    id\n  }\n  client: clientByRowId(rowId: $rowId) {\n    fullName\n    ...ClientManage_client\n    ...ClientAssignedTherapistsManage_client\n    ...ClientCaseStudies_client\n    id\n  }\n  filterForms {\n    nodes {\n      ...ClientCaseStudies_forms\n      id\n    }\n  }\n}\n\nfragment AutocompleteTherapist_query on Query {\n  filterTherapists(first: 10) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n\nfragment ClientAssignedTherapistsManage_client on Client {\n  rowId\n  assignedTherapists: clientAssignedTherapistsByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      fullName\n      id\n    }\n    id\n  }\n}\n\nfragment ClientAssignedTherapistsManage_query on Query {\n  ...AutocompleteTherapist_query\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      sortedEvents {\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientCaseStudies_forms on Form {\n  rowId\n  name\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientManage_viewer on User {\n  isAdmin\n  isTherapist\n  canInsertClient\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();

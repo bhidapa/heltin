@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2c10dd36bc80af9f4dd9f4541ffb957>>
+ * @generated SignedSource<<dd14254070fc1ed540a5ccabdf45092a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_client$data = {
-  readonly caseStudiesAsc: {
+  readonly caseStudies: {
     readonly nodes: ReadonlyArray<{
       readonly concluded: boolean;
       readonly rowId: string;
@@ -115,7 +115,7 @@ return {
       "storageKey": null
     },
     {
-      "alias": "caseStudiesAsc",
+      "alias": "caseStudies",
       "args": [
         {
           "kind": "Literal",
@@ -166,7 +166,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "6d7ebae7929c94c43af77db28c1eda6e";
+  (node as any).hash = "3cb8f6e94a2f8d0e8ef75a10ef747401";
 }
 
 export default node;

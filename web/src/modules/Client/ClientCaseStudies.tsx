@@ -29,7 +29,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
     graphql`
       fragment ClientCaseStudies_client on Client {
         rowId
-        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_DESC]) {
+        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
           nodes {
             id
             rowId

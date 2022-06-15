@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a80c87ca7502a8d9b7eedeebd91bb8dc>>
+ * @generated SignedSource<<1bb4b336ef9b7c335e916bafa60f5035>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -202,7 +202,7 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": "caseStudiesAsc",
+                    "alias": "caseStudies",
                     "args": [
                       {
                         "kind": "Literal",
@@ -311,12 +311,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "13d1eb58f6f1b7aaceaee9eb690fa834",
+    "cacheID": "b400aa46dab16a875f83eb5671e26a09",
     "id": null,
     "metadata": {},
     "name": "ClientsTableRefetchQuery",
     "operationKind": "query",
-    "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ClientsTableRefetchQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

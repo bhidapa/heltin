@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0cba8b32715b233c323e6f88026f086c>>
+ * @generated SignedSource<<abdae056aa620fd0ec5f9770d2beab51>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -58,7 +58,7 @@ return {
           "kind": "Literal",
           "name": "orderBy",
           "value": [
-            "CREATED_AT_DESC"
+            "CREATED_AT_ASC"
           ]
         }
       ],
@@ -146,7 +146,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_DESC\"])"
+      "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
     }
   ],
   "type": "Client",
@@ -155,7 +155,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "925abefc0173cee5a4500a33b5f95b77";
+  (node as any).hash = "f8a429483092cc18fadc87c18c3f3bf5";
 }
 
 export default node;

@@ -31,7 +31,7 @@ graphql`
     treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
       totalCount
     }
-    caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
+    caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
       nodes {
         rowId
         title
@@ -163,7 +163,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
                 )}
               </td>
               <td className="text-right">
-                {node.caseStudiesAsc.nodes.map(({ rowId, title, concluded }) => (
+                {node.caseStudies.nodes.map(({ rowId, title, concluded }) => (
                   <Tooltip key={rowId} content={title}>
                     <Link
                       to={`/clients/${node.rowId}/case-studies/${rowId}`}

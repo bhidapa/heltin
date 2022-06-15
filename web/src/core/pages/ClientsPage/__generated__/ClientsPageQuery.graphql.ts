@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<67142ae18d7479091ad53e8e974d095e>>
+ * @generated SignedSource<<1eb773e52b58b48d1c49854d872c7e50>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -242,7 +242,7 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": "caseStudiesAsc",
+                    "alias": "caseStudies",
                     "args": [
                       {
                         "kind": "Literal",
@@ -351,12 +351,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cb2c4f69bfbdc79f4753131181be317d",
+    "cacheID": "1dcdc0f5780c78010a7a51f63ab01fa1",
     "id": null,
     "metadata": {},
     "name": "ClientsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<334872d65789326d02b753fc6d180db8>>
+ * @generated SignedSource<<7da12b695fcceaf99769ee9b8632fc1a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -326,7 +326,7 @@ return {
                 "storageKey": null
               },
               {
-                "alias": "caseStudiesAsc",
+                "alias": "caseStudies",
                 "args": [
                   {
                     "kind": "Literal",
@@ -381,12 +381,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "474b604f08f2768f26ff4976573bfc81",
+    "cacheID": "32ea018333a029e6104e00a871cf46b6",
     "id": null,
     "metadata": {},
     "name": "ClientManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ClientManageUpdateMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      ...ClientManage_client\n      ...ClientsTable_client\n      id\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n  caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      title\n      concluded\n      id\n    }\n  }\n}\n"
+    "text": "mutation ClientManageUpdateMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      ...ClientManage_client\n      ...ClientsTable_client\n      id\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      title\n      concluded\n      id\n    }\n  }\n}\n"
   }
 };
 })();

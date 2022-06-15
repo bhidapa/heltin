@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<96ece19fa149e084cb3fee931fb5b40e>>
+ * @generated SignedSource<<e325af1c8c1b709b51c359c1bfb2af2d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type ClientsTable_query$data = {
   readonly filterClients: {
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly caseStudiesAsc: {
+        readonly caseStudies: {
           readonly nodes: ReadonlyArray<{
             readonly concluded: boolean;
             readonly rowId: string;
@@ -203,7 +203,7 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": "caseStudiesAsc",
+                    "alias": "caseStudies",
                     "args": [
                       {
                         "kind": "Literal",
