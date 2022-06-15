@@ -174,17 +174,19 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
                 <td className="text-right">
                   {node.caseStudies.nodes.map(({ rowId, title, concluded }) => (
                     <Tooltip key={rowId} content={title}>
-                      <Link
-                        to={`/clients/${node.rowId}/case-studies/${rowId}`}
-                        search
-                        className={'ml-5' + (concluded ? ' text-secondary' : '')}
-                      >
-                        {concluded ? (
-                          <i className="fa-solid fa-lock"></i>
-                        ) : (
-                          <i className="fa-solid fa-lock-open"></i>
-                        )}
-                      </Link>
+                      <span>
+                        <Link
+                          to={`/clients/${node.rowId}/case-studies/${rowId}`}
+                          search
+                          className={'ml-5' + (concluded ? ' text-secondary' : '')}
+                        >
+                          {concluded ? (
+                            <i className="fa-solid fa-lock"></i>
+                          ) : (
+                            <i className="fa-solid fa-lock-open"></i>
+                          )}
+                        </Link>
+                      </span>
                     </Tooltip>
                   ))}
                 </td>
