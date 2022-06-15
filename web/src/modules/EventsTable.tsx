@@ -191,7 +191,7 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
                 <tr key={event.id}>
                   <td>
                     <Tooltip content={<FormattedMessage id="CONCLUSION" />}>
-                      <i className="fa-solid fa-clipboard-check"></i>
+                      <i className="fa-solid fa-lock"></i>
                     </Tooltip>
                   </td>
                   <td>

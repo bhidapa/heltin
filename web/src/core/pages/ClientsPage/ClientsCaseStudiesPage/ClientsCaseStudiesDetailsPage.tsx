@@ -120,7 +120,7 @@ export const ClientsCaseStudiesDetailsPage: React.FC<ClientsCaseStudiesDetailsPa
                     search
                     className="btn btn-secondary"
                   >
-                    <i className="fa-solid fa-clipboard-check"></i>
+                    <i className="fa-solid fa-lock"></i>
                     &nbsp;
                     <FormattedMessage id="CONCLUDE" />
                   </Link>

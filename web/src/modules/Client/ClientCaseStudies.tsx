@@ -98,7 +98,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
               {caseStudy.conclusion ? (
                 <div className="col text-right">
                   <Tooltip content={<FormattedMessage id={caseStudy.conclusion.type} />}>
-                    <i className="fa-solid fa-clipboard-check text-primary font-size-20"></i>
+                    <i className="fa-solid fa-lock text-secondary font-size-20"></i>
                   </Tooltip>
                 </div>
               ) : (
@@ -111,7 +111,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
                         search
                         className="btn btn-secondary"
                       >
-                        <i className="fa-solid fa-clipboard-check"></i>
+                        <i className="fa-solid fa-lock"></i>
                         &nbsp;
                         <FormattedMessage id="CONCLUDE" />
                       </Link>

@@ -175,7 +175,7 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
             {caseStudy.conclusion && (
               <>
                 <Tooltip content={<FormattedMessage id={caseStudy.conclusion.type} />}>
-                  <i className="fa-solid fa-clipboard-check text-primary font-size-20"></i>
+                  <i className="fa-solid fa-lock text-secondary font-size-20"></i>
                 </Tooltip>
                 &nbsp;
               </>

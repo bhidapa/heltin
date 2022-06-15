@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<48d47829f462e5173799d58cfc16d60a>>
+ * @generated SignedSource<<334872d65789326d02b753fc6d180db8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -325,6 +325,52 @@ return {
                 ],
                 "storageKey": null
               },
+              {
+                "alias": "caseStudiesAsc",
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "orderBy",
+                    "value": [
+                      "CREATED_AT_ASC"
+                    ]
+                  }
+                ],
+                "concreteType": "CaseStudiesConnection",
+                "kind": "LinkedField",
+                "name": "caseStudiesByClientRowId",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "CaseStudy",
+                    "kind": "LinkedField",
+                    "name": "nodes",
+                    "plural": true,
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "title",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "concluded",
+                        "storageKey": null
+                      },
+                      (v4/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
+              },
               (v4/*: any*/)
             ],
             "storageKey": null
@@ -335,12 +381,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8c06f9b83f11732ae580a6de86d12473",
+    "cacheID": "474b604f08f2768f26ff4976573bfc81",
     "id": null,
     "metadata": {},
     "name": "ClientManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation ClientManageUpdateMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      ...ClientManage_client\n      ...ClientsTable_client\n      id\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n}\n"
+    "text": "mutation ClientManageUpdateMutation(\n  $input: UpdateClientInput!\n) {\n  updateClient(input: $input) {\n    client {\n      rowId\n      ...ClientManage_client\n      ...ClientsTable_client\n      id\n    }\n  }\n}\n\nfragment ClientManage_client on Client {\n  rowId\n  fullName\n  number\n  firstName\n  lastName\n  dateOfBirth\n  telephone\n  gender\n  city\n  address\n  email\n  note\n  discrete\n  updatedAt\n  updatedBy: userByUpdatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  createdBy: userByCreatedBy {\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n  canViewerUpdate\n  canViewerDelete\n}\n\nfragment ClientsTable_client on Client {\n  rowId\n  number\n  fullName\n  latestAssignedTherapist {\n    therapist: therapistByTherapistRowId {\n      rowId\n      fullName\n      id\n    }\n    id\n  }\n  treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n    totalCount\n  }\n  caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      rowId\n      title\n      concluded\n      id\n    }\n  }\n}\n"
   }
 };
 })();

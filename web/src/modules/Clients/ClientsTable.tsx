@@ -10,6 +10,8 @@ import { graphql, usePaginationFragment } from 'react-relay';
 
 import { Link, useNavigate, useSearch } from '@tanstack/react-location';
 
+import { Tooltip } from 'lib/Tooltip';
+
 import { LocationGenerics } from 'core/location';
 
 import { ClientsTableRefetchQuery } from './__generated__/ClientsTableRefetchQuery.graphql';
@@ -28,6 +30,13 @@ graphql`
     }
     treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
       totalCount
+    }
+    caseStudiesAsc: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {
+      nodes {
+        rowId
+        title
+        concluded
+      }
     }
   }
 `;
@@ -133,7 +142,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
               <FormattedMessage id="ASSIGNED_THERAPIST" />
             </th>
             <th className="text-right">
-              <FormattedMessage id="NUMBER_OF_TREATMENTS" />
+              <FormattedMessage id="CASE_STUDIES" />
             </th>
           </tr>
         </thead>
@@ -153,7 +162,23 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
                   </Link>
                 )}
               </td>
-              <td className="text-right">{node.treatments.totalCount}</td>
+              <td className="text-right">
+                {node.caseStudiesAsc.nodes.map(({ rowId, title, concluded }) => (
+                  <Tooltip key={rowId} content={title}>
+                    <Link
+                      to={`/clients/${node.rowId}/case-studies/${rowId}`}
+                      search
+                      className={'ml-5' + (concluded ? ' text-secondary' : '')}
+                    >
+                      {concluded ? (
+                        <i className="fa-solid fa-lock"></i>
+                      ) : (
+                        <i className="fa-solid fa-lock-open"></i>
+                      )}
+                    </Link>
+                  </Tooltip>
+                ))}
+              </td>
             </tr>
           ))}
         </tbody>

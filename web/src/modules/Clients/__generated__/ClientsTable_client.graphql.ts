@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ebb5fddbb88b3142b2ae5dbbfd6402d3>>
+ * @generated SignedSource<<e2c10dd36bc80af9f4dd9f4541ffb957>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,13 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_client$data = {
+  readonly caseStudiesAsc: {
+    readonly nodes: ReadonlyArray<{
+      readonly concluded: boolean;
+      readonly rowId: string;
+      readonly title: string;
+    }>;
+  };
   readonly fullName: string;
   readonly latestAssignedTherapist: {
     readonly therapist: {
@@ -106,6 +113,51 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": "caseStudiesAsc",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "orderBy",
+          "value": [
+            "CREATED_AT_ASC"
+          ]
+        }
+      ],
+      "concreteType": "CaseStudiesConnection",
+      "kind": "LinkedField",
+      "name": "caseStudiesByClientRowId",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "CaseStudy",
+          "kind": "LinkedField",
+          "name": "nodes",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "title",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "concluded",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
     }
   ],
   "type": "Client",
@@ -114,7 +166,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "f6b43be401240b93b2c6e0af93bf08bc";
+  (node as any).hash = "6d7ebae7929c94c43af77db28c1eda6e";
 }
 
 export default node;

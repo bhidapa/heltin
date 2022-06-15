@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<04916cb6f1546355d9faebec651f9bff>>
+ * @generated SignedSource<<96ece19fa149e084cb3fee931fb5b40e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,13 @@ export type ClientsTable_query$data = {
   readonly filterClients: {
     readonly edges: ReadonlyArray<{
       readonly node: {
+        readonly caseStudiesAsc: {
+          readonly nodes: ReadonlyArray<{
+            readonly concluded: boolean;
+            readonly rowId: string;
+            readonly title: string;
+          }>;
+        };
         readonly fullName: string;
         readonly latestAssignedTherapist: {
           readonly therapist: {
@@ -194,6 +201,51 @@ return {
                       (v1/*: any*/)
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "alias": "caseStudiesAsc",
+                    "args": [
+                      {
+                        "kind": "Literal",
+                        "name": "orderBy",
+                        "value": [
+                          "CREATED_AT_ASC"
+                        ]
+                      }
+                    ],
+                    "concreteType": "CaseStudiesConnection",
+                    "kind": "LinkedField",
+                    "name": "caseStudiesByClientRowId",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "CaseStudy",
+                        "kind": "LinkedField",
+                        "name": "nodes",
+                        "plural": true,
+                        "selections": [
+                          (v2/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "title",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "concluded",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": "caseStudiesByClientRowId(orderBy:[\"CREATED_AT_ASC\"])"
                   },
                   {
                     "alias": null,
