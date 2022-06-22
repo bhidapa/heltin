@@ -294,11 +294,11 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
           </label>
           <input
             {...register('startedAt', {
-              setValueAs: (v) => {
+              onChange: (e) => {
+                const v = e.target.value;
                 if (v) {
                   setValue('endedAt', formatDatetimeLocal(Date.parse(v) + 60 * 60 * 1000)!);
                 }
-                return v;
               },
             })}
             type="datetime-local"
