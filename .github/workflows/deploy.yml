@@ -61,8 +61,8 @@ jobs:
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Create and use context
         run: |
-          docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
-          docker context use bhidapa
+          docker context create atrijum --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
+          docker context use atrijum
       - name: Pull
         run: docker compose pull
       - name: Down
