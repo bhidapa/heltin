@@ -23,15 +23,21 @@ jobs:
           mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
-      - name: Create and use context
+      - name: Forward Docker socket over SSH
         run: |
-          docker context create bhidapa --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
-          docker context use bhidapa
+          # -f run in backround
+          # -N dont execute a command
+          # -n prevent reading from stdin
+          # -T dont allocate a TTY
+          # -L forward from local socket to remote socket
+          ssh -fNnT -L /tmp/docker.sock:/var/run/docker.sock "${{ secrets.USER }}@${{ secrets.HOST }}"
+
+          # use the socket as docker host
+          echo "DOCKER_HOST=unix:///tmp/docker.sock" >> $GITHUB_ENV
       - name: Pull
         run: docker compose pull
       - name: Down
-        run: docker compose down || docker compose down # sometimes "down" fails, try 2 times
-      # TODO: deploy database schema changes, is it even possible to automate?
+        run: docker compose down
       - name: Up
         env:
           APP_DOMAINS: ${{ secrets.APP_DOMAINS }}
@@ -59,15 +65,21 @@ jobs:
           mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
-      - name: Create and use context
+      - name: Forward Docker socket over SSH
         run: |
-          docker context create atrijum --docker host=ssh://${{ secrets.USER }}@${{ secrets.HOST }}
-          docker context use atrijum
+          # -f run in backround
+          # -N dont execute a command
+          # -n prevent reading from stdin
+          # -T dont allocate a TTY
+          # -L forward from local socket to remote socket
+          ssh -fNnT -L /tmp/docker.sock:/var/run/docker.sock "${{ secrets.USER }}@${{ secrets.HOST }}"
+
+          # use the socket as docker host
+          echo "DOCKER_HOST=unix:///tmp/docker.sock" >> $GITHUB_ENV
       - name: Pull
         run: docker compose pull
       - name: Down
-        run: docker compose down || docker compose down # sometimes "down" fails, try 2 times
-      # TODO: deploy database schema changes, is it even possible to automate?
+        run: docker compose down
       - name: Up
         env:
           APP_DOMAINS: ${{ secrets.APP_DOMAINS }}
