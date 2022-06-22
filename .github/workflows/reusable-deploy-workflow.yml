@@ -6,19 +6,6 @@ on:
       environment:
         required: true
         type: string
-    secrets:
-      HOST:
-        required: true
-      USER:
-        required: true
-      SSH_IDENTITY:
-        required: true
-      APP_DOMAINS:
-        required: true
-      SESSION_SECRET:
-        required: true
-      POSTGRES_PASSWORD:
-        required: true
 
 jobs:
   deploy:
