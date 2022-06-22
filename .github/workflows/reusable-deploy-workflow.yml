@@ -41,7 +41,7 @@ jobs:
           mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
           ssh-agent -a $SSH_AUTH_SOCK
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
-      - name: Forward Docker socket over SSH
+      - name: Forward Docker socket over SSH # using docker context through SSH is very buggy (see https://github.com/docker/compose/issues/8544)
         run: |
           # -f run in backround
           # -N dont execute a command
