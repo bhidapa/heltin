@@ -15,7 +15,7 @@ import printJS from 'print-js';
 
 import { ExplanationTooltip, Tooltip } from 'lib/Tooltip';
 import { formatDatetimeLocal, parseDatetimeLocal } from 'lib/date';
-import { Watch } from 'lib/form';
+import { Watch, useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { buildHeaders, checkResponse } from 'lib/request';
 import { buildReportToast, createToast, deleteToast, printToast, saveToast } from 'lib/toasts';
@@ -175,8 +175,11 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
   // string = ready, null = pending, undefined = nothing
   const [reportFileRowId, setReportFileRowId] = useState<string | null | undefined>(undefined);
 
+  const [formRef, , submitOnCtrlEnter] = useNativeFormSubmit();
+
   return (
     <form
+      ref={formRef}
       className="content"
       onSubmit={handleSubmit((values) => {
         if (treatment) {
@@ -461,6 +464,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
           id="privateDescription"
           className="form-control"
           required
+          onKeyDown={submitOnCtrlEnter}
         />
         <div className="form-text w-full">
           <FormattedMessage id="NOTES_FOR_THERAPIST_FORM_TEXT" />
@@ -475,6 +479,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
           {...register('description', { setValueAs: (v) => v || null })}
           id="description"
           className="form-control"
+          onKeyDown={submitOnCtrlEnter}
         />
         <div className="form-text w-full">
           <FormattedMessage id="DESCRIPTION_FOR_REPORT_FORM_TEXT" />

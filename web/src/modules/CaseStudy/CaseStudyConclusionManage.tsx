@@ -13,6 +13,7 @@ import printJS from 'print-js';
 
 import { Tooltip } from 'lib/Tooltip';
 import { formatDate } from 'lib/date';
+import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { buildHeaders, checkResponse } from 'lib/request';
 import { buildReportToast, createToast, deleteToast, printToast, saveToast } from 'lib/toasts';
@@ -156,8 +157,11 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
   // string = ready, null = pending, undefined = nothing
   const [reportFileRowId, setReportFileRowId] = useState<string | null | undefined>(undefined);
 
+  const [formRef, , submitOnCtrlEnter] = useNativeFormSubmit();
+
   return (
     <form
+      ref={formRef}
       className="content"
       onSubmit={handleSubmit((values) => {
         if (conclusion) {
@@ -275,6 +279,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
           {...register('privateDescription', { setValueAs: (v) => v || null })}
           id="privateDescription"
           className="form-control"
+          onKeyDown={submitOnCtrlEnter}
         />
         <div className="form-text w-full">
           <FormattedMessage id="NOTES_FOR_THERAPIST_FORM_TEXT" />
@@ -285,7 +290,13 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
         <label htmlFor="description" className="required">
           <FormattedMessage id="DESCRIPTION_FOR_REPORT" />
         </label>
-        <textarea {...register('description')} id="description" required className="form-control" />
+        <textarea
+          {...register('description')}
+          id="description"
+          required
+          className="form-control"
+          onKeyDown={submitOnCtrlEnter}
+        />
         <div className="form-text w-full">
           <FormattedMessage id="DESCRIPTION_FOR_REPORT_FORM_TEXT" />
         </div>

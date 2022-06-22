@@ -11,10 +11,10 @@ import { graphql, useFragment } from 'react-relay';
 import { useNavigate } from '@tanstack/react-location';
 import { TherapistType } from 'enums.graphql';
 
+import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
-import { useFormSubmit } from 'lib/useFormSubmit';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
 
 import { relativeTime } from 'intl/relativeTime';
@@ -143,7 +143,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
 
   useUnsavedChangesPrompt(formState.isDirty);
 
-  const [formRef, submit] = useFormSubmit();
+  const [formRef, submit] = useNativeFormSubmit();
 
   return (
     <form

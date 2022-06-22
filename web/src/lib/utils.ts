@@ -3,6 +3,7 @@
  * utils
  *
  */
+import { KeyboardEventHandler } from 'react';
 
 export function debounce<A extends any[]>(
   func: (...args: A) => any,
@@ -14,5 +15,13 @@ export function debounce<A extends any[]>(
     timer = setTimeout(() => {
       func(...args);
     }, timeout);
+  };
+}
+
+export function onCtrlEnter(callback: () => void): KeyboardEventHandler {
+  return (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+      callback();
+    }
   };
 }

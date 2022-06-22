@@ -10,10 +10,12 @@ import { graphql, readInlineData, useFragment } from 'react-relay';
 
 import { useNavigate, useResolvePath } from '@tanstack/react-location';
 
+import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
 import { usePanic } from 'lib/usePanic';
+import { onCtrlEnter } from 'lib/utils';
 
 import { LocationGenerics } from 'core/location';
 
@@ -129,82 +131,86 @@ export const FormManage: React.FC<FormManageProps> = (props) => {
 
   const { control, handleSubmit, setError, reset } = useForm({ defaultValues });
 
-  const submit = handleSubmit((values) => {
-    let hasErrors = false;
-    for (const [name, value] of Object.entries(values)) {
-      const formQuestion = form.formQuestions.nodes.find(({ rowId }) => rowId === name);
-      if (!formQuestion) {
-        return panic(new Error(`Form question for ${name} not found`));
-      }
-
-      if (
-        formQuestion.required &&
-        (value == null || value === '' || (Array.isArray(value) && value.length === 0))
-      ) {
-        setError(name, { type: 'required' });
-
-        if (!hasErrors) {
-          // this is the first error, scroll to the field
-          document.getElementById(name)!.scrollIntoView();
-        }
-        hasErrors = true;
-      }
-    }
-
-    if (!hasErrors) {
-      return saveToast(
-        (async () => {
-          if (formResponse) {
-            const data = await updateFormResponse({
-              variables: {
-                input: {
-                  formResponseRowId: formResponse.rowId,
-                  answers: values,
-                },
-              },
-            });
-            if (!data.updateFormResponse?.formResponse?.form) {
-              throw new Error('Forbidden');
-            }
-            reset(
-              buildDefaultValues(
-                data.updateFormResponse.formResponse.form?.formQuestions,
-                data.updateFormResponse.formResponse,
-              ),
-            );
-            return;
-          }
-
-          const data = await createFormResponse({
-            variables: {
-              input: {
-                caseStudyRowId,
-                formRowId: form.rowId,
-                answers: values,
-              },
-            },
-          });
-          if (!data.createFormResponse?.formResponse) {
-            throw new Error('Forbidden');
-          }
-
-          navigate({
-            to: resolvePath(`../../response/${data.createFormResponse?.formResponse.rowId}`),
-            search: true,
-            replace: true,
-          });
-        })(),
-      );
-    }
-  });
+  const [formElRef, submit] = useNativeFormSubmit();
 
   return (
-    <form className="content" onSubmit={submit}>
+    <form
+      ref={formElRef}
+      className="content"
+      onSubmit={handleSubmit((values) => {
+        let hasErrors = false;
+        for (const [name, value] of Object.entries(values)) {
+          const formQuestion = form.formQuestions.nodes.find(({ rowId }) => rowId === name);
+          if (!formQuestion) {
+            return panic(new Error(`Form question for ${name} not found`));
+          }
+
+          if (
+            formQuestion.required &&
+            (value == null || value === '' || (Array.isArray(value) && value.length === 0))
+          ) {
+            setError(name, { type: 'required' });
+
+            if (!hasErrors) {
+              // this is the first error, scroll to the field
+              document.getElementById(name)!.scrollIntoView();
+            }
+            hasErrors = true;
+          }
+        }
+
+        if (!hasErrors) {
+          return saveToast(
+            (async () => {
+              if (formResponse) {
+                const data = await updateFormResponse({
+                  variables: {
+                    input: {
+                      formResponseRowId: formResponse.rowId,
+                      answers: values,
+                    },
+                  },
+                });
+                if (!data.updateFormResponse?.formResponse?.form) {
+                  throw new Error('Forbidden');
+                }
+                reset(
+                  buildDefaultValues(
+                    data.updateFormResponse.formResponse.form?.formQuestions,
+                    data.updateFormResponse.formResponse,
+                  ),
+                );
+                return;
+              }
+
+              const data = await createFormResponse({
+                variables: {
+                  input: {
+                    caseStudyRowId,
+                    formRowId: form.rowId,
+                    answers: values,
+                  },
+                },
+              });
+              if (!data.createFormResponse?.formResponse) {
+                throw new Error('Forbidden');
+              }
+
+              navigate({
+                to: resolvePath(`../../response/${data.createFormResponse?.formResponse.rowId}`),
+                search: true,
+                replace: true,
+              });
+            })(),
+          );
+        }
+      })}
+    >
       <h2 className="content-title">{form.name}</h2>
       {form.description && <p className="text-muted">{form.description}</p>}
 
       {form.formQuestions.nodes.map(({ rowId, ...question }) => (
-        <FormManageQuestion key={rowId} control={control} question={question} />
+        <FormManageQuestion key={rowId} control={control} formSubmit={submit} question={question} />
       ))}
 
       <div className="form-row align-items-center">
@@ -263,9 +269,11 @@ const OPTION_OTHER_VALUE = '259afbd0-c294-4d1b-b245-275aff418c43';
 
 function FormManageQuestion({
   control,
+  formSubmit,
   question: questionRef,
 }: {
   control: Control;
+  formSubmit: () => void;
   question: FormManageQuestion_question$key;
 }) {
   const { rowId, required, type, rawOptions, name, description } = useFragment(
@@ -346,6 +354,7 @@ function FormManageQuestion({
               id={inputId}
               className={'form-control' + (fieldError ? ' is-invalid' : '')}
               required={required}
+              onKeyDown={onCtrlEnter(formSubmit)}
             />
 
             {description && <div className="form-text">{description}</div>}
