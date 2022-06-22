@@ -8,9 +8,11 @@ jobs:
     uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@master
     with:
       environment: BHIDAPA
+    secrets: inherit
 
   deploy-atrijum:
     name: Deploy to Atrijum
     uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@master
     with:
       environment: Atrijum
+    secrets: inherit
