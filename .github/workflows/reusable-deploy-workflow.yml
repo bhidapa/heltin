@@ -2,6 +2,10 @@ name: Reusable deploy workflow
 
 on:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
     secrets:
       HOST:
         required: true
@@ -19,6 +23,7 @@ on:
 jobs:
   deploy:
     name: Deploy
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     env:
       SSH_AUTH_SOCK: /tmp/ssh_agent.sock

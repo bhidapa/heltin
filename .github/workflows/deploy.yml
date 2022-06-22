@@ -5,10 +5,12 @@ on: workflow_dispatch
 jobs:
   deploy-bhidapa:
     name: Deploy to BHIDAPA
-    environment: BHIDAPA
     uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@master
+    with:
+      environment: BHIDAPA
 
   deploy-atrijum:
     name: Deploy to Atrijum
-    environment: Atrijum
     uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@master
+    with:
+      environment: Atrijum
