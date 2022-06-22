@@ -1,0 +1,59 @@
+name: Reusable deploy workflow
+
+on:
+  workflow_call:
+    secrets:
+      HOST:
+        required: true
+      USER:
+        required: true
+      SSH_IDENTITY:
+        required: true
+      APP_DOMAINS:
+        required: true
+      SESSION_SECRET:
+        required: true
+      POSTGRES_PASSWORD:
+        required: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    env:
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup SSH identity
+        run: |
+          mkdir -p ~/.ssh && ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-agent -a $SSH_AUTH_SOCK
+          ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
+      - name: Forward Docker socket over SSH
+        run: |
+          # -f run in backround
+          # -N dont execute a command
+          # -n prevent reading from stdin
+          # -T dont allocate a TTY
+          # -L forward from local socket to remote socket
+          ssh -fNnT -L /tmp/docker.sock:/var/run/docker.sock "${{ secrets.USER }}@${{ secrets.HOST }}"
+
+          # use the socket as docker host
+          echo "DOCKER_HOST=unix:///tmp/docker.sock" >> $GITHUB_ENV
+      - name: Pull
+        run: docker compose pull
+      - name: Down
+        run: docker compose down
+      - name: Up
+        env:
+          APP_DOMAINS: ${{ secrets.APP_DOMAINS }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
