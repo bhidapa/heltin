@@ -43,12 +43,13 @@ jobs:
           ssh-add - <<< "${{ secrets.SSH_IDENTITY }}"
       - name: Forward Docker socket over SSH # using docker context through SSH is very buggy (see https://github.com/docker/compose/issues/8544)
         run: |
+          # -o options that prevent leaking the host IP
           # -f run in backround
           # -N dont execute a command
           # -n prevent reading from stdin
           # -T dont allocate a TTY
           # -L forward from local socket to remote socket
-          ssh -fNnT -L /tmp/docker.sock:/var/run/docker.sock "${{ secrets.USER }}@${{ secrets.HOST }}"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -fNnT -L /tmp/docker.sock:/var/run/docker.sock "${{ secrets.USER }}@${{ secrets.HOST }}"
 
           # use the socket as docker host
           echo "DOCKER_HOST=unix:///tmp/docker.sock" >> $GITHUB_ENV
