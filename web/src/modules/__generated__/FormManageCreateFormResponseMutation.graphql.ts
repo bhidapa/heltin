@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9b97e99b5221e605355bbe0c395b54c>>
+ * @generated SignedSource<<b0021ddf2a184a1dfb9e3112f4d471dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -86,24 +86,31 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "clientRowId",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "concluded",
+  "name": "title",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "concluded",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v10 = {
   "alias": "conclusion",
   "args": null,
   "concreteType": "CaseStudyConclusion",
@@ -111,16 +118,9 @@ v9 = {
   "name": "caseStudyConclusionByCaseStudyRowId",
   "plural": false,
   "selections": [
-    (v8/*: any*/),
+    (v9/*: any*/),
     (v5/*: any*/)
   ],
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "clientRowId",
   "storageKey": null
 },
 v11 = {
@@ -141,8 +141,8 @@ v12 = [
     "plural": true,
     "selections": [
       (v5/*: any*/),
-      (v8/*: any*/),
-      (v10/*: any*/),
+      (v9/*: any*/),
+      (v6/*: any*/),
       {
         "alias": "caseStudy",
         "args": null,
@@ -152,7 +152,7 @@ v12 = [
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v6/*: any*/),
+          (v7/*: any*/),
           (v11/*: any*/),
           (v5/*: any*/)
         ],
@@ -207,7 +207,7 @@ v12 = [
             "name": "external",
             "storageKey": null
           },
-          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -235,7 +235,7 @@ v12 = [
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v8/*: any*/),
+          (v9/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -378,7 +378,8 @@ return {
                               (v2/*: any*/),
                               (v6/*: any*/),
                               (v7/*: any*/),
-                              (v9/*: any*/),
+                              (v8/*: any*/),
+                              (v10/*: any*/),
                               {
                                 "alias": "someSortedEvents",
                                 "args": [
@@ -406,10 +407,10 @@ return {
                     "storageKey": null
                   },
                   (v2/*: any*/),
-                  (v6/*: any*/),
-                  (v10/*: any*/),
                   (v7/*: any*/),
-                  (v9/*: any*/),
+                  (v6/*: any*/),
+                  (v8/*: any*/),
+                  (v10/*: any*/),
                   {
                     "alias": "assignedTherapists",
                     "args": (v3/*: any*/),
@@ -444,7 +445,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v8/*: any*/),
+                              (v9/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -499,12 +500,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6fb27e26aac7a4aa5a6592e6ab5093a3",
+    "cacheID": "be9af4b0741986a656218bf87e7de486",
     "id": null,
     "metadata": {},
     "name": "FormManageCreateFormResponseMutation",
     "operationKind": "mutation",
-    "text": "mutation FormManageCreateFormResponseMutation(\n  $input: CreateFormResponseInput!\n) {\n  createFormResponse(input: $input) {\n    formResponse {\n      rowId\n      caseStudyByCaseStudyRowId {\n        clientByClientRowId {\n          ...ClientCaseStudies_client\n          id\n        }\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    totalCount\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "mutation FormManageCreateFormResponseMutation(\n  $input: CreateFormResponseInput!\n) {\n  createFormResponse(input: $input) {\n    formResponse {\n      rowId\n      caseStudyByCaseStudyRowId {\n        clientByClientRowId {\n          ...ClientCaseStudies_client\n          id\n        }\n        ...ClientsCaseStudiesDetailsPage_caseStudy\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment CaseStudyAssignedTherapistsManage_casyStudy on CaseStudy {\n  rowId\n  assignedTherapists: caseStudyTherapistsByCaseStudyRowId(orderBy: [CREATED_AT_ASC]) {\n    nodes {\n      id\n      rowId\n      primary\n      therapist: therapistByTherapistRowId {\n        rowId\n        type\n        fullName\n        id\n      }\n      createdAt\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      clientRowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ClientsCaseStudiesDetailsPage_caseStudy on CaseStudy {\n  rowId\n  title\n  clientRowId\n  concluded\n  ...CaseStudyManage_caseStudy\n  ...CaseStudyAssignedTherapistsManage_casyStudy\n  sortedEvents {\n    totalCount\n    nodes {\n      ...EventsTable_events\n      id\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();

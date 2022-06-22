@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fba2c0c1c33032ba0ace57dd6b5902b3>>
+ * @generated SignedSource<<1000027b8e74a1bcd2e5985efc17d1f8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -69,17 +69,24 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "clientRowId",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "title",
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -175,6 +182,7 @@ return {
                       (v4/*: any*/),
                       (v2/*: any*/),
                       (v5/*: any*/),
+                      (v6/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -190,7 +198,7 @@ return {
                         "name": "caseStudyConclusionByCaseStudyRowId",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v7/*: any*/),
                           (v4/*: any*/)
                         ],
                         "storageKey": null
@@ -219,14 +227,8 @@ return {
                             "plural": true,
                             "selections": [
                               (v4/*: any*/),
-                              (v6/*: any*/),
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "clientRowId",
-                                "storageKey": null
-                              },
+                              (v7/*: any*/),
+                              (v5/*: any*/),
                               {
                                 "alias": "caseStudy",
                                 "args": null,
@@ -236,8 +238,8 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v2/*: any*/),
-                                  (v5/*: any*/),
-                                  (v7/*: any*/),
+                                  (v6/*: any*/),
+                                  (v8/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -270,7 +272,7 @@ return {
                                     ],
                                     "storageKey": null
                                   },
-                                  (v7/*: any*/),
+                                  (v8/*: any*/),
                                   (v4/*: any*/)
                                 ],
                                 "storageKey": null
@@ -291,7 +293,7 @@ return {
                                     "name": "external",
                                     "storageKey": null
                                   },
-                                  (v5/*: any*/),
+                                  (v6/*: any*/),
                                   {
                                     "alias": null,
                                     "args": null,
@@ -319,7 +321,7 @@ return {
                                 "plural": false,
                                 "selections": [
                                   (v2/*: any*/),
-                                  (v6/*: any*/),
+                                  (v7/*: any*/),
                                   {
                                     "alias": null,
                                     "args": null,
@@ -353,12 +355,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8b2b6d03ba84d40f311313d3fd6d6894",
+    "cacheID": "10fbbae52925b1f2dcc44b4e2fdbc52e",
     "id": null,
     "metadata": {},
     "name": "CaseStudyManageDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyManageDeleteMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      ...ClientCaseStudies_client\n      id\n    }\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyManageDeleteMutation(\n  $input: DeleteCaseStudyInput!\n) {\n  deleteCaseStudy(input: $input) {\n    clientByClientRowId {\n      ...ClientCaseStudies_client\n      id\n    }\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      clientRowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();

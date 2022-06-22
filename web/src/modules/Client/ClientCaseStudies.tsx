@@ -34,6 +34,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
           nodes {
             id
             rowId
+            clientRowId
             title
             concluded
             conclusion: caseStudyConclusionByCaseStudyRowId {
@@ -170,6 +171,7 @@ export const ClientCaseStudies: React.FC<ClientCaseStudiesProps> = (props) => {
             <EventsTable
               events={caseStudy.someSortedEvents.nodes}
               eventsTotalCount={caseStudy.someSortedEvents.totalCount}
+              allEventsLinkTo={`/clients/${caseStudy.clientRowId}/case-studies/${caseStudy.rowId}`}
             />
           </div>
         ))

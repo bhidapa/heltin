@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<31214eff3a6d2a5b5e9325a7ec9bee5e>>
+ * @generated SignedSource<<1e9580f2f2caeab29a93619f7f369635>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ClientCaseStudies_client$data = {
   readonly caseStudies: {
     readonly nodes: ReadonlyArray<{
+      readonly clientRowId: string | null;
       readonly concluded: boolean;
       readonly conclusion: {
         readonly type: CaseStudyConclusionType;
@@ -97,6 +98,13 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "clientRowId",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "title",
               "storageKey": null
             },
@@ -172,7 +180,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "4f3db01cd3a7fcee625593c5e01d69f0";
+  (node as any).hash = "4f4b5199faaf8ce00a7e4e5d7e8ccc45";
 }
 
 export default node;

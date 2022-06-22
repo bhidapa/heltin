@@ -20,11 +20,16 @@ import { EventsTable_events$key } from './__generated__/EventsTable_events.graph
 export interface EventsTableProps {
   events: EventsTable_events$key;
   eventsTotalCount: number;
+  /**
+   * Link to all events to use when the amount of loaded events is less than the total count.
+   * If undefined, the "And N more events..." will be just next, not a link.
+   */
+  allEventsLinkTo?: string;
   hideCaption?: boolean;
 }
 
 export const EventsTable: React.FC<EventsTableProps> = (props) => {
-  const { events: eventsRef, eventsTotalCount, hideCaption } = props;
+  const { events: eventsRef, eventsTotalCount, allEventsLinkTo, hideCaption } = props;
 
   const match = useMatch<LocationGenerics>();
 
@@ -238,12 +243,14 @@ export const EventsTable: React.FC<EventsTableProps> = (props) => {
           <tr>
             <td></td>
             <td className="text-muted">
-              <FormattedMessage
-                id="AND_N_MORE_ENTRIES"
-                values={{
-                  count: moreEventsCount,
-                }}
-              />
+              <Link to={allEventsLinkTo} search>
+                <FormattedMessage
+                  id="AND_N_MORE_EVENTS"
+                  values={{
+                    count: moreEventsCount,
+                  }}
+                />
+              </Link>
             </td>
           </tr>
         </tfoot>

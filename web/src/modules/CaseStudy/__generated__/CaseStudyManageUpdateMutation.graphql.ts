@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<96365873cfd60b5d475b011259be58b8>>
+ * @generated SignedSource<<e764eacecf5a69a234572aa25f01c36d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -73,17 +73,24 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "clientRowId",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "type",
+  "name": "title",
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "type",
+  "storageKey": null
+},
+v8 = {
   "alias": "conclusion",
   "args": null,
   "concreteType": "CaseStudyConclusion",
@@ -91,12 +98,12 @@ v7 = {
   "name": "caseStudyConclusionByCaseStudyRowId",
   "plural": false,
   "selections": [
-    (v6/*: any*/),
+    (v7/*: any*/),
     (v4/*: any*/)
   ],
   "storageKey": null
 },
-v8 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -221,6 +228,7 @@ return {
                           (v4/*: any*/),
                           (v2/*: any*/),
                           (v5/*: any*/),
+                          (v6/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -228,7 +236,7 @@ return {
                             "name": "concluded",
                             "storageKey": null
                           },
-                          (v7/*: any*/),
+                          (v8/*: any*/),
                           {
                             "alias": "someSortedEvents",
                             "args": [
@@ -253,14 +261,8 @@ return {
                                 "plural": true,
                                 "selections": [
                                   (v4/*: any*/),
-                                  (v6/*: any*/),
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "clientRowId",
-                                    "storageKey": null
-                                  },
+                                  (v7/*: any*/),
+                                  (v5/*: any*/),
                                   {
                                     "alias": "caseStudy",
                                     "args": null,
@@ -270,8 +272,8 @@ return {
                                     "plural": false,
                                     "selections": [
                                       (v2/*: any*/),
-                                      (v5/*: any*/),
-                                      (v8/*: any*/),
+                                      (v6/*: any*/),
+                                      (v9/*: any*/),
                                       (v4/*: any*/)
                                     ],
                                     "storageKey": null
@@ -304,7 +306,7 @@ return {
                                         ],
                                         "storageKey": null
                                       },
-                                      (v8/*: any*/),
+                                      (v9/*: any*/),
                                       (v4/*: any*/)
                                     ],
                                     "storageKey": null
@@ -325,7 +327,7 @@ return {
                                         "name": "external",
                                         "storageKey": null
                                       },
-                                      (v5/*: any*/),
+                                      (v6/*: any*/),
                                       {
                                         "alias": null,
                                         "args": null,
@@ -353,7 +355,7 @@ return {
                                     "plural": false,
                                     "selections": [
                                       (v2/*: any*/),
-                                      (v6/*: any*/),
+                                      (v7/*: any*/),
                                       {
                                         "alias": null,
                                         "args": null,
@@ -382,8 +384,8 @@ return {
                 "storageKey": null
               },
               (v2/*: any*/),
-              (v5/*: any*/),
-              (v7/*: any*/),
+              (v6/*: any*/),
+              (v8/*: any*/),
               (v4/*: any*/)
             ],
             "storageKey": null
@@ -394,12 +396,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "19c6bf2403f2303cb8a4ddb6eb846beb",
+    "cacheID": "217148a31e432426c666ff52a6b14d52",
     "id": null,
     "metadata": {},
     "name": "CaseStudyManageUpdateMutation",
     "operationKind": "mutation",
-    "text": "mutation CaseStudyManageUpdateMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      client: clientByClientRowId {\n        ...ClientCaseStudies_client\n        id\n      }\n      ...CaseStudyManage_caseStudy\n      id\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
+    "text": "mutation CaseStudyManageUpdateMutation(\n  $input: UpdateCaseStudyInput!\n) {\n  updateCaseStudy(input: $input) {\n    caseStudy {\n      client: clientByClientRowId {\n        ...ClientCaseStudies_client\n        id\n      }\n      ...CaseStudyManage_caseStudy\n      id\n    }\n  }\n}\n\nfragment CaseStudyManage_caseStudy on CaseStudy {\n  rowId\n  title\n  conclusion: caseStudyConclusionByCaseStudyRowId {\n    type\n    id\n  }\n}\n\nfragment ClientCaseStudies_client on Client {\n  rowId\n  caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n    totalCount\n    nodes {\n      id\n      rowId\n      clientRowId\n      title\n      concluded\n      conclusion: caseStudyConclusionByCaseStudyRowId {\n        type\n        id\n      }\n      someSortedEvents: sortedEvents(first: 5) {\n        totalCount\n        nodes {\n          ...EventsTable_events\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment EventsTable_events on Event {\n  id\n  type\n  clientRowId\n  caseStudy: caseStudyByCaseStudyRowId {\n    rowId\n    title\n    createdAt\n    id\n  }\n  formResponse: formResponseByFormResponseRowId {\n    rowId\n    form: formByFormRowId {\n      name\n      id\n    }\n    createdAt\n    id\n  }\n  treatment: caseStudyTreatmentByCaseStudyTreatmentRowId {\n    rowId\n    external\n    title\n    startedAt\n    endedAt\n    id\n  }\n  conclusion: caseStudyConclusionByCaseStudyConclusionRowId {\n    rowId\n    type\n    concludedAt\n    id\n  }\n}\n"
   }
 };
 })();
