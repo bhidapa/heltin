@@ -12,7 +12,7 @@ import { ErrBoundary } from 'lib/ErrBoundary';
 import { ToastsContainer } from 'lib/toasts';
 
 import { IntlProvider } from 'intl/IntlProvider';
-import { messages } from 'intl/translations/messages';
+import { messages } from 'intl/messages';
 
 import { Root } from 'core/Root';
 import rootQuery, { RootQuery } from 'core/Root/__generated__/RootQuery.graphql';
