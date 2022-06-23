@@ -74,11 +74,6 @@ export type IncomingMessageWithSession = IncomingMessage & SessionState;
 export interface CreateSessionProps {
   /** The Postgres database pool connection used for storage. */
   pgPool: Pool;
-  /**
-   * The Postgres database table used for storing seesion.
-   * Has to implement a certain structure.
-   */
-  dbTable: string;
   /** Session encryption secret. */
   secret: string;
   /**
@@ -142,7 +137,6 @@ export interface CreateSessionProps {
 export function createSession(props: CreateSessionProps) {
   const {
     pgPool,
-    dbTable,
     secret,
     trustProxy,
     cookie: {
@@ -160,7 +154,7 @@ export function createSession(props: CreateSessionProps) {
   async function deleteExpiredSessions() {
     try {
       await db(pgPool).exec(
-        `delete from ${dbTable} where expires_at <= $1`,
+        `delete from private.session where expires_at <= $1`,
         new Date(),
       );
     } catch (err) {
@@ -191,7 +185,7 @@ export function createSession(props: CreateSessionProps) {
         }
 
         await db(pgPool).exec(
-          `delete from ${dbTable} where id = $1`,
+          `delete from private.session where id = $1`,
           reqs.session.id,
         );
 
@@ -209,7 +203,7 @@ export function createSession(props: CreateSessionProps) {
         if (!reqs.session) return false;
 
         const rows = await db(pgPool).queryRows(
-          `delete from ${dbTable}
+          `delete from private.session
           where user_id = $1
           and ($2 is null
             or $2 <> id)
@@ -323,14 +317,24 @@ export function createSession(props: CreateSessionProps) {
     const result = await db(pgPool).queryRow<{
       user_id: string;
       expires_at: number;
-    }>(`select user_id, expires_at from ${dbTable} where id = $1`, sessionId);
+      disabled: boolean;
+    }>(
+      `select session.user_id, session.expires_at, "user".disabled
+      from private.session
+        inner join private.user on "user".id = session.user_id
+      where session.id = $1`,
+      sessionId,
+    );
     if (!result) {
       return reqs;
     }
 
-    // get rid of expired sessions on spot
-    if (Date.now() > result.expires_at) {
-      await db(pgPool).exec(`delete from ${dbTable} where id = $1`, sessionId);
+    // get rid of expired, and disabled users, sessions right away
+    if (result.disabled || Date.now() > result.expires_at) {
+      await db(pgPool).exec(
+        `delete from private.session where id = $1`,
+        sessionId,
+      );
       return reqs;
     }
 

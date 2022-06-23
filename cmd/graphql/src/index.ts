@@ -80,7 +80,6 @@ const pgRootPool = new Pool({ connectionString: pgConnectionString });
 
 const session = createSession({
   pgPool: pgRootPool,
-  dbTable: 'private.session', // see database/schema/private/session.sql
   secret: config.sessionSecret,
   trustProxy: true,
   cookie: {

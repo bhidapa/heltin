@@ -88,7 +88,14 @@ func handleSession(res http.ResponseWriter, req *http.Request) (userID uu.Nullab
 	}
 
 	sess := new(Session)
-	err = db.Conn(req.Context()).QueryRow("select * from private.session where id = $1 and expires_at > now()", tentativeSessionID).ScanStruct(sess)
+	err = db.Conn(req.Context()).QueryRow(`
+		select session.* from
+		private.session
+			inner join private.user on "user".id = session.user_id
+		where session.id = $1
+		and session.expires_at > now()
+		and not "user".disabled
+	`, tentativeSessionID).ScanStruct(sess)
 	if err != nil {
 		if !errors.Is(err, sql.ErrNoRows) {
 			log.Error("Error while retrieving session").
