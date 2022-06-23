@@ -28,7 +28,7 @@ export const LogoutPage: React.FC<LogoutPageProps> = () => {
       updater: (store) => {
         store.invalidateStore();
         store.getRoot().setValue(null, 'viewer');
-        navigate({ to: '/login', search: true });
+        navigate({ to: '/login', search: true, replace: true });
       },
     });
   }, []);

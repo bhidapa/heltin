@@ -17,14 +17,12 @@ export async function checkResponse(res: Response): Promise<Response> {
     throw new Error(`Internal error ${res.headers.get(REQUEST_ID_HEADER_KEY) || 'unknown'}`);
   }
   if (res.status === 401) {
-    location.navigate(
-      location.buildNext('/', {
-        to: 'logout',
-        search: {
-          returnTo: getReturnTo(),
-        },
-      }),
-    );
+    // intentionally not using location.navigate for a proper reload
+    window.location.href =
+      '/logout' +
+      location.stringifySearch({
+        returnTo: getReturnTo(),
+      });
     throw new Error('Unauthorized');
   }
   throw new Error(`${(await res.text()) || res.statusText}`);

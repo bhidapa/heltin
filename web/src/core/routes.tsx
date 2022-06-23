@@ -102,9 +102,10 @@ export function getRoutes(viewerRef: routes_viewer$key | null): Route<LocationGe
         element: (
           <Navigate<LocationGenerics>
             to="/login"
-            search={{
+            search={(search) => ({
               returnTo: getReturnTo(),
-            }}
+              ...search,
+            })}
           />
         ),
       },
