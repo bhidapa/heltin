@@ -5,17 +5,19 @@
  */
 import React, { useContext } from 'react';
 
+import { localStore } from 'lib/store';
+
 export const LOCALE_KEY = '@heltin/locale';
 
 export function retrieveLocale() {
-  return (localStorage.getItem(LOCALE_KEY) || null) as Locale | null;
+  return (localStore.getItem(LOCALE_KEY) || null) as Locale | null;
 }
 
 export function storeLocale(locale: Locale | null) {
   if (locale) {
-    localStorage.setItem(LOCALE_KEY, locale);
+    localStore.setItem(LOCALE_KEY, locale);
   } else {
-    localStorage.removeItem(LOCALE_KEY);
+    localStore.removeItem(LOCALE_KEY);
   }
 }
 

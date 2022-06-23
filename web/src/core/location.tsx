@@ -98,67 +98,7 @@ export function getReturnTo() {
       location.current.href;
 }
 
-// // store always the previous location for functional back buttons
-// const LOCATION_HISTORY_KEY = '@heltin/location-history';
-
-// type LocationHistory = {
-//   key: string;
-//   href: string;
-//   // TODO: for scroll restoration
-//   // scrollPosition: number;
-// }[];
-
-// const locationHistory: LocationHistory = JSON.parse(
-//   localStorage.getItem(LOCATION_HISTORY_KEY) || '[]',
-// );
-
-// // if the last entry in the history is not the current page, we're out of sync. add it
-// if (location.current.key !== locationHistory[locationHistory.length - 1]?.key) {
-//   locationHistory.push({
-//     key: location.current.key ?? '',
-//     href: location.current.href,
-//   });
-//   localStorage.setItem(LOCATION_HISTORY_KEY, JSON.stringify(locationHistory));
-// }
-
-// location.subscribe(() => {
-//   switch (location.current.key) {
-//     case locationHistory[locationHistory.length - 2]?.key:
-//       // if next location is the 2nd to prev (prev is current) in history, we probably went back
-//       locationHistory.pop();
-//       break;
-//     case locationHistory[locationHistory.length - 1]?.key:
-//       // do nothing if the next location is the current location, we went in a circle
-//       return;
-//     default:
-//       // otherwise we went forward
-//       locationHistory.push({
-//         key: location.current.key ?? '',
-//         href: location.current.href,
-//       });
-//   }
-
-//   localStorage.setItem(
-//     LOCATION_HISTORY_KEY,
-//     JSON.stringify(
-//       locationHistory.slice(
-//         -25, // store just enough location history items
-//       ),
-//     ),
-//   );
-// });
-
-// function getPrevHref(fallback: string): string {
-//   // get 2nd to last because the last entry is the current href
-//   return locationHistory[locationHistory.length - 2]?.href ?? fallback;
-// }
-
 export const BackButton: React.FC = () => {
-  // const backHref = useResolvePath()('..'); // fallback is just one back
-  // const [prevHref, setPrevHref] = useState(() => getPrevHref(backHref));
-  // useEffect(() => location.subscribe(() => setPrevHref(getPrevHref(backHref))), [backHref]);
-  // const href = location.current.href !== prevHref ? prevHref : backHref;
-
   return (
     <button
       type="button"
