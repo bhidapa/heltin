@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/bhidapa/heltin/pkg/session"
+	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-fs/multipartfs"
 	"github.com/ungerik/go-httpx/httperr"
 
@@ -63,21 +64,26 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		httperr.New(http.StatusBadRequest, "Missing file").ServeHTTP(w, r)
 		return
 	}
-	data, err := formFile.ReadAll()
+
+	memFile, err := fs.ReadMemFile(formFile)
 	if err != nil {
 		log.Error("Error while reading form file").Request(r).Err(err).Log()
 		httperr.New(http.StatusInternalServerError).ServeHTTP(w, r)
 		return
 	}
-	if len(data) == 0 {
+	if len(memFile.FileData) == 0 {
 		httperr.New(http.StatusBadRequest, "File is empty").ServeHTTP(w, r)
 		return
 	}
 
-	fileID := uu.IDv4()
-	if preferredID.IsNotNull() {
-		fileID = preferredID.Get()
+	hash, err := memFile.ContentHash()
+	if err != nil {
+		log.Error("Error while hashing form file").Request(r).Err(err).Log()
+		httperr.New(http.StatusInternalServerError).ServeHTTP(w, r)
+		return
 	}
+
+	fileID := preferredID.GetOr(uu.IDv4())
 
 	var inserted bool
 	err = session.TransactionAsUserFromContext(ctx, func(ctx context.Context) error {
@@ -105,8 +111,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 			UUID("preferredID", preferredID).
 			UUID("fileID", fileID).
 			UUID("relID", relID).
-			Str("fileName", formFile.Name()).
-			Int("fileSize", len(data)).
+			Str("fileName", memFile.Name()).
+			Int64("fileSize", memFile.Size()).
 			Bool("isTreatment", isTreatment).
 			Bool("isConclusion", isConclusion).
 			Bool("isFormResponseFile", isFormResponseFile).
@@ -116,39 +122,46 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		case isTreatment:
 			err = db.Conn(ctx).QueryRow(`
 			with created_file as (
-				insert into public.file (id, name, data, created_by)
+				insert into public.file (id, name, hash, created_by)
 				values ($1, $2, $3, public.viewer_user_id())
 				returning true
 			)
 			insert into public.case_study_treatment_file (case_study_treatment_id, file_id)
 			values ($4, $1)
-			returning true`, fileID, formFile.Name(), data, relID).Scan(&inserted)
+			returning true`, fileID, formFile.Name(), hash, relID).Scan(&inserted)
 		case isConclusion:
 			err = db.Conn(ctx).QueryRow(`
 			with created_file as (
-				insert into public.file (id, name, data, created_by)
+				insert into public.file (id, name, hash, created_by)
 				values ($1, $2, $3, public.viewer_user_id())
 				returning true
 			)
 			insert into public.case_study_conclusion_file (case_study_conclusion_id, file_id)
 			values ($4, $1)
-			returning true`, fileID, formFile.Name(), data, relID).Scan(&inserted)
+			returning true`, fileID, formFile.Name(), hash, relID).Scan(&inserted)
 		case isFormResponseFile:
 			err = db.Conn(ctx).QueryRow(`
 			with created_file as (
-				insert into public.file (id, name, data, created_by)
+				insert into public.file (id, name, hash, created_by)
 				values ($1, $2, $3, public.viewer_user_id())
 				returning true
 			)
 			insert into public.form_response_file (form_response_id, file_id)
 			values ($4, $1)
-			returning true`, fileID, formFile.Name(), data, relID).Scan(&inserted)
+			returning true`, fileID, formFile.Name(), hash, relID).Scan(&inserted)
 		default:
 			err = errs.New("File upload relation not supported")
 		}
-		return db.ReplaceErrNoRows(err, nil)
+		if err != nil {
+			return db.ReplaceErrNoRows(err, nil)
+		}
+
+		// TODO: test forbidden
+
+		_, err := WriteAllFileData(ctx, fileID, memFile.Ext(), memFile.FileData)
+		return err
 	})
-	if err != nil {
+	if session.IsOtherThanErrForbidden(err) {
 		log.Error("Error while inserting file").Request(r).Err(err).UUID("fileID", fileID).Log()
 		httperr.New(http.StatusInternalServerError).ServeHTTP(w, r)
 		return

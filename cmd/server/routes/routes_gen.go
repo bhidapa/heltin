@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"reflect"
 
+	"github.com/bhidapa/heltin/pkg/file"
 	"github.com/bhidapa/heltin/pkg/reports"
 
 	"github.com/domonda/go-function"
@@ -53,13 +54,13 @@ func (reportsCreateForConclusionT) ResultTypes() []reflect.Type {
 	}
 }
 
-func (f reportsCreateForConclusionT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
-	results = make([]interface{}, 1)
+func (f reportsCreateForConclusionT) Call(ctx context.Context, args []any) (results []any, err error) {
+	results = make([]any, 1)
 	results[0], err = reports.CreateForConclusion(ctx, args[0].(uu.ID)) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForConclusionT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithStrings(ctx context.Context, strs ...string) (results []any, err error) {
 	var a struct {
 		conclusionID uu.ID
 	}
@@ -69,12 +70,12 @@ func (f reportsCreateForConclusionT) CallWithStrings(ctx context.Context, strs .
 			return nil, function.NewErrParseArgString(err, f, "conclusionID")
 		}
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForConclusion(ctx, a.conclusionID) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForConclusionT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []any, err error) {
 	var a struct {
 		conclusionID uu.ID
 	}
@@ -84,12 +85,12 @@ func (f reportsCreateForConclusionT) CallWithNamedStrings(ctx context.Context, s
 			return nil, function.NewErrParseArgString(err, f, "conclusionID")
 		}
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForConclusion(ctx, a.conclusionID) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
+func (f reportsCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []any, err error) {
 	var a struct {
 		ConclusionID uu.ID
 	}
@@ -97,7 +98,7 @@ func (f reportsCreateForConclusionT) CallWithJSON(ctx context.Context, argsJSON 
 	if err != nil {
 		return nil, function.NewErrParseArgsJSON(err, f, argsJSON)
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForConclusion(ctx, a.ConclusionID) // wrapped call
 	return results, err
 }
@@ -143,13 +144,13 @@ func (reportsCreateForTreatmentT) ResultTypes() []reflect.Type {
 	}
 }
 
-func (f reportsCreateForTreatmentT) Call(ctx context.Context, args []interface{}) (results []interface{}, err error) {
-	results = make([]interface{}, 1)
+func (f reportsCreateForTreatmentT) Call(ctx context.Context, args []any) (results []any, err error) {
+	results = make([]any, 1)
 	results[0], err = reports.CreateForTreatment(ctx, args[0].(uu.ID)) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ...string) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ...string) (results []any, err error) {
 	var a struct {
 		treatmentID uu.ID
 	}
@@ -159,12 +160,12 @@ func (f reportsCreateForTreatmentT) CallWithStrings(ctx context.Context, strs ..
 			return nil, function.NewErrParseArgString(err, f, "treatmentID")
 		}
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForTreatment(ctx, a.treatmentID) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []any, err error) {
 	var a struct {
 		treatmentID uu.ID
 	}
@@ -174,12 +175,12 @@ func (f reportsCreateForTreatmentT) CallWithNamedStrings(ctx context.Context, st
 			return nil, function.NewErrParseArgString(err, f, "treatmentID")
 		}
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForTreatment(ctx, a.treatmentID) // wrapped call
 	return results, err
 }
 
-func (f reportsCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []interface{}, err error) {
+func (f reportsCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []any, err error) {
 	var a struct {
 		TreatmentID uu.ID
 	}
@@ -187,7 +188,92 @@ func (f reportsCreateForTreatmentT) CallWithJSON(ctx context.Context, argsJSON [
 	if err != nil {
 		return nil, function.NewErrParseArgsJSON(err, f, argsJSON)
 	}
-	results = make([]interface{}, 1)
+	results = make([]any, 1)
 	results[0], err = reports.CreateForTreatment(ctx, a.TreatmentID) // wrapped call
+	return results, err
+}
+
+// fileDelete wraps file.Delete as function.Wrapper (generated code)
+var fileDelete fileDeleteT
+
+// fileDeleteT wraps file.Delete as function.Wrapper (generated code)
+type fileDeleteT struct{}
+
+func (fileDeleteT) String() string {
+	return "file.Delete(ctx context.Context, id uu.ID) (err error)"
+}
+
+func (fileDeleteT) Name() string {
+	return "Delete"
+}
+
+func (fileDeleteT) NumArgs() int      { return 2 }
+func (fileDeleteT) ContextArg() bool  { return true }
+func (fileDeleteT) NumResults() int   { return 1 }
+func (fileDeleteT) ErrorResult() bool { return true }
+
+func (fileDeleteT) ArgNames() []string {
+	return []string{"ctx", "id"}
+}
+
+func (fileDeleteT) ArgDescriptions() []string {
+	return []string{"", ""}
+}
+
+func (fileDeleteT) ArgTypes() []reflect.Type {
+	return []reflect.Type{
+		reflect.TypeOf((*context.Context)(nil)).Elem(),
+		reflect.TypeOf((*uu.ID)(nil)).Elem(),
+	}
+}
+
+func (fileDeleteT) ResultTypes() []reflect.Type {
+	return []reflect.Type{
+		reflect.TypeOf((*error)(nil)).Elem(),
+	}
+}
+
+func (f fileDeleteT) Call(ctx context.Context, args []any) (results []any, err error) {
+	err = file.Delete(ctx, args[0].(uu.ID)) // wrapped call
+	return results, err
+}
+
+func (f fileDeleteT) CallWithStrings(ctx context.Context, strs ...string) (results []any, err error) {
+	var a struct {
+		id uu.ID
+	}
+	if 0 < len(strs) {
+		err := function.ScanString(strs[0], &a.id)
+		if err != nil {
+			return nil, function.NewErrParseArgString(err, f, "id")
+		}
+	}
+	err = file.Delete(ctx, a.id) // wrapped call
+	return results, err
+}
+
+func (f fileDeleteT) CallWithNamedStrings(ctx context.Context, strs map[string]string) (results []any, err error) {
+	var a struct {
+		id uu.ID
+	}
+	if str, ok := strs["id"]; ok {
+		err := function.ScanString(str, &a.id)
+		if err != nil {
+			return nil, function.NewErrParseArgString(err, f, "id")
+		}
+	}
+	err = file.Delete(ctx, a.id) // wrapped call
+	return results, err
+}
+
+func (f fileDeleteT) CallWithJSON(ctx context.Context, argsJSON []byte) (results []any, err error) {
+	var a struct {
+		ID uu.ID
+	}
+	err = json.Unmarshal(argsJSON, &a)
+	if err != nil {
+		return nil, function.NewErrParseArgsJSON(err, f, argsJSON)
+	}
+	err = file.Delete(ctx, a.ID) // wrapped call
 	return results, err
 }

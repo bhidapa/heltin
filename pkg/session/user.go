@@ -28,7 +28,7 @@ func UserFromContext(ctx context.Context) (userID uu.ID, err error) {
 }
 
 func TransactionAsUser(ctx context.Context, userID uu.ID, txFunc func(ctx context.Context) error) (err error) {
-	return db.Transaction(ctx, func(ctx context.Context) (err error) {
+	err = db.Transaction(ctx, func(ctx context.Context) (err error) {
 		err = db.Conn(ctx).Exec(fmt.Sprintf("set local session.user_id to '%s'; set role viewer;", userID))
 		if err != nil {
 			return err
@@ -42,6 +42,7 @@ func TransactionAsUser(ctx context.Context, userID uu.ID, txFunc func(ctx contex
 		}()
 		return txFunc(ctx)
 	})
+	return CheckForbidden(err)
 }
 
 func TransactionAsUserFromContext(ctx context.Context, txFunc func(ctx context.Context) error) (err error) {

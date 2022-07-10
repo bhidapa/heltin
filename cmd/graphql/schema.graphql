@@ -2597,6 +2597,7 @@ type File implements Node {
   id: ID!
   rowId: UUID!
   name: String!
+  hash: String!
   protected: Boolean!
   createdBy: UUID!
   createdAt: CreatedTimestamptz!
@@ -4018,6 +4019,8 @@ enum FilesOrderBy {
   ID_DESC
   NAME_ASC
   NAME_DESC
+  HASH_ASC
+  HASH_DESC
   PROTECTED_ASC
   PROTECTED_DESC
   CREATED_BY_ASC
@@ -4037,6 +4040,9 @@ input FileCondition {
 
   """Checks for equality with the object’s `name` field."""
   name: String
+
+  """Checks for equality with the object’s `hash` field."""
+  hash: String
 
   """Checks for equality with the object’s `protected` field."""
   protected: Boolean
@@ -4397,12 +4403,6 @@ type Mutation {
     """
     input: DeleteClientAssignedTherapistInput!
   ): DeleteClientAssignedTherapistPayload
-  deleteFile(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteFileInput!
-  ): DeleteFilePayload
   deleteFormResponse(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -5137,40 +5137,6 @@ type DeleteClientAssignedTherapistPayload {
 
 """All input for the `deleteClientAssignedTherapist` mutation."""
 input DeleteClientAssignedTherapistInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  rowId: UUID!
-}
-
-"""The output of our `deleteFile` mutation."""
-type DeleteFilePayload {
-  """
-  The exact same `clientMutationId` that was provided in the mutation input,
-  unchanged and unused. May be used by a client to track mutations.
-  """
-  clientMutationId: String
-  file: File
-
-  """
-  Our root query field type. Allows us to run any query from our mutation payload.
-  """
-  query: Query
-
-  """Reads a single `User` that is related to this `File`."""
-  userByCreatedBy: User
-
-  """An edge for our `File`. May be used by Relay 1."""
-  fileEdge(
-    """The method to use when ordering `File`."""
-    orderBy: [FilesOrderBy!] = [PRIMARY_KEY_ASC]
-  ): FilesEdge
-}
-
-"""All input for the `deleteFile` mutation."""
-input DeleteFileInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.

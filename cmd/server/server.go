@@ -12,6 +12,7 @@ import (
 	"github.com/bhidapa/heltin/cmd/server/routes"
 	"github.com/bhidapa/heltin/pkg/env"
 	"github.com/bhidapa/heltin/pkg/postgres"
+	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/golog/log"
@@ -47,6 +48,10 @@ func main() {
 		}
 		if httperr.WriteHandler(err, writer, request) {
 			// dont log handled errors
+			return httperr.Handled
+		}
+		if errors.Is(err, session.ErrForbidden) {
+			httperr.Forbidden.ServeHTTP(writer, request)
 			return httperr.Handled
 		}
 		if httperr.ShouldLog(err) {

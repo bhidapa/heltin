@@ -6,12 +6,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
-import { graphql, useFragment } from 'react-relay';
+import { commitLocalUpdate, graphql, useFragment, useRelayEnvironment } from 'react-relay';
 
 import { Link } from '@tanstack/react-location';
 
 import { Tooltip } from 'lib/Tooltip';
 import { usePromiseMutation } from 'lib/relay';
+import { buildHeaders, checkResponse } from 'lib/request';
 import { REQUEST_ID_HEADER_KEY } from 'lib/request';
 import { deleteToast, fileUploadToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
@@ -20,7 +21,6 @@ import { genUUID } from 'lib/uuid';
 
 import { relativeTime } from 'intl/relativeTime';
 
-import { FilesDeleteMutation } from './__generated__/FilesDeleteMutation.graphql';
 import { FilesUploadFileRowGetAfterUploadMutation } from './__generated__/FilesUploadFileRowGetAfterUploadMutation.graphql';
 import { Files_files$key } from './__generated__/Files_files.graphql';
 
@@ -33,6 +33,8 @@ export interface FilesProps {
 }
 
 export const Files: React.FC<FilesProps> = (props) => {
+  const environment = useRelayEnvironment();
+
   const relRowId = props.treatmentRowId || props.conclusionRowId || props.formResponseRowId;
   if (!relRowId) {
     throw new Error('Files must be related to something');
@@ -57,18 +59,6 @@ export const Files: React.FC<FilesProps> = (props) => {
       }
     `,
     props.files,
-  );
-
-  const [deleteFile] = usePromiseMutation<FilesDeleteMutation>(
-    graphql`
-      mutation FilesDeleteMutation($input: DeleteFileInput!) {
-        deleteFile(input: $input) {
-          file {
-            id
-          }
-        }
-      }
-    `,
   );
 
   const [uploads, setUploads] = useState<{ id: string; file: File }[]>([]);
@@ -159,20 +149,14 @@ export const Files: React.FC<FilesProps> = (props) => {
                       onClick={() => {
                         if (confirmDelete()) {
                           deleteToast(
-                            deleteFile({
-                              variables: {
-                                input: {
-                                  rowId: file.rowId,
-                                },
-                              },
-                              updater: (store) => {
-                                const deletedFileId = store
-                                  .getRootField('deleteFile')
-                                  .getLinkedRecord('file')
-                                  .getValue('id');
-                                if (!deletedFileId) {
-                                  throw new Error('Forbidden');
-                                }
+                            (async () => {
+                              await fetch('/api/file/' + file.rowId, {
+                                method: 'DELETE',
+                                headers: buildHeaders(),
+                              }).then(checkResponse);
+
+                              commitLocalUpdate(environment, (store) => {
+                                const deletedFileId = file.id;
 
                                 const connection = store.get(props.filesConnectionId);
                                 if (!connection) {
@@ -222,8 +206,8 @@ export const Files: React.FC<FilesProps> = (props) => {
                                       `Unsupported files connection type ${connectionType}`,
                                     );
                                 }
-                              },
-                            }),
+                              });
+                            })(),
                           );
                         }
                       }}

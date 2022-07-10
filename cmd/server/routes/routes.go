@@ -45,6 +45,17 @@ func API(router *mux.Router) {
 		"/api/file/upload",
 		session.Handler(http.HandlerFunc(file.Upload)),
 	).Methods("POST")
+
+	router.HandleFunc(
+		fmt.Sprintf("/api/file/{id:%s}", uu.IDRegex),
+		session.Handler(
+			function.HTTPHandler(
+				getMuxVars,
+				fileDelete,
+				function.RespondNothing,
+			),
+		),
+	).Methods("DELETE")
 }
 
 func getMuxVars(request *http.Request) (map[string]string, error) {

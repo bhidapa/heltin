@@ -2,15 +2,13 @@ create table public.file(
   id uuid primary key default uuid_generate_v4(),
 
   name text not null check(length(name) > 3),
-  data bytea not null,
+  hash text not null,
 
   protected boolean not null default false,
 
   created_by uuid not null references public.user(id) on delete restrict,
   created_at created_timestamptz not null
 );
-
-comment on column public.file.data is E'@omit\nFile serving is handled by the server.';
 
 grant select, insert, delete on public.file to viewer;
 
@@ -25,16 +23,6 @@ create function public.file_link(
   select '/api/file/' || file.id::text
 $$ language sql stable strict;
 comment on function public.file_link is '@notNull';
-
-create function public.delete_file(
-  id uuid
-) returns public.file as
-$$
-  delete from public.file
-  where id = delete_file.id
-  returning *
-$$
-language sql volatile;
 
 create function public.get_file_after_upload(
   id uuid
