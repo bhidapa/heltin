@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4368aa1ac8cd69370dd806ff8a7b5d2c>>
+ * @generated SignedSource<<e3957447d75d72035b15a319f82acac7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -81,7 +81,9 @@ const node: ReaderFragment = {
           ],
           "storageKey": null
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": []
     }
   ],
   "type": "FormResponse",

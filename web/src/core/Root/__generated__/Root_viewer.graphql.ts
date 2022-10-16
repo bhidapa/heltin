@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c06f5a07bbc3bd27f35963f5b2f980e>>
+ * @generated SignedSource<<ab302005d72530b8e774909de8750672>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -79,7 +79,9 @@ return {
           "name": "isTherapist",
           "storageKey": null
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": []
     }
   ],
   "type": "User",

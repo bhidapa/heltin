@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d9f6dba458f5d837abaae39edd3b65cf>>
+ * @generated SignedSource<<d32ac0a467a2a4aeb07d1c7b38bdba82>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -177,7 +177,9 @@ return {
                     ],
                     "storageKey": null
                   }
-                ]
+                ],
+                "args": null,
+                "argumentDefinitions": []
               },
               {
                 "alias": "form",
@@ -219,7 +221,9 @@ return {
                             ],
                             "storageKey": null
                           }
-                        ]
+                        ],
+                        "args": null,
+                        "argumentDefinitions": []
                       }
                     ],
                     "storageKey": "formQuestionsByFormRowId(orderBy:\"INDEX_ASC\")"

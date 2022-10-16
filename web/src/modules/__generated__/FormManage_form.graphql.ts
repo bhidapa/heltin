@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b43c4763455693385cacd814cdd70cf>>
+ * @generated SignedSource<<dd2f264c41a4dfc0da033b1ff5c34756>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -110,7 +110,9 @@ return {
               ],
               "storageKey": null
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         },
         {
           "alias": null,

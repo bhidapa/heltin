@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<904f4f7e653bea06babec6ddb318b14a>>
+ * @generated SignedSource<<82564f863a73d56d3a4235eaea16724a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -95,7 +95,9 @@ return {
             "selections": [
               (v4/*: any*/),
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
