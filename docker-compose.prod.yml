@@ -26,5 +26,10 @@ services:
     ports:
       - 80:80
       - 443:443
+  cli:
+    environment:
+      - FILE_DIR=/var/heltin-data
+    volumes:
+      - heltin-data:/var/heltin-data # cannot use ${FILE_DIR} because it takes it from .env
   gotenberg:
     restart: unless-stopped

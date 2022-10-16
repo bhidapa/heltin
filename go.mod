@@ -14,6 +14,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/ungerik/go-fs v0.0.0-20220919212925-72a039a29894
 	github.com/ungerik/go-httpx v0.0.0-20220112162338-087d2c80ef46
+	github.com/ungerik/go-structflag v0.0.0-20220112163907-b66a14e91e9c
 	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
 )
 
@@ -32,6 +33,7 @@ require (
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/muesli/termenv v0.13.0 // indirect
+	github.com/ogier/pflag v0.0.1 // indirect
 	github.com/rivo/uniseg v0.4.2 // indirect
 	github.com/ungerik/go-reflection v0.0.0-20220113085621-6c5fc1f2694a // indirect
 	golang.org/x/exp v0.0.0-20221012211006-4de253d81b95 // indirect
