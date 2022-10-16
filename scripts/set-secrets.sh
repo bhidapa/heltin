@@ -1,12 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # error on non-zero return
 set -e
 
 # when sourcing, cd will change directory for the session. we use this var to go back
 local_CALLER_DIR=$(pwd)
-local_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" >/dev/null 2>&1 && pwd)"
-cd "$local_SCRIPT_DIR"
+
+# cd into project root for git-secret
+local_PROJ_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")"/.. >/dev/null 2>&1 && pwd)"
+cd "$local_PROJ_DIR"
 
 main(){
   echo "Revealing secrets..."
@@ -18,13 +20,9 @@ main(){
   elif [ $reveal_return -ne 0 ]; then
     echo "Could not reveal all secret files."
   else
-    local secrets_dir=$(cd -P -- "$local_SCRIPT_DIR"/../secrets && pwd -P)
-    if [ ! -d "$secrets_dir" ]; then
-      echo "Secrets directory $secrets_dir could not be found!"
-      exit 1
-    fi
+    local secrets_dir="$local_PROJ_DIR"/secrets
 
-    for secret in $(find "$secrets_dir" -maxdepth 1 -type f ! -name "*.*")
+    for secret in $(find "$secrets_dir" -maxdepth 1 -type f -not -name '*.secret')
     do
       local name=$(basename -- "$secret")
       local value=$(cat "$secret")
@@ -44,7 +42,7 @@ cd "$local_CALLER_DIR"
 
 # avoid exporting unnecessary envs
 unset local_CALLER_DIR
-unset local_SCRIPT_DIR
+unset local_PROJ_DIR
 
 # reset non-zero exit because this script gets sourced
 set +e
