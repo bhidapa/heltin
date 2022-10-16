@@ -55,7 +55,7 @@ func FileFromID(ctx context.Context, id uu.ID) (fsfile fs.File, err error) {
 		fsfile = f
 		return nil
 	}, fileDataPattern)
-	if err != nil {
+	if fs.RemoveErrDoesNotExist(err) != nil {
 		return "", err
 	}
 
