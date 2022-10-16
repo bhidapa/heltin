@@ -41,7 +41,7 @@ func CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID,
 
 		sessionUserID, _ := session.UserFromContext(ctx)
 
-		memoPDFBytes, err := memoPDF.ReadAll()
+		memoPDFBytes, err := memoPDF.ReadAll(ctx)
 		if err != nil {
 			return err
 		}

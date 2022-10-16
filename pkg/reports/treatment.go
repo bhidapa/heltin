@@ -40,7 +40,7 @@ func CreateForTreatment(ctx context.Context, treatmentID uu.ID) (fileID uu.ID, e
 
 		sessionUserID, _ := session.UserFromContext(ctx)
 
-		reportsPDFBytes, err := reportsPDF.ReadAll()
+		reportsPDFBytes, err := reportsPDF.ReadAll(ctx)
 		if err != nil {
 			return err
 		}

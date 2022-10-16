@@ -1,4 +1,4 @@
-FROM postgres:14
+FROM postgres:15
 LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
 # update apt pkg sources
@@ -21,7 +21,7 @@ RUN set -eux; \
   mkdir -p -m 770 "$PGBACKREST_LOG_PATH"; chown postgres:postgres "$PGBACKREST_LOG_PATH";
 RUN set -eux; \
   mkdir -p /tmp/pgbackrest-release; cd /tmp/pgbackrest-release; \
-  curl -s -L https://github.com/pgbackrest/pgbackrest/archive/release/2.39.tar.gz | tar xvzf - --strip-components=1; \
+  curl -s -L https://github.com/pgbackrest/pgbackrest/archive/release/2.41.tar.gz | tar xvzf - --strip-components=1; \
   cd src; \
   ./configure; make; \
   mv pgbackrest /usr/bin; chmod 755 /usr/bin/pgbackrest; \

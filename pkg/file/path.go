@@ -35,7 +35,7 @@ func WriteAllFileData(ctx context.Context, id uu.ID, ext string, data []byte) (f
 	}
 
 	fsfile = dir.Join(strings.Replace(fileDataPattern, ".*", strings.ToLower(ext), 1))
-	err = fsfile.WriteAll(data)
+	err = fsfile.WriteAll(ctx, data)
 	if err != nil {
 		return "", err
 	}

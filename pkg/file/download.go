@@ -56,7 +56,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fileData, err := fsfile.ReadAll()
+	fileData, err := fsfile.ReadAll(ctx)
 	if err != nil {
 		log.Error("Problem while reading file data").Request(r).Err(err).Log()
 		httperr.New(http.StatusInternalServerError).ServeHTTP(w, r)

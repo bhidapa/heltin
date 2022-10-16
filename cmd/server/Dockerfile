@@ -1,5 +1,5 @@
 # build server
-FROM golang:1.18-alpine as server
+FROM golang:1.19-alpine as server
 LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
 RUN apk --update --no-cache add git tzdata

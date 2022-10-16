@@ -65,7 +65,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	memFile, err := fs.ReadMemFile(formFile)
+	memFile, err := fs.ReadMemFile(ctx, formFile)
 	if err != nil {
 		log.Error("Error while reading form file").Request(r).Err(err).Log()
 		httperr.New(http.StatusInternalServerError).ServeHTTP(w, r)
