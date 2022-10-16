@@ -12,6 +12,9 @@ services:
   server:
     environment:
       - SERVER_PORT=${SERVER_PORT}
+      - FILE_DIR=/var/heltin-data
+    volumes:
+      - ${FILE_DIR}:/var/heltin-data # ${FILE_DIR} taken from .env
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
   gotenberg:
