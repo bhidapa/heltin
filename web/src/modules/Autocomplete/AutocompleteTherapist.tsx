@@ -40,7 +40,7 @@ export const AutocompleteTherapist: React.FC<AutocompleteTherapistProps> = (prop
       fragment AutocompleteTherapist_query on Query
       @refetchable(queryName: "AutocompleteTherapistRefetchQuery")
       @argumentDefinitions(q: { type: "String" }) {
-        filterTherapists(first: 10, searchText: $q) @required(action: THROW) {
+        filterTherapists(first: 10, searchText: $q, disabled: false) @required(action: THROW) {
           nodes {
             ...AutocompleteTherapist_item @relay(mask: false)
           }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7f406ca1d1a09ca62f69642795351071>>
+ * @generated SignedSource<<9076061e1704ebc36938cc18d0a35e48>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,11 @@ const node: ReaderFragment = {
       "field": {
         "alias": null,
         "args": [
+          {
+            "kind": "Literal",
+            "name": "disabled",
+            "value": false
+          },
           {
             "kind": "Literal",
             "name": "first",
@@ -110,7 +115,7 @@ const node: ReaderFragment = {
 };
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "f388a2b850bb826664b2c4b36b183ae0";
+  (node as any).hash = "64608a322ef42f5e375aaf6967079681";
 }
 
 export default node;

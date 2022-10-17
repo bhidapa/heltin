@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<72ad2df275e15a7d65eafbe93bc2c24b>>
+ * @generated SignedSource<<0586c0aa75c571d5d98f739301134b31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -62,6 +62,11 @@ return {
         "args": [
           {
             "kind": "Literal",
+            "name": "disabled",
+            "value": false
+          },
+          {
+            "kind": "Literal",
             "name": "first",
             "value": 10
           },
@@ -114,18 +119,18 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b236fcf220301f75a4697a702a968fdb",
+    "cacheID": "7967c1a958158ce3d61031b4e097597f",
     "id": null,
     "metadata": {},
     "name": "AutocompleteTherapistRefetchQuery",
     "operationKind": "query",
-    "text": "query AutocompleteTherapistRefetchQuery(\n  $q: String\n) {\n  ...AutocompleteTherapist_query_2KyZVN\n}\n\nfragment AutocompleteTherapist_query_2KyZVN on Query {\n  filterTherapists(first: 10, searchText: $q) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n"
+    "text": "query AutocompleteTherapistRefetchQuery(\n  $q: String\n) {\n  ...AutocompleteTherapist_query_2KyZVN\n}\n\nfragment AutocompleteTherapist_query_2KyZVN on Query {\n  filterTherapists(first: 10, searchText: $q, disabled: false) {\n    nodes {\n      id\n      rowId\n      fullName\n    }\n  }\n}\n"
   }
 };
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "f388a2b850bb826664b2c4b36b183ae0";
+  (node as any).hash = "64608a322ef42f5e375aaf6967079681";
 }
 
 export default node;
