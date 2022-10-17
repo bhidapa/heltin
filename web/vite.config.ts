@@ -32,6 +32,12 @@ export default defineConfig(({ mode }) => {
     plugins: [tsconfigPaths(), react(), relay()],
     build: {
       outDir: path.join(__dirname, 'build'),
+      rollupOptions: {
+        input: {
+          index: path.join(__dirname, 'index.html'),
+          browserNotSupported: path.join(__dirname, 'browser-not-supported.html'),
+        },
+      },
     },
   };
 });
