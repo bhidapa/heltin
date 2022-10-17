@@ -223,12 +223,12 @@ export function printToast<T>(promise: Promise<T>): Promise<T> {
   return promiseToast(promise, {
     success: {
       render: () => {
-        return <FormattedMessage id="PRINT_SUCCESS" />;
+        return <FormattedMessage id="PRINT_START_SUCCESS" />;
       },
     },
     pending: {
       render: () => {
-        return <FormattedMessage id="PRINT_IN_PROGRESS" />;
+        return <FormattedMessage id="PRINT_START_IN_PROGRESS" />;
       },
     },
     error: {

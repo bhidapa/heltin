@@ -607,9 +607,9 @@ export const messages: Messages = {
     en: 'Report built successfully!',
     hr: 'Nalaz uspješno napravljen!',
   },
-  PRINT_SUCCESS: {
-    en: 'Print successful!',
-    hr: 'Printanje uspješno!',
+  PRINT_START_SUCCESS: {
+    en: 'Print successfully started!',
+    hr: 'Printanje uspješno pokrenuto!',
   },
   LOADING: {
     en: 'Loading',
@@ -691,9 +691,9 @@ export const messages: Messages = {
     en: 'Building report...',
     hr: 'Pravljenje nalaza...',
   },
-  PRINT_IN_PROGRESS: {
-    en: 'Printing...',
-    hr: 'Printanje...',
+  PRINT_START_IN_PROGRESS: {
+    en: 'Starting printing...',
+    hr: 'Pokretanje printanja...',
   },
   FILE_IS_PROTECTED: {
     en: 'File is protected',
