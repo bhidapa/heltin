@@ -48,7 +48,7 @@ func dbFileDataToFs(ctx context.Context) {
 			panic(err)
 		}
 
-		fsfile, err := file.WriteAllFileData(ctx, dbfile.ID, memFile.Ext(), memFile.FileData)
+		fsfile, err := file.Write(ctx, dbfile.ID, memFile)
 		if err != nil {
 			panic(err)
 		}

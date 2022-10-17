@@ -6,6 +6,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/bhidapa/heltin/pkg/file"
 	"github.com/bhidapa/heltin/pkg/pdf"
 	"github.com/bhidapa/heltin/pkg/professional"
 	"github.com/bhidapa/heltin/pkg/session"
@@ -23,32 +24,42 @@ import (
 func CreateForTreatment(ctx context.Context, treatmentID uu.ID) (fileID uu.ID, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, treatmentID)
 
+	fileID = uu.IDv4()
+
 	log, ctx := log.With().
 		Ctx(ctx).
 		UUID("treatmentID", treatmentID).
+		UUID("fileID", fileID).
 		SubLoggerContext(ctx)
 
-	log.Info("Creating treatment memo").Log()
+	log.Info("Creating treatment report").Log()
 
-	fileID = uu.IDv4()
-	var reportsPDF *fs.MemFile
+	var pdfFile *fs.MemFile
 	err = session.TransactionAsUserFromContext(ctx, func(ctx context.Context) error {
-		reportsPDF, err = buildTreatmentPDF(ctx, fileID, treatmentID)
+		pdfFile, err = buildTreatmentPDF(ctx, fileID, treatmentID)
 		if err != nil {
 			return err
 		}
 
-		sessionUserID, _ := session.UserFromContext(ctx)
+		sessionUserID, err := session.UserFromContext(ctx)
+		if err != nil {
+			return err
+		}
 
-		reportsPDFBytes, err := reportsPDF.ReadAll(ctx)
+		_, err = file.Write(ctx, fileID, pdfFile)
+		if err != nil {
+			return err
+		}
+
+		hash, err := pdfFile.ContentHash()
 		if err != nil {
 			return err
 		}
 
 		err = db.Conn(ctx).Insert("public.file", sqldb.Values{
 			"id":         fileID,
-			"name":       reportsPDF.Name(),
-			"data":       reportsPDFBytes,
+			"name":       pdfFile.Name(),
+			"hash":       hash,
 			"protected":  true,
 			"created_by": sessionUserID,
 		})

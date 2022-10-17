@@ -158,7 +158,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 		// TODO: test forbidden
 
-		_, err := WriteAllFileData(ctx, fileID, memFile.Ext(), memFile.FileData)
+		_, err = Write(ctx, fileID, memFile)
 		return err
 	})
 	if session.IsOtherThanErrForbidden(err) {

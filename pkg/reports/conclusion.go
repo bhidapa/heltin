@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/bhidapa/heltin/pkg/casestudy"
+	"github.com/bhidapa/heltin/pkg/file"
 	"github.com/bhidapa/heltin/pkg/pdf"
 	"github.com/bhidapa/heltin/pkg/professional"
 	"github.com/bhidapa/heltin/pkg/session"
@@ -24,32 +25,42 @@ import (
 func CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, conclusionID)
 
+	fileID = uu.IDv4()
+
 	log, ctx := log.With().
 		Ctx(ctx).
+		UUID("fileID", fileID).
 		UUID("conclusionID", conclusionID).
 		SubLoggerContext(ctx)
 
-	log.Info("Creating conclusion memo").Log()
+	log.Info("Creating conclusion report").Log()
 
-	fileID = uu.IDv4()
-	var memoPDF *fs.MemFile
+	var pdfFile *fs.MemFile
 	err = session.TransactionAsUserFromContext(ctx, func(ctx context.Context) error {
-		memoPDF, err = buildConclusionPDF(ctx, fileID, conclusionID)
+		pdfFile, err = buildConclusionPDF(ctx, fileID, conclusionID)
 		if err != nil {
 			return err
 		}
 
-		sessionUserID, _ := session.UserFromContext(ctx)
+		sessionUserID, err := session.UserFromContext(ctx)
+		if err != nil {
+			return err
+		}
 
-		memoPDFBytes, err := memoPDF.ReadAll(ctx)
+		_, err = file.Write(ctx, fileID, pdfFile)
+		if err != nil {
+			return err
+		}
+
+		hash, err := pdfFile.ContentHash()
 		if err != nil {
 			return err
 		}
 
 		err = db.Conn(ctx).Insert("public.file", sqldb.Values{
 			"id":         fileID,
-			"name":       memoPDF.Name(),
-			"data":       memoPDFBytes,
+			"name":       pdfFile.Name(),
+			"hash":       hash,
 			"protected":  true,
 			"created_by": sessionUserID,
 		})

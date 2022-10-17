@@ -18,31 +18,6 @@ func IDToDir(id uu.ID) fs.File {
 	return config.Dir.Join(uuiddir.Split(id)...)
 }
 
-func WriteAllFileData(ctx context.Context, id uu.ID, ext string, data []byte) (fsfile fs.File, err error) {
-	defer errs.WrapWithFuncParams(&err, ctx, id, ext, data)
-
-	if ext == "" {
-		return "", errors.New("file extension must exist")
-	}
-	if !strings.HasPrefix(ext, ".") {
-		return "", errors.New("file extension must begin with a dot (.)")
-	}
-
-	dir := IDToDir(id)
-	err = dir.MakeAllDirs()
-	if err != nil {
-		return "", err
-	}
-
-	fsfile = dir.Join(strings.Replace(fileDataPattern, ".*", strings.ToLower(ext), 1))
-	err = fsfile.WriteAll(ctx, data)
-	if err != nil {
-		return "", err
-	}
-
-	return fsfile, nil
-}
-
 func FileFromID(ctx context.Context, id uu.ID) (fsfile fs.File, err error) {
 	defer errs.WrapWithFuncParams(&err, ctx, id)
 
@@ -65,4 +40,34 @@ func FileFromID(ctx context.Context, id uu.ID) (fsfile fs.File, err error) {
 	}
 
 	return fsfile, nil
+}
+
+// Write stores the file on the filesystem.
+func Write(ctx context.Context, id uu.ID, file fs.FileReader) (fsfile fs.File, err error) {
+	defer errs.WrapWithFuncParams(&err, ctx, id, file)
+
+	ext := file.Ext()
+	if ext == "" {
+		return "", errors.New("file extension must exist")
+	}
+
+	dir := IDToDir(id)
+	err = dir.MakeAllDirs()
+	if err != nil {
+		return "", err
+	}
+
+	fsfile = dir.Join(strings.Replace(fileDataPattern, ".*", strings.ToLower(ext), 1))
+
+	w, err := fsfile.OpenWriter()
+	if err != nil {
+		return "", err
+	}
+
+	_, err = file.WriteTo(w)
+	if err != nil {
+		return "", err
+	}
+
+	return "", nil
 }
