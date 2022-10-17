@@ -59,7 +59,7 @@ function isEqualOrNewerVersion(ver: string, base: string): boolean {
   return ver.localeCompare(base, undefined, { numeric: true, sensitivity: 'base' }) >= 0;
 }
 
-(function check() {
+function isSupported() {
   const testVers: Record<string, string[]> = {};
   for (const supported of SUPPORTED_BROWSERS) {
     const [supportedBrowser, supVer] = supported.split(' ');
@@ -82,13 +82,23 @@ function isEqualOrNewerVersion(ver: string, base: string): boolean {
         browserslistBrowserName === supportedBrowser &&
         isEqualOrNewerVersion(browser.version, supVer)
       ) {
-        // supported
-        return;
+        return true;
       }
     }
   }
 
-  if (!location.search.includes('ignoreBrowserNotSupported=true')) {
+  return false;
+}
+
+(function check() {
+  const supported = isSupported();
+  const onNotSupportedPage = location.href.includes('browser-not-supported.html');
+
+  if (supported && onNotSupportedPage) {
+    location.replace('/');
+  }
+
+  if (!supported && !onNotSupportedPage) {
     location.replace('/browser-not-supported.html');
   }
 })();
