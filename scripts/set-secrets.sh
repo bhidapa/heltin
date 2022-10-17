@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
-
-# error on non-zero return
 set -e
 
 # when sourcing, cd will change directory for the session. we use this var to go back
 local_CALLER_DIR=$(pwd)
 
-# cd into project root for git-secret
 local_PROJ_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")"/.. >/dev/null 2>&1 && pwd)"
 cd "$local_PROJ_DIR"
 
@@ -37,7 +34,7 @@ main(){
 }
 main;
 
-# go back to the caller directory
+# go back to the original caller dir
 cd "$local_CALLER_DIR"
 
 # avoid exporting unnecessary envs
