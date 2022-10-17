@@ -103,6 +103,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
+      - SESSION_SECRET=${SESSION_SECRET}
     depends_on:
       database:
         condition: service_healthy
