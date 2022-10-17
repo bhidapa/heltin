@@ -150,9 +150,11 @@ comment on function public.user_can_insert_therapist is '@notNull';
 create function public.therapist_can_viewer_update(
   therapist public.therapist
 ) returns boolean as $$
-  select
+  select coalesce(
     therapist.user_id = public.viewer_user_id()
-    or public.user_is_admin(public.viewer())
+    or public.user_is_admin(public.viewer()),
+    false
+  )
 $$ language sql stable strict;
 comment on function public.therapist_can_viewer_update is '@notNull';
 
