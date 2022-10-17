@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<374cd834eeab7a3d315dbf58dc07908f>>
+ * @generated SignedSource<<b477917f48ed65f5affcde381ae61de9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -229,10 +229,16 @@ return {
                             "storageKey": null
                           },
                           {
-                            "alias": null,
+                            "alias": "therapist",
                             "args": null,
-                            "kind": "ScalarField",
-                            "name": "isTherapist",
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByUserRowId",
+                            "plural": false,
+                            "selections": [
+                              (v5/*: any*/),
+                              (v4/*: any*/)
+                            ],
                             "storageKey": null
                           },
                           (v4/*: any*/)
@@ -257,12 +263,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4f25eccee9003792b94f22a0fd1eb0ef",
+    "cacheID": "312ab7ef8dd911b2a89cf950d7300852",
     "id": null,
     "metadata": {},
     "name": "CaseStudyTreatmentManageAfterBuildReportQuery",
     "operationKind": "query",
-    "text": "query CaseStudyTreatmentManageAfterBuildReportQuery(\n  $treatmentRowId: UUID!\n) {\n  caseStudyTreatmentByRowId(rowId: $treatmentRowId) {\n    caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    isTherapist\n    id\n  }\n}\n"
+    "text": "query CaseStudyTreatmentManageAfterBuildReportQuery(\n  $treatmentRowId: UUID!\n) {\n  caseStudyTreatmentByRowId(rowId: $treatmentRowId) {\n    caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

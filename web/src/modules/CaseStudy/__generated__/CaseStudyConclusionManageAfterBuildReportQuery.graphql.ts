@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<20343ca1196fa22ecc611c1d1b7e86ee>>
+ * @generated SignedSource<<33b8192b9a1c5a893fc253fd1585301d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -229,10 +229,16 @@ return {
                             "storageKey": null
                           },
                           {
-                            "alias": null,
+                            "alias": "therapist",
                             "args": null,
-                            "kind": "ScalarField",
-                            "name": "isTherapist",
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByUserRowId",
+                            "plural": false,
+                            "selections": [
+                              (v5/*: any*/),
+                              (v4/*: any*/)
+                            ],
                             "storageKey": null
                           },
                           (v4/*: any*/)
@@ -257,12 +263,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e4f9eb99677dc4bc3614c142a05fd124",
+    "cacheID": "f6462df0fe51566e8b09776a8efb07d9",
     "id": null,
     "metadata": {},
     "name": "CaseStudyConclusionManageAfterBuildReportQuery",
     "operationKind": "query",
-    "text": "query CaseStudyConclusionManageAfterBuildReportQuery(\n  $conclusionRowId: UUID!\n) {\n  caseStudyConclusionByRowId(rowId: $conclusionRowId) {\n    caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    isTherapist\n    id\n  }\n}\n"
+    "text": "query CaseStudyConclusionManageAfterBuildReportQuery(\n  $conclusionRowId: UUID!\n) {\n  caseStudyConclusionByRowId(rowId: $conclusionRowId) {\n    caseStudyConclusionFilesByCaseStudyConclusionRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

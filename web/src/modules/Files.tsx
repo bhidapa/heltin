@@ -54,7 +54,9 @@ export const Files: React.FC<FilesProps> = (props) => {
         createdBy: userByCreatedBy @required(action: THROW) {
           rowId
           fullName
-          isTherapist
+          therapist: therapistByUserRowId {
+            rowId
+          }
         }
       }
     `,
@@ -125,10 +127,10 @@ export const Files: React.FC<FilesProps> = (props) => {
                 </a>
               </td>
               <td>
-                {!file.createdBy.isTherapist ? (
+                {!file.createdBy.therapist ? (
                   file.createdBy.fullName
                 ) : (
-                  <Link to={`/therapists/${file.createdBy.rowId}`} search>
+                  <Link to={`/therapists/${file.createdBy.therapist.rowId}`} search>
                     {file.createdBy.fullName}
                   </Link>
                 )}

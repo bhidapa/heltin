@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ba1e05108bcdbc323e2666b44201de25>>
+ * @generated SignedSource<<8c980bf1feb9bd888bea6aaa9b061695>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -393,10 +393,16 @@ return {
                           (v4/*: any*/),
                           (v7/*: any*/),
                           {
-                            "alias": null,
+                            "alias": "therapist",
                             "args": null,
-                            "kind": "ScalarField",
-                            "name": "isTherapist",
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByUserRowId",
+                            "plural": false,
+                            "selections": [
+                              (v4/*: any*/),
+                              (v3/*: any*/)
+                            ],
                             "storageKey": null
                           },
                           (v3/*: any*/)
@@ -462,12 +468,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "fe7980e08f953b40b21e15cd5a071aa9",
+    "cacheID": "2c5eeef4a8ccae48f268c19620f1c47a",
     "id": null,
     "metadata": {},
     "name": "ClientsCaseStudiesTreatmentsDetailsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsCaseStudiesTreatmentsDetailsPageQuery(\n  $caseStudyRowId: UUID!\n  $treatmentRowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $caseStudyRowId) {\n    ...CaseStudyTreatmentManage_caseStudy\n    id\n  }\n  treatment: caseStudyTreatmentByRowId(rowId: $treatmentRowId) {\n    id\n    rowId\n    title\n    caseStudyRowId\n    caseStudy: caseStudyByCaseStudyRowId {\n      title\n      client: clientByClientRowId {\n        fullName\n        id\n      }\n      id\n    }\n    treatmentFiles: caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    ...CaseStudyTreatmentManage_treatment\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    isTherapist\n    id\n  }\n}\n"
+    "text": "query ClientsCaseStudiesTreatmentsDetailsPageQuery(\n  $caseStudyRowId: UUID!\n  $treatmentRowId: UUID!\n) {\n  caseStudy: caseStudyByRowId(rowId: $caseStudyRowId) {\n    ...CaseStudyTreatmentManage_caseStudy\n    id\n  }\n  treatment: caseStudyTreatmentByRowId(rowId: $treatmentRowId) {\n    id\n    rowId\n    title\n    caseStudyRowId\n    caseStudy: caseStudyByCaseStudyRowId {\n      title\n      client: clientByClientRowId {\n        fullName\n        id\n      }\n      id\n    }\n    treatmentFiles: caseStudyTreatmentFilesByCaseStudyTreatmentRowId(orderBy: CREATED_AT_DESC) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    ...CaseStudyTreatmentManage_treatment\n  }\n}\n\nfragment CaseStudyTreatmentManage_caseStudy on CaseStudy {\n  rowId\n  title\n  client: clientByClientRowId {\n    rowId\n    fullName\n    id\n  }\n}\n\nfragment CaseStudyTreatmentManage_treatment on CaseStudyTreatment {\n  rowId\n  external\n  title\n  startedAt\n  endedAt\n  privateDescription\n  description\n  score\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();

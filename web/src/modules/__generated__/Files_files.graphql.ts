@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<42adbb4683298e9b2dfbfc04201be818>>
+ * @generated SignedSource<<5a98468a7cf8ed3bad75c663baedfe61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,8 +14,10 @@ export type Files_files$data = ReadonlyArray<{
   readonly createdAt: string;
   readonly createdBy: {
     readonly fullName: string;
-    readonly isTherapist: boolean;
     readonly rowId: string;
+    readonly therapist: {
+      readonly rowId: string;
+    } | null;
   };
   readonly id: string;
   readonly link: string;
@@ -100,10 +102,15 @@ return {
             "storageKey": null
           },
           {
-            "alias": null,
+            "alias": "therapist",
             "args": null,
-            "kind": "ScalarField",
-            "name": "isTherapist",
+            "concreteType": "Therapist",
+            "kind": "LinkedField",
+            "name": "therapistByUserRowId",
+            "plural": false,
+            "selections": [
+              (v0/*: any*/)
+            ],
             "storageKey": null
           }
         ],
@@ -119,7 +126,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "328fb96281c62680c9325c74e197af5f";
+  (node as any).hash = "100a1a9bad41a6acc9855536febf7453";
 }
 
 export default node;

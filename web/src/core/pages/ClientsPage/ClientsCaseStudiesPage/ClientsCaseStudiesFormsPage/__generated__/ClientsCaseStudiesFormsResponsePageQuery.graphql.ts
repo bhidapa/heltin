@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3abdb1ced64d28480e0bd9affc08f5c4>>
+ * @generated SignedSource<<6d16d0cbfb8e215b5e31e61ab673386b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -388,10 +388,16 @@ return {
                             "storageKey": null
                           },
                           {
-                            "alias": null,
+                            "alias": "therapist",
                             "args": null,
-                            "kind": "ScalarField",
-                            "name": "isTherapist",
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByUserRowId",
+                            "plural": false,
+                            "selections": [
+                              (v2/*: any*/),
+                              (v6/*: any*/)
+                            ],
                             "storageKey": null
                           },
                           (v6/*: any*/)
@@ -416,12 +422,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8e29fe7a5013279be17e9b6813fe2c32",
+    "cacheID": "dbf9e9438f48835358f7a81bbf75c879",
     "id": null,
     "metadata": {},
     "name": "ClientsCaseStudiesFormsResponsePageQuery",
     "operationKind": "query",
-    "text": "query ClientsCaseStudiesFormsResponsePageQuery(\n  $formResponseRowId: UUID!\n) {\n  formResponse: formResponseByRowId(rowId: $formResponseRowId) {\n    rowId\n    ...FormManage_formResponse\n    form: formByFormRowId {\n      name\n      ...FormManage_form\n      id\n    }\n    formResponseFiles: formResponseFilesByFormResponseRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    isTherapist\n    id\n  }\n}\n\nfragment FormManageBuildDefaultValues_formQuestions on FormQuestionsConnection {\n  nodes {\n    rowId\n    type\n    required\n    options\n    id\n  }\n}\n\nfragment FormManageBuildDefaultValues_formResponse on FormResponse {\n  answers: formResponseAnswersByFormResponseRowId {\n    nodes {\n      formQuestionRowId\n      value\n      id\n    }\n  }\n}\n\nfragment FormManageQuestion_question on FormQuestion {\n  rowId\n  required\n  type\n  rawOptions: options\n  name\n  description\n}\n\nfragment FormManage_form on Form {\n  rowId\n  name\n  description\n  formQuestions: formQuestionsByFormRowId(orderBy: INDEX_ASC) {\n    ...FormManageBuildDefaultValues_formQuestions\n    nodes {\n      rowId\n      required\n      ...FormManageQuestion_question\n      id\n    }\n  }\n}\n\nfragment FormManage_formResponse on FormResponse {\n  rowId\n  formRowId\n  ...FormManageBuildDefaultValues_formResponse\n}\n"
+    "text": "query ClientsCaseStudiesFormsResponsePageQuery(\n  $formResponseRowId: UUID!\n) {\n  formResponse: formResponseByRowId(rowId: $formResponseRowId) {\n    rowId\n    ...FormManage_formResponse\n    form: formByFormRowId {\n      name\n      ...FormManage_form\n      id\n    }\n    formResponseFiles: formResponseFilesByFormResponseRowId(orderBy: [CREATED_AT_DESC]) {\n      nodes {\n        file: fileByFileRowId {\n          ...Files_files\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n}\n\nfragment FormManageBuildDefaultValues_formQuestions on FormQuestionsConnection {\n  nodes {\n    rowId\n    type\n    required\n    options\n    id\n  }\n}\n\nfragment FormManageBuildDefaultValues_formResponse on FormResponse {\n  answers: formResponseAnswersByFormResponseRowId {\n    nodes {\n      formQuestionRowId\n      value\n      id\n    }\n  }\n}\n\nfragment FormManageQuestion_question on FormQuestion {\n  rowId\n  required\n  type\n  rawOptions: options\n  name\n  description\n}\n\nfragment FormManage_form on Form {\n  rowId\n  name\n  description\n  formQuestions: formQuestionsByFormRowId(orderBy: INDEX_ASC) {\n    ...FormManageBuildDefaultValues_formQuestions\n    nodes {\n      rowId\n      required\n      ...FormManageQuestion_question\n      id\n    }\n  }\n}\n\nfragment FormManage_formResponse on FormResponse {\n  rowId\n  formRowId\n  ...FormManageBuildDefaultValues_formResponse\n}\n"
   }
 };
 })();

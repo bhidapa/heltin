@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<895e4f33883c11dff198c67e383414a3>>
+ * @generated SignedSource<<3ddf89a3ce92791ffb8f9a7eb7acad8e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -151,10 +151,16 @@ v5 = [
             "storageKey": null
           },
           {
-            "alias": null,
+            "alias": "therapist",
             "args": null,
-            "kind": "ScalarField",
-            "name": "isTherapist",
+            "concreteType": "Therapist",
+            "kind": "LinkedField",
+            "name": "therapistByUserRowId",
+            "plural": false,
+            "selections": [
+              (v4/*: any*/),
+              (v2/*: any*/)
+            ],
             "storageKey": null
           },
           (v2/*: any*/)
@@ -290,12 +296,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cc5edcac373fa8b553ad42023b894eea",
+    "cacheID": "cb760dda5b5be34b1d7fadbfbcc6aa78",
     "id": null,
     "metadata": {},
     "name": "FilesUploadFileRowGetAfterUploadMutation",
     "operationKind": "mutation",
-    "text": "mutation FilesUploadFileRowGetAfterUploadMutation(\n  $input: GetFileAfterUploadInput!\n) {\n  getFileAfterUpload(input: $input) {\n    file {\n      caseStudyTreatmentFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      caseStudyConclusionFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      formResponseFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    isTherapist\n    id\n  }\n}\n"
+    "text": "mutation FilesUploadFileRowGetAfterUploadMutation(\n  $input: GetFileAfterUploadInput!\n) {\n  getFileAfterUpload(input: $input) {\n    file {\n      caseStudyTreatmentFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      caseStudyConclusionFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      formResponseFile {\n        id\n        fileByFileRowId {\n          ...Files_files\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment Files_files on File {\n  id\n  rowId\n  link\n  name\n  protected\n  createdAt\n  createdBy: userByCreatedBy {\n    rowId\n    fullName\n    therapist: therapistByUserRowId {\n      rowId\n      id\n    }\n    id\n  }\n}\n"
   }
 };
 })();
