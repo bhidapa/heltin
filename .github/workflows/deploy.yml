@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   deploy-bhidapa:
     name: Deploy to BHIDAPA
-    uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@master
+    uses: bhidapa/heltin/.github/workflows/reusable-deploy-workflow.yml@main
     with:
       environment: BHIDAPA
     secrets: inherit

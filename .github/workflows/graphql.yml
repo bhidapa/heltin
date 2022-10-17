@@ -3,11 +3,11 @@ name: GraphQL
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
-      - master
+      - main
 
 defaults:
   run:
@@ -60,7 +60,7 @@ jobs:
         run: yarn lint
   release:
     name: Release
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: [type-check, lint]
     runs-on: ubuntu-latest
     steps:
