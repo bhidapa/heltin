@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dd14254070fc1ed540a5ccabdf45092a>>
+ * @generated SignedSource<<cb5f067f1a821f76b9b7a0520e6d1dda>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,14 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsTable_client$data = {
+  readonly assignedTherapists: {
+    readonly nodes: ReadonlyArray<{
+      readonly therapist: {
+        readonly fullName: string;
+        readonly rowId: string;
+      };
+    }>;
+  };
   readonly caseStudies: {
     readonly nodes: ReadonlyArray<{
       readonly concluded: boolean;
@@ -19,12 +27,6 @@ export type ClientsTable_client$data = {
     }>;
   };
   readonly fullName: string;
-  readonly latestAssignedTherapist: {
-    readonly therapist: {
-      readonly fullName: string;
-      readonly rowId: string;
-    };
-  } | null;
   readonly number: number;
   readonly rowId: string;
   readonly treatments: {
@@ -68,30 +70,41 @@ return {
     },
     (v1/*: any*/),
     {
-      "alias": null,
+      "alias": "assignedTherapists",
       "args": null,
-      "concreteType": "ClientAssignedTherapist",
+      "concreteType": "ClientAssignedTherapistsConnection",
       "kind": "LinkedField",
-      "name": "latestAssignedTherapist",
+      "name": "clientAssignedTherapistsByClientRowId",
       "plural": false,
       "selections": [
         {
-          "kind": "RequiredField",
-          "field": {
-            "alias": "therapist",
-            "args": null,
-            "concreteType": "Therapist",
-            "kind": "LinkedField",
-            "name": "therapistByTherapistRowId",
-            "plural": false,
-            "selections": [
-              (v0/*: any*/),
-              (v1/*: any*/)
-            ],
-            "storageKey": null
-          },
-          "action": "THROW",
-          "path": "latestAssignedTherapist.therapist"
+          "alias": null,
+          "args": null,
+          "concreteType": "ClientAssignedTherapist",
+          "kind": "LinkedField",
+          "name": "nodes",
+          "plural": true,
+          "selections": [
+            {
+              "kind": "RequiredField",
+              "field": {
+                "alias": "therapist",
+                "args": null,
+                "concreteType": "Therapist",
+                "kind": "LinkedField",
+                "name": "therapistByTherapistRowId",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              },
+              "action": "THROW",
+              "path": "assignedTherapists.nodes.therapist"
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -166,7 +179,7 @@ return {
 })();
 
 if (import.meta.env.DEV) {
-  (node as any).hash = "3cb8f6e94a2f8d0e8ef75a10ef747401";
+  (node as any).hash = "5432fd7ccf14ce5dc13feb4dfe789f2b";
 }
 
 export default node;

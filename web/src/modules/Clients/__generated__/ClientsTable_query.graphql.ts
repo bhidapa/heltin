@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d67b580f2a9178291b57635fc9ccb729>>
+ * @generated SignedSource<<a9801e70807e1b66ee2a4c9889aab4e0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,14 @@ export type ClientsTable_query$data = {
   readonly filterClients: {
     readonly edges: ReadonlyArray<{
       readonly node: {
+        readonly assignedTherapists: {
+          readonly nodes: ReadonlyArray<{
+            readonly therapist: {
+              readonly fullName: string;
+              readonly rowId: string;
+            };
+          }>;
+        };
         readonly caseStudies: {
           readonly nodes: ReadonlyArray<{
             readonly concluded: boolean;
@@ -22,12 +30,6 @@ export type ClientsTable_query$data = {
           }>;
         };
         readonly fullName: string;
-        readonly latestAssignedTherapist: {
-          readonly therapist: {
-            readonly fullName: string;
-            readonly rowId: string;
-          };
-        } | null;
         readonly number: number;
         readonly rowId: string;
         readonly treatments: {
@@ -196,30 +198,41 @@ return {
                   },
                   (v3/*: any*/),
                   {
-                    "alias": null,
+                    "alias": "assignedTherapists",
                     "args": null,
-                    "concreteType": "ClientAssignedTherapist",
+                    "concreteType": "ClientAssignedTherapistsConnection",
                     "kind": "LinkedField",
-                    "name": "latestAssignedTherapist",
+                    "name": "clientAssignedTherapistsByClientRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "kind": "RequiredField",
-                        "field": {
-                          "alias": "therapist",
-                          "args": null,
-                          "concreteType": "Therapist",
-                          "kind": "LinkedField",
-                          "name": "therapistByTherapistRowId",
-                          "plural": false,
-                          "selections": [
-                            (v2/*: any*/),
-                            (v3/*: any*/)
-                          ],
-                          "storageKey": null
-                        },
-                        "action": "THROW",
-                        "path": "filterClients.edges.node.latestAssignedTherapist.therapist"
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ClientAssignedTherapist",
+                        "kind": "LinkedField",
+                        "name": "nodes",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "kind": "RequiredField",
+                            "field": {
+                              "alias": "therapist",
+                              "args": null,
+                              "concreteType": "Therapist",
+                              "kind": "LinkedField",
+                              "name": "therapistByTherapistRowId",
+                              "plural": false,
+                              "selections": [
+                                (v2/*: any*/),
+                                (v3/*: any*/)
+                              ],
+                              "storageKey": null
+                            },
+                            "action": "THROW",
+                            "path": "filterClients.edges.node.assignedTherapists.nodes.therapist"
+                          }
+                        ],
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null

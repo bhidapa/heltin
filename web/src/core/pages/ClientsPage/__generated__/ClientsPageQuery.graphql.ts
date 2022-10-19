@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<854e24bd8ee3e3d749d2efc24360e783>>
+ * @generated SignedSource<<f11e072b48df43bbd510776247d68b39>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -218,28 +218,39 @@ return {
                   },
                   (v6/*: any*/),
                   {
-                    "alias": null,
+                    "alias": "assignedTherapists",
                     "args": null,
-                    "concreteType": "ClientAssignedTherapist",
+                    "concreteType": "ClientAssignedTherapistsConnection",
                     "kind": "LinkedField",
-                    "name": "latestAssignedTherapist",
+                    "name": "clientAssignedTherapistsByClientRowId",
                     "plural": false,
                     "selections": [
                       {
-                        "alias": "therapist",
+                        "alias": null,
                         "args": null,
-                        "concreteType": "Therapist",
+                        "concreteType": "ClientAssignedTherapist",
                         "kind": "LinkedField",
-                        "name": "therapistByTherapistRowId",
-                        "plural": false,
+                        "name": "nodes",
+                        "plural": true,
                         "selections": [
-                          (v5/*: any*/),
-                          (v6/*: any*/),
+                          {
+                            "alias": "therapist",
+                            "args": null,
+                            "concreteType": "Therapist",
+                            "kind": "LinkedField",
+                            "name": "therapistByTherapistRowId",
+                            "plural": false,
+                            "selections": [
+                              (v5/*: any*/),
+                              (v6/*: any*/),
+                              (v2/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
                           (v2/*: any*/)
                         ],
                         "storageKey": null
-                      },
-                      (v2/*: any*/)
+                      }
                     ],
                     "storageKey": null
                   },
@@ -365,12 +376,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "63242344c6c4b551777cd9367aaabe83",
+    "cacheID": "df7bdf34ec41c4850ac60336a3d35384",
     "id": null,
     "metadata": {},
     "name": "ClientsPageQuery",
     "operationKind": "query",
-    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  viewer {\n    isAdmin\n    isTherapist\n    id\n  }\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        latestAssignedTherapist {\n          therapist: therapistByTherapistRowId {\n            rowId\n            fullName\n            id\n          }\n          id\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query ClientsPageQuery(\n  $count: Int!\n  $cursor: Cursor\n  $q: String\n) {\n  viewer {\n    canInsertClient\n    id\n  }\n  ...ClientsTable_query_XhAmI\n}\n\nfragment ClientsTable_query_XhAmI on Query {\n  viewer {\n    isAdmin\n    isTherapist\n    id\n  }\n  filterClients(first: $count, after: $cursor, orderBy: NUMBER_DESC, searchText: $q) {\n    totalCount\n    edges {\n      node {\n        rowId\n        number\n        fullName\n        assignedTherapists: clientAssignedTherapistsByClientRowId {\n          nodes {\n            therapist: therapistByTherapistRowId {\n              rowId\n              fullName\n              id\n            }\n            id\n          }\n        }\n        treatments: caseStudyTreatmentsByCaseStudiesClientRowId {\n          totalCount\n        }\n        caseStudies: caseStudiesByClientRowId(orderBy: [CREATED_AT_ASC]) {\n          nodes {\n            rowId\n            title\n            concluded\n            id\n          }\n        }\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();

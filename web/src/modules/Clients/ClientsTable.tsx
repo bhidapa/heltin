@@ -22,10 +22,12 @@ graphql`
     rowId
     number
     fullName
-    latestAssignedTherapist {
-      therapist: therapistByTherapistRowId @required(action: THROW) {
-        rowId
-        fullName
+    assignedTherapists: clientAssignedTherapistsByClientRowId {
+      nodes {
+        therapist: therapistByTherapistRowId @required(action: THROW) {
+          rowId
+          fullName
+        }
       }
     }
     treatments: caseStudyTreatmentsByCaseStudiesClientRowId {
@@ -144,7 +146,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
               <FormattedMessage id="FULL_NAME" />
             </th>
             <th>
-              <FormattedMessage id="ASSIGNED_THERAPIST" />
+              <FormattedMessage id="ASSIGNED_THERAPISTS" />
             </th>
             {canViewHistory && (
               <th className="text-right">
@@ -163,11 +165,14 @@ export const ClientsTable: React.FC<ClientsTableProps> = (props) => {
                 </Link>
               </td>
               <td>
-                {node.latestAssignedTherapist && (
-                  <Link to={`/therapists/${node.latestAssignedTherapist.therapist.rowId}`} search>
-                    {node.latestAssignedTherapist.therapist.fullName}
-                  </Link>
-                )}
+                {node.assignedTherapists.nodes.map(({ therapist }, index) => (
+                  <>
+                    {index > 0 && ', '}
+                    <Link key={therapist.rowId} to={`/therapists/${therapist.rowId}`} search>
+                      {therapist.fullName}
+                    </Link>
+                  </>
+                ))}
               </td>
               {canViewHistory && (
                 <td className="text-right">
