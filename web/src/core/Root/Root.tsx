@@ -111,6 +111,46 @@ export const Root: React.FC<RootProps> = (props) => {
 
                 <Dropdown
                   content={
+                    <div className="dropdown-content">
+                      <label htmlFor="language-select">
+                        <FormattedMessage id="LANGUAGE" />
+                      </label>
+                      <select
+                        id="language-select"
+                        className="form-control"
+                        value={locale}
+                        onChange={(e) => {
+                          const value = e.currentTarget.value as Locale | null;
+                          if (value) {
+                            setLocale(value);
+                          }
+                        }}
+                      >
+                        <option value="en">
+                          <FormattedMessage id="ENGLISH" />
+                        </option>
+                        <option value="hr">
+                          <FormattedMessage id="CROATIAN" />
+                        </option>
+                      </select>
+                    </div>
+                  }
+                >
+                  {(toggle) => (
+                    <button
+                      className="btn btn-action mr-5"
+                      type="button"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      onClick={toggle}
+                    >
+                      <i className="fa-solid fa-language"></i>
+                    </button>
+                  )}
+                </Dropdown>
+
+                <Dropdown
+                  content={
                     <>
                       <h6 className="dropdown-header">
                         <FormattedMessage
@@ -124,31 +164,6 @@ export const Root: React.FC<RootProps> = (props) => {
                       </h6>
                       <div className="dropdown-divider"></div>
                       <div className="dropdown-content">
-                        <div className="form-row">
-                          <div className="col">
-                            <label htmlFor="language-select">
-                              <FormattedMessage id="LANGUAGE" />
-                            </label>
-                            <select
-                              id="language-select"
-                              className="form-control"
-                              value={locale}
-                              onChange={(e) => {
-                                const value = e.currentTarget.value as Locale | null;
-                                if (value) {
-                                  setLocale(value);
-                                }
-                              }}
-                            >
-                              <option value="en">
-                                <FormattedMessage id="ENGLISH" />
-                              </option>
-                              <option value="hr">
-                                <FormattedMessage id="CROATIAN" />
-                              </option>
-                            </select>
-                          </div>
-                        </div>
                         <Link to="/logout" className="btn btn-block btn-primary">
                           <i className="fa-solid fa-right-from-bracket"></i>
                           &nbsp;
