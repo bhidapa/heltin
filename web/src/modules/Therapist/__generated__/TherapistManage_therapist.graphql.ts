@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<322402a23536c5f8369cb282fe831da5>>
+ * @generated SignedSource<<5cbb5c31db40dac4ce5c8eb4e49acb66>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,6 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type Gender = "FEMALE" | "MALE";
-export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type TherapistManage_therapist$data = {
   readonly canViewerDelete: boolean;
@@ -26,7 +25,7 @@ export type TherapistManage_therapist$data = {
   readonly rowId: string;
   readonly telephone: string | null;
   readonly title: string | null;
-  readonly type: TherapistType;
+  readonly type: string | null;
   readonly updatedAt: string;
   readonly user: {
     readonly email: string;

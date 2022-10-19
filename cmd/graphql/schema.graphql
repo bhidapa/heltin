@@ -1603,7 +1603,7 @@ type Therapist implements Node {
   id: ID!
   rowId: UUID!
   userRowId: UUID
-  type: TherapistType!
+  type: String
   telephone: String
   email: EmailAddress!
   title: String
@@ -1681,23 +1681,6 @@ type Therapist implements Node {
   canViewerUpdate: Boolean!
   enabled: Boolean!
   fullName: String!
-}
-
-enum TherapistType {
-  PSYCHOTHERAPIST
-  PSYCHOLOGIST
-  PSYCHIATRIST
-  NEUROLOGIST
-  PEDIATRIST
-  SOCIAL_WORKER
-  PEDAGOGUE
-  DEFECTOLOGIST
-  PHONETICIAN
-  NEUROPSYCHIATRIST
-  CLINICAL_PSYCHOLOGIST
-  SUPERVISOR
-  LOGOPED
-  OTHER
 }
 
 """A connection to a list of `ClientAssignedTherapist` values."""
@@ -3953,7 +3936,7 @@ input TherapistCondition {
   userRowId: UUID
 
   """Checks for equality with the object’s `type` field."""
-  type: TherapistType
+  type: String
 
   """Checks for equality with the object’s `telephone` field."""
   telephone: String
@@ -4844,13 +4827,13 @@ input CreateTherapistInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  type: TherapistType!
   email: EmailAddress!
   firstName: String!
   lastName: String!
   dateOfBirth: Date!
   gender: Gender!
   disabled: Boolean!
+  type: String
   telephone: String
   title: String
   userRowId: UUID
@@ -5589,13 +5572,13 @@ input UpdateTherapistInput {
   """
   clientMutationId: String
   rowId: UUID!
-  type: TherapistType!
   email: EmailAddress!
   firstName: String!
   lastName: String!
   dateOfBirth: Date!
   gender: Gender!
   disabled: Boolean!
+  type: String
   telephone: String
   title: String
   userRowId: UUID

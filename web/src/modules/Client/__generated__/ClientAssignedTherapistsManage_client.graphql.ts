@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2cb74029c8450fb44d3163196214025b>>
+ * @generated SignedSource<<12c6e423ef0f71c6ac726bb4093ccb08>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,6 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type ClientAssignedTherapistsManage_client$data = {
   readonly assignedTherapists: {
@@ -20,7 +19,7 @@ export type ClientAssignedTherapistsManage_client$data = {
       readonly therapist: {
         readonly fullName: string;
         readonly rowId: string;
-        readonly type: TherapistType;
+        readonly type: string | null;
       };
     }>;
   };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<997f05cfa232d3a204a979ca1b117b81>>
+ * @generated SignedSource<<a0ad85734e627a752e96fa13646c642a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
-export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 export type CreateTherapistInput = {
   clientMutationId?: string | null;
   dateOfBirth: string;
@@ -22,7 +21,7 @@ export type CreateTherapistInput = {
   lastName: string;
   telephone?: string | null;
   title?: string | null;
-  type: TherapistType;
+  type?: string | null;
   userRowId?: string | null;
 };
 export type TherapistManageCreateMutation$variables = {

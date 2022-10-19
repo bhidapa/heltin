@@ -131,9 +131,7 @@ export const TherapistsTable: React.FC<TherapistsTableProps> = (props) => {
         <tbody>
           {filterTherapists.edges.map(({ node }) => (
             <tr key={node.rowId}>
-              <th>
-                <FormattedMessage id={node.type} />
-              </th>
+              <th>{node.type || <>&mdash;</>}</th>
               <td>
                 <Link to={node.rowId} search>
                   {node.fullName}

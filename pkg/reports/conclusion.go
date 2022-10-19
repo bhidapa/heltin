@@ -9,7 +9,6 @@ import (
 	"github.com/bhidapa/heltin/pkg/casestudy"
 	"github.com/bhidapa/heltin/pkg/file"
 	"github.com/bhidapa/heltin/pkg/pdf"
-	"github.com/bhidapa/heltin/pkg/professional"
 	"github.com/bhidapa/heltin/pkg/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
@@ -91,10 +90,8 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study might not be a therapist
-		TherapistName        nullable.NonEmptyString `db:"therapist_name"`
-		TherapistType        professional.Type       `db:"therapist_type"`
-		TherapistTypeMessage string                  `db:"-"`
-		TherapistSubType     nullable.NonEmptyString `db:"therapist_sub_type"`
+		TherapistName nullable.NonEmptyString `db:"therapist_name"`
+		TherapistType nullable.NonEmptyString `db:"therapist_type"`
 
 		ClientName    string                  `db:"client_name"`
 		ClientDOBDate date.Date               `db:"client_dob"`
@@ -114,7 +111,6 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 		select
 			public.therapist_full_name(therapist) as therapist_name,
 			therapist."type" as therapist_type,
-			null as therapist_sub_type,
 
 			public.client_full_name(client) as client_name,
 			client.date_of_birth as client_dob,
@@ -139,11 +135,6 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 
 	if conclusion.Description.IsNull() {
 		return nil, errors.New("description is required")
-	}
-
-	// TODO: use requester language
-	if conclusion.TherapistType != professional.TypeOther {
-		conclusion.TherapistTypeMessage = conclusion.TherapistType.Message(language.BA)
 	}
 
 	conclusion.ClientDOB = conclusion.ClientDOBDate.Format("02.01.2006.")

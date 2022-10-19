@@ -9,7 +9,6 @@ import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
 
 import { useNavigate } from '@tanstack/react-location';
-import { TherapistType } from 'enums.graphql';
 
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
@@ -19,7 +18,6 @@ import { useUnsavedChangesPrompt } from 'lib/usePrompt';
 import { relativeTime } from 'intl/relativeTime';
 
 import { AutocompleteUser } from 'modules/Autocomplete/AutocompleteUser';
-import { TherapistTypeSelectOptions } from 'modules/TherapistTypeSelectOptions';
 
 import { GenderSelectOptions } from '../GenderSelectOptions';
 import { TherapistManageCreateMutation } from './__generated__/TherapistManageCreateMutation.graphql';
@@ -130,7 +128,7 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
   } = useForm({
     defaultValues: {
       enabled: therapist?.enabled ?? true,
-      type: therapist?.type ?? ('PSYCHOTHERAPIST' as TherapistType),
+      type: therapist?.type ?? null,
       title: therapist?.title ?? null,
       firstName: therapist?.firstName ?? '',
       lastName: therapist?.lastName ?? '',
@@ -252,18 +250,16 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
 
       <div className="form-row">
         <div className="col">
-          <label htmlFor="type" className="required">
+          <label htmlFor="type">
             <FormattedMessage id="TYPE" />
           </label>
-          <select
-            {...register('type')}
-            id="type"
+          <input
+            {...register('type', { setValueAs: (v) => v || null })}
+            type="text"
             className="form-control"
-            required
-            disabled={!canSave}
-          >
-            <TherapistTypeSelectOptions hideEmptyOption />
-          </select>
+            id="type"
+            readOnly={!canSave}
+          />
         </div>
       </div>
 

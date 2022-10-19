@@ -46,29 +46,12 @@ comment on function public.assistant_full_name is '@notNull';
 
 ----
 
-create type public.therapist_type as enum (
-  'PSYCHOTHERAPIST',
-  'PSYCHOLOGIST',
-  'PSYCHIATRIST',
-  'NEUROLOGIST',
-  'PEDIATRIST',
-  'SOCIAL_WORKER',
-  'PEDAGOGUE',
-  'DEFECTOLOGIST',
-  'PHONETICIAN',
-  'NEUROPSYCHIATRIST', -- neuropsihijatar
-  'CLINICAL_PSYCHOLOGIST',
-  'SUPERVISOR',
-  'LOGOPED',
-  'OTHER'
-);
-
 create table public.therapist (
   id uuid primary key default uuid_generate_v4(),
 
   user_id uuid unique references public.user(id) on delete set null,
 
-  "type" public.therapist_type not null,
+  "type" text,
 
   telephone text,
   email email_address unique not null,
@@ -168,13 +151,13 @@ comment on function public.therapist_can_viewer_delete is '@notNull';
 ----
 
 create function public.create_therapist(
-  "type"        public.therapist_type,
   email         email_address,
   first_name    text,
   last_name     text,
   date_of_birth date,
   gender        public.gender,
   disabled      boolean,
+  "type"        text = null,
   telephone     text = null,
   title         text = null,
   user_id       uuid = null
@@ -211,13 +194,13 @@ language sql volatile;
 
 create function public.update_therapist(
   id            uuid,
-  "type"        public.therapist_type,
   email         email_address,
   first_name    text,
   last_name     text,
   date_of_birth date,
   gender        public.gender,
   disabled      boolean,
+  "type"        text = null,
   telephone     text = null,
   title         text = null,
   user_id       uuid = null

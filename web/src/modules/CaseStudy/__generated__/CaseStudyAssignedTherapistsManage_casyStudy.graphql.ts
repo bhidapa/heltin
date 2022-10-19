@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa43b5f60db3d2baae367f17f73de6b8>>
+ * @generated SignedSource<<a0f58332ad2f721a3da4da0eb709d2b0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,6 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type TherapistType = "CLINICAL_PSYCHOLOGIST" | "DEFECTOLOGIST" | "LOGOPED" | "NEUROLOGIST" | "NEUROPSYCHIATRIST" | "OTHER" | "PEDAGOGUE" | "PEDIATRIST" | "PHONETICIAN" | "PSYCHIATRIST" | "PSYCHOLOGIST" | "PSYCHOTHERAPIST" | "SOCIAL_WORKER" | "SUPERVISOR";
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyAssignedTherapistsManage_casyStudy$data = {
   readonly assignedTherapists: {
@@ -22,7 +21,7 @@ export type CaseStudyAssignedTherapistsManage_casyStudy$data = {
       readonly therapist: {
         readonly fullName: string;
         readonly rowId: string;
-        readonly type: TherapistType;
+        readonly type: string | null;
       };
     }>;
   };
