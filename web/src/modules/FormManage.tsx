@@ -221,6 +221,7 @@ export const FormManage: React.FC<FormManageProps> = (props) => {
               className="btn btn-danger"
               onClick={() => {
                 if (confirmDelete()) {
+                  reset();
                   deleteToast(
                     (async () => {
                       const data = await deleteFormResponse({

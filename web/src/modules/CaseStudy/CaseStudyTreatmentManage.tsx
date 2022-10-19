@@ -492,6 +492,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
               className="btn btn-danger"
               onClick={() => {
                 if (confirmDelete()) {
+                  reset();
                   deleteToast(
                     (async () => {
                       const { deleteCaseStudyTreatment } = await deleteMutation({

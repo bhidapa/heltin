@@ -213,6 +213,7 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
               className="btn btn-danger"
               onClick={() => {
                 if (confirmDelete()) {
+                  reset();
                   deleteToast(
                     (async () => {
                       const data = await deleteCaseStudy({

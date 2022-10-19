@@ -393,7 +393,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
               aria-disabled={!canDelete || isSubmitting}
               onClick={() => {
                 if (confirmDelete()) {
-                  return deleteToast(
+                  reset();
+                  deleteToast(
                     (async () => {
                       const data = await deleteClient({
                         variables: { input: { rowId: client!.rowId } },

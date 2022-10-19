@@ -247,7 +247,8 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
             aria-disabled={!canDelete || isSubmitting}
             onClick={() => {
               if (confirmDelete()) {
-                return deleteToast(
+                reset();
+                deleteToast(
                   (async () => {
                     const data = await deleteUser({
                       variables: { input: { rowId: user!.rowId } },

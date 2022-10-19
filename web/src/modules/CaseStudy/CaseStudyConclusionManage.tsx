@@ -307,6 +307,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
               className="btn btn-danger"
               onClick={() => {
                 if (confirmDelete()) {
+                  reset();
                   deleteToast(
                     (async () => {
                       const { deleteCaseStudyConclusion } = await deleteMutation({

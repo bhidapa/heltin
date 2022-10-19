@@ -379,7 +379,8 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
             aria-disabled={!canDelete || isSubmitting}
             onClick={() => {
               if (confirmDelete()) {
-                return deleteToast(
+                reset();
+                deleteToast(
                   (async () => {
                     const data = await deleteTherapist({
                       variables: { input: { rowId: therapist!.rowId } },
