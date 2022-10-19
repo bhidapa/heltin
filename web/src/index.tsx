@@ -22,7 +22,7 @@ const rootQueryRef = loadQuery<RootQuery>(environment, rootQuery, {});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <IntlProvider defaultLocale="hr" messages={messages}>
+    <IntlProvider defaultLocale="en" messages={messages}>
       <ErrBoundary>
         <HelmetProvider>
           <Helmet titleTemplate="%s | heltin" />
