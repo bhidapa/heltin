@@ -3,14 +3,13 @@
  * UserManage
  *
  */
-import React, { useRef } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
 
 import { useNavigate } from '@tanstack/react-location';
 
-import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
@@ -90,7 +89,6 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
     }
   `);
 
-  const shouldDeleteRef = useRef(false);
   const [deleteUser] = usePromiseMutation<UserManageDeleteMutation>(graphql`
     mutation UserManageDeleteMutation($input: DeleteUserInput!) {
       deleteUser(input: $input) {
@@ -101,7 +99,12 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
     }
   `);
 
-  const { register, handleSubmit, reset, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty, isSubmitting },
+  } = useForm({
     defaultValues: {
       enabled: user?.enabled ?? true,
       email: user?.email ?? '',
@@ -110,43 +113,15 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
     },
   });
 
+  useUnsavedChangesPrompt(Boolean(user) && isDirty);
+
   const canDelete = user?.canViewerDelete;
   const canSave = user ? user.canViewerUpdate : viewer.canInsertUser;
 
-  useUnsavedChangesPrompt(formState.isDirty);
-
-  const [formRef, submit] = useNativeFormSubmit();
-
   return (
     <form
-      ref={formRef}
       className="content"
       onSubmit={handleSubmit((values) => {
-        if (shouldDeleteRef.current) {
-          shouldDeleteRef.current = false;
-          if (confirmDelete()) {
-            return deleteToast(
-              (async () => {
-                const data = await deleteUser({
-                  variables: { input: { rowId: user!.rowId } },
-                  updater: (store) => {
-                    store.invalidateStore();
-                  },
-                });
-                if (!data.deleteUser?.user) {
-                  throw new Error('Forbidden');
-                }
-                navigate({
-                  to: '/users',
-                  search: true,
-                  replace: true,
-                });
-              })(),
-            );
-          }
-          return;
-        }
-
         if (user) {
           return saveToast(
             (async () => {
@@ -187,19 +162,11 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
             if (!data.createUser?.user) {
               throw new Error('Forbidden');
             }
-
-            // reset, propagate and navigate
-            reset(values);
-            const user = data.createUser.user;
-            setTimeout(
-              () =>
-                navigate({
-                  to: '/users/' + user.rowId,
-                  search: true,
-                  replace: true,
-                }),
-              0,
-            );
+            navigate({
+              to: '/users/' + data.createUser.user.rowId,
+              search: true,
+              replace: true,
+            });
           })(),
         );
       })}
@@ -276,9 +243,30 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
           <button
             type="button"
             className="btn btn-danger"
-            disabled={!canDelete || formState.isSubmitting}
-            aria-disabled={!canDelete || formState.isSubmitting}
-            onClick={() => (shouldDeleteRef.current = true) && submit()}
+            disabled={!canDelete || isSubmitting}
+            aria-disabled={!canDelete || isSubmitting}
+            onClick={() => {
+              if (confirmDelete()) {
+                return deleteToast(
+                  (async () => {
+                    const data = await deleteUser({
+                      variables: { input: { rowId: user!.rowId } },
+                      updater: (store) => {
+                        store.invalidateStore();
+                      },
+                    });
+                    if (!data.deleteUser?.user) {
+                      throw new Error('Forbidden');
+                    }
+                    navigate({
+                      to: '/users',
+                      search: true,
+                      replace: true,
+                    });
+                  })(),
+                );
+              }
+            }}
           >
             <i className="fa-solid fa-ban"></i>
             &nbsp;
@@ -290,8 +278,8 @@ export const UserManage: React.FC<UserManageProps> = (props) => {
           <button
             type="submit"
             className="btn btn-primary btn-lg"
-            disabled={!canSave || formState.isSubmitting}
-            aria-disabled={!canSave || formState.isSubmitting}
+            disabled={!canSave || isSubmitting}
+            aria-disabled={!canSave || isSubmitting}
           >
             <i className="fa-solid fa-floppy-disk"></i>
             &nbsp;

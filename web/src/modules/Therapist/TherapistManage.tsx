@@ -3,7 +3,7 @@
  * TherapistManage
  *
  */
-import React, { useRef } from 'react';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
@@ -11,7 +11,6 @@ import { graphql, useFragment } from 'react-relay';
 import { useNavigate } from '@tanstack/react-location';
 import { TherapistType } from 'enums.graphql';
 
-import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
@@ -112,7 +111,6 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
     }
   `);
 
-  const shouldDeleteRef = useRef(false);
   const [deleteTherapist] = usePromiseMutation<TherapistManageDeleteMutation>(graphql`
     mutation TherapistManageDeleteMutation($input: DeleteTherapistInput!) {
       deleteTherapist(input: $input) {
@@ -123,7 +121,13 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
     }
   `);
 
-  const { register, control, handleSubmit, reset, formState } = useForm({
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    formState: { isDirty, isSubmitting },
+  } = useForm({
     defaultValues: {
       enabled: therapist?.enabled ?? true,
       type: therapist?.type ?? ('PSYCHOTHERAPIST' as TherapistType),
@@ -138,45 +142,16 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
     },
   });
 
+  useUnsavedChangesPrompt(Boolean(therapist) && isDirty);
+
   const canDelete = therapist?.canViewerDelete;
   const canSave = therapist ? therapist.canViewerUpdate : query.viewer.canInsertTherapist;
 
-  useUnsavedChangesPrompt(formState.isDirty);
-
-  const [formRef, submit] = useNativeFormSubmit();
-
   return (
     <form
-      ref={formRef}
       className="content"
       onSubmit={handleSubmit((values) => {
         const { enabled, user, ...rest } = values;
-
-        if (shouldDeleteRef.current) {
-          shouldDeleteRef.current = false;
-          if (confirmDelete()) {
-            return deleteToast(
-              (async () => {
-                const data = await deleteTherapist({
-                  variables: { input: { rowId: therapist!.rowId } },
-                  updater: (store) => {
-                    store.invalidateStore();
-                  },
-                });
-                if (!data.deleteTherapist?.therapist) {
-                  throw new Error('Forbidden');
-                }
-                navigate({
-                  to: '/therapists',
-                  search: true,
-                  replace: true,
-                });
-              })(),
-            );
-          }
-          return;
-        }
-
         if (therapist) {
           return saveToast(
             (async () => {
@@ -400,9 +375,30 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <button
             type="button"
             className="btn btn-danger"
-            disabled={!canDelete || formState.isSubmitting}
-            aria-disabled={!canDelete || formState.isSubmitting}
-            onClick={() => (shouldDeleteRef.current = true) && submit()}
+            disabled={!canDelete || isSubmitting}
+            aria-disabled={!canDelete || isSubmitting}
+            onClick={() => {
+              if (confirmDelete()) {
+                return deleteToast(
+                  (async () => {
+                    const data = await deleteTherapist({
+                      variables: { input: { rowId: therapist!.rowId } },
+                      updater: (store) => {
+                        store.invalidateStore();
+                      },
+                    });
+                    if (!data.deleteTherapist?.therapist) {
+                      throw new Error('Forbidden');
+                    }
+                    navigate({
+                      to: '/therapists',
+                      search: true,
+                      replace: true,
+                    });
+                  })(),
+                );
+              }
+            }}
           >
             <i className="fa-solid fa-ban"></i>
             &nbsp;
@@ -414,8 +410,8 @@ export const TherapistManage: React.FC<TherapistManageProps> = (props) => {
           <button
             type="submit"
             className="btn btn-primary btn-lg"
-            disabled={!canSave || formState.isSubmitting}
-            aria-disabled={!canSave || formState.isSubmitting}
+            disabled={!canSave || isSubmitting}
+            aria-disabled={!canSave || isSubmitting}
           >
             <i className="fa-solid fa-floppy-disk"></i>
             &nbsp;

@@ -3,7 +3,7 @@
  * ClientManage
  *
  */
-import React, { useRef } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
@@ -115,7 +115,6 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
     }
   `);
 
-  const shouldDeleteRef = useRef(false);
   const [deleteClient] = usePromiseMutation<ClientManageDeleteMutation>(graphql`
     mutation ClientManageDeleteMutation($input: DeleteClientInput!) {
       deleteClient(input: $input) {
@@ -126,7 +125,12 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
     }
   `);
 
-  const { register, handleSubmit, reset, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty, isSubmitting },
+  } = useForm({
     defaultValues: {
       number: client?.number ?? nextAvailableClientNumber ?? 1,
       address: client?.address ?? '',
@@ -142,43 +146,18 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
     },
   });
 
+  useUnsavedChangesPrompt(Boolean(client) && isDirty);
+
   const canDelete = client?.canViewerDelete;
   const canSave = client ? client.canViewerUpdate : viewer.canInsertClient;
 
-  useUnsavedChangesPrompt(formState.isDirty);
-
-  const [formRef, submit, submitOnCtrlEnter] = useNativeFormSubmit();
+  const [formRef, , submitOnCtrlEnter] = useNativeFormSubmit();
 
   return (
     <form
       ref={formRef}
       className="content"
       onSubmit={handleSubmit((values) => {
-        if (shouldDeleteRef.current) {
-          shouldDeleteRef.current = false;
-          if (confirmDelete()) {
-            return deleteToast(
-              (async () => {
-                const data = await deleteClient({
-                  variables: { input: { rowId: client!.rowId } },
-                  updater: (store) => {
-                    store.invalidateStore();
-                  },
-                });
-                if (!data.deleteClient?.client) {
-                  throw new Error('Forbidden');
-                }
-                navigate({
-                  to: '/clients',
-                  search: true,
-                  replace: true,
-                });
-              })(),
-            );
-          }
-          return;
-        }
-
         if (client) {
           return saveToast(
             (async () => {
@@ -410,9 +389,30 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
             <button
               type="button"
               className="btn btn-danger"
-              disabled={!canDelete || formState.isSubmitting}
-              aria-disabled={!canDelete || formState.isSubmitting}
-              onClick={() => (shouldDeleteRef.current = true) && submit()}
+              disabled={!canDelete || isSubmitting}
+              aria-disabled={!canDelete || isSubmitting}
+              onClick={() => {
+                if (confirmDelete()) {
+                  return deleteToast(
+                    (async () => {
+                      const data = await deleteClient({
+                        variables: { input: { rowId: client!.rowId } },
+                        updater: (store) => {
+                          store.invalidateStore();
+                        },
+                      });
+                      if (!data.deleteClient?.client) {
+                        throw new Error('Forbidden');
+                      }
+                      navigate({
+                        to: '/clients',
+                        search: true,
+                        replace: true,
+                      });
+                    })(),
+                  );
+                }
+              }}
             >
               <i className="fa-solid fa-ban"></i>
               &nbsp;
@@ -425,8 +425,8 @@ export const ClientManage: React.FC<ClientManageProps> = (props) => {
           <button
             type="submit"
             className="btn btn-primary btn-lg"
-            disabled={!canSave || formState.isSubmitting}
-            aria-disabled={!canSave || formState.isSubmitting}
+            disabled={!canSave || isSubmitting}
+            aria-disabled={!canSave || isSubmitting}
           >
             <i className="fa-solid fa-floppy-disk"></i>
             &nbsp;

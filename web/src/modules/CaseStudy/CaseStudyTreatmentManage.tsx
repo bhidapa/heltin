@@ -42,6 +42,7 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
   const { caseStudy: caseStudyRef, treatment: treatmentRef } = props;
 
   const navigate = useNavigate();
+  const { confirmDelete } = useConfirm();
 
   const caseStudy = useFragment(
     graphql`
@@ -148,14 +149,6 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
       endedAt: formatDatetimeLocal(addHours(startedAt, 1))!,
     };
   }, []);
-  const defaultValues = {
-    external: treatment?.external ?? false,
-    title: treatment?.title ?? '',
-    startedAt: formatDatetimeLocal(treatment?.startedAt) ?? now.startedAt,
-    endedAt: formatDatetimeLocal(treatment?.endedAt) ?? now.endedAt,
-    description: treatment?.description ?? '',
-    privateDescription: treatment?.privateDescription ?? null,
-  };
 
   const {
     register,
@@ -165,12 +158,17 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     control,
     setValue,
   } = useForm({
-    defaultValues,
+    defaultValues: {
+      external: treatment?.external ?? false,
+      title: treatment?.title ?? '',
+      startedAt: formatDatetimeLocal(treatment?.startedAt) ?? now.startedAt,
+      endedAt: formatDatetimeLocal(treatment?.endedAt) ?? now.endedAt,
+      description: treatment?.description ?? '',
+      privateDescription: treatment?.privateDescription ?? null,
+    },
   });
 
-  useUnsavedChangesPrompt(isDirty);
-
-  const { confirmDelete } = useConfirm();
+  useUnsavedChangesPrompt(Boolean(treatment) && isDirty);
 
   // string = ready, null = pending, undefined = nothing
   const [reportFileRowId, setReportFileRowId] = useState<string | null | undefined>(undefined);

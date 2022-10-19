@@ -31,6 +31,7 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
   const { client: clientRef, caseStudy: caseStudyRef } = props;
 
   const navigate = useNavigate();
+  const { confirmDelete } = useConfirm();
 
   const client = useFragment(
     graphql`
@@ -99,15 +100,18 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     `,
   );
 
-  const { register, handleSubmit, reset, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm({
     defaultValues: {
       title: caseStudy?.title ?? '',
     },
   });
 
-  useUnsavedChangesPrompt(formState.isDirty);
-
-  const { confirmDelete } = useConfirm();
+  useUnsavedChangesPrompt(Boolean(caseStudy) && isDirty);
 
   return (
     <form

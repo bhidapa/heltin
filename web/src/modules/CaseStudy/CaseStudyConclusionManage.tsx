@@ -40,6 +40,7 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
   const { caseStudy: caseStudyRef, conclusion: conclusionRef } = props;
 
   const navigate = useNavigate();
+  const { confirmDelete } = useConfirm();
 
   const caseStudy = useFragment(
     graphql`
@@ -134,25 +135,21 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     `,
   );
 
-  const defaultValues = {
-    type: conclusion?.type ?? 'TREATMENT_COMPLETION',
-    concludedAt: formatDate(conclusion?.concludedAt ?? new Date()),
-    description: conclusion?.description ?? '',
-    privateDescription: conclusion?.privateDescription ?? null,
-  };
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { isDirty },
   } = useForm({
-    defaultValues,
+    defaultValues: {
+      type: conclusion?.type ?? 'TREATMENT_COMPLETION',
+      concludedAt: formatDate(conclusion?.concludedAt ?? new Date()),
+      description: conclusion?.description ?? '',
+      privateDescription: conclusion?.privateDescription ?? null,
+    },
   });
 
-  useUnsavedChangesPrompt(isDirty);
-
-  const { confirmDelete } = useConfirm();
+  useUnsavedChangesPrompt(Boolean(conclusion) && isDirty);
 
   // string = ready, null = pending, undefined = nothing
   const [reportFileRowId, setReportFileRowId] = useState<string | null | undefined>(undefined);
