@@ -14,6 +14,8 @@ import { Dropdown } from 'lib/Dropdown';
 import { PleaseWait } from 'lib/PleaseWait';
 import { useDarkMode } from 'lib/useDarkMode';
 
+import { Locale, useLocale } from 'intl/locale';
+
 import { location } from 'core/location';
 import { getRoutes } from 'core/routes';
 
@@ -50,6 +52,8 @@ export const Root: React.FC<RootProps> = (props) => {
     `,
     props.query,
   );
+
+  const { locale, setLocale } = useLocale();
 
   const [, toggleDarkMode] = useDarkMode();
 
@@ -120,6 +124,31 @@ export const Root: React.FC<RootProps> = (props) => {
                       </h6>
                       <div className="dropdown-divider"></div>
                       <div className="dropdown-content">
+                        <div className="form-row">
+                          <div className="col">
+                            <label htmlFor="language-select">
+                              <FormattedMessage id="LANGUAGE" />
+                            </label>
+                            <select
+                              id="language-select"
+                              className="form-control"
+                              value={locale}
+                              onChange={(e) => {
+                                const value = e.currentTarget.value as Locale | null;
+                                if (value) {
+                                  setLocale(value);
+                                }
+                              }}
+                            >
+                              <option value="en">
+                                <FormattedMessage id="ENGLISH" />
+                              </option>
+                              <option value="hr">
+                                <FormattedMessage id="CROATIAN" />
+                              </option>
+                            </select>
+                          </div>
+                        </div>
                         <Link to="/logout" className="btn btn-block btn-primary">
                           <i className="fa-solid fa-right-from-bracket"></i>
                           &nbsp;

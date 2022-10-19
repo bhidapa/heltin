@@ -1223,4 +1223,16 @@ export const messages: Messages = {
     en: 'Available forms',
     hr: 'Dostupne forme',
   },
+  LANGUAGE: {
+    en: 'Language',
+    hr: 'Jezik',
+  },
+  CROATIAN: {
+    en: 'Croatian',
+    hr: 'Hrvatski',
+  },
+  ENGLISH: {
+    en: 'English',
+    hr: 'Engleski',
+  },
 };
