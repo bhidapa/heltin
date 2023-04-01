@@ -18,10 +18,14 @@ COPY cmd/graphql/tsconfig.json .
 COPY cmd/graphql/src .
 RUN yarn build
 
-FROM node:18-alpine
+FROM node:18-bullseye-slim
 
-# necessary for healthchecks
-RUN apk --update --no-cache add curl
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt update && \
+  # curl for healthchecks
+  apt install -y dumb-init curl && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-stage /graphql/node_modules /opt/graphql/node_modules
 COPY --from=build-stage /graphql/build /opt/graphql/dist
@@ -29,5 +33,5 @@ COPY --from=build-stage /graphql/build /opt/graphql/dist
 # so that we can mount the schema file during development
 RUN touch /opt/graphql/dist/schema.graphql
 
-ENV GRAPHILE_TURBO=1
-ENTRYPOINT node /opt/graphql/dist
+USER node
+CMD ["dumb-init", "node", "/opt/graphql/dist"]
