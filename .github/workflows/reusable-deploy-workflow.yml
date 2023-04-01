@@ -62,4 +62,4 @@ jobs:
           APP_DOMAINS: ${{ secrets.APP_DOMAINS }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --wait
