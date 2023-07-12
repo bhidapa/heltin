@@ -7,7 +7,7 @@
 !/cmd/**
 !/pkg/**
 !/database/**
-!/web/**
+!/app/**
 
 # Ignore unnecessary files inside allowed directories
 **/*~

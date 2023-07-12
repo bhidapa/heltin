@@ -94,7 +94,7 @@ func main() {
 	if config.AppDir != "" {
 		routes.App(router, config.AppDir, "/", "index.html")
 	} else {
-		log.Warn("Web dir not specified, skipping SPA setup").Log()
+		log.Warn("App dir not specified, skipping SPA setup").Log()
 	}
 
 	var handler http.Handler = router

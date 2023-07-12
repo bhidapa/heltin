@@ -36,5 +36,5 @@
     - Postgres database at: **[postgres://localhost:54321/heltin](postgres://localhost:54321/heltin)**
     - GraphQL endpoint at: **[http://localhost:50000/graphql](http://localhost:50000/graphql)**<br>
       _Explore the schema using [GraphiQL](https://github.com/graphql/graphiql) at: [http://localhost:50000/graphiql](http://localhost:50000/graphiql)_
-    - Web application at: **[http://localhost:8080](http://localhost:8080)**<br>
+    - App at: **[http://localhost:8080](http://localhost:8080)**<br>
       _Use `john@doe.com:password` to login_

@@ -17,20 +17,20 @@ RUN set -eux; \
   GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
   go build -v -o /heltin-server
 
-# build web
-FROM node:18 as web
+# build app
+FROM node:18 as app
 
-WORKDIR /web
+WORKDIR /app
 
-COPY web/.yarn/releases ./.yarn/releases
-COPY web/.yarn/plugins ./.yarn/plugins
-COPY web/.yarnrc.yml .
+COPY app/.yarn/releases ./.yarn/releases
+COPY app/.yarn/plugins ./.yarn/plugins
+COPY app/.yarnrc.yml .
 
-COPY web/yarn.lock .
-COPY web/package.json .
+COPY app/yarn.lock .
+COPY app/package.json .
 RUN yarn install --immutable
 
-COPY web .
+COPY app .
 ARG VITE_APP_VER
 RUN VITE_APP_VER=$VITE_APP_VER yarn build
 
@@ -44,6 +44,6 @@ COPY --from=server /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=server /heltin-server /usr/local/bin/
 
 ENV APP_DIR=/srv/app
-COPY --from=web /web/build $APP_DIR
+COPY --from=app /app/build $APP_DIR
 
 ENTRYPOINT ["heltin-server"]
