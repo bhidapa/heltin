@@ -19,8 +19,7 @@ import { Locale, useLocale } from 'intl/locale';
 import { location } from 'core/location';
 import { getRoutes } from 'core/routes';
 
-import BHIDAPALogo from 'assets/BHIDAPA-logo-blue-90x90.png';
-
+import { Logo } from './Logo';
 import { RootRestoreScroll } from './RootRestoreScroll';
 import { RootSearch } from './RootSearch';
 import { RootQuery } from './__generated__/RootQuery.graphql';
@@ -97,7 +96,7 @@ export const Root: React.FC<RootProps> = (props) => {
               </div>
 
               <Link to="/" className="navbar-brand ml-10 ml-sm-20">
-                <img src={BHIDAPALogo} alt="BHIDAPA" />
+                <Logo style={{ height: 32 }} />
               </Link>
 
               <div className="navbar-content ml-auto">

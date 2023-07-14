@@ -15,7 +15,7 @@ import { errorToast } from 'lib/toasts';
 
 import { LocationGenerics } from 'core/location';
 
-import BHIDAPABanner from 'assets/BHIDAPA-banner-blue_800x400.jpg';
+import Banner from 'assets/banner_800x400.png';
 
 import { LoginPageMutation } from './__generated__/LoginPageMutation.graphql';
 
@@ -47,11 +47,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
   return (
     <div className="m-auto w-600 mw-full">
       <div className="card p-0">
-        <img
-          src={BHIDAPABanner}
-          alt="BHIDAPA heltin login banner"
-          className="img-fluid rounded-top"
-        />
+        <img src={Banner} alt="heltin banner" className="img-fluid rounded-top" />
 
         <div className="content">
           <h2 className="content-title mb-0">
