@@ -7,10 +7,10 @@ import clsx from 'clsx';
 import { FiGithub } from 'react-icons/fi';
 import {
   FaClipboardList,
-  FaFileMedical,
   FaHospitalUser,
-  FaShieldAlt,
-} from 'react-icons/fa';
+  FaUserDoctor,
+  FaUserNurse,
+} from 'react-icons/fa6';
 
 // screenshots
 import clientsDarkImage from 'public/screenshots/clients_dark.png';
@@ -71,15 +71,16 @@ export function Index() {
                 <Highlights
                   items={[
                     {
-                      icon: <FaHospitalUser size={30} />,
-                      title: 'Clients',
+                      icon: <FaUserDoctor size={28} />,
+                      title: 'Therapists',
                       description:
-                        'Store your clients with all the necessary details',
+                        'Add professional therapists, internal and/or external',
                     },
                     {
-                      icon: <FaFileMedical size={28} />,
-                      title: 'Case Studies',
-                      description: 'Create case studies for your clients',
+                      icon: <FaUserNurse size={28} />,
+                      title: 'Assistants',
+                      description:
+                        'Speed up or delegate client information management',
                     },
                     {
                       icon: <FaClipboardList size={28} />,
@@ -88,9 +89,10 @@ export function Index() {
                         'Design your own questioneers for next-gen analytics',
                     },
                     {
-                      icon: <FaShieldAlt size={28} />,
-                      title: 'Safety',
-                      description: 'High level of data protection and security',
+                      icon: <FaHospitalUser size={30} />,
+                      title: 'Clients',
+                      description:
+                        'Store your clients with all healthcare necessities',
                     },
                   ]}
                 />
