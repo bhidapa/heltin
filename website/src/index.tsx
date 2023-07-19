@@ -38,8 +38,7 @@ export function Index() {
             heltin
           </h1>
           <p className="max-w-screen-sm mx-auto mt-6 text-2xl text-gray-800 text-center dark:text-gray-400">
-            Robust client registry for individuals receiving mental healthcare
-            services
+            Robust client registry for mental healthcare services
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Anchor
