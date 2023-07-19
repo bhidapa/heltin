@@ -17,6 +17,7 @@
   },
   "include": [
     "src",
+    "next-env.d.ts",
     "next.config.mjs",
     "postcss.config.cjs",
     "tailwind.config.cjs",
