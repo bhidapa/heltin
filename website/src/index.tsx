@@ -169,13 +169,13 @@ function Feature({
         >
           <div
             className={clsx(
-              'flex flex-col w-full md:w-3/5 lg:w-2/5 flex-shrink-0',
+              'flex flex-col w-full md:w-2/5 lg:w-2/5 flex-shrink-0',
               !image && 'items-center',
             )}
           >
             <h2
               className={clsx(
-                'font-semibold text-5xl bg-clip-text text-transparent dark:text-transparent leading-normal',
+                'font-semibold text-5xl bg-clip-text text-transparent',
                 !image && 'text-center',
               )}
               style={{
