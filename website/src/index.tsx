@@ -68,9 +68,9 @@ export function Index() {
 
         <div className="flex p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
           <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded p-12 border dark:border-gray-800 border-gray-400">
-            <h2 className="text-2xl text-center text-blue-500">
+            <h3 className="text-2xl text-center text-blue-500">
               <b>Sign up for early access!</b>
-            </h2>
+            </h3>
             <br />
             <p className="text-center">
               If you wish to be an early adopter and help us with testing, or
@@ -247,6 +247,7 @@ function Section({
 
 function Feature({
   title,
+  titleHeading = 'h2',
   children,
   image,
   gradient,
@@ -263,6 +264,7 @@ function Feature({
     }>;
   }) => React.ReactNode;
   title: string;
+  titleHeading?: 'h2' | 'h3';
   highlights?: {
     title: string;
     description: React.ReactNode;
@@ -294,17 +296,24 @@ function Feature({
               !image && 'items-center',
             )}
           >
-            <h2
-              className={clsx(
-                'font-semibold text-5xl bg-clip-text text-transparent',
-                !image && 'text-center',
-              )}
-              style={{
-                backgroundImage: `linear-gradient(-70deg, ${end}, ${start})`,
-              }}
-            >
-              {title}
-            </h2>
+            {(() => {
+              const Comp = titleHeading;
+              return (
+                <Comp
+                  className={clsx(
+                    'font-semibold bg-clip-text text-transparent',
+                    titleHeading === 'h2' && 'text-5xl',
+                    titleHeading === 'h3' && 'text-4xl',
+                    !image && 'text-center',
+                  )}
+                  style={{
+                    backgroundImage: `linear-gradient(-70deg, ${end}, ${start})`,
+                  }}
+                >
+                  {title}
+                </Comp>
+              );
+            })()}
             <div className="text-lg text-gray-800 dark:text-gray-400">
               {children?.({
                 Highlights: ({ items }) => (
@@ -328,7 +337,7 @@ function Feature({
                             </div>
                           )}
                           <div className="text-black dark:text-white">
-                            <h3
+                            <h4
                               className={clsx(
                                 'text-xl font-semibold',
                                 !icon && 'text-lg',
@@ -337,7 +346,7 @@ function Feature({
                               )}
                             >
                               {title}
-                            </h3>
+                            </h4>
                             <p
                               className={clsx(
                                 'text-gray-800 dark:text-gray-400',
