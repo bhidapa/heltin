@@ -27,10 +27,10 @@ import assistantsDetailsLightImage from 'public/screenshots/assistants_details_l
 import { SignUpForm } from './SignUpForm';
 
 const gradients: [string, string][] = [
-  ['#8b5cf6', '#6d28d9'], // violet
-  ['#06b6d4', '#0e7490'], // cyan
   ['#f59e0b', '#d97706'], // amber
+  ['#8b5cf6', '#6d28d9'], // violet
   ['#ec4899', '#db2777'], // pink
+  ['#06b6d4', '#0e7490'], // cyan
 ];
 
 const classes = {
