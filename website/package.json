@@ -3,7 +3,7 @@
   "name": "website",
   "scripts": {
     "start": "next",
-    "build": "next build && next export -o dist",
+    "build": "next build",
     "check:type": "tsc --noEmit"
   },
   "dependencies": {
