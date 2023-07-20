@@ -1,41 +1,20 @@
 import { useState } from 'react';
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { FaCheck, FaPaperPlane } from 'react-icons/fa6';
-
-async function sendForm(name: string, email: string, note: string = '') {
-  await fetch('https://utils.the-guild.dev/api/heltin/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      name,
-      email,
-      note,
-    }),
-  });
-}
+import {
+  FaCheck,
+  FaPaperPlane,
+  FaRepeat,
+  FaTriangleExclamation,
+} from 'react-icons/fa6';
 
 export function SignUpForm() {
-  const [formState, setFormState] = useState<
-    'idle' | 'pending' | 'success' | Error
-  >('idle');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [note, setNotes] = useState('');
+  const [state, setState] = useState<
+    | null
+    | 'pending'
+    | { name: string; email: string } // success
+    | Error
+  >(null);
 
-  if (formState instanceof Error) {
-    return (
-      <div className="w-full text-center flex flex-col items-center">
-        <FaExclamationTriangle className="text-yellow-500" size={36} />
-        <p>Oops, something went wrong!</p>
-        <br />
-        <pre>{formState.message}</pre>
-      </div>
-    );
-  }
-
-  if (formState === 'pending') {
+  if (state === 'pending') {
     return (
       <div className="w-full text-center flex flex-col items-center text-gray-400 dark:text-gray-600">
         <FaPaperPlane size={36} />
@@ -44,14 +23,35 @@ export function SignUpForm() {
     );
   }
 
-  if (formState === 'success') {
+  if (state instanceof Error) {
+    return (
+      <div className="w-full text-center flex flex-col items-center">
+        <FaTriangleExclamation className="text-yellow-500" size={36} />
+        <p>Oops, something went wrong!</p>
+        <br />
+        <pre>{state.message}</pre>
+        <br />
+        <button
+          type="button"
+          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded px-5 py-2.5 !bg-gray-400 hover:!bg-gray-500 gap-2"
+          onClick={() => setState(null)}
+        >
+          <FaRepeat className="inline" />
+          <span>Try Again</span>
+        </button>
+      </div>
+    );
+  }
+
+  if (state) {
     return (
       <div className="w-full text-center flex flex-col items-center">
         <FaCheck className="text-blue-700 dark:text-blue-500" size={36} />
         <p>
-          Thank you, <strong>{name}</strong>!
+          Thank you, <strong>{state.name}</strong>!
           <br />
-          We'll get back to you on <strong>{email}</strong> as soon as possible.
+          We'll get back to you on <strong>{state.email}</strong> as soon as
+          possible.
         </p>
       </div>
     );
@@ -63,10 +63,21 @@ export function SignUpForm() {
       onSubmit={(e) => {
         e.preventDefault();
 
-        setFormState('pending');
-        sendForm(name, email, note)
-          .then(() => setFormState('success'))
-          .catch(setFormState);
+        const data = new FormData(e.target as HTMLFormElement);
+        const values = {
+          name: data.get('name').toString(),
+          email: data.get('email').toString(),
+          note: data.get('note').toString(),
+        };
+
+        setState('pending');
+        fetch('https://utils.the-guild.dev/api/heltin/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        })
+          .then(() => setState(values))
+          .catch(setState);
       }}
     >
       <div className="flex flex-row gap-4">
@@ -79,11 +90,10 @@ export function SignUpForm() {
           </label>
           <input
             id="SignUpForm_name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
             type="text"
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            name="name"
             required
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
         <div className="flex-1">
@@ -95,22 +105,20 @@ export function SignUpForm() {
           </label>
           <input
             id="SignUpForm_email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             type="email"
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            name="email"
             required
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
       </div>
       <div>
         <textarea
           id="SignUpForm_note"
-          value={note}
-          onChange={(e) => setNotes(e.target.value)}
+          name="note"
+          required
           placeholder="Write down your use-case and expectations..."
           className="min-h-[120px] bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          required
         />
       </div>
       <div className="flex justify-end">
