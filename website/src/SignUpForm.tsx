@@ -47,7 +47,7 @@ export function SignUpForm() {
   if (formState === 'success') {
     return (
       <div className="w-full text-center flex flex-col items-center">
-        <FaCheck className="text-teal-700 dark:text-teal-500" size={36} />
+        <FaCheck className="text-blue-700 dark:text-blue-500" size={36} />
         <p>
           Thank you, <strong>{name}</strong>!
           <br />
@@ -116,7 +116,7 @@ export function SignUpForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded px-5 py-2.5 !bg-teal-700 hover:!bg-teal-800 dark:hover:!bg-teal-600 gap-2"
+          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded px-5 py-2.5 !bg-blue-500 hover:!bg-blue-600 dark:hover:!bg-blue-400 gap-2"
         >
           <FaPaperPlane className="inline" />
           <span>Submit</span>

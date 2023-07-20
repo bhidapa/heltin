@@ -43,11 +43,11 @@ export function Index() {
   return (
     <>
       <Section className="overflow-hidden">
-        <div className="text-white dark:text-white py-2 bg-teal-500 dark:bg-teal-700 origin-top float-right -mt-6 mr-6 w-72 text-center translate-x-1/3 rotate-45">
+        <div className="text-white dark:text-white py-2 bg-blue-500 origin-top float-right -mt-6 mr-6 w-72 text-center translate-x-1/3 rotate-45">
           Coming soon!
         </div>
         <div className="container py-20 sm:py-24 lg:py-32">
-          <h1 className="max-w-screen-md mx-auto font-extrabold text-5xl sm:text-5xl lg:text-6xl text-center bg-gradient-to-r from-green-700 to-cyan-400 dark:from-green-700 dark:to-cyan-400 bg-clip-text text-transparent !leading-tight">
+          <h1 className="max-w-screen-md mx-auto font-extrabold text-5xl sm:text-5xl lg:text-6xl text-center bg-gradient-to-r from-blue-700 to-cyan-400 dark:from-blue-700 dark:to-cyan-400 bg-clip-text text-transparent !leading-tight">
             heltin
           </h1>
           <p className="max-w-screen-sm mx-auto mt-6 text-2xl text-gray-800 text-center dark:text-gray-400">
@@ -68,7 +68,7 @@ export function Index() {
 
         <div className="flex p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
           <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded p-12 border dark:border-gray-800 border-gray-400">
-            <h2 className="text-2xl text-center dark:text-teal-500 text-teal-700">
+            <h2 className="text-2xl text-center text-blue-500">
               <b>Sign up for early access!</b>
             </h2>
             <br />
