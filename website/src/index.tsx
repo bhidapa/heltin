@@ -8,9 +8,12 @@ import { SignUpForm } from './SignUpForm';
 import { FiGithub } from 'react-icons/fi';
 import {
   FaClipboardList,
+  FaClockRotateLeft,
   FaEye,
+  FaFileMedical,
   FaHospitalUser,
   FaLanguage,
+  FaLockOpen,
   FaNoteSticky,
   FaSquarePen,
   FaUserDoctor,
@@ -26,6 +29,8 @@ import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_da
 import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
+import clientsDetailsAssignedTherapistsDarkImage from 'public/screenshots/clients_details_assigned_therapists_dark.png';
+import clientsDetailsAssignedTherapistsLightImage from 'public/screenshots/clients_details_assigned_therapists_light.png';
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
@@ -115,6 +120,7 @@ export function Index() {
                         'Speed up or delegate client information management',
                     },
                     {
+                      link: '#clients',
                       icon: <FaHospitalUser size={30} />,
                       title: 'Clients',
                       description:
@@ -221,6 +227,89 @@ export function Index() {
             </div>
           )}
         </Feature>
+      </Section>
+
+      <Section id="clients">
+        <div className="flex flex-col gap-12">
+          <Feature gradient={3} title="Clients">
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p className="text-center">
+                  control, manage and store all your healthcare clients
+                </p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        icon: <FaLockOpen size={28} />,
+                        title: 'Access Control',
+                        description:
+                          'Read and edit rights are explicitly controlled and built into the system',
+                      },
+                      {
+                        icon: <FaEye size={28} />,
+                        title: 'Discrete Clients',
+                        description:
+                          'Visible exclusively to assigned therapists, no one else',
+                      },
+                      {
+                        icon: <FaFileMedical size={28} />,
+                        title: 'Case Study',
+                        description:
+                          'Each client has one or more case studies that contain treatmens, forms and conclusions',
+                      },
+                      {
+                        icon: <FaClockRotateLeft size={28} />,
+                        title: 'History',
+                        description:
+                          "Easy overview of client's history and case studies",
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+
+          <Feature
+            flipped
+            gradient={3}
+            title="Access Control"
+            titleHeading="h3"
+            image={{
+              light: clientsDetailsAssignedTherapistsLightImage,
+              dark: clientsDetailsAssignedTherapistsDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>
+                  clear and exacty access rights built in right into the system
+                </p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        title: 'Administrators',
+                        description: 'Have full access to the whole registry',
+                      },
+                      {
+                        title: 'Therapists',
+                        description:
+                          "Can only view and manage details of clients to whom they're assigned",
+                      },
+                      {
+                        title: 'Assistants',
+                        description:
+                          'Can view and manage details of all clients which are not marked as descrete',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+        </div>
       </Section>
     </>
   );
