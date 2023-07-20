@@ -10,6 +10,7 @@ import {
   FaClipboardList,
   FaEye,
   FaHospitalUser,
+  FaLanguage,
   FaNoteSticky,
   FaSquarePen,
   FaUserDoctor,
@@ -124,6 +125,12 @@ export function Index() {
                       title: 'Custom Forms',
                       description:
                         'Design your own questioneers for next-gen analytics',
+                    },
+                    {
+                      icon: <FaLanguage size={28} />,
+                      title: 'Internationalization',
+                      description:
+                        'Possibility of translating and adapting to your language',
                     },
                   ]}
                 />
