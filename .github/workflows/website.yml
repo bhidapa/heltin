@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: current
           cache: yarn
+          cache-dependency-path: website/yarn.lock # TODO: drop once monorepo
       - name: Install
         working-directory: website # TODO: drop once monorepo
         run: yarn install
