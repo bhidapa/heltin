@@ -355,7 +355,7 @@ function Feature({
               })}
             </div>
           </div>
-          {'light' in image ? (
+          {image instanceof Object && 'light' in image ? (
             <div className="flex flex-col justify-center">
               <Image
                 src={image.light}
