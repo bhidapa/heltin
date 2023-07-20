@@ -32,7 +32,7 @@ const classes = {
 export function Index() {
   return (
     <>
-      <Wrapper>
+      <Section>
         <div className="container py-20 sm:py-24 lg:py-32">
           <h1 className="max-w-screen-md mx-auto font-extrabold text-5xl sm:text-5xl lg:text-6xl text-center bg-gradient-to-r from-green-700 to-cyan-400 dark:from-green-700 dark:to-cyan-400 bg-clip-text text-transparent !leading-tight">
             heltin
@@ -52,9 +52,9 @@ export function Index() {
             </Anchor>
           </div>
         </div>
-      </Wrapper>
+      </Section>
 
-      <Wrapper>
+      <Section>
         <Feature
           gradient={0}
           title="The Registry"
@@ -99,18 +99,18 @@ export function Index() {
             </div>
           )}
         </Feature>
-      </Wrapper>
+      </Section>
     </>
   );
 }
 
-function Wrapper({
+function Section({
   children,
 }: {
   children: React.ReactNode;
 }): React.ReactElement {
   return (
-    <div
+    <section
       className={`
         w-full py-24
         odd:bg-gray-50
@@ -120,7 +120,7 @@ function Wrapper({
       `}
     >
       {children}
-    </div>
+    </section>
   );
 }
 
