@@ -63,7 +63,7 @@ export function SignUpForm() {
       onSubmit={(e) => {
         e.preventDefault();
 
-        const data = new FormData(e.target as HTMLFormElement);
+        const data = new FormData(e.currentTarget);
         const values = {
           name: data.get('name').toString(),
           email: data.get('email').toString(),
