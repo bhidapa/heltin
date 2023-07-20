@@ -2,6 +2,7 @@ import React from 'react';
 import { StaticImageData } from 'next/image';
 import { Anchor, Image } from '@theguild/components';
 import clsx from 'clsx';
+import { SignUpForm } from './SignUpForm';
 
 // icons
 import { FiGithub } from 'react-icons/fi';
@@ -24,7 +25,6 @@ import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_da
 import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
-import { SignUpForm } from './SignUpForm';
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
