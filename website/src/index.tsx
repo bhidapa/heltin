@@ -9,8 +9,10 @@ import {
   FaClipboardList,
   FaEye,
   FaHospitalUser,
+  FaNoteSticky,
   FaSquarePen,
   FaUserDoctor,
+  FaUserLock,
   FaUserNurse,
 } from 'react-icons/fa6';
 import { FaUserFriends } from 'react-icons/fa';
@@ -20,6 +22,8 @@ import clientsDarkImage from 'public/screenshots/clients_dark.png';
 import clientsLightImage from 'public/screenshots/clients_light.png';
 import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_dark.png';
 import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
+import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
+import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
 
 const gradients: [string, string][] = [
   ['#8b5cf6', '#6d28d9'], // violet
@@ -82,6 +86,7 @@ export function Index() {
                         'Add professional therapists, internal and/or external',
                     },
                     {
+                      link: '#assistants',
                       icon: <FaUserNurse size={28} />,
                       title: 'Assistants',
                       description:
@@ -140,6 +145,47 @@ export function Index() {
                       title: 'Custom Types',
                       description:
                         "There's many types of mental healthcare professionals",
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          )}
+        </Feature>
+      </Section>
+
+      <Section id="assistants">
+        <Feature
+          gradient={2}
+          title="Assistants"
+          image={{
+            light: assistantsDetailsLightImage,
+            dark: assistantsDetailsDarkImage,
+          }}
+        >
+          {({ Highlights }) => (
+            <div className="flex flex-col gap-y-12">
+              <p>get help with client information management</p>
+              <div className="flex flex-col gap-y-6">
+                <Highlights
+                  items={[
+                    {
+                      icon: <FaUserLock size={28} />,
+                      title: 'Restricted View',
+                      description:
+                        'Only basic client information can be accessed',
+                    },
+                    {
+                      icon: <FaUserDoctor size={28} />,
+                      title: 'Assign Therapists',
+                      description:
+                        'Assistans can assign responsible therapists on request',
+                    },
+                    {
+                      icon: <FaNoteSticky size={28} />,
+                      title: 'Notes',
+                      description:
+                        'Write notes to convey general information or requests',
                     },
                   ]}
                 />
