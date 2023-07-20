@@ -41,7 +41,10 @@ const classes = {
 export function Index() {
   return (
     <>
-      <Section>
+      <Section className="overflow-hidden">
+        <div className="text-white dark:text-white py-2 bg-teal-500 dark:bg-teal-700 origin-top float-right -mt-6 mr-6 w-72 text-center translate-x-1/3 rotate-45">
+          Coming soon!
+        </div>
         <div className="container py-20 sm:py-24 lg:py-32">
           <h1 className="max-w-screen-md mx-auto font-extrabold text-5xl sm:text-5xl lg:text-6xl text-center bg-gradient-to-r from-green-700 to-cyan-400 dark:from-green-700 dark:to-cyan-400 bg-clip-text text-transparent !leading-tight">
             heltin
@@ -201,9 +204,11 @@ export function Index() {
 function Section({
   children,
   id,
+  className,
 }: {
   children: React.ReactNode;
   id?: string;
+  className?: string;
 }): React.ReactElement {
   return (
     <section
@@ -214,6 +219,7 @@ function Section({
         odd:dark:bg-gray-900
         even:bg-white
         even:dark:bg-black
+        ${className}
       `}
     >
       {children}
