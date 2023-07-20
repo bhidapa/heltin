@@ -24,6 +24,7 @@ import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_da
 import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
+import { SignUpForm } from './SignUpForm';
 
 const gradients: [string, string][] = [
   ['#8b5cf6', '#6d28d9'], // violet
@@ -62,6 +63,23 @@ export function Index() {
             >
               <FiGithub /> GitHub
             </Anchor>
+          </div>
+        </div>
+
+        <div className="flex p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
+          <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded p-12 border dark:border-gray-800 border-gray-400">
+            <h2 className="text-2xl text-center dark:text-teal-500 text-teal-700">
+              <b>Sign up for early access!</b>
+            </h2>
+            <br />
+            <p className="text-center">
+              If you wish to be an early adopter and help us with testing, or
+              simply want to be notified when heltin is available, please sign
+              up below.
+            </p>
+            <br />
+            <br />
+            <SignUpForm />
           </div>
         </div>
       </Section>
