@@ -73,7 +73,7 @@ export function Index() {
         </div>
 
         <div className="flex p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
-          <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded p-12 border dark:border-gray-800 border-gray-400">
+          <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded-lg p-12 border dark:border-gray-800 border-gray-400">
             <h3 className="text-2xl text-center text-blue-500">
               <b>Sign Up for Early Access!</b>
             </h3>
@@ -462,13 +462,13 @@ function Feature({
             <div className="flex flex-col justify-center">
               <Image
                 src={image.light}
-                className="dark:hidden rounded border border-gray-400"
+                className="dark:hidden rounded-lg border border-gray-400"
                 placeholder="empty"
                 alt={title}
               />
               <Image
                 src={image.dark}
-                className="hidden dark:block rounded border border-gray-800"
+                className="hidden dark:block rounded-lg border border-gray-800"
                 placeholder="empty"
                 alt={title}
               />

@@ -33,7 +33,7 @@ export function SignUpForm() {
         <br />
         <button
           type="button"
-          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded px-5 py-2.5 !bg-gray-400 hover:!bg-gray-500 gap-2"
+          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded-lg px-5 py-2.5 !bg-gray-400 hover:!bg-gray-500 gap-2"
           onClick={() => setState(null)}
         >
           <FaRepeat className="inline" />
@@ -93,7 +93,7 @@ export function SignUpForm() {
             type="text"
             name="name"
             required
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
         <div className="flex-1">
@@ -108,7 +108,7 @@ export function SignUpForm() {
             type="email"
             name="email"
             required
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
       </div>
@@ -118,13 +118,13 @@ export function SignUpForm() {
           name="note"
           required
           placeholder="Write down your use-case and expectations..."
-          className="min-h-[120px] bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+          className="min-h-[120px] bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
         />
       </div>
       <div className="flex justify-end">
         <button
           type="submit"
-          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded px-5 py-2.5 !bg-blue-500 hover:!bg-blue-600 dark:hover:!bg-blue-400 gap-2"
+          className="flex items-center justify-center w-full sm:w-auto text-white font-medium rounded-lg px-5 py-2.5 !bg-blue-500 hover:!bg-blue-600 dark:hover:!bg-blue-400 gap-2"
         >
           <FaPaperPlane className="inline" />
           <span>Submit</span>
