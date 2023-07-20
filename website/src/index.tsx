@@ -7,14 +7,19 @@ import clsx from 'clsx';
 import { FiGithub } from 'react-icons/fi';
 import {
   FaClipboardList,
+  FaEye,
   FaHospitalUser,
+  FaSquarePen,
   FaUserDoctor,
   FaUserNurse,
 } from 'react-icons/fa6';
+import { FaUserFriends } from 'react-icons/fa';
 
 // screenshots
 import clientsDarkImage from 'public/screenshots/clients_dark.png';
 import clientsLightImage from 'public/screenshots/clients_light.png';
+import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_dark.png';
+import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
 
 const gradients: [string, string][] = [
   ['#8b5cf6', '#6d28d9'], // violet
@@ -70,6 +75,7 @@ export function Index() {
                 <Highlights
                   items={[
                     {
+                      link: '#therapists',
                       icon: <FaUserDoctor size={28} />,
                       title: 'Therapists',
                       description:
@@ -82,16 +88,58 @@ export function Index() {
                         'Speed up or delegate client information management',
                     },
                     {
+                      icon: <FaHospitalUser size={30} />,
+                      title: 'Clients',
+                      description:
+                        'Store your clients with all healthcare necessities',
+                    },
+                    {
                       icon: <FaClipboardList size={28} />,
                       title: 'Custom Forms',
                       description:
                         'Design your own questioneers for next-gen analytics',
                     },
+                  ]}
+                />
+              </div>
+            </div>
+          )}
+        </Feature>
+      </Section>
+
+      <Section id="therapists">
+        <Feature
+          flipped
+          gradient={1}
+          title="Therapists"
+          image={{
+            light: therapistsDetailsLightImage,
+            dark: therapistsDetailsDarkImage,
+          }}
+        >
+          {({ Highlights }) => (
+            <div className="flex flex-col gap-y-12">
+              <p>manage all professionals in one place</p>
+              <div className="flex flex-col gap-y-6">
+                <Highlights
+                  items={[
                     {
-                      icon: <FaHospitalUser size={30} />,
-                      title: 'Clients',
+                      icon: <FaUserFriends size={28} />,
+                      title: 'Internal and External',
                       description:
-                        'Store your clients with all healthcare necessities',
+                        'The therapist can be a heltin user or not (external)',
+                    },
+                    {
+                      icon: <FaEye size={28} />,
+                      title: 'Visibility',
+                      description:
+                        'Therapists can be archived and not shown in heltin',
+                    },
+                    {
+                      icon: <FaSquarePen size={28} />,
+                      title: 'Custom Types',
+                      description:
+                        "There's many types of mental healthcare professionals",
                     },
                   ]}
                 />
@@ -106,11 +154,14 @@ export function Index() {
 
 function Section({
   children,
+  id,
 }: {
   children: React.ReactNode;
+  id?: string;
 }): React.ReactElement {
   return (
     <section
+      id={id}
       className={`
         w-full py-24
         odd:bg-gray-50
