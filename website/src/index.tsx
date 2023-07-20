@@ -347,7 +347,6 @@ function Feature({
                             <h4
                               className={clsx(
                                 'text-xl font-semibold',
-                                !icon && 'text-lg',
                                 'text-[--text-color]',
                                 'dark:text-[--dark-text-color]',
                               )}
@@ -357,7 +356,6 @@ function Feature({
                             <p
                               className={clsx(
                                 'text-gray-800 dark:text-gray-400',
-                                !icon && 'text-sm',
                               )}
                             >
                               {description}
