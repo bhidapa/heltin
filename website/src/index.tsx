@@ -108,17 +108,12 @@ export function Index() {
       </Section>
 
       <Section>
-        <Feature
-          gradient={0}
-          title="The Registry"
-          image={{
-            light: clientsLightImage,
-            dark: clientsDarkImage,
-          }}
-        >
+        <Feature gradient={0} title="The Registry">
           {({ Highlights }) => (
             <div className="flex flex-col gap-y-12">
-              <p>the only client registry you'll ever need</p>
+              <p className="text-center">
+                the only client registry you'll ever need
+              </p>
               <div className="flex flex-col gap-y-6">
                 <Highlights
                   items={[
@@ -159,6 +154,19 @@ export function Index() {
                   ]}
                 />
               </div>
+
+              <Image
+                src={clientsLightImage}
+                className="dark:hidden rounded-lg border border-gray-400"
+                placeholder="empty"
+                alt="The Registry"
+              />
+              <Image
+                src={clientsDarkImage}
+                className="hidden dark:block rounded-lg border border-gray-800"
+                placeholder="empty"
+                alt="The Registry"
+              />
             </div>
           )}
         </Feature>
