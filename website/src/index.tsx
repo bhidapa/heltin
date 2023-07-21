@@ -9,13 +9,16 @@ import { FiGithub } from 'react-icons/fi';
 import {
   FaArrowsLeftRightToLine,
   FaBookMedical,
+  FaBookOpen,
   FaClipboardList,
   FaClockRotateLeft,
+  FaCloud,
   FaDatabase,
   FaEye,
   FaFileMedical,
   FaFilePen,
   FaHandHoldingMedical,
+  FaHandshake,
   FaHospitalUser,
   FaIdCard,
   FaLanguage,
@@ -24,6 +27,7 @@ import {
   FaMobileScreen,
   FaNetworkWired,
   FaNoteSticky,
+  FaServer,
   FaShieldVirus,
   FaSquarePen,
   FaTabletScreenButton,
@@ -70,6 +74,7 @@ const gradients: [string, string][] = [
   ['#d946ef', '#a21caf'], // fuschia
   ['#3b82f6', '#1d4ed8'], // blue
   ['#84cc16', '#4d7c0f'], // lime
+  ['#64748b', '#334155'], // slate
 ];
 
 const classes = {
@@ -133,6 +138,12 @@ export function Index() {
               <div className="flex flex-col gap-y-6">
                 <Highlights
                   items={[
+                    {
+                      icon: <FaHandshake size={28} />,
+                      title: 'Built with Professionals',
+                      description:
+                        'Developed together with world-renowned mental healthcare professionals',
+                    },
                     {
                       link: '#therapists',
                       icon: <FaUserDoctor size={28} />,
@@ -752,6 +763,106 @@ export function Index() {
             </div>
           )}
         </Feature>
+      </Section>
+
+      <Section>
+        {/* gradient={7} title="Self-Hosted or Managed" */}
+        {(() => {
+          const [start, end] = pickGradient(7);
+          return (
+            <div
+              className="container box-border px-6 mx-auto flex gap-24 flex-wrap md:flex-nowrap"
+              style={{
+                '--text-color': end,
+                '--dark-text-color': start,
+              }}
+            >
+              <div>
+                <h2
+                  className="font-semibold bg-clip-text text-transparent text-5xl"
+                  style={{
+                    backgroundImage: `linear-gradient(-70deg, var(--text-color), var(--dark-text-color))`,
+                  }}
+                >
+                  Self-Hosted or Managed
+                </h2>
+                <p>
+                  <b>heltin is completely open-source (MPL-2.0)</b>. Run it
+                  within your own infrastructure, or use our managed service for
+                  increased security and availablity anywhere on earth.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-y-6">
+                <div className="flex flex-row md:flex-col lg:flex-row flex-1 gap-4">
+                  <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+                    <FaBookOpen size={28} />
+                  </div>
+                  <a
+                    className="text-black dark:text-white"
+                    href="https://github.com/bhidapa/heltin"
+                  >
+                    <h4
+                      className={clsx(
+                        'text-xl font-semibold',
+                        'text-[--text-color]',
+                        'dark:text-[--dark-text-color]',
+                      )}
+                    >
+                      Open Source
+                    </h4>
+                    <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                      Built entirely in public and available to everyone. Audit
+                      it or create your own open source solution based on heltin
+                    </p>
+                  </a>
+                </div>
+
+                <div className="flex flex-row md:flex-col lg:flex-row flex-1 gap-4">
+                  <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+                    <FaServer size={28} />
+                  </div>
+                  <div className="text-black dark:text-white">
+                    <h4
+                      className={clsx(
+                        'text-xl font-semibold',
+                        'text-[--text-color]',
+                        'dark:text-[--dark-text-color]',
+                      )}
+                    >
+                      Self-Hosted
+                    </h4>
+                    <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                      heltin can run on-premises, on your own infrastructure, or
+                      in any Cloud service
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-row md:flex-col lg:flex-row flex-1 gap-4">
+                  <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+                    <FaCloud size={28} />
+                  </div>
+                  <div className="text-black dark:text-white">
+                    <h4
+                      className={clsx(
+                        'text-xl font-semibold',
+                        'text-[--text-color]',
+                        'dark:text-[--dark-text-color]',
+                      )}
+                    >
+                      Managed
+                    </h4>
+                    <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                      Let us take care of the whole infrastructure with
+                      automatic updates and availability guarantees
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </Section>
     </>
   );
