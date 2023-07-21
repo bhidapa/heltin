@@ -144,6 +144,7 @@ export function Index() {
                         'Store your clients with all healthcare necessities',
                     },
                     {
+                      link: '#forms',
                       icon: <FaClipboardList size={28} />,
                       title: 'Custom Forms',
                       description:
@@ -468,6 +469,7 @@ export function Index() {
           <Feature
             flipped
             gradient={4}
+            id="forms"
             title="Forms"
             titleHeading="h3"
             image={{
@@ -579,6 +581,7 @@ function Section({
 }
 
 function Feature({
+  id,
   title,
   titleHeading = 'h2',
   children,
@@ -596,6 +599,7 @@ function Feature({
       }[];
     }>;
   }) => React.ReactNode;
+  id?: string;
   title: string;
   titleHeading?: 'h2' | 'h3';
   highlights?: {
@@ -616,7 +620,10 @@ function Feature({
 
   return (
     <>
-      <div className="container box-border px-6 mx-auto flex flex-col gap-y-24">
+      <div
+        id={id}
+        className="container box-border px-6 mx-auto flex flex-col gap-y-24"
+      >
         <div
           className={clsx(
             'flex flex-col gap-24 md:gap-12 lg:gap-24 justify-center items-stretch',
