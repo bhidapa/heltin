@@ -805,11 +805,6 @@ function Feature({
   id?: string;
   title: string;
   titleHeading?: 'h2' | 'h3';
-  highlights?: {
-    title: string;
-    description: React.ReactNode;
-    icon?: React.ReactNode;
-  }[];
   image?:
     | React.ReactElement
     | {
