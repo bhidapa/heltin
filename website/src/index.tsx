@@ -296,12 +296,12 @@ export function Index() {
                       {
                         title: 'Therapists',
                         description:
-                          "Can only view and manage details of clients to whom they're assigned",
+                          "Can only view and manage basic information of clients to whom they're assigned",
                       },
                       {
                         title: 'Assistants',
                         description:
-                          'Can view and manage details of all clients which are not marked as descrete',
+                          'Can view and manage basic information of all clients which are not marked as descrete',
                       },
                     ]}
                   />
