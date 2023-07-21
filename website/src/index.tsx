@@ -7,19 +7,24 @@ import { SignUpForm } from './SignUpForm';
 // icons
 import { FiGithub } from 'react-icons/fi';
 import {
+  FaArrowsLeftRightToLine,
   FaBookMedical,
   FaClipboardList,
   FaClockRotateLeft,
+  FaDatabase,
   FaEye,
   FaFileMedical,
   FaFilePen,
   FaHandHoldingMedical,
   FaHospitalUser,
+  FaIdCard,
   FaLanguage,
   FaLock,
   FaLockOpen,
   FaMobileScreen,
+  FaNetworkWired,
   FaNoteSticky,
+  FaShieldVirus,
   FaSquarePen,
   FaTabletScreenButton,
   FaUniversalAccess,
@@ -63,6 +68,8 @@ const gradients: [string, string][] = [
   ['#ec4899', '#db2777'], // pink
   ['#06b6d4', '#0e7490'], // cyan
   ['#d946ef', '#a21caf'], // fuschia
+  ['#3b82f6', '#1d4ed8'], // blue
+  ['#84cc16', '#4d7c0f'], // lime
 ];
 
 const classes = {
@@ -699,6 +706,52 @@ export function Index() {
             />
           </div>
         </div>
+      </Section>
+
+      <Section>
+        <Feature gradient={6} title="Very Secure">
+          {({ Highlights }) => (
+            <div className="flex flex-col gap-y-12">
+              <p className="text-center">sleep with peace in mind</p>
+              <div className="flex flex-col gap-y-6">
+                <Highlights
+                  items={[
+                    {
+                      icon: <FaArrowsLeftRightToLine size={28} />,
+                      title: 'Transit Encryption',
+                      description:
+                        'All data in transit have a world standard encryption',
+                    },
+                    {
+                      icon: <FaIdCard size={28} />,
+                      title: 'Sessions',
+                      description:
+                        "Users know exactly where they're logged in from",
+                    },
+                    {
+                      icon: <FaDatabase size={28} />,
+                      title: 'Database Backups',
+                      description:
+                        'With Point-in-Time Recovery storing data at any given time',
+                    },
+                    {
+                      icon: <FaNetworkWired size={28} />,
+                      title: 'Secure Networks',
+                      description:
+                        'Every service powering heltin is in a secure network and only the essentials communicate with the world',
+                    },
+                    {
+                      icon: <FaShieldVirus size={28} />,
+                      title: 'Built-in Firewalls',
+                      description:
+                        'Protecting you from all kinds of malicious attacks',
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          )}
+        </Feature>
       </Section>
     </>
   );
