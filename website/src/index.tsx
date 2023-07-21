@@ -149,7 +149,7 @@ export function Index() {
                       icon: <FaUserDoctor size={28} />,
                       title: 'Therapists',
                       description:
-                        'Add professional therapists, internal and/or external',
+                        'Store your professional therapists, internal and/or external',
                     },
                     {
                       link: '#assistants',
@@ -274,7 +274,7 @@ export function Index() {
                       icon: <FaNoteSticky size={28} />,
                       title: 'Notes',
                       description:
-                        'Write notes to convey general information or requests',
+                        'Can add notes to convey general information or requests',
                     },
                   ]}
                 />
