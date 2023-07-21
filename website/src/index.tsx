@@ -10,6 +10,7 @@ import {
   FaArrowsLeftRightToLine,
   FaBookMedical,
   FaBookOpen,
+  FaChartPie,
   FaClipboardList,
   FaClockRotateLeft,
   FaCloud,
@@ -17,6 +18,8 @@ import {
   FaEye,
   FaFileMedical,
   FaFilePen,
+  FaFilter,
+  FaGauge,
   FaHandHoldingMedical,
   FaHandshake,
   FaHospitalUser,
@@ -24,6 +27,7 @@ import {
   FaLanguage,
   FaLock,
   FaLockOpen,
+  FaMagnifyingGlassChart,
   FaMobileScreen,
   FaNetworkWired,
   FaNoteSticky,
@@ -68,6 +72,7 @@ import mobileClientsLightImage from 'public/screenshots/mobile_clients_light.png
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
+  ['#0ea5e9', '#0369a1'], // sky
   ['#8b5cf6', '#6d28d9'], // violet
   ['#ec4899', '#db2777'], // pink
   ['#06b6d4', '#0e7490'], // cyan
@@ -201,9 +206,48 @@ export function Index() {
         </div>
       </Section>
 
+      <Section id="analytics">
+        <Feature gradient={1} title="Analytics">
+          {({ Highlights }) => (
+            <div className="flex flex-col gap-y-12">
+              <p className="text-center">next-gen analytics and overview</p>
+              <div className="flex flex-col gap-y-6">
+                <Highlights
+                  items={[
+                    {
+                      icon: <FaGauge size={28} />,
+                      title: 'Dashboard',
+                      description: 'Quick and swift overview of your heltin',
+                    },
+                    {
+                      icon: <FaChartPie size={28} />,
+                      title: 'Graphicons',
+                      description:
+                        'Beautiful graphs with meaningful information',
+                    },
+                    {
+                      icon: <FaMagnifyingGlassChart size={28} />,
+                      title: 'Statistics',
+                      description:
+                        'Important statistics are at the grasp of your hand',
+                    },
+                    {
+                      icon: <FaFilter size={28} />,
+                      title: 'Customise',
+                      description:
+                        'View whats relevant to you, aggregate important information through forms',
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          )}
+        </Feature>
+      </Section>
+
       <Section id="therapists">
         <Feature
-          gradient={1}
+          gradient={2}
           title="Therapists"
           image={{
             light: therapistsDetailsLightImage,
@@ -245,7 +289,7 @@ export function Index() {
       <Section id="assistants">
         <Feature
           flipped
-          gradient={2}
+          gradient={3}
           title="Assistants"
           image={{
             light: assistantsDetailsLightImage,
@@ -287,7 +331,7 @@ export function Index() {
       <Section id="clients">
         <div className="flex flex-col gap-12">
           <Feature
-            gradient={3}
+            gradient={4}
             title="Clients"
             image={{
               light: clientsDetailsLightImage,
@@ -334,7 +378,7 @@ export function Index() {
 
           <Feature
             flipped
-            gradient={3}
+            gradient={4}
             title="Access Control"
             titleHeading="h3"
             image={{
@@ -381,7 +425,7 @@ export function Index() {
       <Section id="case-studies">
         <div className="flex flex-col gap-12">
           <Feature
-            gradient={4}
+            gradient={5}
             title="Case Studies"
             image={{
               light: caseStudiesDetailsLightImage,
@@ -426,7 +470,7 @@ export function Index() {
 
           <Feature
             flipped
-            gradient={4}
+            gradient={5}
             title="Access Control"
             titleHeading="h3"
             image={{
@@ -463,7 +507,7 @@ export function Index() {
           </Feature>
 
           <Feature
-            gradient={4}
+            gradient={5}
             title="Treatments"
             titleHeading="h3"
             image={{
@@ -506,7 +550,7 @@ export function Index() {
 
           <Feature
             flipped
-            gradient={4}
+            gradient={5}
             id="forms"
             title="Forms"
             titleHeading="h3"
@@ -551,7 +595,7 @@ export function Index() {
           </Feature>
 
           <Feature
-            gradient={4}
+            gradient={5}
             title="Conclusion"
             titleHeading="h3"
             image={{
@@ -590,7 +634,7 @@ export function Index() {
       </Section>
 
       <Section>
-        <Feature gradient={5} title="Design">
+        <Feature gradient={6} title="Design">
           {({ Highlights }) => (
             <div className="flex flex-col gap-y-12">
               <p className="text-center">
@@ -615,8 +659,8 @@ export function Index() {
         <div
           className="flex flex-wrap lg:flex-nowrap gap-12 mx-auto w-full md:w-3/5 lg:w-4/5 px-12 mt-12"
           style={{
-            '--text-color': pickGradient(5)[1],
-            '--dark-text-color': pickGradient(5)[0],
+            '--text-color': pickGradient(6)[1],
+            '--dark-text-color': pickGradient(6)[0],
           }}
         >
           <div>
@@ -720,7 +764,7 @@ export function Index() {
       </Section>
 
       <Section>
-        <Feature gradient={6} title="Very Secure">
+        <Feature gradient={7} title="Very Secure">
           {({ Highlights }) => (
             <div className="flex flex-col gap-y-12">
               <p className="text-center">sleep with peace in mind</p>
@@ -766,9 +810,8 @@ export function Index() {
       </Section>
 
       <Section>
-        {/* gradient={7} title="Self-Hosted or Managed" */}
         {(() => {
-          const [start, end] = pickGradient(7);
+          const [start, end] = pickGradient(8);
           return (
             <div
               className="container box-border px-6 mx-auto flex gap-24 flex-wrap md:flex-nowrap"
