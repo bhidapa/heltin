@@ -7,12 +7,16 @@ import { SignUpForm } from './SignUpForm';
 // icons
 import { FiGithub } from 'react-icons/fi';
 import {
+  FaBookMedical,
   FaClipboardList,
   FaClockRotateLeft,
   FaEye,
   FaFileMedical,
+  FaFilePen,
+  FaHandHoldingMedical,
   FaHospitalUser,
   FaLanguage,
+  FaLock,
   FaLockOpen,
   FaNoteSticky,
   FaSquarePen,
@@ -29,14 +33,27 @@ import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_da
 import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
+import clientsDetailsDarkImage from 'public/screenshots/clients_details_dark.png';
+import clientsDetailsLightImage from 'public/screenshots/clients_details_light.png';
 import clientsDetailsAssignedTherapistsDarkImage from 'public/screenshots/clients_details_assigned_therapists_dark.png';
 import clientsDetailsAssignedTherapistsLightImage from 'public/screenshots/clients_details_assigned_therapists_light.png';
+import caseStudiesDetailsDarkImage from 'public/screenshots/case_studies_details_dark.png';
+import caseStudiesDetailsLightImage from 'public/screenshots/case_studies_details_light.png';
+import caseStudiesDetailsAssignedTherapistsDarkImage from 'public/screenshots/case_studies_details_assigned_therapists_dark.png';
+import caseStudiesDetailsAssignedTherapistsLightImage from 'public/screenshots/case_studies_details_assigned_therapists_light.png';
+import treatmentsDetailsDarkImage from 'public/screenshots/treatments_details_dark.png';
+import treatmentsDetailsLightImage from 'public/screenshots/treatments_details_light.png';
+import formsResponseDarkImage from 'public/screenshots/forms_response_dark.png';
+import formsResponseLightImage from 'public/screenshots/forms_response_light.png';
+import conclusionDetailsDarkImage from 'public/screenshots/conclusion_details_dark.png';
+import conclusionDetailsLightImage from 'public/screenshots/conclusion_details_light.png';
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
   ['#8b5cf6', '#6d28d9'], // violet
   ['#ec4899', '#db2777'], // pink
   ['#06b6d4', '#0e7490'], // cyan
+  ['#d946ef', '#a21caf'], // fuschia
 ];
 
 const classes = {
@@ -231,12 +248,17 @@ export function Index() {
 
       <Section id="clients">
         <div className="flex flex-col gap-12">
-          <Feature gradient={3} title="Clients">
+          <Feature
+            gradient={3}
+            title="Clients"
+            image={{
+              light: clientsDetailsLightImage,
+              dark: clientsDetailsDarkImage,
+            }}
+          >
             {({ Highlights }) => (
               <div className="flex flex-col gap-y-12">
-                <p className="text-center">
-                  control, manage and store all your healthcare clients
-                </p>
+                <p>control, manage and store all your healthcare clients</p>
                 <div className="flex flex-col gap-y-6">
                   <Highlights
                     items={[
@@ -253,8 +275,9 @@ export function Index() {
                           'Visible exclusively to assigned therapists, no one else',
                       },
                       {
+                        link: '#case-studies',
                         icon: <FaFileMedical size={28} />,
-                        title: 'Case Study',
+                        title: 'Case Studies',
                         description:
                           'Each client has one or more case studies that contain treatmens, forms and conclusions',
                       },
@@ -302,6 +325,220 @@ export function Index() {
                         title: 'Assistants',
                         description:
                           'Can view and manage basic information of all clients which are not marked as descrete',
+                      },
+                      {
+                        title: 'Discrete',
+                        description:
+                          'Can only be viewed by explicitly assigned therapists and administrators',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+        </div>
+      </Section>
+      <Section id="case-studies">
+        <div className="flex flex-col gap-12">
+          <Feature
+            gradient={4}
+            title="Case Studies"
+            image={{
+              light: caseStudiesDetailsLightImage,
+              dark: caseStudiesDetailsDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>the block of services offered to a client</p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        icon: <FaBookMedical size={28} />,
+                        title: 'As Many as Necessary',
+                        description:
+                          'A client can come many times for various and different reasons; therefore, each client can have multiple case studies',
+                      },
+                      {
+                        icon: <FaHandHoldingMedical size={28} />,
+                        title: 'Treatments',
+                        description:
+                          'All treatmens happen within a case study and, together with other elements, create a timeline of the process',
+                      },
+                      {
+                        icon: <FaFilePen size={28} />,
+                        title: 'Forms',
+                        description: 'Filled forms relate to a case study',
+                      },
+                      {
+                        icon: <FaLock size={28} />,
+                        title: 'Conclusion',
+                        description:
+                          'Each case study comes to an end. Once concluded, nothing inside a case study can be changed',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+
+          <Feature
+            flipped
+            gradient={4}
+            title="Access Control"
+            titleHeading="h3"
+            image={{
+              light: caseStudiesDetailsAssignedTherapistsLightImage,
+              dark: caseStudiesDetailsAssignedTherapistsDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>
+                  clear and exacty access rights built in right into the system
+                </p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        title: 'Administrators',
+                        description: 'Have full access to the whole registry',
+                      },
+                      {
+                        title: 'Therapists',
+                        description:
+                          'Only assigned to the case study can read treatments, forms and the conclusion. While changes can be made exclusively by the primary therapist',
+                      },
+                      {
+                        title: 'Assistants',
+                        description: 'Can never view any case studies',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+
+          <Feature
+            gradient={4}
+            title="Treatments"
+            titleHeading="h3"
+            image={{
+              light: treatmentsDetailsLightImage,
+              dark: treatmentsDetailsDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>happening for a client within a case study</p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        title: 'Time Saver',
+                        description:
+                          "Write private and notes for the report, adjust treatment times. Everything's designed with efficiency in mind",
+                      },
+                      {
+                        title: 'External',
+                        description:
+                          'Sometimes you send a client for external consulting or treatments. These can be added to the case study as well',
+                      },
+                      {
+                        title: 'Report Builder',
+                        description:
+                          'Build official reports templated to your business for handing out to clients',
+                      },
+                      {
+                        title: 'Files',
+                        description:
+                          'Upload and attach any relevant files, from drawing to historic documents',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+
+          <Feature
+            flipped
+            gradient={4}
+            title="Forms"
+            titleHeading="h3"
+            image={{
+              light: formsResponseLightImage,
+              dark: formsResponseDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>
+                  fill out custom forms for the case study at any point in time
+                </p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        title: 'Design Your Own',
+                        description:
+                          'Design forms and questioneers that are curated and necessary for your services',
+                      },
+                      {
+                        title: 'Analytics',
+                        description:
+                          'Forms are a key element that power the analytics. Gain powerful insights relevant to mental healthcare',
+                      },
+                      {
+                        title: 'For Therapists or For Clients',
+                        description:
+                          "Maybe you need questioneers that gain insights for the therapist, or maybe you want the client's anamnesis",
+                      },
+                      {
+                        title: 'Internationalization',
+                        description:
+                          'Build forms in your local language, it wont impact the analytics',
+                      },
+                    ]}
+                  />
+                </div>
+              </div>
+            )}
+          </Feature>
+
+          <Feature
+            gradient={4}
+            title="Conclusion"
+            titleHeading="h3"
+            image={{
+              light: conclusionDetailsLightImage,
+              dark: conclusionDetailsDarkImage,
+            }}
+          >
+            {({ Highlights }) => (
+              <div className="flex flex-col gap-y-12">
+                <p>the final step of a case study</p>
+                <div className="flex flex-col gap-y-6">
+                  <Highlights
+                    items={[
+                      {
+                        title: 'Complete and Lock',
+                        description:
+                          'After concluding a case study, it is completed and forever locked',
+                      },
+                      {
+                        title: 'Report Builder',
+                        description:
+                          'Like with treatments, conclusions need official reports too. Templated to your business for handing out to clients',
+                      },
+                      {
+                        title: 'Files',
+                        description:
+                          'Upload and attach any conclusion relevant files',
                       },
                     ]}
                   />
