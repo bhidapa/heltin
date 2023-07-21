@@ -154,22 +154,24 @@ export function Index() {
                   ]}
                 />
               </div>
-
-              <Image
-                src={clientsLightImage}
-                className="dark:hidden rounded-lg border border-gray-400"
-                placeholder="empty"
-                alt="The Registry"
-              />
-              <Image
-                src={clientsDarkImage}
-                className="hidden dark:block rounded-lg border border-gray-800"
-                placeholder="empty"
-                alt="The Registry"
-              />
             </div>
           )}
         </Feature>
+
+        <div className="w-full md:w-3/5 lg:w-4/5 px-12 mt-12 mx-auto">
+          <Image
+            src={clientsLightImage}
+            className="dark:hidden rounded-lg border border-gray-400"
+            placeholder="empty"
+            alt="The Registry"
+          />
+          <Image
+            src={clientsDarkImage}
+            className="hidden dark:block rounded-lg border border-gray-800"
+            placeholder="empty"
+            alt="The Registry"
+          />
+        </div>
       </Section>
 
       <Section id="therapists">
