@@ -18,8 +18,11 @@ import {
   FaLanguage,
   FaLock,
   FaLockOpen,
+  FaMobileScreen,
   FaNoteSticky,
   FaSquarePen,
+  FaTabletScreenButton,
+  FaUniversalAccess,
   FaUserDoctor,
   FaUserLock,
   FaUserNurse,
@@ -47,6 +50,12 @@ import formsResponseDarkImage from 'public/screenshots/forms_response_dark.png';
 import formsResponseLightImage from 'public/screenshots/forms_response_light.png';
 import conclusionDetailsDarkImage from 'public/screenshots/conclusion_details_dark.png';
 import conclusionDetailsLightImage from 'public/screenshots/conclusion_details_light.png';
+import desktopClientsDarkImage from 'public/screenshots/desktop_clients_dark.png';
+import desktopClientsLightImage from 'public/screenshots/desktop_clients_light.png';
+import tabletClientsDarkImage from 'public/screenshots/tablet_clients_dark.png';
+import tabletClientsLightImage from 'public/screenshots/tablet_clients_light.png';
+import mobileClientsDarkImage from 'public/screenshots/mobile_clients_dark.png';
+import mobileClientsLightImage from 'public/screenshots/mobile_clients_light.png';
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
@@ -350,6 +359,7 @@ export function Index() {
           </Feature>
         </div>
       </Section>
+
       <Section id="case-studies">
         <div className="flex flex-col gap-12">
           <Feature
@@ -558,6 +568,136 @@ export function Index() {
               </div>
             )}
           </Feature>
+        </div>
+      </Section>
+
+      <Section>
+        <Feature gradient={5} title="Design">
+          {({ Highlights }) => (
+            <div className="flex flex-col gap-y-12">
+              <p className="text-center">
+                responsive design with accessibility in mind
+              </p>
+              <div className="flex flex-col gap-y-6">
+                <Highlights
+                  items={[
+                    {
+                      icon: <FaUniversalAccess size={28} />,
+                      title: 'Accessibility',
+                      description:
+                        'No discrimination, the complete app is optimized for accessibility',
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          )}
+        </Feature>
+
+        <div
+          className="flex flex-wrap lg:flex-nowrap gap-12 mx-auto w-full md:w-3/5 lg:w-4/5 px-12 mt-12"
+          style={{
+            '--text-color': pickGradient(5)[1],
+            '--dark-text-color': pickGradient(5)[0],
+          }}
+        >
+          <div>
+            <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+              <FaMobileScreen size={32} />
+            </div>
+            <div className="text-black dark:text-white mb-2">
+              <h4
+                className={clsx(
+                  'text-xl font-semibold',
+                  'text-[--text-color]',
+                  'dark:text-[--dark-text-color]',
+                )}
+              >
+                Desktop
+              </h4>
+              <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                Sitting behind a desk? No problem at all
+              </p>
+            </div>
+            <Image
+              src={desktopClientsLightImage}
+              className="dark:hidden rounded-lg border border-gray-400"
+              placeholder="empty"
+              alt="Desktop"
+            />
+            <Image
+              src={desktopClientsDarkImage}
+              className="hidden dark:block rounded-lg border border-gray-800"
+              placeholder="empty"
+              alt="Desktop"
+            />
+          </div>
+
+          <div>
+            <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+              <FaTabletScreenButton size={32} />
+            </div>
+            <div className="text-black dark:text-white mb-2">
+              <h4
+                className={clsx(
+                  'text-xl font-semibold',
+                  'text-[--text-color]',
+                  'dark:text-[--dark-text-color]',
+                )}
+              >
+                Tablet
+              </h4>
+              <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                Lay back and work from your favourite couch
+              </p>
+            </div>
+
+            <Image
+              src={tabletClientsLightImage}
+              className="dark:hidden rounded-lg border border-gray-400"
+              placeholder="empty"
+              alt="Desktop"
+            />
+            <Image
+              src={tabletClientsDarkImage}
+              className="hidden dark:block rounded-lg border border-gray-800"
+              placeholder="empty"
+              alt="Desktop"
+            />
+          </div>
+
+          <div>
+            <div className="flex-shrink-0 text-[--text-color] dark:text-[--dark-text-color]">
+              <FaMobileScreen size={32} />
+            </div>
+            <div className="text-black dark:text-white mb-2">
+              <h4
+                className={clsx(
+                  'text-xl font-semibold',
+                  'text-[--text-color]',
+                  'dark:text-[--dark-text-color]',
+                )}
+              >
+                Mobile
+              </h4>
+              <p className={clsx('text-gray-800 dark:text-gray-400')}>
+                Works on your phone too
+              </p>
+            </div>
+
+            <Image
+              src={mobileClientsLightImage}
+              className="dark:hidden rounded-lg border border-gray-400"
+              placeholder="empty"
+              alt="Desktop"
+            />
+            <Image
+              src={mobileClientsDarkImage}
+              className="hidden dark:block rounded-lg border border-gray-800"
+              placeholder="empty"
+              alt="Desktop"
+            />
+          </div>
         </div>
       </Section>
     </>
