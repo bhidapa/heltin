@@ -288,7 +288,6 @@ export function Index() {
 
       <Section id="assistants">
         <Feature
-          flipped
           gradient={3}
           title="Assistants"
           image={{
@@ -377,7 +376,6 @@ export function Index() {
           </Feature>
 
           <Feature
-            flipped
             gradient={4}
             title="Access Control"
             titleHeading="h3"
@@ -469,7 +467,6 @@ export function Index() {
           </Feature>
 
           <Feature
-            flipped
             gradient={5}
             title="Access Control"
             titleHeading="h3"
@@ -549,7 +546,6 @@ export function Index() {
           </Feature>
 
           <Feature
-            flipped
             gradient={5}
             id="forms"
             title="Forms"
