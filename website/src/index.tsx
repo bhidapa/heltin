@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
 import { Anchor, Image } from '@theguild/components';
 import clsx from 'clsx';
@@ -375,48 +376,51 @@ export function Index() {
             )}
           </Feature>
 
-          <Feature
-            gradient={4}
-            title="Access Control"
-            titleHeading="h3"
-            image={{
-              light: clientsDetailsAssignedTherapistsLightImage,
-              dark: clientsDetailsAssignedTherapistsDarkImage,
-            }}
-          >
-            {({ Highlights }) => (
-              <div className="flex flex-col gap-y-12">
-                <p>
-                  clear and exacty access rights built in right into the system
-                </p>
-                <div className="flex flex-col gap-y-6">
-                  <Highlights
-                    items={[
-                      {
-                        title: 'Administrators',
-                        description: 'Have full access to the whole registry',
-                      },
-                      {
-                        title: 'Therapists',
-                        description:
-                          "Can only view and manage basic information of clients to whom they're assigned",
-                      },
-                      {
-                        title: 'Assistants',
-                        description:
-                          'Can view and manage basic information of all clients which are not marked as descrete',
-                      },
-                      {
-                        title: 'Discrete',
-                        description:
-                          'Can only be viewed by explicitly assigned therapists and administrators',
-                      },
-                    ]}
-                  />
+          <Accordion title="Read More..." gradient={4}>
+            <Feature
+              gradient={4}
+              title="Access Control"
+              titleHeading="h3"
+              image={{
+                light: clientsDetailsAssignedTherapistsLightImage,
+                dark: clientsDetailsAssignedTherapistsDarkImage,
+              }}
+            >
+              {({ Highlights }) => (
+                <div className="flex flex-col gap-y-12">
+                  <p>
+                    clear and exacty access rights built in right into the
+                    system
+                  </p>
+                  <div className="flex flex-col gap-y-6">
+                    <Highlights
+                      items={[
+                        {
+                          title: 'Administrators',
+                          description: 'Have full access to the whole registry',
+                        },
+                        {
+                          title: 'Therapists',
+                          description:
+                            "Can only view and manage basic information of clients to whom they're assigned",
+                        },
+                        {
+                          title: 'Assistants',
+                          description:
+                            'Can view and manage basic information of all clients which are not marked as descrete',
+                        },
+                        {
+                          title: 'Discrete',
+                          description:
+                            'Can only be viewed by explicitly assigned therapists and administrators',
+                        },
+                      ]}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
-          </Feature>
+              )}
+            </Feature>
+          </Accordion>
         </div>
       </Section>
 
@@ -466,166 +470,172 @@ export function Index() {
             )}
           </Feature>
 
-          <Feature
-            gradient={5}
-            title="Access Control"
-            titleHeading="h3"
-            image={{
-              light: caseStudiesDetailsAssignedTherapistsLightImage,
-              dark: caseStudiesDetailsAssignedTherapistsDarkImage,
-            }}
-          >
-            {({ Highlights }) => (
-              <div className="flex flex-col gap-y-12">
-                <p>
-                  clear and exacty access rights built in right into the system
-                </p>
-                <div className="flex flex-col gap-y-6">
-                  <Highlights
-                    items={[
-                      {
-                        title: 'Administrators',
-                        description: 'Have full access to the whole registry',
-                      },
-                      {
-                        title: 'Therapists',
-                        description:
-                          'Only assigned to the case study can read treatments, forms and the conclusion. While changes can be made exclusively by the primary therapist',
-                      },
-                      {
-                        title: 'Assistants',
-                        description: 'Can never view any case studies',
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            )}
-          </Feature>
+          <Accordion title="Read More..." gradient={5}>
+            <div className="flex flex-col gap-y-12">
+              <Feature
+                gradient={5}
+                title="Access Control"
+                titleHeading="h3"
+                image={{
+                  light: caseStudiesDetailsAssignedTherapistsLightImage,
+                  dark: caseStudiesDetailsAssignedTherapistsDarkImage,
+                }}
+              >
+                {({ Highlights }) => (
+                  <div className="flex flex-col gap-y-12">
+                    <p>
+                      clear and exacty access rights built in right into the
+                      system
+                    </p>
+                    <div className="flex flex-col gap-y-6">
+                      <Highlights
+                        items={[
+                          {
+                            title: 'Administrators',
+                            description:
+                              'Have full access to the whole registry',
+                          },
+                          {
+                            title: 'Therapists',
+                            description:
+                              'Only assigned to the case study can read treatments, forms and the conclusion. While changes can be made exclusively by the primary therapist',
+                          },
+                          {
+                            title: 'Assistants',
+                            description: 'Can never view any case studies',
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                )}
+              </Feature>
+              <Feature
+                gradient={5}
+                title="Treatments"
+                titleHeading="h3"
+                image={{
+                  light: treatmentsDetailsLightImage,
+                  dark: treatmentsDetailsDarkImage,
+                }}
+              >
+                {({ Highlights }) => (
+                  <div className="flex flex-col gap-y-12">
+                    <p>happening for a client within a case study</p>
+                    <div className="flex flex-col gap-y-6">
+                      <Highlights
+                        items={[
+                          {
+                            title: 'Time Saver',
+                            description:
+                              "Write private and notes for the report, adjust treatment times. Everything's designed with efficiency in mind",
+                          },
+                          {
+                            title: 'External',
+                            description:
+                              'Sometimes you send a client for external consulting or treatments. These can be added to the case study as well',
+                          },
+                          {
+                            title: 'Report Builder',
+                            description:
+                              'Build official reports templated to your business for handing out to clients',
+                          },
+                          {
+                            title: 'Files',
+                            description:
+                              'Upload and attach any relevant files, from drawing to historic documents',
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                )}
+              </Feature>
 
-          <Feature
-            gradient={5}
-            title="Treatments"
-            titleHeading="h3"
-            image={{
-              light: treatmentsDetailsLightImage,
-              dark: treatmentsDetailsDarkImage,
-            }}
-          >
-            {({ Highlights }) => (
-              <div className="flex flex-col gap-y-12">
-                <p>happening for a client within a case study</p>
-                <div className="flex flex-col gap-y-6">
-                  <Highlights
-                    items={[
-                      {
-                        title: 'Time Saver',
-                        description:
-                          "Write private and notes for the report, adjust treatment times. Everything's designed with efficiency in mind",
-                      },
-                      {
-                        title: 'External',
-                        description:
-                          'Sometimes you send a client for external consulting or treatments. These can be added to the case study as well',
-                      },
-                      {
-                        title: 'Report Builder',
-                        description:
-                          'Build official reports templated to your business for handing out to clients',
-                      },
-                      {
-                        title: 'Files',
-                        description:
-                          'Upload and attach any relevant files, from drawing to historic documents',
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            )}
-          </Feature>
+              <Feature
+                gradient={5}
+                id="forms"
+                title="Forms"
+                titleHeading="h3"
+                image={{
+                  light: formsResponseLightImage,
+                  dark: formsResponseDarkImage,
+                }}
+              >
+                {({ Highlights }) => (
+                  <div className="flex flex-col gap-y-12">
+                    <p>
+                      fill out custom forms for the case study at any point in
+                      time
+                    </p>
+                    <div className="flex flex-col gap-y-6">
+                      <Highlights
+                        items={[
+                          {
+                            title: 'Design Your Own',
+                            description:
+                              'Design forms and questioneers that are curated and necessary for your services',
+                          },
+                          {
+                            title: 'Analytics',
+                            description:
+                              'Forms are a key element that power the analytics. Gain powerful insights relevant to mental healthcare',
+                          },
+                          {
+                            title: 'For Therapists or For Clients',
+                            description:
+                              "Maybe you need questioneers that gain insights for the therapist, or maybe you want the client's anamnesis",
+                          },
+                          {
+                            title: 'Internationalization',
+                            description:
+                              'Build forms in your local language, it wont impact the analytics',
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                )}
+              </Feature>
 
-          <Feature
-            gradient={5}
-            id="forms"
-            title="Forms"
-            titleHeading="h3"
-            image={{
-              light: formsResponseLightImage,
-              dark: formsResponseDarkImage,
-            }}
-          >
-            {({ Highlights }) => (
-              <div className="flex flex-col gap-y-12">
-                <p>
-                  fill out custom forms for the case study at any point in time
-                </p>
-                <div className="flex flex-col gap-y-6">
-                  <Highlights
-                    items={[
-                      {
-                        title: 'Design Your Own',
-                        description:
-                          'Design forms and questioneers that are curated and necessary for your services',
-                      },
-                      {
-                        title: 'Analytics',
-                        description:
-                          'Forms are a key element that power the analytics. Gain powerful insights relevant to mental healthcare',
-                      },
-                      {
-                        title: 'For Therapists or For Clients',
-                        description:
-                          "Maybe you need questioneers that gain insights for the therapist, or maybe you want the client's anamnesis",
-                      },
-                      {
-                        title: 'Internationalization',
-                        description:
-                          'Build forms in your local language, it wont impact the analytics',
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            )}
-          </Feature>
-
-          <Feature
-            gradient={5}
-            title="Conclusion"
-            titleHeading="h3"
-            image={{
-              light: conclusionDetailsLightImage,
-              dark: conclusionDetailsDarkImage,
-            }}
-          >
-            {({ Highlights }) => (
-              <div className="flex flex-col gap-y-12">
-                <p>the final step of a case study</p>
-                <div className="flex flex-col gap-y-6">
-                  <Highlights
-                    items={[
-                      {
-                        title: 'Complete and Lock',
-                        description:
-                          'After concluding a case study, it is completed and forever locked',
-                      },
-                      {
-                        title: 'Report Builder',
-                        description:
-                          'Like with treatments, conclusions need official reports too. Templated to your business for handing out to clients',
-                      },
-                      {
-                        title: 'Files',
-                        description:
-                          'Upload and attach any conclusion relevant files',
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            )}
-          </Feature>
+              <Feature
+                gradient={5}
+                title="Conclusion"
+                titleHeading="h3"
+                image={{
+                  light: conclusionDetailsLightImage,
+                  dark: conclusionDetailsDarkImage,
+                }}
+              >
+                {({ Highlights }) => (
+                  <div className="flex flex-col gap-y-12">
+                    <p>the final step of a case study</p>
+                    <div className="flex flex-col gap-y-6">
+                      <Highlights
+                        items={[
+                          {
+                            title: 'Complete and Lock',
+                            description:
+                              'After concluding a case study, it is completed and forever locked',
+                          },
+                          {
+                            title: 'Report Builder',
+                            description:
+                              'Like with treatments, conclusions need official reports too. Templated to your business for handing out to clients',
+                          },
+                          {
+                            title: 'Files',
+                            description:
+                              'Upload and attach any conclusion relevant files',
+                          },
+                        ]}
+                      />
+                    </div>
+                  </div>
+                )}
+              </Feature>
+            </div>
+          </Accordion>
         </div>
       </Section>
 
@@ -1071,6 +1081,50 @@ function Feature({
         </div>
       </div>
     </>
+  );
+}
+
+function Accordion({
+  title,
+  gradient,
+  children,
+}: {
+  title: string;
+  gradient: number;
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const detailsRef = useRef<HTMLDetailsElement>();
+  useLayoutEffect(() => {
+    const elId = router.asPath.split('#')?.[1];
+    if (!elId) {
+      return;
+    }
+    const details = detailsRef.current;
+    if (!details) {
+      return;
+    }
+    const elForId = details.querySelector(`#${elId}`);
+    if (elForId) {
+      details.open = true;
+      // the browser should autoscroll once opened
+    }
+  }, [router]);
+
+  const [start, end] = pickGradient(gradient);
+
+  return (
+    <details ref={detailsRef} className="container box-border px-6">
+      <summary
+        className="px-4 py-2 rounded-lg cursor-pointer text-white drop-shadow"
+        style={{
+          backgroundImage: `linear-gradient(-70deg, ${start}, ${end})`,
+        }}
+      >
+        {title}
+      </summary>
+      <div className="py-6">{children}</div>
+    </details>
   );
 }
 
