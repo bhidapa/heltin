@@ -32,9 +32,11 @@ import {
   FaMobileScreen,
   FaNetworkWired,
   FaNoteSticky,
+  FaPeopleGroup,
   FaServer,
   FaShieldVirus,
   FaSquarePen,
+  FaStreetView,
   FaTabletScreenButton,
   FaUniversalAccess,
   FaUserDoctor,
@@ -101,7 +103,7 @@ export function Index() {
             heltin
           </h1>
           <p className="max-w-screen-sm mx-auto mt-6 text-2xl text-gray-800 text-center dark:text-gray-400">
-            Robust client registry for mental healthcare services
+            Interdisciplinary registry for a holistic view on mental health
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Anchor
@@ -144,6 +146,18 @@ export function Index() {
               <div className="flex flex-col gap-y-6">
                 <Highlights
                   items={[
+                    {
+                      icon: <FaStreetView size={28} />,
+                      title: 'Holistic View',
+                      description:
+                        'Provide support that looks at the whole person and not only their mental health needs',
+                    },
+                    {
+                      icon: <FaPeopleGroup size={28} />,
+                      title: 'Interdisciplinary Approach',
+                      description:
+                        'Combine all branches of mental healthcare knowledge',
+                    },
                     {
                       icon: <FaHandshake size={28} />,
                       title: 'Built with Professionals',

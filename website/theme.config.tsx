@@ -8,9 +8,7 @@ export default defineConfig({
   logo: (
     <div>
       <h1 className="md:text-md text-sm font-medium">{siteName}</h1>
-      <h2 className="hidden text-xs sm:block">
-        Mental healthcare client registry
-      </h2>
+      <h2 className="hidden text-xs sm:block">Mental healthcare registry</h2>
     </div>
   ),
   main({ children }) {
