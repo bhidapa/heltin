@@ -10,12 +10,11 @@ RUN apt-get install -y \
   curl make gcc libpq-dev libssl-dev libxml2-dev pkg-config liblz4-dev libzstd-dev libbz2-dev libz-dev libyaml-dev \
   # runtime deps
   libxml2
-ENV PGBACKREST_REPO_PATH=/var/lib/pgbackrest \
-  PGBACKREST_CONFIG_PATH=/etc/pgbackrest \
+ENV PGBACKREST_CONFIG_PATH=/etc/pgbackrest \
   PGBACKREST_LOCK_PATH=/tmp/pgbackrest \
   PGBACKREST_LOG_PATH=/var/log/pgbackrest
 RUN set -eux; \
-  mkdir -p -m 770 "$PGBACKREST_REPO_PATH"; chown postgres:postgres "$PGBACKREST_REPO_PATH"; \
+  mkdir -p -m 770 /var/lib/pgbackrest; chown postgres:postgres /var/lib/pgbackrest; \
   mkdir -p -m 770 "$PGBACKREST_CONFIG_PATH"; chown postgres:postgres "$PGBACKREST_CONFIG_PATH"; \
   mkdir -p -m 770 "$PGBACKREST_LOCK_PATH"; chown postgres:postgres "$PGBACKREST_LOCK_PATH"; \
   mkdir -p -m 770 "$PGBACKREST_LOG_PATH"; chown postgres:postgres "$PGBACKREST_LOG_PATH";
