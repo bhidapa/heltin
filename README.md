@@ -3,7 +3,7 @@
     heltin
   </h3>
   <p align="center">
-    Robust client registry for individuals receiving mental healthcare services
+    Interdisciplinary registry for a holistic view on mental health.
   </p>
   <p align="center">
     <a href="https://www.docker.com/">Docker</a>
