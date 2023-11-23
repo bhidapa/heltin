@@ -65,4 +65,4 @@ jobs:
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           PGBACKREST_CONF_PATH: ${{ secrets.PGBACKREST_CONF_PATH }}
-        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --wait
+        run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --wait --wait-timeout 180
