@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { StaticImageData } from 'next/image';
 import { Anchor, Image } from '@theguild/components';
@@ -1109,7 +1109,7 @@ function Accordion({
 }) {
   const router = useRouter();
   const detailsRef = useRef<HTMLDetailsElement>();
-  useLayoutEffect(() => {
+  useEffect(() => {
     const elId = router.asPath.split('#')?.[1];
     if (!elId) {
       return;
