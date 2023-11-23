@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<23a52e4c8a720d378cf20e00e3917544>>
+ * @generated SignedSource<<1e731016fe699ce805b7c3056e308255>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
-export type LogoutPageMutation$variables = {};
+export type LogoutPageMutation$variables = Record<PropertyKey, never>;
 export type LogoutPageMutation$data = {
   readonly logout: boolean;
 };

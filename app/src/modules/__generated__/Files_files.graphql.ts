@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5a98468a7cf8ed3bad75c663baedfe61>>
+ * @generated SignedSource<<3370879348c056358ffc94a0ff563e1e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type Files_files$data = ReadonlyArray<{
     readonly rowId: string;
     readonly therapist: {
       readonly rowId: string;
-    } | null;
+    } | null | undefined;
   };
   readonly id: string;
   readonly link: string;

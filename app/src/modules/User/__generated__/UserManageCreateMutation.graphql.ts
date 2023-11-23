@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<97b699406c128368afbc3bdf4becd7df>>
+ * @generated SignedSource<<a3aa2d26d27c0729d9e7b7478e1f9422>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,11 +12,11 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateUserInput = {
   admin: boolean;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   email: string;
   enabled: boolean;
   password: string;
-  rowId?: string | null;
+  rowId?: string | null | undefined;
 };
 export type UserManageCreateMutation$variables = {
   input: CreateUserInput;
@@ -25,14 +25,14 @@ export type UserManageCreateMutation$data = {
   readonly createUser: {
     readonly user: {
       readonly rowId: string;
-    } | null;
+    } | null | undefined;
     readonly userEdge: {
       readonly node: {
         readonly rowId: string;
         readonly " $fragmentSpreads": FragmentRefs<"UserManage_user" | "UsersTable_user">;
       };
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type UserManageCreateMutation = {
   response: UserManageCreateMutation$data;

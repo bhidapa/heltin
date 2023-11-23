@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<03445ee5fd66152594dcc4456482fe06>>
+ * @generated SignedSource<<61de3ff3852e2d817aac000b9d3cf1d3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateClientAssignedTherapistInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   clientRowId: string;
   therapistRowId: string;
 };
@@ -22,8 +22,8 @@ export type ClientAssignedTherapistsManageCreateMutation$data = {
   readonly createClientAssignedTherapist: {
     readonly clientByClientRowId: {
       readonly " $fragmentSpreads": FragmentRefs<"ClientAssignedTherapistsManage_client">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type ClientAssignedTherapistsManageCreateMutation = {
   response: ClientAssignedTherapistsManageCreateMutation$data;

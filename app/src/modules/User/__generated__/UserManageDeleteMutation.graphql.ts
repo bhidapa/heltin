@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d709af20fe59bba1f069ea4dba0e4392>>
+ * @generated SignedSource<<59c92738028a93593520b28a9d510967>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type DeleteUserInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   rowId: string;
 };
 export type UserManageDeleteMutation$variables = {
@@ -20,8 +20,8 @@ export type UserManageDeleteMutation$data = {
   readonly deleteUser: {
     readonly user: {
       readonly id: string;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type UserManageDeleteMutation = {
   response: UserManageDeleteMutation$data;

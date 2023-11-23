@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<052e6a225d8a79b6a1fe59805cc9959a>>
+ * @generated SignedSource<<942f7521e137e68014b2feccf4dc8182>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsCaseStudiesDetailsPage_caseStudy$data = {
-  readonly clientRowId: string | null;
+  readonly clientRowId: string | null | undefined;
   readonly concluded: boolean;
   readonly rowId: string;
   readonly sortedEvents: {

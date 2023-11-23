@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bd9171f4dffcb39d27b8d789f1835b33>>
+ * @generated SignedSource<<534ad92e550b9e4cc66461f81af01d24>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,10 +13,10 @@ import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type CreateCaseStudyConclusionInput = {
   caseStudyRowId: string;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   concludedAt: string;
   description: string;
-  privateDescription?: string | null;
+  privateDescription?: string | null | undefined;
   type: CaseStudyConclusionType;
 };
 export type CaseStudyConclusionManageCreateMutation$variables = {
@@ -28,16 +28,16 @@ export type CaseStudyConclusionManageCreateMutation$data = {
       readonly caseStudy: {
         readonly client: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
-        } | null;
-        readonly clientRowId: string | null;
+        } | null | undefined;
+        readonly clientRowId: string | null | undefined;
         readonly concluded: boolean;
         readonly rowId: string;
         readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_conclusion">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyConclusionManageCreateMutation = {
   response: CaseStudyConclusionManageCreateMutation$data;

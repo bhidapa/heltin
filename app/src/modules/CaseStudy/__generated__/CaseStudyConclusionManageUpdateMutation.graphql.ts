@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bcdd0df2a36376a5c7e2aad74368b56e>>
+ * @generated SignedSource<<8400a77c8ae90d7c3e2a1358ca82d70a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,10 +12,10 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyConclusionType = "CANCELLATION_BY_CLIENT" | "CANCELLATION_BY_PARENT" | "FURTHER_REFERRAL" | "TREATMENT_COMPLETION";
 export type UpdateCaseStudyConclusionInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   concludedAt: string;
   description: string;
-  privateDescription?: string | null;
+  privateDescription?: string | null | undefined;
   rowId: string;
   type: CaseStudyConclusionType;
 };
@@ -36,8 +36,8 @@ export type CaseStudyConclusionManageUpdateMutation$data = {
       };
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_conclusion">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyConclusionManageUpdateMutation = {
   response: CaseStudyConclusionManageUpdateMutation$data;

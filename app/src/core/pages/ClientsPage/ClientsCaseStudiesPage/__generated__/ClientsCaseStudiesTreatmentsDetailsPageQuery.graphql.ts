@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c980bf1feb9bd888bea6aaa9b061695>>
+ * @generated SignedSource<<bfaa8e69fdbd955bb3d9c42025f11dab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type ClientsCaseStudiesTreatmentsDetailsPageQuery$variables = {
 export type ClientsCaseStudiesTreatmentsDetailsPageQuery$data = {
   readonly caseStudy: {
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy">;
-  } | null;
+  } | null | undefined;
   readonly treatment: {
     readonly caseStudy: {
       readonly client: {

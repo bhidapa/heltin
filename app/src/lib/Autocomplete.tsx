@@ -79,7 +79,6 @@ export function Autocomplete<T>(props: AutocompleteProps<T>): React.ReactElement
     toggleMenu,
     closeMenu,
     selectItem,
-    getComboboxProps,
     getLabelProps,
     getInputProps,
     getToggleButtonProps,
@@ -129,7 +128,7 @@ export function Autocomplete<T>(props: AutocompleteProps<T>): React.ReactElement
           {label}
         </label>
       )}
-      <div className="input-group" {...getComboboxProps({ ref: setReferenceEl })}>
+      <div className="input-group" ref={setReferenceEl}>
         <input
           {...getInputProps({ ref: inputRef })}
           id={id}
@@ -189,7 +188,7 @@ export function Autocomplete<T>(props: AutocompleteProps<T>): React.ReactElement
         <ul
           {...getMenuProps()}
           className="dropdown-menu mt-5 py-10"
-          style={{ visibility: isOpen && 'visible', padding: 0, listStyle: 'none' }}
+          style={{ visibility: isOpen ? 'visible' : 'hidden', padding: 0, listStyle: 'none' }}
         >
           {isOpen &&
             (items.length > 0 ? (

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4f587d4d5f1a84ffc97af664aa8e5d96>>
+ * @generated SignedSource<<a281da3c44f4d7ecc787ad44bdc3164b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,18 +18,18 @@ export type ClientsCaseStudiesDetailsPageQuery$data = {
   readonly caseStudy: {
     readonly title: string;
     readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
-  } | null;
+  } | null | undefined;
   readonly client: {
     readonly fullName: string;
     readonly rowId: string;
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyManage_client">;
-  } | null;
+  } | null | undefined;
   readonly filterForms: {
     readonly nodes: ReadonlyArray<{
       readonly name: string;
       readonly rowId: string;
     }>;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"CaseStudyAssignedTherapistsManage_query">;
 };
 export type ClientsCaseStudiesDetailsPageQuery = {

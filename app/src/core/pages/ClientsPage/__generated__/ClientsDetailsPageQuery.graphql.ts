@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<51436f9a2344f18acf5cda1bf06bb86e>>
+ * @generated SignedSource<<d1247f24a84db89b2f4a8c09afbf3155>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,12 +17,12 @@ export type ClientsDetailsPageQuery$data = {
   readonly client: {
     readonly fullName: string;
     readonly " $fragmentSpreads": FragmentRefs<"ClientAssignedTherapistsManage_client" | "ClientCaseStudies_client" | "ClientManage_client">;
-  } | null;
+  } | null | undefined;
   readonly filterForms: {
     readonly nodes: ReadonlyArray<{
       readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_forms">;
     }>;
-  } | null;
+  } | null | undefined;
   readonly viewer: {
     readonly isAdmin: boolean;
     readonly isTherapist: boolean;

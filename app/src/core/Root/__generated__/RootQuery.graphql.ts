@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<82564f863a73d56d3a4235eaea16724a>>
+ * @generated SignedSource<<0d0a99b4e9b971dbe4983ab1e265b997>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RootQuery$variables = {};
+export type RootQuery$variables = Record<PropertyKey, never>;
 export type RootQuery$data = {
   readonly viewer: {
     readonly email: string;
@@ -19,7 +19,7 @@ export type RootQuery$data = {
     readonly id: string;
     readonly isAdmin: boolean;
     readonly " $fragmentSpreads": FragmentRefs<"routes_viewer">;
-  } | null;
+  } | null | undefined;
 };
 export type RootQuery = {
   response: RootQuery$data;

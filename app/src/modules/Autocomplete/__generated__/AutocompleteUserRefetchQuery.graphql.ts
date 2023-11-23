@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ddfed45c2a314870882f111eb589c4fb>>
+ * @generated SignedSource<<98878e0c85b5f2988924a5287c846566>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AutocompleteUserRefetchQuery$variables = {
-  q?: string | null;
+  q?: string | null | undefined;
 };
 export type AutocompleteUserRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AutocompleteUser_query">;

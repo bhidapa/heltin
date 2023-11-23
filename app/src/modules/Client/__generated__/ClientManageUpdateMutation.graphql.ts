@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<03131e6770daf3fc490557c54247c1dc>>
+ * @generated SignedSource<<d0022ace5144be82be47b33106f4265d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,14 +14,14 @@ export type Gender = "FEMALE" | "MALE";
 export type UpdateClientInput = {
   address: string;
   city: string;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   dateOfBirth: string;
-  discrete?: boolean | null;
-  email?: string | null;
+  discrete?: boolean | null | undefined;
+  email?: string | null | undefined;
   firstName: string;
   gender: Gender;
   lastName: string;
-  note?: string | null;
+  note?: string | null | undefined;
   number: number;
   rowId: string;
   telephone: string;
@@ -34,8 +34,8 @@ export type ClientManageUpdateMutation$data = {
     readonly client: {
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"ClientManage_client" | "ClientsTable_client">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type ClientManageUpdateMutation = {
   response: ClientManageUpdateMutation$data;

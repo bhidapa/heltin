@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b29aa52707276153bd23e9c41534f7f9>>
+ * @generated SignedSource<<762b1dac1b5dc3df00dc26c7d7c8be8b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,16 +20,16 @@ export type ClientManage_client$data = {
     readonly fullName: string;
     readonly therapist: {
       readonly rowId: string;
-    } | null;
+    } | null | undefined;
   };
   readonly dateOfBirth: string;
   readonly discrete: boolean;
-  readonly email: string | null;
+  readonly email: string | null | undefined;
   readonly firstName: string;
   readonly fullName: string;
   readonly gender: Gender;
   readonly lastName: string;
-  readonly note: string | null;
+  readonly note: string | null | undefined;
   readonly number: number;
   readonly rowId: string;
   readonly telephone: string;
@@ -38,8 +38,8 @@ export type ClientManage_client$data = {
     readonly fullName: string;
     readonly therapist: {
       readonly rowId: string;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
   readonly " $fragmentType": "ClientManage_client";
 };
 export type ClientManage_client$key = {

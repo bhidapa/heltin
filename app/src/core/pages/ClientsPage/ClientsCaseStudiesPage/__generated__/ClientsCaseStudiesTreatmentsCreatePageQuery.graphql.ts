@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38ca9ec76f245da92f36d5658ed739dd>>
+ * @generated SignedSource<<de654298c001034568ccb46a8fd9de9b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type ClientsCaseStudiesTreatmentsCreatePageQuery$data = {
       readonly fullName: string;
     };
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy">;
-  } | null;
+  } | null | undefined;
 };
 export type ClientsCaseStudiesTreatmentsCreatePageQuery = {
   response: ClientsCaseStudiesTreatmentsCreatePageQuery$data;

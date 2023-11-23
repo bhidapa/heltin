@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<04a60bf061ffd0436bc6ad2fd6564a43>>
+ * @generated SignedSource<<4acc94875758bf0ed1c36ab99fd99da6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,13 +11,13 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateCaseStudyTreatmentInput = {
-  clientMutationId?: string | null;
-  description?: string | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
   endedAt: string;
   external: boolean;
-  privateDescription?: string | null;
+  privateDescription?: string | null | undefined;
   rowId: string;
-  score?: number | null;
+  score?: number | null | undefined;
   startedAt: string;
   title: string;
 };
@@ -37,8 +37,8 @@ export type CaseStudyTreatmentManageUpdateMutation$data = {
       };
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyTreatmentManageUpdateMutation = {
   response: CaseStudyTreatmentManageUpdateMutation$data;

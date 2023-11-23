@@ -62,7 +62,7 @@ export const AutocompleteUser: React.FC<AutocompleteUserProps> = (props) => {
       {...props}
       items={filterUsers.nodes}
       pleaseWait={isPending}
-      getItemId={(i) => filterUsers.nodes[i]!.id}
+      getItemId={(i) => filterUsers.nodes[i]?.id || ''}
       itemToString={(item) => item?.email || ''}
       onInputValueChange={(changes) =>
         debouncedRefetch({

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e9580f2f2caeab29a93619f7f369635>>
+ * @generated SignedSource<<d23e6aafd8e14eb05372bbfbf3f8944e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,11 +14,11 @@ import { FragmentRefs } from "relay-runtime";
 export type ClientCaseStudies_client$data = {
   readonly caseStudies: {
     readonly nodes: ReadonlyArray<{
-      readonly clientRowId: string | null;
+      readonly clientRowId: string | null | undefined;
       readonly concluded: boolean;
       readonly conclusion: {
         readonly type: CaseStudyConclusionType;
-      } | null;
+      } | null | undefined;
       readonly id: string;
       readonly rowId: string;
       readonly someSortedEvents: {

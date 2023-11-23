@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ef2188d6997e21056348ff0a1e9c614>>
+ * @generated SignedSource<<03428ce2b7053baa055781bca46604f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DeleteClientAssignedTherapistInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   rowId: string;
 };
 export type ClientAssignedTherapistsManageDeleteMutation$variables = {
@@ -21,8 +21,8 @@ export type ClientAssignedTherapistsManageDeleteMutation$data = {
   readonly deleteClientAssignedTherapist: {
     readonly clientByClientRowId: {
       readonly " $fragmentSpreads": FragmentRefs<"ClientAssignedTherapistsManage_client">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type ClientAssignedTherapistsManageDeleteMutation = {
   response: ClientAssignedTherapistsManageDeleteMutation$data;

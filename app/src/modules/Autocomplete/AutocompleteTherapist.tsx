@@ -63,7 +63,7 @@ export const AutocompleteTherapist: React.FC<AutocompleteTherapistProps> = (prop
       {...props}
       items={filterTherapists.nodes}
       pleaseWait={isPending}
-      getItemId={(i) => filterTherapists.nodes[i]!.id}
+      getItemId={(i) => filterTherapists.nodes[i]?.id || ''}
       itemToString={(item) => item?.fullName || ''}
       onInputValueChange={(changes) =>
         debouncedRefetch({

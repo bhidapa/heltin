@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<01707a2930a91a9ab15345dae774fd6d>>
+ * @generated SignedSource<<89fdf63c8a3355626c7ef5d88b6f3558>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ClientsCreatePageQuery$variables = {};
+export type ClientsCreatePageQuery$variables = Record<PropertyKey, never>;
 export type ClientsCreatePageQuery$data = {
   readonly nextAvailableClientNumber: number;
   readonly viewer: {

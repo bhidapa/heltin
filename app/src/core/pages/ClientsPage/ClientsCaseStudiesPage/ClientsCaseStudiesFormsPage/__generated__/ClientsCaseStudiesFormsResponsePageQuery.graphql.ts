@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d16d0cbfb8e215b5e31e61ab673386b>>
+ * @generated SignedSource<<be2bd8f92db1b2991fb86eb4c0fa9c40>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type ClientsCaseStudiesFormsResponsePageQuery$data = {
     readonly form: {
       readonly name: string;
       readonly " $fragmentSpreads": FragmentRefs<"FormManage_form">;
-    } | null;
+    } | null | undefined;
     readonly formResponseFiles: {
       readonly __id: string;
       readonly nodes: ReadonlyArray<{
@@ -29,7 +29,7 @@ export type ClientsCaseStudiesFormsResponsePageQuery$data = {
     };
     readonly rowId: string;
     readonly " $fragmentSpreads": FragmentRefs<"FormManage_formResponse">;
-  } | null;
+  } | null | undefined;
 };
 export type ClientsCaseStudiesFormsResponsePageQuery = {
   response: ClientsCaseStudiesFormsResponsePageQuery$data;

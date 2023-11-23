@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f8b1b22ea44d59588c2d149a4d2b16b2>>
+ * @generated SignedSource<<f64a76c82648a169f56f1345a6eb21d4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type FormManageBuildDefaultValues_formResponse$data = {
   readonly answers: {
     readonly nodes: ReadonlyArray<{
       readonly formQuestionRowId: string;
-      readonly value: any | null;
+      readonly value: any | null | undefined;
     }>;
   };
   readonly " $fragmentType": "FormManageBuildDefaultValues_formResponse";

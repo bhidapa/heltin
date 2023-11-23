@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d9fee48df8b9fa8c7bf6939f90da15e7>>
+ * @generated SignedSource<<c493d199d45eff2bb4c443b563fbc256>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,12 +12,12 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyTreatmentInput = {
   caseStudyRowId: string;
-  clientMutationId?: string | null;
-  description?: string | null;
+  clientMutationId?: string | null | undefined;
+  description?: string | null | undefined;
   endedAt: string;
   external: boolean;
-  privateDescription?: string | null;
-  score?: number | null;
+  privateDescription?: string | null | undefined;
+  score?: number | null | undefined;
   startedAt: string;
   title: string;
 };
@@ -30,15 +30,15 @@ export type CaseStudyTreatmentManageCreateMutation$data = {
       readonly caseStudy: {
         readonly client: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
-        } | null;
-        readonly clientRowId: string | null;
+        } | null | undefined;
+        readonly clientRowId: string | null | undefined;
         readonly rowId: string;
         readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_caseStudy" | "ClientsCaseStudiesDetailsPage_caseStudy">;
       };
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyTreatmentManage_treatment">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyTreatmentManageCreateMutation = {
   response: CaseStudyTreatmentManageCreateMutation$data;

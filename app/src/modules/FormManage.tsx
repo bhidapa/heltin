@@ -121,7 +121,7 @@ export const FormManage: React.FC<FormManageProps> = (props) => {
 
   // important because react-hook-form defaults might not match (like for CHECBOXES type)
   const defaultValues = useMemo(
-    () => buildDefaultValues(form.formQuestions, formResponse),
+    () => buildDefaultValues(form.formQuestions, formResponse || null),
     [form.formQuestions, formResponse],
   );
 

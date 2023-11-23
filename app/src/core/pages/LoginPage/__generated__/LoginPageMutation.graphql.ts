@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<86e51f97c911afdbf5b0e023bb9cf66c>>
+ * @generated SignedSource<<a32c29622e85e1073dc2250dc7b11e77>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,7 @@ export type LoginPageMutation$data = {
     readonly user: {
       readonly " $fragmentSpreads": FragmentRefs<"Root_viewer">;
     };
-  } | null;
+  } | null | undefined;
 };
 export type LoginPageMutation = {
   response: LoginPageMutation$data;

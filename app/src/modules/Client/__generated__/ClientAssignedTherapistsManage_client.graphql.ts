@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<12c6e423ef0f71c6ac726bb4093ccb08>>
+ * @generated SignedSource<<b99e4e49b7273274d4ea558941356938>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,15 +19,15 @@ export type ClientAssignedTherapistsManage_client$data = {
       readonly therapist: {
         readonly fullName: string;
         readonly rowId: string;
-        readonly type: string | null;
+        readonly type: string | null | undefined;
       };
     }>;
   };
   readonly latestAssignedTherapist: {
     readonly therapist: {
       readonly fullName: string;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
   readonly rowId: string;
   readonly " $fragmentType": "ClientAssignedTherapistsManage_client";
 };

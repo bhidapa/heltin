@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<04c02a7dc2fa8a1b8acd5fd1493e5c41>>
+ * @generated SignedSource<<f8cb4c047a55a1db3571988ed2fc6f42>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type TherapistsTable_therapist$data = {
   readonly enabled: boolean;
   readonly fullName: string;
   readonly rowId: string;
-  readonly type: string | null;
+  readonly type: string | null | undefined;
   readonly " $fragmentType": "TherapistsTable_therapist";
 };
 export type TherapistsTable_therapist$key = {

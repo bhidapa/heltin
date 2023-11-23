@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d8ac000a611cedbdd52d995cbcaef136>>
+ * @generated SignedSource<<e2217a1e15bf44d7014cf08f096f1427>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,8 +12,8 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type TherapistsPageQuery$variables = {
   count: number;
-  cursor?: any | null;
-  q?: string | null;
+  cursor?: any | null | undefined;
+  q?: string | null | undefined;
 };
 export type TherapistsPageQuery$data = {
   readonly viewer: {

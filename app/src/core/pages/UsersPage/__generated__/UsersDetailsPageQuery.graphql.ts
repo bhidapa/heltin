@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4425e92b6453be77b4b0ccd171be49d>>
+ * @generated SignedSource<<ee73bd0c2dc89b7d19e2ca69943a4777>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type UsersDetailsPageQuery$data = {
   readonly user: {
     readonly email: string;
     readonly " $fragmentSpreads": FragmentRefs<"UserManage_user">;
-  } | null;
+  } | null | undefined;
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"UserManage_viewer">;
   };

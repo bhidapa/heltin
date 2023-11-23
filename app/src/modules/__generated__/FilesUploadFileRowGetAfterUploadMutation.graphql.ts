@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ddf89a3ce92791ffb8f9a7eb7acad8e>>
+ * @generated SignedSource<<2311156b9fe4562a9a92f6028daf1c2e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GetFileAfterUploadInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   rowId: string;
 };
 export type FilesUploadFileRowGetAfterUploadMutation$variables = {
@@ -23,23 +23,23 @@ export type FilesUploadFileRowGetAfterUploadMutation$data = {
       readonly caseStudyConclusionFile: {
         readonly fileByFileRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
-        } | null;
+        } | null | undefined;
         readonly id: string;
-      } | null;
+      } | null | undefined;
       readonly caseStudyTreatmentFile: {
         readonly fileByFileRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
-        } | null;
+        } | null | undefined;
         readonly id: string;
-      } | null;
+      } | null | undefined;
       readonly formResponseFile: {
         readonly fileByFileRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"Files_files">;
-        } | null;
+        } | null | undefined;
         readonly id: string;
-      } | null;
-    } | null;
-  } | null;
+      } | null | undefined;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type FilesUploadFileRowGetAfterUploadMutation = {
   response: FilesUploadFileRowGetAfterUploadMutation$data;

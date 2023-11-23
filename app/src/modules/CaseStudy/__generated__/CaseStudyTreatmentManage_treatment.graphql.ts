@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8211d3d9ba53d4b73f1aa6680ad074e6>>
+ * @generated SignedSource<<644c6b3e147d000b8b0b06fd9f3514f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CaseStudyTreatmentManage_treatment$data = {
-  readonly description: string | null;
+  readonly description: string | null | undefined;
   readonly endedAt: string;
   readonly external: boolean;
-  readonly privateDescription: string | null;
+  readonly privateDescription: string | null | undefined;
   readonly rowId: string;
-  readonly score: number | null;
+  readonly score: number | null | undefined;
   readonly startedAt: string;
   readonly title: string;
   readonly " $fragmentType": "CaseStudyTreatmentManage_treatment";

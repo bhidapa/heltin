@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<edf8373b2270d7951e1a39add844e692>>
+ * @generated SignedSource<<930788e4f381c7da2d721bde9682cb5e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type ClientsCaseStudiesCreatePageQuery$data = {
   readonly client: {
     readonly fullName: string;
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyManage_client">;
-  } | null;
+  } | null | undefined;
 };
 export type ClientsCaseStudiesCreatePageQuery = {
   response: ClientsCaseStudiesCreatePageQuery$data;

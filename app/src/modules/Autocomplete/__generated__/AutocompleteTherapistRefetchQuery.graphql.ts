@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0586c0aa75c571d5d98f739301134b31>>
+ * @generated SignedSource<<462e65f1729f156cffcbdf7651bd597a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AutocompleteTherapistRefetchQuery$variables = {
-  q?: string | null;
+  q?: string | null | undefined;
 };
 export type AutocompleteTherapistRefetchQuery$data = {
   readonly " $fragmentSpreads": FragmentRefs<"AutocompleteTherapist_query">;

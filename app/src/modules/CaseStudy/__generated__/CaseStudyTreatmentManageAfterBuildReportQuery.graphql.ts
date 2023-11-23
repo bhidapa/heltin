@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b477917f48ed65f5affcde381ae61de9>>
+ * @generated SignedSource<<eb11a9f7e9c8ad7813636aeafee6858e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,7 @@ export type CaseStudyTreatmentManageAfterBuildReportQuery$data = {
         };
       }>;
     };
-  } | null;
+  } | null | undefined;
 };
 export type CaseStudyTreatmentManageAfterBuildReportQuery = {
   response: CaseStudyTreatmentManageAfterBuildReportQuery$data;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6893a92826f4268adc02fc847f37d54>>
+ * @generated SignedSource<<c37a946ce4537512dae7d04103625e43>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,7 @@ export type TherapistsDetailsPageQuery$data = {
   readonly therapist: {
     readonly fullName: string;
     readonly " $fragmentSpreads": FragmentRefs<"TherapistManage_therapist">;
-  } | null;
+  } | null | undefined;
 };
 export type TherapistsDetailsPageQuery = {
   response: TherapistsDetailsPageQuery$data;

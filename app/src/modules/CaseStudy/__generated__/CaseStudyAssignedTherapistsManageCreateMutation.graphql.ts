@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aaea2cdb91bb9fe1f1e1511b7eaed6df>>
+ * @generated SignedSource<<0d1389818d5f6f607b11818fa374cd72>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateCaseStudyTherapistInput = {
   caseStudyRowId: string;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   therapistRowId: string;
 };
 export type CaseStudyAssignedTherapistsManageCreateMutation$variables = {
@@ -22,8 +22,8 @@ export type CaseStudyAssignedTherapistsManageCreateMutation$data = {
   readonly createCaseStudyTherapist: {
     readonly caseStudyByCaseStudyRowId: {
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyAssignedTherapistsManage_casyStudy">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyAssignedTherapistsManageCreateMutation = {
   response: CaseStudyAssignedTherapistsManageCreateMutation$data;

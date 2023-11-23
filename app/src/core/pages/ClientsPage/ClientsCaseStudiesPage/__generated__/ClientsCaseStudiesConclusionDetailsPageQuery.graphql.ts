@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2ab9471e1ea37ae53378b80db621c89>>
+ * @generated SignedSource<<10352026e48682904da5cf6d0c223410>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,7 @@ export type ClientsCaseStudiesConclusionDetailsPageQuery$data = {
       readonly fullName: string;
     };
     readonly " $fragmentSpreads": FragmentRefs<"CaseStudyConclusionManage_caseStudy">;
-  } | null;
+  } | null | undefined;
   readonly conclusion: {
     readonly caseStudyRowId: string;
     readonly concludedAt: string;

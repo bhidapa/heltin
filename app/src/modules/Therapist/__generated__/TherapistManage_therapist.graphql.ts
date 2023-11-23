@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5cbb5c31db40dac4ce5c8eb4e49acb66>>
+ * @generated SignedSource<<0b09eefb55e1a3e82e3572e3f5fe0b6d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,15 +23,15 @@ export type TherapistManage_therapist$data = {
   readonly gender: Gender;
   readonly lastName: string;
   readonly rowId: string;
-  readonly telephone: string | null;
-  readonly title: string | null;
-  readonly type: string | null;
+  readonly telephone: string | null | undefined;
+  readonly title: string | null | undefined;
+  readonly type: string | null | undefined;
   readonly updatedAt: string;
   readonly user: {
     readonly email: string;
     readonly id: string;
     readonly rowId: string;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentType": "TherapistManage_therapist";
 };
 export type TherapistManage_therapist$key = {

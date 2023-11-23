@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ab1cfae611b3da98aaacf7b2c7ebfcc>>
+ * @generated SignedSource<<12dab2ba5097569ef55f7dffa424808a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type TherapistsTable_query$data = {
         readonly enabled: boolean;
         readonly fullName: string;
         readonly rowId: string;
-        readonly type: string | null;
+        readonly type: string | null | undefined;
       };
     }>;
     readonly totalCount: number;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f11e072b48df43bbd510776247d68b39>>
+ * @generated SignedSource<<68b0568a51869ad6377ec4331cf158bf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,8 +12,8 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ClientsPageQuery$variables = {
   count: number;
-  cursor?: any | null;
-  q?: string | null;
+  cursor?: any | null | undefined;
+  q?: string | null | undefined;
 };
 export type ClientsPageQuery$data = {
   readonly viewer: {

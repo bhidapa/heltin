@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<46a696de527842a0ea4cc0c12314fb33>>
+ * @generated SignedSource<<473073d067c1e86ae2527c843b57a690>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ export type FormQuestionType = "CHECKBOXES" | "DATE" | "DATE_TIME" | "DROPDOWN" 
 import { FragmentRefs } from "relay-runtime";
 export type FormManageBuildDefaultValues_formQuestions$data = {
   readonly nodes: ReadonlyArray<{
-    readonly options: any | null;
+    readonly options: any | null | undefined;
     readonly required: boolean;
     readonly rowId: string;
     readonly type: FormQuestionType;

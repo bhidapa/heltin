@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d4609ec5ccc508b9d30e7b341d181c57>>
+ * @generated SignedSource<<7956e05eaa7909186e27f22234dc7c67>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,20 +17,20 @@ export type EventsTable_events$data = ReadonlyArray<{
     readonly createdAt: string;
     readonly rowId: string;
     readonly title: string;
-  } | null;
+  } | null | undefined;
   readonly clientRowId: string;
   readonly conclusion: {
     readonly concludedAt: string;
     readonly rowId: string;
     readonly type: CaseStudyConclusionType;
-  } | null;
+  } | null | undefined;
   readonly formResponse: {
     readonly createdAt: string;
     readonly form: {
       readonly name: string;
-    } | null;
+    } | null | undefined;
     readonly rowId: string;
-  } | null;
+  } | null | undefined;
   readonly id: string;
   readonly treatment: {
     readonly endedAt: string;
@@ -38,7 +38,7 @@ export type EventsTable_events$data = ReadonlyArray<{
     readonly rowId: string;
     readonly startedAt: string;
     readonly title: string;
-  } | null;
+  } | null | undefined;
   readonly type: EventType;
   readonly " $fragmentType": "EventsTable_events";
 }>;

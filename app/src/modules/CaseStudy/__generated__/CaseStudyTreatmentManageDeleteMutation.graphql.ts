@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f0de039d3e7357ea6d422ae8b4e509d8>>
+ * @generated SignedSource<<cb699f5167036e06e43c263114412613>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DeleteCaseStudyTreatmentInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   rowId: string;
 };
 export type CaseStudyTreatmentManageDeleteMutation$variables = {
@@ -23,12 +23,12 @@ export type CaseStudyTreatmentManageDeleteMutation$data = {
       readonly caseStudyByCaseStudyRowId: {
         readonly clientByClientRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client" | "ClientsTable_client">;
-        } | null;
+        } | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
-      } | null;
+      } | null | undefined;
       readonly rowId: string;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyTreatmentManageDeleteMutation = {
   response: CaseStudyTreatmentManageDeleteMutation$data;

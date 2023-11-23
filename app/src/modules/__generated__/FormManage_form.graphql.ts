@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dd2f264c41a4dfc0da033b1ff5c34756>>
+ * @generated SignedSource<<b7405d7fbb51577aa7225ccc8407e23e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FormManage_form$data = {
-  readonly description: string | null;
+  readonly description: string | null | undefined;
   readonly formQuestions: {
     readonly nodes: ReadonlyArray<{
       readonly required: boolean;

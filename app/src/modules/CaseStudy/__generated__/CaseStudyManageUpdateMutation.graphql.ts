@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e764eacecf5a69a234572aa25f01c36d>>
+ * @generated SignedSource<<bb6530b7a2ff3250b698214032195eb5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateCaseStudyInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   rowId: string;
   title: string;
 };
@@ -25,8 +25,8 @@ export type CaseStudyManageUpdateMutation$data = {
         readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client">;
       };
       readonly " $fragmentSpreads": FragmentRefs<"CaseStudyManage_caseStudy">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type CaseStudyManageUpdateMutation = {
   response: CaseStudyManageUpdateMutation$data;

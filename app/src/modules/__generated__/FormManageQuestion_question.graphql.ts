@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<81fdb71410e9c35603817fc586c6b9b6>>
+ * @generated SignedSource<<a3fba51852b921a7df1d8c2c4f0983e7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,9 +12,9 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type FormQuestionType = "CHECKBOXES" | "DATE" | "DATE_TIME" | "DROPDOWN" | "MULTIPLE_CHOICE" | "PARAGRAPH" | "SHORT_ANSWER" | "TIME";
 import { FragmentRefs } from "relay-runtime";
 export type FormManageQuestion_question$data = {
-  readonly description: string | null;
+  readonly description: string | null | undefined;
   readonly name: string;
-  readonly rawOptions: any | null;
+  readonly rawOptions: any | null | undefined;
   readonly required: boolean;
   readonly rowId: string;
   readonly type: FormQuestionType;

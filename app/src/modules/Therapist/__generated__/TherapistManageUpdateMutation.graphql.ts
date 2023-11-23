@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef317e769e1b5d6eb930b78d4ba499a7>>
+ * @generated SignedSource<<cf36f1eaf99b0b252a0396dbfe82cc64>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Gender = "FEMALE" | "MALE";
 export type UpdateTherapistInput = {
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   dateOfBirth: string;
   disabled: boolean;
   email: string;
@@ -20,10 +20,10 @@ export type UpdateTherapistInput = {
   gender: Gender;
   lastName: string;
   rowId: string;
-  telephone?: string | null;
-  title?: string | null;
-  type?: string | null;
-  userRowId?: string | null;
+  telephone?: string | null | undefined;
+  title?: string | null | undefined;
+  type?: string | null | undefined;
+  userRowId?: string | null | undefined;
 };
 export type TherapistManageUpdateMutation$variables = {
   input: UpdateTherapistInput;
@@ -33,8 +33,8 @@ export type TherapistManageUpdateMutation$data = {
     readonly therapist: {
       readonly rowId: string;
       readonly " $fragmentSpreads": FragmentRefs<"TherapistManage_therapist" | "TherapistsTable_therapist">;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type TherapistManageUpdateMutation = {
   response: TherapistManageUpdateMutation$data;

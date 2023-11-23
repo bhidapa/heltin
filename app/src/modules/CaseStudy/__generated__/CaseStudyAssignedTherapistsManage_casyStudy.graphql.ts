@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a0f58332ad2f721a3da4da0eb709d2b0>>
+ * @generated SignedSource<<1bad93683767694f97a344f909d34433>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,7 @@ export type CaseStudyAssignedTherapistsManage_casyStudy$data = {
       readonly therapist: {
         readonly fullName: string;
         readonly rowId: string;
-        readonly type: string | null;
+        readonly type: string | null | undefined;
       };
     }>;
   };

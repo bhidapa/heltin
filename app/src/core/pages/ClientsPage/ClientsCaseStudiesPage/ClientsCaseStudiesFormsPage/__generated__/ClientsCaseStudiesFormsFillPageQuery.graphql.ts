@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<74b96c3f2e67358785e41392f544a075>>
+ * @generated SignedSource<<87731a16058569405262bc66df6d7cbf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type ClientsCaseStudiesFormsFillPageQuery$data = {
   readonly form: {
     readonly name: string;
     readonly " $fragmentSpreads": FragmentRefs<"FormManage_form">;
-  } | null;
+  } | null | undefined;
 };
 export type ClientsCaseStudiesFormsFillPageQuery = {
   response: ClientsCaseStudiesFormsFillPageQuery$data;

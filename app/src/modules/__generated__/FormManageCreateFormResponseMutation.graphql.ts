@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b0021ddf2a184a1dfb9e3112f4d471dc>>
+ * @generated SignedSource<<db716350ef36d9cd70150280a26d0bcd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type CreateFormResponseInput = {
   answers: any;
   caseStudyRowId: string;
-  clientMutationId?: string | null;
+  clientMutationId?: string | null | undefined;
   formRowId: string;
 };
 export type FormManageCreateFormResponseMutation$variables = {
@@ -25,12 +25,12 @@ export type FormManageCreateFormResponseMutation$data = {
       readonly caseStudyByCaseStudyRowId: {
         readonly clientByClientRowId: {
           readonly " $fragmentSpreads": FragmentRefs<"ClientCaseStudies_client">;
-        } | null;
+        } | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"ClientsCaseStudiesDetailsPage_caseStudy">;
-      } | null;
+      } | null | undefined;
       readonly rowId: string;
-    } | null;
-  } | null;
+    } | null | undefined;
+  } | null | undefined;
 };
 export type FormManageCreateFormResponseMutation = {
   response: FormManageCreateFormResponseMutation$data;
