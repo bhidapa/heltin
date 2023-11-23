@@ -26,6 +26,7 @@ services:
     volumes:
       - database-data:/var/lib/postgresql/data
       - pgbackrest-repo:/var/lib/pgbackrest
+      - ${PGBACKREST_CONF_PATH}:/etc/pgbackrest/pgbackrest.conf
     healthcheck:
       test: psql --set=ON_ERROR_STOP=1 --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB --command='select 1 from public.user;' > /dev/null 2>&1 || exit 1
       interval: 7s

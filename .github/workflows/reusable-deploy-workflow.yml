@@ -19,6 +19,8 @@ on:
         required: true
       POSTGRES_PASSWORD:
         required: true
+      PGBACKREST_CONF_PATH:
+        required: true
 
 jobs:
   deploy:
@@ -62,4 +64,5 @@ jobs:
           APP_DOMAINS: ${{ secrets.APP_DOMAINS }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          PGBACKREST_CONF_PATH: ${{ secrets.PGBACKREST_CONF_PATH }}
         run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --wait

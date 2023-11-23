@@ -33,8 +33,7 @@ RUN rm -rf /tmp/pgbackrest-release && \
 RUN apt-get autoremove -y && \
   rm -rf /var/lib/apt/lists/*
 
-# configure pgBackRest
-COPY --chown=postgres:postgres database/pgbackrest.conf $PGBACKREST_CONFIG_PATH
+# configure Postgres for pgBackRest
 COPY --chown=postgres:postgres database/pgbackrest.postgresql.conf $PGBACKREST_CONFIG_PATH
 RUN cat $PGBACKREST_CONFIG_PATH/pgbackrest.postgresql.conf >> /usr/share/postgresql/postgresql.conf.sample
 
