@@ -42,6 +42,7 @@ import { Anchor, Image } from '@theguild/components';
 import clsx from 'clsx';
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/router';
+import logoFullSvg from 'public/logo-full.svg';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
 import caseStudiesDetailsAssignedTherapistsDarkImage from 'public/screenshots/case_studies_details_assigned_therapists_dark.png';
@@ -97,8 +98,13 @@ export function Index() {
           Early Access!
         </div>
         <div className="container py-20 sm:py-24 lg:py-32">
-          <h1 className="max-w-screen-md mx-auto font-extrabold text-5xl sm:text-5xl lg:text-6xl text-center bg-gradient-to-r from-blue-700 to-cyan-400 dark:from-blue-700 dark:to-cyan-400 bg-clip-text text-transparent !leading-tight">
-            heltin
+          <h1 className="w-full">
+            <Image
+              src={logoFullSvg}
+              placeholder="empty"
+              alt="heltin logo full"
+              style={{ margin: '0 auto' }}
+            />
           </h1>
           <p className="max-w-screen-sm mx-auto mt-6 text-2xl text-gray-800 text-center dark:text-gray-400">
             Interdisciplinary registry for a holistic view on mental health
