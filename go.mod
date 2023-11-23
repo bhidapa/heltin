@@ -2,8 +2,6 @@ module github.com/bhidapa/heltin
 
 go 1.21
 
-toolchain go1.21.4
-
 require (
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/domonda/go-errs v0.0.0-20230920094343-6b122da4d22f
