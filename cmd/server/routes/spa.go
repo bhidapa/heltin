@@ -71,7 +71,7 @@ func (spa SPA) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Length", fmt.Sprintf("%d", file.Size()))
-	http.ServeContent(w, r, file.Name(), file.ModTime(), reader)
+	http.ServeContent(w, r, file.Name(), file.Modified(), reader)
 }
 
 func writeInternalServerError(err error, r *http.Request, w http.ResponseWriter) {

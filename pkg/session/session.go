@@ -30,7 +30,8 @@ func Handler(wrappedHandler http.Handler) http.HandlerFunc {
 		}
 
 		req = req.WithContext(ContextWithUser(req.Context(), userID.Get()))
-		req = golog.AddValueToRequest(req, golog.NewUUIDValue("userID", userID))
+
+		req = golog.RequestWithAttribs(req, golog.UUID{Key: "userID", Val: userID})
 
 		wrappedHandler.ServeHTTP(res, req)
 	}
@@ -46,7 +47,7 @@ func HandlerWithUserIDAsMuxVar(muxVarName string, wrappedHandler http.Handler) h
 
 		mux.Vars(req)[muxVarName] = userID.String()
 
-		req = golog.AddValueToRequest(req, golog.NewUUIDValue("userID", userID))
+		req = golog.RequestWithAttribs(req, golog.UUID{Key: "userID", Val: userID})
 
 		wrappedHandler.ServeHTTP(res, req)
 	}

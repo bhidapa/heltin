@@ -1,8 +1,9 @@
 # build server
-FROM golang:1.19-alpine as server
+FROM golang:1.21 as server
 LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
-RUN apk --update --no-cache add git tzdata
+RUN apt-get update && \
+  apt-get install -y tzdata
 
 WORKDIR $GOPATH/src/github.com/bhidapa/heltin
 
@@ -35,10 +36,12 @@ ARG VITE_APP_VER
 RUN VITE_APP_VER=$VITE_APP_VER yarn build
 
 # server
-FROM alpine:3.16
+FROM debian:bookworm-slim
 
 # necessary for healthchecks
-RUN apk --update --no-cache add curl
+RUN apt-get update && \
+  apt-get install -y dumb-init curl && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY --from=server /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=server /heltin-server /usr/local/bin/
@@ -46,4 +49,4 @@ COPY --from=server /heltin-server /usr/local/bin/
 ENV APP_DIR=/srv/app
 COPY --from=app /app/build $APP_DIR
 
-ENTRYPOINT ["heltin-server"]
+CMD ["dumb-init", "heltin-server"]

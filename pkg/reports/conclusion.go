@@ -34,9 +34,8 @@ func CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID,
 
 	log.Info("Creating conclusion report").Log()
 
-	var pdfFile *fs.MemFile
 	err = session.TransactionAsUserFromContext(ctx, func(ctx context.Context) error {
-		pdfFile, err = buildConclusionPDF(ctx, fileID, conclusionID)
+		pdfFile, err := buildConclusionPDF(ctx, fileID, conclusionID)
 		if err != nil {
 			return err
 		}
@@ -86,7 +85,7 @@ func CreateForConclusion(ctx context.Context, conclusionID uu.ID) (fileID uu.ID,
 //go:embed templates/conclusion.html
 var conclusionHtml []byte
 
-func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFile *fs.MemFile, err error) {
+func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFile fs.MemFile, err error) {
 	conclusion := struct {
 		// therapist shouldn't be null, but the user that created
 		// the case study might not be a therapist
@@ -130,11 +129,11 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 		where case_study_conclusion.id = $1`, conclusionID).
 		ScanStruct(&conclusion)
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	if conclusion.Description.IsNull() {
-		return nil, errors.New("description is required")
+		return fs.MemFile{}, errors.New("description is required")
 	}
 
 	conclusion.ClientDOB = conclusion.ClientDOBDate.Format("02.01.2006.")
@@ -145,7 +144,7 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 	// TODO: use timezone from requester
 	loc, err := time.LoadLocation("Europe/Sarajevo")
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	createdAt := time.Now().UTC()
@@ -165,17 +164,17 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 
 	headerHTML, err := render(headerHtml, data)
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	indexHTML, err := render(conclusionHtml, data)
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	footerHTML, err := render(footerHtml, data)
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	pdfFileBytes, err := pdf.RenderHTML(ctx, &pdf.RenderHTMLArgs{
@@ -188,9 +187,10 @@ func buildConclusionPDF(ctx context.Context, fileID, conclusionID uu.ID) (pdfFil
 		MarginLeft:   0.8,
 	})
 	if err != nil {
-		return nil, err
+		return fs.MemFile{}, err
 	}
 
 	filename := "Report" + "_" + conclusion.ClientName + "_" + conclusion.Title + "_" + createdAt.In(loc).Format(time.RFC3339)
+
 	return fs.NewMemFile(strutil.SanitizeFileName(filename)+".pdf", pdfFileBytes), nil
 }

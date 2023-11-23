@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-types/uu"
 )
@@ -37,7 +36,7 @@ func TransactionAsUser(ctx context.Context, userID uu.ID, txFunc func(ctx contex
 			if !errors.Is(err, sql.ErrTxDone) {
 				// for when this transaction is within another one
 				e := db.Conn(ctx).Exec("reset session.user_id; reset role;")
-				err = errs.Combine(err, e)
+				err = errors.Join(err, e)
 			}
 		}()
 		return txFunc(ctx)

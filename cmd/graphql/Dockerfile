@@ -22,9 +22,9 @@ FROM node:18-bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && \
+RUN apt-get update && \
   # curl for healthchecks
-  apt install -y dumb-init curl && \
+  apt-get install -y dumb-init curl && \
   rm -rf /var/lib/apt/lists/*
 
 COPY --from=build-stage /graphql/node_modules /opt/graphql/node_modules

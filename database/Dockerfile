@@ -1,11 +1,9 @@
-FROM postgres:15
+FROM postgres:16
 LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
-# update apt pkg sources
-RUN apt-get update
-
 # pgBackRest
-RUN apt-get install -y \
+RUN apt-get update && \
+  apt-get install -y \
   # build deps
   curl make gcc libpq-dev libssl-dev libxml2-dev pkg-config liblz4-dev libzstd-dev libbz2-dev libz-dev libyaml-dev \
   # runtime deps
@@ -33,7 +31,7 @@ RUN rm -rf /tmp/pgbackrest-release && \
 
 # clean apt cache and temporary files
 RUN apt-get autoremove -y && \
-  apt-get clean all && rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*
 
 # configure pgBackRest
 COPY --chown=postgres:postgres database/pgbackrest.conf $PGBACKREST_CONFIG_PATH
