@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  FaCheck,
-  FaPaperPlane,
-  FaRepeat,
-  FaTriangleExclamation,
-} from 'react-icons/fa6';
+import { FaCheck, FaPaperPlane, FaRepeat, FaTriangleExclamation } from 'react-icons/fa6';
 
 export function SignUpForm() {
   const [state, setState] = useState<
@@ -50,8 +45,7 @@ export function SignUpForm() {
         <p>
           Thank you, <strong>{state.name}</strong>!
           <br />
-          We'll get back to you on <strong>{state.email}</strong> as soon as
-          possible.
+          We'll get back to you on <strong>{state.email}</strong> as soon as possible.
         </p>
       </div>
     );

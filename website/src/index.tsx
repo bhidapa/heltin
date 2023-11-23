@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
-import { StaticImageData } from 'next/image';
-import { Anchor, Image } from '@theguild/components';
-import clsx from 'clsx';
-import { SignUpForm } from './SignUpForm';
-
-// icons
-import { FiGithub } from 'react-icons/fi';
+import { FaUserFriends } from 'react-icons/fa';
 import {
   FaArrowsLeftRightToLine,
   FaBookMedical,
@@ -43,35 +36,40 @@ import {
   FaUserLock,
   FaUserNurse,
 } from 'react-icons/fa6';
-import { FaUserFriends } from 'react-icons/fa';
-
-// screenshots
-import clientsDarkImage from 'public/screenshots/clients_dark.png';
-import clientsLightImage from 'public/screenshots/clients_light.png';
-import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_dark.png';
-import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
+// icons
+import { FiGithub } from 'react-icons/fi';
+import { Anchor, Image } from '@theguild/components';
+import clsx from 'clsx';
+import { StaticImageData } from 'next/image';
+import { useRouter } from 'next/router';
 import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
 import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
-import clientsDetailsDarkImage from 'public/screenshots/clients_details_dark.png';
-import clientsDetailsLightImage from 'public/screenshots/clients_details_light.png';
-import clientsDetailsAssignedTherapistsDarkImage from 'public/screenshots/clients_details_assigned_therapists_dark.png';
-import clientsDetailsAssignedTherapistsLightImage from 'public/screenshots/clients_details_assigned_therapists_light.png';
-import caseStudiesDetailsDarkImage from 'public/screenshots/case_studies_details_dark.png';
-import caseStudiesDetailsLightImage from 'public/screenshots/case_studies_details_light.png';
 import caseStudiesDetailsAssignedTherapistsDarkImage from 'public/screenshots/case_studies_details_assigned_therapists_dark.png';
 import caseStudiesDetailsAssignedTherapistsLightImage from 'public/screenshots/case_studies_details_assigned_therapists_light.png';
-import treatmentsDetailsDarkImage from 'public/screenshots/treatments_details_dark.png';
-import treatmentsDetailsLightImage from 'public/screenshots/treatments_details_light.png';
-import formsResponseDarkImage from 'public/screenshots/forms_response_dark.png';
-import formsResponseLightImage from 'public/screenshots/forms_response_light.png';
+import caseStudiesDetailsDarkImage from 'public/screenshots/case_studies_details_dark.png';
+import caseStudiesDetailsLightImage from 'public/screenshots/case_studies_details_light.png';
+// screenshots
+import clientsDarkImage from 'public/screenshots/clients_dark.png';
+import clientsDetailsAssignedTherapistsDarkImage from 'public/screenshots/clients_details_assigned_therapists_dark.png';
+import clientsDetailsAssignedTherapistsLightImage from 'public/screenshots/clients_details_assigned_therapists_light.png';
+import clientsDetailsDarkImage from 'public/screenshots/clients_details_dark.png';
+import clientsDetailsLightImage from 'public/screenshots/clients_details_light.png';
+import clientsLightImage from 'public/screenshots/clients_light.png';
 import conclusionDetailsDarkImage from 'public/screenshots/conclusion_details_dark.png';
 import conclusionDetailsLightImage from 'public/screenshots/conclusion_details_light.png';
 import desktopClientsDarkImage from 'public/screenshots/desktop_clients_dark.png';
 import desktopClientsLightImage from 'public/screenshots/desktop_clients_light.png';
-import tabletClientsDarkImage from 'public/screenshots/tablet_clients_dark.png';
-import tabletClientsLightImage from 'public/screenshots/tablet_clients_light.png';
+import formsResponseDarkImage from 'public/screenshots/forms_response_dark.png';
+import formsResponseLightImage from 'public/screenshots/forms_response_light.png';
 import mobileClientsDarkImage from 'public/screenshots/mobile_clients_dark.png';
 import mobileClientsLightImage from 'public/screenshots/mobile_clients_light.png';
+import tabletClientsDarkImage from 'public/screenshots/tablet_clients_dark.png';
+import tabletClientsLightImage from 'public/screenshots/tablet_clients_light.png';
+import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_dark.png';
+import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
+import treatmentsDetailsDarkImage from 'public/screenshots/treatments_details_dark.png';
+import treatmentsDetailsLightImage from 'public/screenshots/treatments_details_light.png';
+import { SignUpForm } from './SignUpForm';
 
 const gradients: [string, string][] = [
   ['#f59e0b', '#d97706'], // amber
@@ -107,10 +105,7 @@ export function Index() {
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Anchor
-              className={clsx(
-                classes.button,
-                'flex flex-row gap-2 items-center',
-              )}
+              className={clsx(classes.button, 'flex flex-row gap-2 items-center')}
               href="https://github.com/bhidapa/heltin"
             >
               <FiGithub /> GitHub
@@ -125,9 +120,8 @@ export function Index() {
             </h3>
             <br />
             <p className="text-center">
-              If you wish to be an early adopter and help us with testing, or
-              simply want to be notified when heltin is available, please sign
-              up below.
+              If you wish to be an early adopter and help us with testing, or simply want to be
+              notified when heltin is available, please sign up below.
             </p>
             <br />
             <br />
@@ -140,9 +134,7 @@ export function Index() {
         <Feature gradient={0} title="The Registry">
           {({ Highlights }) => (
             <div className="flex flex-col gap-y-12">
-              <p className="text-center">
-                the only client registry you'll ever need
-              </p>
+              <p className="text-center">the only client registry you'll ever need</p>
               <div className="flex flex-col gap-y-6">
                 <Highlights
                   items={[
@@ -155,8 +147,7 @@ export function Index() {
                     {
                       icon: <FaPeopleGroup size={28} />,
                       title: 'Interdisciplinary Approach',
-                      description:
-                        'Combine all branches of mental healthcare knowledge',
+                      description: 'Combine all branches of mental healthcare knowledge',
                     },
                     {
                       icon: <FaHandshake size={28} />,
@@ -168,35 +159,30 @@ export function Index() {
                       link: '#therapists',
                       icon: <FaUserDoctor size={28} />,
                       title: 'Therapists',
-                      description:
-                        'Store your professional therapists, internal and/or external',
+                      description: 'Store your professional therapists, internal and/or external',
                     },
                     {
                       link: '#assistants',
                       icon: <FaUserNurse size={28} />,
                       title: 'Assistants',
-                      description:
-                        'Speed up or delegate client information management',
+                      description: 'Speed up or delegate client information management',
                     },
                     {
                       link: '#clients',
                       icon: <FaHospitalUser size={30} />,
                       title: 'Clients',
-                      description:
-                        'Store your clients with all healthcare necessities',
+                      description: 'Store your clients with all healthcare necessities',
                     },
                     {
                       link: '#forms',
                       icon: <FaClipboardList size={28} />,
                       title: 'Custom Forms',
-                      description:
-                        'Design your own questioneers for next-gen analytics',
+                      description: 'Design your own questioneers for next-gen analytics',
                     },
                     {
                       icon: <FaLanguage size={28} />,
                       title: 'Internationalization',
-                      description:
-                        'Possibility of translating and adapting to your language',
+                      description: 'Possibility of translating and adapting to your language',
                     },
                   ]}
                 />
@@ -237,14 +223,12 @@ export function Index() {
                     {
                       icon: <FaChartPie size={28} />,
                       title: 'Graphicons',
-                      description:
-                        'Beautiful graphs with meaningful information',
+                      description: 'Beautiful graphs with meaningful information',
                     },
                     {
                       icon: <FaMagnifyingGlassChart size={28} />,
                       title: 'Statistics',
-                      description:
-                        'Important statistics are at the grasp of your hand',
+                      description: 'Important statistics are at the grasp of your hand',
                     },
                     {
                       icon: <FaFilter size={28} />,
@@ -278,20 +262,17 @@ export function Index() {
                     {
                       icon: <FaUserFriends size={28} />,
                       title: 'Internal and External',
-                      description:
-                        'The therapist can be a heltin user or not (external)',
+                      description: 'The therapist can be a heltin user or not (external)',
                     },
                     {
                       icon: <FaEye size={28} />,
                       title: 'Visibility',
-                      description:
-                        'Therapists can be archived and not shown in heltin',
+                      description: 'Therapists can be archived and not shown in heltin',
                     },
                     {
                       icon: <FaSquarePen size={28} />,
                       title: 'Custom Types',
-                      description:
-                        "There's many types of mental healthcare professionals",
+                      description: "There's many types of mental healthcare professionals",
                     },
                   ]}
                 />
@@ -319,20 +300,17 @@ export function Index() {
                     {
                       icon: <FaUserLock size={28} />,
                       title: 'Restricted View',
-                      description:
-                        'Only basic client information can be accessed',
+                      description: 'Only basic client information can be accessed',
                     },
                     {
                       icon: <FaUserDoctor size={28} />,
                       title: 'Assign Therapists',
-                      description:
-                        'Assistans can assign responsible therapists on request',
+                      description: 'Assistans can assign responsible therapists on request',
                     },
                     {
                       icon: <FaNoteSticky size={28} />,
                       title: 'Notes',
-                      description:
-                        'Can add notes to convey general information or requests',
+                      description: 'Can add notes to convey general information or requests',
                     },
                   ]}
                 />
@@ -367,8 +345,7 @@ export function Index() {
                       {
                         icon: <FaEye size={28} />,
                         title: 'Discrete Clients',
-                        description:
-                          'Visible exclusively to assigned therapists, no one else',
+                        description: 'Visible exclusively to assigned therapists, no one else',
                       },
                       {
                         link: '#case-studies',
@@ -380,8 +357,7 @@ export function Index() {
                       {
                         icon: <FaClockRotateLeft size={28} />,
                         title: 'History',
-                        description:
-                          "Easy overview of client's history and case studies",
+                        description: "Easy overview of client's history and case studies",
                       },
                     ]}
                   />
@@ -402,10 +378,7 @@ export function Index() {
             >
               {({ Highlights }) => (
                 <div className="flex flex-col gap-y-12">
-                  <p>
-                    clear and exacty access rights built in right into the
-                    system
-                  </p>
+                  <p>clear and exacty access rights built in right into the system</p>
                   <div className="flex flex-col gap-y-6">
                     <Highlights
                       items={[
@@ -497,17 +470,13 @@ export function Index() {
               >
                 {({ Highlights }) => (
                   <div className="flex flex-col gap-y-12">
-                    <p>
-                      clear and exacty access rights built in right into the
-                      system
-                    </p>
+                    <p>clear and exacty access rights built in right into the system</p>
                     <div className="flex flex-col gap-y-6">
                       <Highlights
                         items={[
                           {
                             title: 'Administrators',
-                            description:
-                              'Have full access to the whole registry',
+                            description: 'Have full access to the whole registry',
                           },
                           {
                             title: 'Therapists',
@@ -578,10 +547,7 @@ export function Index() {
               >
                 {({ Highlights }) => (
                   <div className="flex flex-col gap-y-12">
-                    <p>
-                      fill out custom forms for the case study at any point in
-                      time
-                    </p>
+                    <p>fill out custom forms for the case study at any point in time</p>
                     <div className="flex flex-col gap-y-6">
                       <Highlights
                         items={[
@@ -639,8 +605,7 @@ export function Index() {
                           },
                           {
                             title: 'Files',
-                            description:
-                              'Upload and attach any conclusion relevant files',
+                            description: 'Upload and attach any conclusion relevant files',
                           },
                         ]}
                       />
@@ -657,9 +622,7 @@ export function Index() {
         <Feature gradient={6} title="Design">
           {({ Highlights }) => (
             <div className="flex flex-col gap-y-12">
-              <p className="text-center">
-                responsive design with accessibility in mind
-              </p>
+              <p className="text-center">responsive design with accessibility in mind</p>
               <div className="flex flex-col gap-y-6">
                 <Highlights
                   items={[
@@ -762,9 +725,7 @@ export function Index() {
               >
                 Mobile
               </h4>
-              <p className={clsx('text-gray-800 dark:text-gray-400')}>
-                Works on your phone too
-              </p>
+              <p className={clsx('text-gray-800 dark:text-gray-400')}>Works on your phone too</p>
             </div>
 
             <Image
@@ -794,20 +755,17 @@ export function Index() {
                     {
                       icon: <FaArrowsLeftRightToLine size={28} />,
                       title: 'Transit Encryption',
-                      description:
-                        'All data in transit have a world standard encryption',
+                      description: 'All data in transit have a world standard encryption',
                     },
                     {
                       icon: <FaIdCard size={28} />,
                       title: 'Sessions',
-                      description:
-                        "Users know exactly where they're logged in from",
+                      description: "Users know exactly where they're logged in from",
                     },
                     {
                       icon: <FaDatabase size={28} />,
                       title: 'Database Backups',
-                      description:
-                        'With Point-in-Time Recovery storing data at any given time',
+                      description: 'With Point-in-Time Recovery storing data at any given time',
                     },
                     {
                       icon: <FaNetworkWired size={28} />,
@@ -818,8 +776,7 @@ export function Index() {
                     {
                       icon: <FaShieldVirus size={28} />,
                       title: 'Built-in Firewalls',
-                      description:
-                        'Protecting you from all kinds of malicious attacks',
+                      description: 'Protecting you from all kinds of malicious attacks',
                     },
                   ]}
                 />
@@ -850,9 +807,9 @@ export function Index() {
                   Self-Hosted or Managed
                 </h2>
                 <p>
-                  <b>heltin is completely open-source (MPL-2.0)</b>. Run it
-                  within your own infrastructure, or use our managed service for
-                  increased security and availablity anywhere on earth.
+                  <b>heltin is completely open-source (MPL-2.0)</b>. Run it within your own
+                  infrastructure, or use our managed service for increased security and availablity
+                  anywhere on earth.
                 </p>
               </div>
 
@@ -875,8 +832,8 @@ export function Index() {
                       Open Source
                     </h4>
                     <p className={clsx('text-gray-800 dark:text-gray-400')}>
-                      Built entirely in public and available to everyone. Audit
-                      it or create your own open source solution based on heltin
+                      Built entirely in public and available to everyone. Audit it or create your
+                      own open source solution based on heltin
                     </p>
                   </a>
                 </div>
@@ -896,8 +853,8 @@ export function Index() {
                       Self-Hosted
                     </h4>
                     <p className={clsx('text-gray-800 dark:text-gray-400')}>
-                      heltin can run on-premises, on your own infrastructure, or
-                      in any Cloud service
+                      heltin can run on-premises, on your own infrastructure, or in any Cloud
+                      service
                     </p>
                   </div>
                 </div>
@@ -917,8 +874,8 @@ export function Index() {
                       Managed
                     </h4>
                     <p className={clsx('text-gray-800 dark:text-gray-400')}>
-                      Let us take care of the whole infrastructure with
-                      automatic updates and availability guarantees
+                      Let us take care of the whole infrastructure with automatic updates and
+                      availability guarantees
                     </p>
                   </div>
                 </div>
@@ -992,10 +949,7 @@ function Feature({
 
   return (
     <>
-      <div
-        id={id}
-        className="container box-border px-6 mx-auto flex flex-col gap-y-24"
-      >
+      <div id={id} className="container box-border px-6 mx-auto flex flex-col gap-y-24">
         <div
           className={clsx(
             'flex flex-col gap-24 md:gap-12 lg:gap-24 justify-center items-stretch',
@@ -1058,11 +1012,7 @@ function Feature({
                             >
                               {title}
                             </h4>
-                            <p
-                              className={clsx(
-                                'text-gray-800 dark:text-gray-400',
-                              )}
-                            >
+                            <p className={clsx('text-gray-800 dark:text-gray-400')}>
                               {description}
                             </p>
                           </div>
