@@ -1,6 +1,8 @@
 module github.com/bhidapa/heltin
 
-go 1.19
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
@@ -24,7 +26,7 @@ require (
 	github.com/domonda/go-pretty v0.0.0-20220317123925-dd9e6bef129a // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
-	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/h2non/filetype v1.1.3 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/lib/pq v1.10.7 // indirect
@@ -38,6 +40,6 @@ require (
 	github.com/ungerik/go-reflection v0.0.0-20220113085621-6c5fc1f2694a // indirect
 	golang.org/x/exp v0.0.0-20221012211006-4de253d81b95 // indirect
 	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b // indirect
-	golang.org/x/sys v0.0.0-20221013171732-95e765b1cc43 // indirect
+	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/text v0.3.8 // indirect
 )
