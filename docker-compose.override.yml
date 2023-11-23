@@ -17,11 +17,6 @@ services:
       - ${FILE_DIR}:/var/heltin-data # ${FILE_DIR} taken from .env
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-  cli:
-    environment:
-      - FILE_DIR=/var/heltin-data
-    volumes:
-      - ${FILE_DIR}:/var/heltin-data # ${FILE_DIR} taken from .env
   gotenberg:
     ports:
       - ${GOTENBERG_PORT}:${GOTENBERG_PORT}

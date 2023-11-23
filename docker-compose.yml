@@ -55,7 +55,7 @@ services:
       - GRAPHIQL_ROUTE=/graphiql
       - GRAPHQL_PORT=${GRAPHQL_PORT}
     healthcheck:
-      test: "curl -f -H \"Content-Type: application/json\" -d '{ \"query\": \"query healthcheck { viewer { id } }\" }' http://localhost:$$GRAPHQL_PORT$$GRAPHQL_ROUTE || exit 1"
+      test: 'curl -f -H "Content-Type: application/json" -d ''{ "query": "query healthcheck { viewer { id } }" }'' http://localhost:$$GRAPHQL_PORT$$GRAPHQL_ROUTE || exit 1'
       interval: 7s
       timeout: 3s
     depends_on:
@@ -90,23 +90,6 @@ services:
       # is indeed used, but not a critical service
       # gotenberg:
       #   condition: service_healthy
-  cli:
-    image: ghcr.io/bhidapa/heltin-cli
-    build:
-      context: .
-      dockerfile: ./cmd/cli/Dockerfile
-    networks:
-      - local
-    environment:
-      - POSTGRES_HOST=database
-      - POSTGRES_PORT=${POSTGRES_PORT}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-      - SESSION_SECRET=${SESSION_SECRET}
-    depends_on:
-      database:
-        condition: service_healthy
   gotenberg:
     image: thecodingmachine/gotenberg:7
     networks:
