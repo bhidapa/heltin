@@ -4,7 +4,8 @@
   "packageManager": "yarn@4.0.2",
   "workspaces": [
     "graphql",
-    "app"
+    "app",
+    "website"
   ],
   "scripts": {
     "check:format": "prettier -c .",
