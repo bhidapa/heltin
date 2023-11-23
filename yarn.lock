@@ -1740,9 +1740,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@theguild/components@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@theguild/components@npm:6.0.3"
+"@theguild/components@npm:6.1.0-alpha-20231123155316-a66de54":
+  version: 6.1.0-alpha-20231123155316-a66de54
+  resolution: "@theguild/components@npm:6.1.0-alpha-20231123155316-a66de54"
   dependencies:
     "@algolia/autocomplete-js": "npm:1.11.1"
     "@algolia/autocomplete-plugin-algolia-insights": "npm:1.11.1"
@@ -1766,7 +1766,7 @@ __metadata:
     next: ^12.3.1 || ^13.0.0
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: bc5bd9c18d5ea6be32f2cba3d7622c8d49b7e6acbf91ada7d218a57a31e8d329730acc4e27ed2b0b0249318109bdc928c59fc9b81c4f91df1c7a36d1ca4aab2c
+  checksum: e5e23ec2423a9ad6314ffe9e33c2a7308e29720b3e65582ceb5026e5c4fc8146001bb39027ea4ab1e4ee349783d861834ebc640f819421f6ab79750c557d2130
   languageName: node
   linkType: hard
 
@@ -10711,7 +10711,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "website@workspace:website"
   dependencies:
-    "@theguild/components": "npm:^6.0.3"
+    "@theguild/components": "npm:6.1.0-alpha-20231123155316-a66de54"
     "@theguild/tailwind-config": "npm:^0.3.0"
     "@types/node": "npm:^20.9.4"
     "@types/react": "npm:^18.2.38"
