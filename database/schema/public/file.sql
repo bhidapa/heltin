@@ -19,7 +19,7 @@ create index file_created_by_idx on public.file (created_by);
 create function public.file_link(
   file public.file
 ) returns text as $$
-  -- matches the route specified in cmd/server/routes/routes.go
+  -- matches the route specified in server/routes/routes.go
   select '/api/file/' || file.id::text
 $$ language sql stable strict;
 comment on function public.file_link is '@notNull';

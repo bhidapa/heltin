@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/bhidapa/heltin/pkg/session"
+	"github.com/bhidapa/heltin/internal/session"
 	"github.com/ungerik/go-fs"
 	"github.com/ungerik/go-fs/multipartfs"
 	"github.com/ungerik/go-httpx/httperr"

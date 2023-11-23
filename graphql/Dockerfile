@@ -4,18 +4,18 @@ LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 WORKDIR /graphql
 
 # yarn setup
-COPY cmd/graphql/.yarn/releases ./.yarn/releases
-COPY cmd/graphql/.yarn/plugins ./.yarn/plugins
-COPY cmd/graphql/.yarnrc.yml .
+COPY graphql/.yarn/releases ./.yarn/releases
+COPY graphql/.yarn/plugins ./.yarn/plugins
+COPY graphql/.yarnrc.yml .
 
 # install deps
-COPY cmd/graphql/yarn.lock .
-COPY cmd/graphql/package.json .
+COPY graphql/yarn.lock .
+COPY graphql/package.json .
 RUN yarn install --immutable
 
 # build
-COPY cmd/graphql/tsconfig.json .
-COPY cmd/graphql/src .
+COPY graphql/tsconfig.json .
+COPY graphql/src .
 RUN yarn build
 
 FROM node:18-bullseye-slim

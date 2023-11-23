@@ -83,7 +83,7 @@ const session = createSession({
   secret: config.sessionSecret,
   trustProxy: true,
   cookie: {
-    name: 'heltin.sid', // synchronised with pkg/session
+    name: 'heltin.sid', // synchronised with internal/session
     secure: config.sessionSecure,
     sameSite: 'lax',
     httpOnly: true,

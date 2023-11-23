@@ -6,7 +6,7 @@ services:
       - ./database:/docker-entrypoint-initdb.d
   graphql:
     volumes:
-      - ./cmd/graphql/schema.graphql:/opt/graphql/dist/schema.graphql
+      - ./graphql/schema.graphql:/opt/graphql/dist/schema.graphql
     ports:
       - ${GRAPHQL_PORT}:${GRAPHQL_PORT}
   server:

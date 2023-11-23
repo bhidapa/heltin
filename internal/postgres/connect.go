@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/bhidapa/heltin/pkg/env"
+	"github.com/bhidapa/heltin/internal/env"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-sqldb/pqconn"

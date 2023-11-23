@@ -3,7 +3,7 @@ package file
 import (
 	_ "embed"
 
-	"github.com/bhidapa/heltin/pkg/env"
+	"github.com/bhidapa/heltin/internal/env"
 	rootlog "github.com/domonda/golog/log"
 	"github.com/ungerik/go-fs"
 )

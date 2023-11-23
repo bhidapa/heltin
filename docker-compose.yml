@@ -38,7 +38,7 @@ services:
     image: ghcr.io/bhidapa/heltin-graphql
     build:
       context: .
-      dockerfile: ./cmd/graphql/Dockerfile
+      dockerfile: ./graphql/Dockerfile
     networks:
       - local
     environment:
@@ -65,7 +65,7 @@ services:
     image: ghcr.io/bhidapa/heltin-server
     build:
       context: .
-      dockerfile: ./cmd/server/Dockerfile
+      dockerfile: ./server/Dockerfile
     networks:
       - local
     environment:

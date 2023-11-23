@@ -1,6 +1,6 @@
 module.exports = {
   language: 'typescript',
-  schema: '../cmd/graphql/schema.graphql',
+  schema: '../graphql/schema.graphql',
   src: './src',
   eagerEsModules: true,
   noFutureProofEnums: true,

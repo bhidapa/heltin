@@ -4,9 +4,10 @@
 # Allow files and directories
 !go.mod
 !go.sum
-!/cmd/**
-!/pkg/**
 !/database/**
+!/graphql/**
+!/server/**
+!/internal/**
 !/app/**
 
 # Ignore unnecessary files inside allowed directories

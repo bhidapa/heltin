@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: cmd/graphql
+    working-directory: graphql
 
 jobs:
   type-check:
@@ -28,7 +28,7 @@ jobs:
       - name: Cache
         uses: actions/cache@v2
         with:
-          path: cmd/graphql/.yarn/cache
+          path: graphql/.yarn/cache
           key: ${{ runner.os }}-graphql-yarn-cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-graphql-yarn-cache-
@@ -50,7 +50,7 @@ jobs:
       - name: Cache
         uses: actions/cache@v2
         with:
-          path: cmd/graphql/.yarn/cache
+          path: graphql/.yarn/cache
           key: ${{ runner.os }}-graphql-yarn-cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-graphql-yarn-cache-

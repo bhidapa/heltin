@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"reflect"
 
-	"github.com/bhidapa/heltin/pkg/file"
-	"github.com/bhidapa/heltin/pkg/reports"
+	"github.com/bhidapa/heltin/internal/file"
+	"github.com/bhidapa/heltin/internal/reports"
 
 	"github.com/domonda/go-function"
 	"github.com/domonda/go-types/uu"

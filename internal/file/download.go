@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bhidapa/heltin/pkg/session"
+	"github.com/bhidapa/heltin/internal/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb/db"
 	"github.com/domonda/go-types/uu"

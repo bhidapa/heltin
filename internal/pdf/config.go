@@ -3,7 +3,7 @@ package pdf
 import (
 	"fmt"
 
-	"github.com/bhidapa/heltin/pkg/env"
+	"github.com/bhidapa/heltin/internal/env"
 	rootlog "github.com/domonda/golog/log"
 )
 

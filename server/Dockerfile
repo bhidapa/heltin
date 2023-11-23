@@ -11,10 +11,10 @@ COPY go.mod .
 COPY go.sum .
 RUN go mod download -x
 
-COPY pkg ./pkg
-COPY cmd/server ./cmd/server
+COPY internal ./internal
+COPY server ./server
 RUN set -eux; \
-  cd cmd/server; \
+  cd server; \
   GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
   go build -v -o /heltin-server
 

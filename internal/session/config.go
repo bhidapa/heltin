@@ -1,7 +1,7 @@
 package session
 
 import (
-	"github.com/bhidapa/heltin/pkg/env"
+	"github.com/bhidapa/heltin/internal/env"
 	rootlog "github.com/domonda/golog/log"
 )
 
@@ -13,7 +13,7 @@ var (
 	}
 )
 
-const cookieName = "heltin.sid" // synchronised with cmd/graphql/index.ts
+const cookieName = "heltin.sid" // synchronised with graphql/index.ts
 
 func init() {
 	err := env.Parse(&config)

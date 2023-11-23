@@ -6,9 +6,9 @@ import (
 	"errors"
 	"time"
 
-	"github.com/bhidapa/heltin/pkg/file"
-	"github.com/bhidapa/heltin/pkg/pdf"
-	"github.com/bhidapa/heltin/pkg/session"
+	"github.com/bhidapa/heltin/internal/file"
+	"github.com/bhidapa/heltin/internal/pdf"
+	"github.com/bhidapa/heltin/internal/session"
 	"github.com/domonda/go-errs"
 	"github.com/domonda/go-sqldb"
 	"github.com/domonda/go-sqldb/db"

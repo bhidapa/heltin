@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bhidapa/heltin/pkg/file"
-	"github.com/bhidapa/heltin/pkg/session"
+	"github.com/bhidapa/heltin/internal/file"
+	"github.com/bhidapa/heltin/internal/session"
 	"github.com/gorilla/mux"
 
 	"github.com/domonda/go-function"

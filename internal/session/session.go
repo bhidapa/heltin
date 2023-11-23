@@ -143,7 +143,7 @@ type Session struct {
 	CreatedAt time.Time `db:"created_at"`
 }
 
-// SessionCookie is the session cookie and it matches the SessionCookie in cmd/graphql/src/session.ts@SessionCookie
+// SessionCookie is the session cookie and it matches the SessionCookie in graphql/src/session.ts@SessionCookie
 type SessionCookie struct {
 	Domain   string   `json:"domain"`
 	Path     string   `json:"path"`

@@ -7,7 +7,7 @@
   },
   "packageManager": "yarn@3.2.4",
   "scripts": {
-    "get-schema-enums": "yarn relay-enum-generator --schema ../cmd/graphql/schema.graphql --path ./src --name enums.graphql.ts && echo \"/* tslint:disable */\n/* eslint-disable */\n// @ts-nocheck\n\n$(cat src/enums.graphql.ts)\" > src/enums.graphql.ts",
+    "get-schema-enums": "yarn relay-enum-generator --schema ../graphql/schema.graphql --path ./src --name enums.graphql.ts && echo \"/* tslint:disable */\n/* eslint-disable */\n// @ts-nocheck\n\n$(cat src/enums.graphql.ts)\" > src/enums.graphql.ts",
     "relay": "relay-compiler",
     "relay:clean": "rimraf $(find . -type d -name __generated__)",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
