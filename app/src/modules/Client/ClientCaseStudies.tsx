@@ -6,14 +6,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { Link } from '@tanstack/react-location';
-
 import { Dropdown } from 'lib/Dropdown';
 import { Tooltip } from 'lib/Tooltip';
-
 import { EventsTable } from 'modules/EventsTable';
-
 import { ClientCaseStudies_client$key } from './__generated__/ClientCaseStudies_client.graphql';
 import { ClientCaseStudies_forms$key } from './__generated__/ClientCaseStudies_forms.graphql';
 

@@ -6,9 +6,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
-
 import { useNavigate } from '@tanstack/react-location';
-
 import { LocationGenerics } from 'core/location';
 
 export interface RootSearchProps {}

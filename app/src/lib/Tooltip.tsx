@@ -4,9 +4,7 @@
  *
  */
 import React from 'react';
-
 import Tippy, { TippyProps } from '@tippyjs/react';
-
 import { useDarkMode } from './useDarkMode';
 
 export interface TooltipProps extends TippyProps {}

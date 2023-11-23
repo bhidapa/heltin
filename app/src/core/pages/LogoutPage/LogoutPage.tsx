@@ -6,19 +6,16 @@
 import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useMutation } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
 
 export interface LogoutPageProps {}
 
 export const LogoutPage: React.FC<LogoutPageProps> = () => {
-  const [logout] = useMutation(
-    graphql`
-      mutation LogoutPageMutation {
-        logout
-      }
-    `,
-  );
+  const [logout] = useMutation(graphql`
+    mutation LogoutPageMutation {
+      logout
+    }
+  `);
 
   const navigate = useNavigate();
 

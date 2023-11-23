@@ -5,8 +5,7 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { ToastContainer, ToastPromiseParams, toast } from 'react-toastify';
-
+import { toast, ToastContainer, ToastPromiseParams } from 'react-toastify';
 import { useDarkMode } from 'lib/useDarkMode';
 
 /** Container where the toasts will be displayed. */

@@ -3,16 +3,14 @@
  * utils
  *
  */
-import { IncomingMessage, ServerResponse } from 'http';
 import { randomUUID } from 'crypto';
+import { IncomingMessage, ServerResponse } from 'http';
 
 export const REQUEST_ID_HEADER_KEY = 'X-Request-ID';
 
 export function getOrGenRequestId(req: IncomingMessage) {
   const header = req.headers[REQUEST_ID_HEADER_KEY.toLowerCase()] ?? '';
-  const requestIds = (
-    typeof header === 'string' ? header.split(',') : header
-  ).map((p) => p.trim());
+  const requestIds = (typeof header === 'string' ? header.split(',') : header).map((p) => p.trim());
 
   if (requestIds.length > 0 && requestIds[0]) {
     if (requestIds.length > 1) {

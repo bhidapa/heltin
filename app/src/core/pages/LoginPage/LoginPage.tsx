@@ -7,32 +7,25 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { graphql } from 'react-relay';
-
 import { useNavigate, useSearch } from '@tanstack/react-location';
-
 import { usePromiseMutation } from 'lib/relay';
 import { errorToast } from 'lib/toasts';
-
 import { LocationGenerics } from 'core/location';
-
 import Banner from 'assets/banner_800x400.png';
-
 import { LoginPageMutation } from './__generated__/LoginPageMutation.graphql';
 
 export interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = () => {
-  const [login] = usePromiseMutation<LoginPageMutation>(
-    graphql`
-      mutation LoginPageMutation($input: LoginInput!) {
-        login(input: $input) {
-          user {
-            ...Root_viewer
-          }
+  const [login] = usePromiseMutation<LoginPageMutation>(graphql`
+    mutation LoginPageMutation($input: LoginInput!) {
+      login(input: $input) {
+        user {
+          ...Root_viewer
         }
       }
-    `,
-  );
+    }
+  `);
 
   const { register, handleSubmit, formState } = useForm({
     defaultValues: {
@@ -73,7 +66,7 @@ export const LoginPage: React.FC<LoginPageProps> = () => {
                 });
                 navigate({ to: params.returnTo || '/' });
               } catch (err) {
-                errorToast(err);
+                errorToast(err as Error);
               }
             })}
           >

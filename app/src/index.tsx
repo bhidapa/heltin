@@ -6,17 +6,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { RelayEnvironmentProvider, loadQuery } from 'react-relay';
-
+import { loadQuery, RelayEnvironmentProvider } from 'react-relay';
 import { ErrBoundary } from 'lib/ErrBoundary';
 import { ToastsContainer } from 'lib/toasts';
-
 import { IntlProvider } from 'intl/IntlProvider';
 import { messages } from 'intl/messages';
-
+import { environment } from 'core/relay';
 import { Root } from 'core/Root';
 import rootQuery, { RootQuery } from 'core/Root/__generated__/RootQuery.graphql';
-import { environment } from 'core/relay';
 
 const rootQueryRef = loadQuery<RootQuery>(environment, rootQuery, {});
 

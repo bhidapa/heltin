@@ -7,15 +7,11 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { graphql, usePaginationFragment } from 'react-relay';
-
 import { Link, useNavigate, useSearch } from '@tanstack/react-location';
-
 import { Tooltip } from 'lib/Tooltip';
-
 import { LocationGenerics } from 'core/location';
-
-import { UsersTableRefetchQuery } from './__generated__/UsersTableRefetchQuery.graphql';
 import { UsersTable_query$key } from './__generated__/UsersTable_query.graphql';
+import { UsersTableRefetchQuery } from './__generated__/UsersTableRefetchQuery.graphql';
 
 graphql`
   fragment UsersTable_user on User {

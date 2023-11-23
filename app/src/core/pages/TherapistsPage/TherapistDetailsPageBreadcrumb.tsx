@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import { PreloadedQuery, usePreloadedQuery } from 'react-relay';
-
 import clientsDetailsPageQuery, {
   TherapistsDetailsPageQuery,
 } from './__generated__/TherapistsDetailsPageQuery.graphql';

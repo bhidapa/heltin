@@ -4,6 +4,11 @@
 # Allow files and directories
 !go.mod
 !go.sum
+!.yarnrc.yml
+!.yarn/releases
+!yarn.lock
+!package.json
+!tsconfig.json
 !/database/**
 !/graphql/**
 !/server/**

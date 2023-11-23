@@ -6,14 +6,12 @@
 import React, { useCallback, useTransition } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useRefetchableFragment } from 'react-relay';
-
 import { Autocomplete, AutocompletePropsWith } from 'lib/Autocomplete';
 import { WithoutFragmentType } from 'lib/relay';
 import { debounce } from 'lib/utils';
-
-import { AutocompleteTherapistRefetchQuery } from './__generated__/AutocompleteTherapistRefetchQuery.graphql';
 import { AutocompleteTherapist_item$data } from './__generated__/AutocompleteTherapist_item.graphql';
 import { AutocompleteTherapist_query$key } from './__generated__/AutocompleteTherapist_query.graphql';
+import { AutocompleteTherapistRefetchQuery } from './__generated__/AutocompleteTherapistRefetchQuery.graphql';
 
 graphql`
   fragment AutocompleteTherapist_item on Therapist {
@@ -65,7 +63,7 @@ export const AutocompleteTherapist: React.FC<AutocompleteTherapistProps> = (prop
       {...props}
       items={filterTherapists.nodes}
       pleaseWait={isPending}
-      getItemId={(i) => filterTherapists.nodes[i].id}
+      getItemId={(i) => filterTherapists.nodes[i]!.id}
       itemToString={(item) => item?.fullName || ''}
       onInputValueChange={(changes) =>
         debouncedRefetch({

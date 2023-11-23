@@ -1,19 +1,10 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": ["../tsconfig.json", "@tsconfig/vite-react/tsconfig.json"],
   "compilerOptions": {
-    "noEmit": true,
     "baseUrl": "./src",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "jsx": "preserve",
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "useUnknownInCatchVariables": false
+    "checkJs": false
   },
-  "include": ["src"],
+  "include": ["src", "vite.config.ts", "babel-plugin-relay.d.ts", "vite-plugin-relay.ts"],
   "exclude": ["build"]
 }

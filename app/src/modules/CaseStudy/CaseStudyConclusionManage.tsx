@@ -7,29 +7,24 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { fetchQuery, graphql, useFragment } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
 import printJS from 'print-js';
-
-import { Tooltip } from 'lib/Tooltip';
 import { formatDate } from 'lib/date';
 import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { buildHeaders, checkResponse } from 'lib/request';
 import { buildReportToast, createToast, deleteToast, printToast, saveToast } from 'lib/toasts';
+import { Tooltip } from 'lib/Tooltip';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
 import { environment } from 'core/relay';
-
 import { CaseStudyConclusionTypeOptions } from 'modules/CaseStudy/CaseStudyConclusionTypeOptions';
-
+import { CaseStudyConclusionManage_caseStudy$key } from './__generated__/CaseStudyConclusionManage_caseStudy.graphql';
+import { CaseStudyConclusionManage_conclusion$key } from './__generated__/CaseStudyConclusionManage_conclusion.graphql';
 import { CaseStudyConclusionManageAfterBuildReportQuery } from './__generated__/CaseStudyConclusionManageAfterBuildReportQuery.graphql';
 import { CaseStudyConclusionManageCreateMutation } from './__generated__/CaseStudyConclusionManageCreateMutation.graphql';
 import { CaseStudyConclusionManageDeleteMutation } from './__generated__/CaseStudyConclusionManageDeleteMutation.graphql';
 import { CaseStudyConclusionManageUpdateMutation } from './__generated__/CaseStudyConclusionManageUpdateMutation.graphql';
-import { CaseStudyConclusionManage_caseStudy$key } from './__generated__/CaseStudyConclusionManage_caseStudy.graphql';
-import { CaseStudyConclusionManage_conclusion$key } from './__generated__/CaseStudyConclusionManage_conclusion.graphql';
 
 export interface CaseStudyConclusionManageProps {
   caseStudy: CaseStudyConclusionManage_caseStudy$key;
@@ -69,71 +64,65 @@ export const CaseStudyConclusionManage: React.FC<CaseStudyConclusionManageProps>
     conclusionRef,
   );
 
-  const [create] = usePromiseMutation<CaseStudyConclusionManageCreateMutation>(
-    graphql`
-      mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
-        createCaseStudyConclusion(input: $input) {
-          conclusion: caseStudyConclusion {
+  const [create] = usePromiseMutation<CaseStudyConclusionManageCreateMutation>(graphql`
+    mutation CaseStudyConclusionManageCreateMutation($input: CreateCaseStudyConclusionInput!) {
+      createCaseStudyConclusion(input: $input) {
+        conclusion: caseStudyConclusion {
+          rowId
+          caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
             rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              rowId
-              clientRowId
-              concluded
-              client: clientByClientRowId {
-                ...ClientCaseStudies_client
-                ...ClientsTable_client
-              }
-              ...ClientsCaseStudiesDetailsPage_caseStudy
-              ...CaseStudyConclusionManage_caseStudy
+            clientRowId
+            concluded
+            client: clientByClientRowId {
+              ...ClientCaseStudies_client
+              ...ClientsTable_client
             }
-            ...CaseStudyConclusionManage_conclusion
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+            ...CaseStudyConclusionManage_caseStudy
           }
+          ...CaseStudyConclusionManage_conclusion
         }
       }
-    `,
-  );
+    }
+  `);
 
-  const [update] = usePromiseMutation<CaseStudyConclusionManageUpdateMutation>(
-    graphql`
-      mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
-        updateCaseStudyConclusion(input: $input) {
-          conclusion: caseStudyConclusion {
-            rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              concluded
-              ...CaseStudyConclusionManage_caseStudy
-              ...ClientsCaseStudiesDetailsPage_caseStudy
-            }
-            ...CaseStudyConclusionManage_conclusion
-            eventsByCaseStudyConclusionRowId {
-              nodes {
-                ...EventsTable_events
-              }
+  const [update] = usePromiseMutation<CaseStudyConclusionManageUpdateMutation>(graphql`
+    mutation CaseStudyConclusionManageUpdateMutation($input: UpdateCaseStudyConclusionInput!) {
+      updateCaseStudyConclusion(input: $input) {
+        conclusion: caseStudyConclusion {
+          rowId
+          caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
+            concluded
+            ...CaseStudyConclusionManage_caseStudy
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+          }
+          ...CaseStudyConclusionManage_conclusion
+          eventsByCaseStudyConclusionRowId {
+            nodes {
+              ...EventsTable_events
             }
           }
         }
       }
-    `,
-  );
+    }
+  `);
 
-  const [deleteMutation] = usePromiseMutation<CaseStudyConclusionManageDeleteMutation>(
-    graphql`
-      mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
-        deleteCaseStudyConclusion(input: $input) {
-          conclusion: caseStudyConclusion {
-            rowId
-            caseStudyByCaseStudyRowId {
-              clientByClientRowId {
-                ...ClientCaseStudies_client
-                ...ClientsTable_client
-              }
-              ...ClientsCaseStudiesDetailsPage_caseStudy
+  const [deleteMutation] = usePromiseMutation<CaseStudyConclusionManageDeleteMutation>(graphql`
+    mutation CaseStudyConclusionManageDeleteMutation($input: DeleteCaseStudyConclusionInput!) {
+      deleteCaseStudyConclusion(input: $input) {
+        conclusion: caseStudyConclusion {
+          rowId
+          caseStudyByCaseStudyRowId {
+            clientByClientRowId {
+              ...ClientCaseStudies_client
+              ...ClientsTable_client
             }
+            ...ClientsCaseStudiesDetailsPage_caseStudy
           }
         }
       }
-    `,
-  );
+    }
+  `);
 
   const {
     register,

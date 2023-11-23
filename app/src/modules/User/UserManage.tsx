@@ -7,21 +7,17 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
-
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
 import { relativeTime } from 'intl/relativeTime';
-
+import { UserManage_user$key } from './__generated__/UserManage_user.graphql';
+import { UserManage_viewer$key } from './__generated__/UserManage_viewer.graphql';
 import { UserManageCreateMutation } from './__generated__/UserManageCreateMutation.graphql';
 import { UserManageDeleteMutation } from './__generated__/UserManageDeleteMutation.graphql';
 import { UserManageUpdateMutation } from './__generated__/UserManageUpdateMutation.graphql';
-import { UserManage_user$key } from './__generated__/UserManage_user.graphql';
-import { UserManage_viewer$key } from './__generated__/UserManage_viewer.graphql';
 
 export interface UserManageProps {
   viewer: UserManage_viewer$key;

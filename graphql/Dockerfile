@@ -1,34 +1,35 @@
-FROM node:18 as build-stage
+FROM node:21 as build
 LABEL org.opencontainers.image.source https://github.com/bhidapa/heltin
 
-WORKDIR /graphql
+WORKDIR /proj
 
-# yarn setup
-COPY graphql/.yarn/releases ./.yarn/releases
-COPY graphql/.yarn/plugins ./.yarn/plugins
-COPY graphql/.yarnrc.yml .
-
-# install deps
-COPY graphql/yarn.lock .
-COPY graphql/package.json .
+# install
+COPY .yarn/releases ./.yarn/releases
+COPY .yarnrc.yml .
+COPY yarn.lock .
+COPY package.json .
+COPY graphql/package.json ./graphql/package.json
+COPY app/package.json ./app/package.json
 RUN yarn install --immutable
 
 # build
-COPY graphql/tsconfig.json .
-COPY graphql/src .
-RUN yarn build
+COPY graphql ./graphql
+COPY app ./app
+COPY tsconfig.json .
+RUN yarn workspace graphql build
 
-FROM node:18-bullseye-slim
+# only production deps for workspace
+RUN yarn workspaces focus graphql --production
 
-ENV DEBIAN_FRONTEND=noninteractive
+FROM node:21-bullseye-slim
 
 RUN apt-get update && \
   # curl for healthchecks
   apt-get install -y dumb-init curl && \
   rm -rf /var/lib/apt/lists/*
 
-COPY --from=build-stage /graphql/node_modules /opt/graphql/node_modules
-COPY --from=build-stage /graphql/build /opt/graphql/dist
+COPY --from=build /proj/graphql/node_modules /opt/graphql/node_modules
+COPY --from=build /proj/graphql/build /opt/graphql/dist
 
 # so that we can mount the schema file during development
 RUN touch /opt/graphql/dist/schema.graphql

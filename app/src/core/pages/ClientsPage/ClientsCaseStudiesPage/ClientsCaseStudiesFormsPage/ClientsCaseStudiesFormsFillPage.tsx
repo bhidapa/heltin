@@ -7,13 +7,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { graphql, usePreloadedQuery } from 'react-relay';
-
 import { useMatch } from '@tanstack/react-location';
-
 import { NotFound } from 'lib/NotFound';
-
 import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
-
 import { FormManage } from 'modules/FormManage';
 
 export const ClientsCaseStudiesFormsFillPage: React.FC = () => {

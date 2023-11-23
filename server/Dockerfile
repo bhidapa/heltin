@@ -15,25 +15,28 @@ COPY internal ./internal
 COPY server ./server
 RUN set -eux; \
   cd server; \
-  GOOS=linux GOARCH=amd64 CGO_ENABLED=0 \
-  go build -v -o /heltin-server
+  GOOS=linux GOARCH=amd64 go build -v -o /heltin-server
 
 # build app
-FROM node:18 as app
+FROM node:21 as app
 
-WORKDIR /app
+WORKDIR /proj
 
-COPY app/.yarn/releases ./.yarn/releases
-COPY app/.yarn/plugins ./.yarn/plugins
-COPY app/.yarnrc.yml .
-
-COPY app/yarn.lock .
-COPY app/package.json .
+# install
+COPY .yarn/releases ./.yarn/releases
+COPY .yarnrc.yml .
+COPY yarn.lock .
+COPY package.json .
+COPY graphql/package.json ./graphql/package.json
+COPY app/package.json ./app/package.json
 RUN yarn install --immutable
 
-COPY app .
+# build
+COPY graphql ./graphql
+COPY app ./app
+COPY tsconfig.json .
 ARG VITE_APP_VER
-RUN VITE_APP_VER=$VITE_APP_VER yarn build
+RUN VITE_APP_VER=$VITE_APP_VER yarn workspace app build
 
 # server
 FROM debian:bookworm-slim
@@ -47,6 +50,6 @@ COPY --from=server /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=server /heltin-server /usr/local/bin/
 
 ENV APP_DIR=/srv/app
-COPY --from=app /app/build $APP_DIR
+COPY --from=app /proj/app/build $APP_DIR
 
 CMD ["dumb-init", "heltin-server"]

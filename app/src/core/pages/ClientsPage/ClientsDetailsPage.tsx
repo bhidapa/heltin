@@ -6,13 +6,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { graphql, usePreloadedQuery } from 'react-relay';
-
 import { useMatch } from '@tanstack/react-location';
-
 import { NotFound } from 'lib/NotFound';
-
 import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
-
 import { ClientAssignedTherapistsManage } from 'modules/Client/ClientAssignedTherapistsManage';
 import { ClientCaseStudies } from 'modules/Client/ClientCaseStudies';
 import { ClientManage } from 'modules/Client/ClientManage';

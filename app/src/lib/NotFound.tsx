@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
 import { BackButton } from 'core/location';
 
 export const NotFound: React.FC = () => {

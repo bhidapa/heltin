@@ -7,26 +7,22 @@ import React, { useMemo } from 'react';
 import { Control, FieldError, useForm, useFormState } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { graphql, readInlineData, useFragment } from 'react-relay';
-
 import { useNavigate, useResolvePath } from '@tanstack/react-location';
-
 import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
 import { usePanic } from 'lib/usePanic';
 import { onCtrlEnter } from 'lib/utils';
-
 import { LocationGenerics } from 'core/location';
-
+import { FormManage_form$key } from './__generated__/FormManage_form.graphql';
+import { FormManage_formResponse$key } from './__generated__/FormManage_formResponse.graphql';
 import { FormManageBuildDefaultValues_formQuestions$key } from './__generated__/FormManageBuildDefaultValues_formQuestions.graphql';
 import { FormManageBuildDefaultValues_formResponse$key } from './__generated__/FormManageBuildDefaultValues_formResponse.graphql';
 import { FormManageCreateFormResponseMutation } from './__generated__/FormManageCreateFormResponseMutation.graphql';
 import { FormManageDeleteFormResponseMutation } from './__generated__/FormManageDeleteFormResponseMutation.graphql';
 import { FormManageQuestion_question$key } from './__generated__/FormManageQuestion_question.graphql';
 import { FormManageUpdateFormResponseMutation } from './__generated__/FormManageUpdateFormResponseMutation.graphql';
-import { FormManage_form$key } from './__generated__/FormManage_form.graphql';
-import { FormManage_formResponse$key } from './__generated__/FormManage_formResponse.graphql';
 
 export interface FormManageProps {
   caseStudyRowId: UUID;

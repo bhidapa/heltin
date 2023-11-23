@@ -7,23 +7,19 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { Link, useNavigate } from '@tanstack/react-location';
-
 import { useNativeFormSubmit } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
 import { relativeTime } from 'intl/relativeTime';
-
 import { GenderSelectOptions } from '../GenderSelectOptions';
+import { ClientManage_client$key, Gender } from './__generated__/ClientManage_client.graphql';
+import { ClientManage_viewer$key } from './__generated__/ClientManage_viewer.graphql';
 import { ClientManageCreateMutation } from './__generated__/ClientManageCreateMutation.graphql';
 import { ClientManageDeleteMutation } from './__generated__/ClientManageDeleteMutation.graphql';
 import { ClientManageUpdateMutation } from './__generated__/ClientManageUpdateMutation.graphql';
-import { ClientManage_client$key, Gender } from './__generated__/ClientManage_client.graphql';
-import { ClientManage_viewer$key } from './__generated__/ClientManage_viewer.graphql';
 
 export interface ClientManageProps {
   viewer: ClientManage_viewer$key;

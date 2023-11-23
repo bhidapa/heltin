@@ -6,19 +6,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { Link } from '@tanstack/react-location';
-
 import { usePromiseMutation } from 'lib/relay';
 import { addToast, deleteToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
-
 import { AutocompleteTherapist } from 'modules/Autocomplete/AutocompleteTherapist';
-
-import { ClientAssignedTherapistsManageCreateMutation } from './__generated__/ClientAssignedTherapistsManageCreateMutation.graphql';
-import { ClientAssignedTherapistsManageDeleteMutation } from './__generated__/ClientAssignedTherapistsManageDeleteMutation.graphql';
 import { ClientAssignedTherapistsManage_client$key } from './__generated__/ClientAssignedTherapistsManage_client.graphql';
 import { ClientAssignedTherapistsManage_query$key } from './__generated__/ClientAssignedTherapistsManage_query.graphql';
+import { ClientAssignedTherapistsManageCreateMutation } from './__generated__/ClientAssignedTherapistsManageCreateMutation.graphql';
+import { ClientAssignedTherapistsManageDeleteMutation } from './__generated__/ClientAssignedTherapistsManageDeleteMutation.graphql';
 
 export interface ClientAssignedTherapistsManageProps {
   query: ClientAssignedTherapistsManage_query$key;
@@ -83,19 +79,17 @@ export const ClientAssignedTherapistsManage: React.FC<ClientAssignedTherapistsMa
   );
 
   const [deleteAssignedTherapist] =
-    usePromiseMutation<ClientAssignedTherapistsManageDeleteMutation>(
-      graphql`
-        mutation ClientAssignedTherapistsManageDeleteMutation(
-          $input: DeleteClientAssignedTherapistInput!
-        ) {
-          deleteClientAssignedTherapist(input: $input) {
-            clientByClientRowId {
-              ...ClientAssignedTherapistsManage_client
-            }
+    usePromiseMutation<ClientAssignedTherapistsManageDeleteMutation>(graphql`
+      mutation ClientAssignedTherapistsManageDeleteMutation(
+        $input: DeleteClientAssignedTherapistInput!
+      ) {
+        deleteClientAssignedTherapist(input: $input) {
+          clientByClientRowId {
+            ...ClientAssignedTherapistsManage_client
           }
         }
-      `,
-    );
+      }
+    `);
 
   return (
     <div className="content">

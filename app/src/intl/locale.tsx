@@ -4,7 +4,6 @@
  *
  */
 import React, { useContext } from 'react';
-
 import { localStore } from 'lib/store';
 
 export const LOCALE_KEY = '@heltin/locale';

@@ -6,8 +6,7 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { usePopper } from 'react-popper';
-
-import { UseComboboxProps, useCombobox } from 'downshift';
+import { useCombobox, UseComboboxProps } from 'downshift';
 
 export interface AutocompleteProps<T> extends Omit<UseComboboxProps<T>, 'items' | 'selectedItem'> {
   items: readonly T[];

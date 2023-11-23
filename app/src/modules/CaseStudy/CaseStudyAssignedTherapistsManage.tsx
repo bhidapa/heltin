@@ -6,23 +6,19 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { Link } from '@tanstack/react-location';
-
 import { usePromiseMutation } from 'lib/relay';
 import { addToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
-
 import { AutocompleteTherapist } from 'modules/Autocomplete/AutocompleteTherapist';
-
-import { CaseStudyAssignedTherapistsManageCreateMutation } from './__generated__/CaseStudyAssignedTherapistsManageCreateMutation.graphql';
-import { CaseStudyAssignedTherapistsManageDeleteMutation } from './__generated__/CaseStudyAssignedTherapistsManageDeleteMutation.graphql';
-import { CaseStudyAssignedTherapistsManageSetPrimaryMutation } from './__generated__/CaseStudyAssignedTherapistsManageSetPrimaryMutation.graphql';
 import {
   CaseStudyAssignedTherapistsManage_casyStudy$data,
   CaseStudyAssignedTherapistsManage_casyStudy$key,
 } from './__generated__/CaseStudyAssignedTherapistsManage_casyStudy.graphql';
 import { CaseStudyAssignedTherapistsManage_query$key } from './__generated__/CaseStudyAssignedTherapistsManage_query.graphql';
+import { CaseStudyAssignedTherapistsManageCreateMutation } from './__generated__/CaseStudyAssignedTherapistsManageCreateMutation.graphql';
+import { CaseStudyAssignedTherapistsManageDeleteMutation } from './__generated__/CaseStudyAssignedTherapistsManageDeleteMutation.graphql';
+import { CaseStudyAssignedTherapistsManageSetPrimaryMutation } from './__generated__/CaseStudyAssignedTherapistsManageSetPrimaryMutation.graphql';
 
 export interface CaseStudyAssignedTherapistsManageProps {
   query: CaseStudyAssignedTherapistsManage_query$key;
@@ -96,19 +92,17 @@ export const CaseStudyAssignedTherapistsManage: React.FC<CaseStudyAssignedTherap
     `);
 
   const [deleteAssignedTherapist] =
-    usePromiseMutation<CaseStudyAssignedTherapistsManageDeleteMutation>(
-      graphql`
-        mutation CaseStudyAssignedTherapistsManageDeleteMutation(
-          $input: DeleteCaseStudyTherapistInput!
-        ) {
-          deleteCaseStudyTherapist(input: $input) {
-            caseStudyByCaseStudyRowId {
-              ...CaseStudyAssignedTherapistsManage_casyStudy
-            }
+    usePromiseMutation<CaseStudyAssignedTherapistsManageDeleteMutation>(graphql`
+      mutation CaseStudyAssignedTherapistsManageDeleteMutation(
+        $input: DeleteCaseStudyTherapistInput!
+      ) {
+        deleteCaseStudyTherapist(input: $input) {
+          caseStudyByCaseStudyRowId {
+            ...CaseStudyAssignedTherapistsManage_casyStudy
           }
         }
-      `,
-    );
+      }
+    `);
 
   return (
     <div className="content">

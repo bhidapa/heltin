@@ -63,13 +63,18 @@ function isSupported() {
   const testVers: Record<string, string[]> = {};
   for (const supported of SUPPORTED_BROWSERS) {
     const [supportedBrowser, supVer] = supported.split(' ');
-    const [_, supVerLatest] = supVer.split('-');
-    if (!testVers[supportedBrowser]) testVers[supportedBrowser] = [];
+    if (!supportedBrowser || !supVer) {
+      throw new Error('Malformed SUPPORTED_BROWSER list');
+    }
+    const [_, supVerLatest] = supVer?.split('-') || [];
+    if (!testVers[supportedBrowser]) {
+      testVers[supportedBrowser] = [];
+    }
     if (supVerLatest) {
       // add only the latest version if available
-      testVers[supportedBrowser].push(supVerLatest);
+      testVers[supportedBrowser]!.push(supVerLatest);
     } else {
-      testVers[supportedBrowser].push(supVer);
+      testVers[supportedBrowser]!.push(supVer);
     }
   }
 

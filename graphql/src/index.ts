@@ -3,16 +3,14 @@
  * heltin GraphQL
  *
  */
-import path from 'path';
 import http, { ServerResponse } from 'http';
-import { createSession, IncomingMessageWithSession } from './session';
-
+import path from 'path';
+import { GraphQLError } from 'graphql';
 import { Client, Pool } from 'pg';
 import Postgraphile from 'postgraphile';
-import { GraphQLError } from 'graphql';
-
-import { SessionPlugin } from './plugins/SessionPlugin';
 import { PgIdToRowIdInflectorPlugin } from './plugins/PgIdToRowIdInflectorPlugin';
+import { SessionPlugin } from './plugins/SessionPlugin';
+import { createSession, IncomingMessageWithSession } from './session';
 import { isPgForbiddenError, writeInternalError } from './utils';
 
 const prod = process.env.NODE_ENV === 'production';
@@ -109,9 +107,7 @@ const postgraphile = Postgraphile<IncomingMessageWithSession, ServerResponse>(
     graphiql: Boolean(config.graphiqlRoute),
     graphiqlRoute: config.graphiqlRoute,
     enhanceGraphiql: !config.prod, // graphiql is used in prod shouldnt be enhanced
-    exportGqlSchemaPath: config.prod
-      ? undefined
-      : path.join(__dirname, 'schema.graphql'), // provide a schema file during development for relay
+    exportGqlSchemaPath: config.prod ? undefined : path.join(__dirname, 'schema.graphql'), // provide a schema file during development for relay
     pgSettings(req) {
       if (req.session) {
         return {
@@ -123,10 +119,7 @@ const postgraphile = Postgraphile<IncomingMessageWithSession, ServerResponse>(
         role: 'anonymous',
       };
     },
-    async additionalGraphQLContextFromRequest(
-      req,
-      res,
-    ): Promise<AdditionalContext> {
+    async additionalGraphQLContextFromRequest(req, res): Promise<AdditionalContext> {
       return {
         req,
         res,
@@ -138,9 +131,7 @@ const postgraphile = Postgraphile<IncomingMessageWithSession, ServerResponse>(
       if (
         !req.session &&
         errs.some(
-          (err) =>
-            err.message.toLowerCase().includes('unauthorized') ||
-            isPgForbiddenError(err),
+          (err) => err.message.toLowerCase().includes('unauthorized') || isPgForbiddenError(err),
         )
       ) {
         res.statusCode = 401;

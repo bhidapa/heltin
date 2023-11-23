@@ -7,18 +7,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useFragment, usePreloadedQuery } from 'react-relay';
-
 import { Link, useMatch } from '@tanstack/react-location';
-
 import { Dropdown } from 'lib/Dropdown';
 import { NotFound } from 'lib/NotFound';
-
 import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
-
 import { CaseStudyAssignedTherapistsManage } from 'modules/CaseStudy/CaseStudyAssignedTherapistsManage';
 import { CaseStudyManage } from 'modules/CaseStudy/CaseStudyManage';
 import { EventsTable } from 'modules/EventsTable';
-
 import { ClientsCaseStudiesDetailsPage_caseStudy$key } from './__generated__/ClientsCaseStudiesDetailsPage_caseStudy.graphql';
 
 export interface ClientsCaseStudiesDetailsPageProps {}

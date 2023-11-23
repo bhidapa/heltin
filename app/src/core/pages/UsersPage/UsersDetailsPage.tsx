@@ -6,13 +6,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { graphql, usePreloadedQuery } from 'react-relay';
-
 import { useMatch } from '@tanstack/react-location';
-
 import { NotFound } from 'lib/NotFound';
-
 import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
-
 import { UserManage } from 'modules/User/UserManage';
 
 export interface UsersDetailsPageProps {}

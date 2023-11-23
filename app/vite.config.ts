@@ -1,15 +1,15 @@
 import react from '@vitejs/plugin-react';
 import browserslist from 'browserslist';
-import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-
+import typescriptPaths from 'vite-tsconfig-paths';
 import { relay } from './vite-plugin-relay';
 
 const supportedBrowsers = browserslist(null, {});
 if (!Array.isArray(supportedBrowsers)) {
   throw new Error("Supported browsers couldn't be calculated");
 }
+
+const __dirname = new URL('.', import.meta.url).pathname;
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname, '');
@@ -29,13 +29,13 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    plugins: [tsconfigPaths(), react(), relay()],
+    plugins: [typescriptPaths(), react(), relay()],
     build: {
-      outDir: path.join(__dirname, 'build'),
+      outDir: `${__dirname}/build`,
       rollupOptions: {
         input: {
-          index: path.join(__dirname, 'index.html'),
-          browserNotSupported: path.join(__dirname, 'browser-not-supported.html'),
+          index: `${__dirname}/index.html`,
+          browserNotSupported: `${__dirname}/browser-not-supported.html`,
         },
       },
     },

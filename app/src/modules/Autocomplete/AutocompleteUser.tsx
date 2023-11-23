@@ -6,14 +6,12 @@
 import React, { useCallback, useTransition } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useRefetchableFragment } from 'react-relay';
-
 import { Autocomplete, AutocompletePropsWith } from 'lib/Autocomplete';
-import { WithoutFragmentType, graphql } from 'lib/relay';
+import { graphql, WithoutFragmentType } from 'lib/relay';
 import { debounce } from 'lib/utils';
-
-import { AutocompleteUserRefetchQuery } from './__generated__/AutocompleteUserRefetchQuery.graphql';
 import { AutocompleteUser_item$data } from './__generated__/AutocompleteUser_item.graphql';
 import { AutocompleteUser_query$key } from './__generated__/AutocompleteUser_query.graphql';
+import { AutocompleteUserRefetchQuery } from './__generated__/AutocompleteUserRefetchQuery.graphql';
 
 graphql`
   fragment AutocompleteUser_item on User {
@@ -64,7 +62,7 @@ export const AutocompleteUser: React.FC<AutocompleteUserProps> = (props) => {
       {...props}
       items={filterUsers.nodes}
       pleaseWait={isPending}
-      getItemId={(i) => filterUsers.nodes[i].id}
+      getItemId={(i) => filterUsers.nodes[i]!.id}
       itemToString={(item) => item?.email || ''}
       onInputValueChange={(changes) =>
         debouncedRefetch({

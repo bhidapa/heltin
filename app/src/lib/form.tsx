@@ -5,7 +5,6 @@
  */
 import React, { KeyboardEventHandler, useRef } from 'react';
 import { Control, FieldPath, FieldPathValue, FieldValues, useWatch } from 'react-hook-form';
-
 import { onCtrlEnter } from './utils';
 
 /** react-hook-form useWatch but as a component. */

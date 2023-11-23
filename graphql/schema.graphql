@@ -5619,12 +5619,12 @@ input UpdateUserInput {
   password: String
 }
 
-type LoginPayload {
-  query: Query
-  user: User!
-}
-
 input LoginInput {
   email: String!
   password: String!
+}
+
+type LoginPayload {
+  query: Query
+  user: User!
 }

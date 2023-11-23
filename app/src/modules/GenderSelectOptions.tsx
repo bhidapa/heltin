@@ -5,7 +5,6 @@
  */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-
 import { Gender } from 'enums.graphql';
 
 const types: { [key in Gender]: 1 } = {

@@ -7,31 +7,26 @@ import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedList, FormattedMessage, FormattedNumber } from 'react-intl';
 import { fetchQuery, graphql, useFragment } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
 import addHours from 'date-fns/addHours';
 import roundToNearestMinutes from 'date-fns/roundToNearestMinutes';
 import printJS from 'print-js';
-
-import { ExplanationTooltip, Tooltip } from 'lib/Tooltip';
 import { formatDatetimeLocal, parseDatetimeLocal } from 'lib/date';
-import { Watch, useNativeFormSubmit } from 'lib/form';
+import { useNativeFormSubmit, Watch } from 'lib/form';
 import { usePromiseMutation } from 'lib/relay';
 import { buildHeaders, checkResponse } from 'lib/request';
 import { buildReportToast, createToast, deleteToast, printToast, saveToast } from 'lib/toasts';
+import { ExplanationTooltip, Tooltip } from 'lib/Tooltip';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
 import { FormattedDuration } from 'intl/FormattedDuration';
-
 import { environment } from 'core/relay';
-
+import { CaseStudyTreatmentManage_caseStudy$key } from './__generated__/CaseStudyTreatmentManage_caseStudy.graphql';
+import { CaseStudyTreatmentManage_treatment$key } from './__generated__/CaseStudyTreatmentManage_treatment.graphql';
 import { CaseStudyTreatmentManageAfterBuildReportQuery } from './__generated__/CaseStudyTreatmentManageAfterBuildReportQuery.graphql';
 import { CaseStudyTreatmentManageCreateMutation } from './__generated__/CaseStudyTreatmentManageCreateMutation.graphql';
 import { CaseStudyTreatmentManageDeleteMutation } from './__generated__/CaseStudyTreatmentManageDeleteMutation.graphql';
 import { CaseStudyTreatmentManageUpdateMutation } from './__generated__/CaseStudyTreatmentManageUpdateMutation.graphql';
-import { CaseStudyTreatmentManage_caseStudy$key } from './__generated__/CaseStudyTreatmentManage_caseStudy.graphql';
-import { CaseStudyTreatmentManage_treatment$key } from './__generated__/CaseStudyTreatmentManage_treatment.graphql';
 
 export interface CaseStudyTreatmentManageProps {
   caseStudy: CaseStudyTreatmentManage_caseStudy$key;
@@ -78,69 +73,63 @@ export const CaseStudyTreatmentManage: React.FC<CaseStudyTreatmentManageProps> =
     treatmentRef,
   );
 
-  const [create] = usePromiseMutation<CaseStudyTreatmentManageCreateMutation>(
-    graphql`
-      mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
-        createCaseStudyTreatment(input: $input) {
-          treatment: caseStudyTreatment {
+  const [create] = usePromiseMutation<CaseStudyTreatmentManageCreateMutation>(graphql`
+    mutation CaseStudyTreatmentManageCreateMutation($input: CreateCaseStudyTreatmentInput!) {
+      createCaseStudyTreatment(input: $input) {
+        treatment: caseStudyTreatment {
+          rowId
+          caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
             rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              rowId
-              clientRowId
-              client: clientByClientRowId {
-                ...ClientCaseStudies_client
-                ...ClientsTable_client
-              }
-              ...ClientsCaseStudiesDetailsPage_caseStudy
-              ...CaseStudyTreatmentManage_caseStudy
+            clientRowId
+            client: clientByClientRowId {
+              ...ClientCaseStudies_client
+              ...ClientsTable_client
             }
-            ...CaseStudyTreatmentManage_treatment
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+            ...CaseStudyTreatmentManage_caseStudy
           }
+          ...CaseStudyTreatmentManage_treatment
         }
       }
-    `,
-  );
+    }
+  `);
 
-  const [update] = usePromiseMutation<CaseStudyTreatmentManageUpdateMutation>(
-    graphql`
-      mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
-        updateCaseStudyTreatment(input: $input) {
-          treatment: caseStudyTreatment {
-            rowId
-            caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
-              ...CaseStudyTreatmentManage_caseStudy
-              ...ClientsCaseStudiesDetailsPage_caseStudy
-            }
-            ...CaseStudyTreatmentManage_treatment
-            eventsByCaseStudyTreatmentRowId {
-              nodes {
-                ...EventsTable_events
-              }
+  const [update] = usePromiseMutation<CaseStudyTreatmentManageUpdateMutation>(graphql`
+    mutation CaseStudyTreatmentManageUpdateMutation($input: UpdateCaseStudyTreatmentInput!) {
+      updateCaseStudyTreatment(input: $input) {
+        treatment: caseStudyTreatment {
+          rowId
+          caseStudy: caseStudyByCaseStudyRowId @required(action: THROW) {
+            ...CaseStudyTreatmentManage_caseStudy
+            ...ClientsCaseStudiesDetailsPage_caseStudy
+          }
+          ...CaseStudyTreatmentManage_treatment
+          eventsByCaseStudyTreatmentRowId {
+            nodes {
+              ...EventsTable_events
             }
           }
         }
       }
-    `,
-  );
+    }
+  `);
 
-  const [deleteMutation] = usePromiseMutation<CaseStudyTreatmentManageDeleteMutation>(
-    graphql`
-      mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
-        deleteCaseStudyTreatment(input: $input) {
-          treatment: caseStudyTreatment {
-            rowId
-            caseStudyByCaseStudyRowId {
-              clientByClientRowId {
-                ...ClientCaseStudies_client
-                ...ClientsTable_client
-              }
-              ...ClientsCaseStudiesDetailsPage_caseStudy
+  const [deleteMutation] = usePromiseMutation<CaseStudyTreatmentManageDeleteMutation>(graphql`
+    mutation CaseStudyTreatmentManageDeleteMutation($input: DeleteCaseStudyTreatmentInput!) {
+      deleteCaseStudyTreatment(input: $input) {
+        treatment: caseStudyTreatment {
+          rowId
+          caseStudyByCaseStudyRowId {
+            clientByClientRowId {
+              ...ClientCaseStudies_client
+              ...ClientsTable_client
             }
+            ...ClientsCaseStudiesDetailsPage_caseStudy
           }
         }
       }
-    `,
-  );
+    }
+  `);
 
   const now = useMemo(() => {
     const startedAt = roundToNearestMinutes(Date.now(), { nearestTo: 15 });

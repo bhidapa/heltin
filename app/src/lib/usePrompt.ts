@@ -5,7 +5,6 @@
  *
  */
 import { useIntl } from 'react-intl';
-
 import { usePrompt } from '@tanstack/react-location';
 
 export { usePrompt };

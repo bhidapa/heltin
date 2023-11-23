@@ -1,19 +1,22 @@
-name: Server
+name: Release
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches:
-      - main
+
+# TODO: make sure database sql is valid before releasing
 
 jobs:
-  # TODO: only release if app checks pass
   release:
-    name: Release
-    if: "!contains(github.event.head_commit.message, '[skip ci]') && github.ref == 'refs/heads/main'"
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - database
+          - graphql
+          - server
+    name: Release ${{ matrix.target }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,19 +25,19 @@ jobs:
         id: shortsha
         run: echo "shortsha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
-        uses: docker/bake-action@v2
+      - name: Build and Push
+        uses: docker/bake-action@v4
         with:
           set: |
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
             server.args.VITE_APP_VER=${{ steps.shortsha.outputs.shortsha }}
-          targets: server
+          targets: ${{ matrix.target }}
           push: true

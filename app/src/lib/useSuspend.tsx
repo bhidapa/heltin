@@ -4,7 +4,6 @@
  *
  */
 import { useCallback, useState } from 'react';
-
 import { usePanic } from './usePanic';
 
 interface Sink {

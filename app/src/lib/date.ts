@@ -38,8 +38,8 @@ export function formatDate(value: string | number | Date | null | undefined): st
     typeof value === 'string'
       ? parseDate(value)
       : typeof value === 'number'
-      ? new Date(value)
-      : value;
+        ? new Date(value)
+        : value;
   const month = date.getMonth() + 1; // months start at 0 (0 is January)
   const day = date.getDate();
   return `${date.getFullYear()}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
@@ -51,12 +51,15 @@ export function formatDate(value: string | number | Date | null | undefined): st
  * Supported formats start with `YYYY-MM-DD`.
  */
 export function parseDate(value: string): Date {
-  const parts = value.split('T')[0].split('-');
+  const parts = value.split('T')[0]?.split('-');
+  if (!parts) {
+    throw new Error(`Date value "${value}" could not be split into parts`);
+  }
   if (parts.length !== 3) {
     throw new Error(`Date should have 3 parts, but "${value}" has ${parts.length}`);
   }
-  const year = parseInt(parts[0]);
-  const month = parseInt(parts[1]);
-  const day = parseInt(parts[2]);
+  const year = parseInt(parts[0]!);
+  const month = parseInt(parts[1]!);
+  const day = parseInt(parts[2]!);
   return new Date(year, month - 1, day);
 }

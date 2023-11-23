@@ -57,9 +57,9 @@ export function usePanic(): [(err: Error) => void, (func: () => void | Promise<v
     setError,
     useCallback(async (func: () => void) => {
       try {
-        await func();
+        func();
       } catch (err) {
-        setError(err instanceof Error ? err : new Error(err));
+        setError(err instanceof Error ? err : new Error(String(err)));
       }
     }, []),
   ];

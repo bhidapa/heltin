@@ -3,21 +3,13 @@
  * routes
  *
  */
-import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { graphql, loadQuery } from 'react-relay';
-
 import { Navigate, Route } from '@tanstack/react-location';
 import { readInlineData } from 'relay-runtime';
-
 import { NotFound } from 'lib/NotFound';
 import { uuidOrEmpty } from 'lib/uuid';
-
-import { LocationGenerics, getReturnTo } from 'core/location';
-import clientsCaseStudiesCreatePageQuery, {
-  ClientsCaseStudiesCreatePageQuery,
-} from 'core/pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesCreatePageQuery.graphql';
-import { ClientsDetailsPageBreadcrumb } from 'core/pages/ClientsPage/ClientsDetailsPageBreadcrumb';
+import { getReturnTo, LocationGenerics } from 'core/location';
 import clientsCreatePageQuery, {
   ClientsCreatePageQuery,
 } from 'core/pages/ClientsPage/__generated__/ClientsCreatePageQuery.graphql';
@@ -27,7 +19,10 @@ import clientsDetailsPageQuery, {
 import clientsPageQuery, {
   ClientsPageQuery,
 } from 'core/pages/ClientsPage/__generated__/ClientsPageQuery.graphql';
-import { TherapistsDetailsPageBreadcrumb } from 'core/pages/TherapistsPage/TherapistDetailsPageBreadcrumb';
+import clientsCaseStudiesCreatePageQuery, {
+  ClientsCaseStudiesCreatePageQuery,
+} from 'core/pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesCreatePageQuery.graphql';
+import { ClientsDetailsPageBreadcrumb } from 'core/pages/ClientsPage/ClientsDetailsPageBreadcrumb';
 import therapistsCreatePageQuery, {
   TherapistsCreatePageQuery,
 } from 'core/pages/TherapistsPage/__generated__/TherapistsCreatePageQuery.graphql';
@@ -37,21 +32,9 @@ import therapistsDetailsPageQuery, {
 import therapistsPageQuery, {
   TherapistsPageQuery,
 } from 'core/pages/TherapistsPage/__generated__/TherapistsPageQuery.graphql';
+import { TherapistsDetailsPageBreadcrumb } from 'core/pages/TherapistsPage/TherapistDetailsPageBreadcrumb';
 import { environment } from 'core/relay';
-
 import { routes_viewer$data, routes_viewer$key } from './__generated__/routes_viewer.graphql';
-import { ClientsCaseStudiesConclusionCreatePageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesConclusionCreatePageBreadcrumb';
-import { ClientsCaseStudiesConclusionDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesConclusionDetailsPageBreadcrumb';
-import { ClientsCaseStudiesDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesDetailsPageBreadcrumb';
-import { ClientsCaseStudiesFormsFillPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/ClientsCaseStudiesFormsFillPageBreadcrumb';
-import { ClientsCaseStudiesFormsResponsePageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/ClientsCaseStudiesFormsResponsePageBreadcrumb';
-import clientsCaseStudiesFormsFillPageQuery, {
-  ClientsCaseStudiesFormsFillPageQuery,
-} from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsFillPageQuery.graphql';
-import clientsCaseStudiesFormsResponsePageQuery, {
-  ClientsCaseStudiesFormsResponsePageQuery,
-} from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsResponsePageQuery.graphql';
-import { ClientsCaseStudiesTreatmentsDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesTreatmentsDetailsPageBreadcrumb';
 import clientsCaseStudiesConclusionCreatePageQuery, {
   ClientsCaseStudiesConclusionCreatePageQuery,
 } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesConclusionCreatePageQuery.graphql';
@@ -67,7 +50,18 @@ import clientsCaseStudiesTreatmentsCreatePageQuery, {
 import clientsCaseStudiesTreatmentsDetailsPageQuery, {
   ClientsCaseStudiesTreatmentsDetailsPageQuery,
 } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsDetailsPageQuery.graphql';
-import { UsersDetailsPageBreadcrumb } from './pages/UsersPage/UsersDetailsPageBreadcrumb';
+import { ClientsCaseStudiesConclusionCreatePageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesConclusionCreatePageBreadcrumb';
+import { ClientsCaseStudiesConclusionDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesConclusionDetailsPageBreadcrumb';
+import { ClientsCaseStudiesDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesDetailsPageBreadcrumb';
+import clientsCaseStudiesFormsFillPageQuery, {
+  ClientsCaseStudiesFormsFillPageQuery,
+} from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsFillPageQuery.graphql';
+import clientsCaseStudiesFormsResponsePageQuery, {
+  ClientsCaseStudiesFormsResponsePageQuery,
+} from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsResponsePageQuery.graphql';
+import { ClientsCaseStudiesFormsFillPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/ClientsCaseStudiesFormsFillPageBreadcrumb';
+import { ClientsCaseStudiesFormsResponsePageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/ClientsCaseStudiesFormsResponsePageBreadcrumb';
+import { ClientsCaseStudiesTreatmentsDetailsPageBreadcrumb } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesTreatmentsDetailsPageBreadcrumb';
 import usersCreatePageQuery, {
   UsersCreatePageQuery,
 } from './pages/UsersPage/__generated__/UsersCreatePageQuery.graphql';
@@ -77,6 +71,7 @@ import usersDetailsPageQuery, {
 import usersPageQuery, {
   UsersPageQuery,
 } from './pages/UsersPage/__generated__/UsersPageQuery.graphql';
+import { UsersDetailsPageBreadcrumb } from './pages/UsersPage/UsersDetailsPageBreadcrumb';
 
 export function getRoutes(viewerRef: routes_viewer$key | null): Route<LocationGenerics>[] {
   const viewer = readInlineData(

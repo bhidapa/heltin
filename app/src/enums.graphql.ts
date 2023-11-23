@@ -1,7 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
-// @ts-nocheck
-
 export type AssistantsOrderBy =
   | 'NATURAL'
   | 'ID_ASC'
@@ -30,22 +26,6 @@ export type AssistantsOrderBy =
 export type Gender =
   | 'MALE'
   | 'FEMALE' 
-
-export type TherapistType =
-  | 'PSYCHOTHERAPIST'
-  | 'PSYCHOLOGIST'
-  | 'PSYCHIATRIST'
-  | 'NEUROLOGIST'
-  | 'PEDIATRIST'
-  | 'SOCIAL_WORKER'
-  | 'PEDAGOGUE'
-  | 'DEFECTOLOGIST'
-  | 'PHONETICIAN'
-  | 'NEUROPSYCHIATRIST'
-  | 'CLINICAL_PSYCHOLOGIST'
-  | 'SUPERVISOR'
-  | 'LOGOPED'
-  | 'OTHER' 
 
 export type ClientAssignedTherapistsOrderBy =
   | 'NATURAL'
@@ -352,6 +332,8 @@ export type FilesOrderBy =
   | 'ID_DESC'
   | 'NAME_ASC'
   | 'NAME_DESC'
+  | 'HASH_ASC'
+  | 'HASH_DESC'
   | 'PROTECTED_ASC'
   | 'PROTECTED_DESC'
   | 'CREATED_BY_ASC'
@@ -383,12 +365,14 @@ export type ClientsOrderBy =
   | 'CITY_DESC'
   | 'ADDRESS_ASC'
   | 'ADDRESS_DESC'
+  | 'NOTE_ASC'
+  | 'NOTE_DESC'
+  | 'DISCRETE_ASC'
+  | 'DISCRETE_DESC'
   | 'CREATED_BY_ASC'
   | 'CREATED_BY_DESC'
   | 'UPDATED_BY_ASC'
   | 'UPDATED_BY_DESC'
-  | 'DISCRETE_ASC'
-  | 'DISCRETE_DESC'
   | 'CREATED_AT_ASC'
   | 'CREATED_AT_DESC'
   | 'UPDATED_AT_ASC'

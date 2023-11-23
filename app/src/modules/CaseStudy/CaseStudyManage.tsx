@@ -7,20 +7,17 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
-
-import { Tooltip } from 'lib/Tooltip';
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
+import { Tooltip } from 'lib/Tooltip';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
+import { CaseStudyManage_caseStudy$key } from './__generated__/CaseStudyManage_caseStudy.graphql';
+import { CaseStudyManage_client$key } from './__generated__/CaseStudyManage_client.graphql';
 import { CaseStudyManageCreateMutation } from './__generated__/CaseStudyManageCreateMutation.graphql';
 import { CaseStudyManageDeleteMutation } from './__generated__/CaseStudyManageDeleteMutation.graphql';
 import { CaseStudyManageUpdateMutation } from './__generated__/CaseStudyManageUpdateMutation.graphql';
-import { CaseStudyManage_caseStudy$key } from './__generated__/CaseStudyManage_caseStudy.graphql';
-import { CaseStudyManage_client$key } from './__generated__/CaseStudyManage_client.graphql';
 
 export interface CaseStudyManageProps {
   client: CaseStudyManage_client$key;
@@ -56,49 +53,43 @@ export const CaseStudyManage: React.FC<CaseStudyManageProps> = (props) => {
     caseStudyRef,
   );
 
-  const [createCaseStudy] = usePromiseMutation<CaseStudyManageCreateMutation>(
-    graphql`
-      mutation CaseStudyManageCreateMutation($input: CreateCaseStudyInput!) {
-        createCaseStudy(input: $input) {
-          caseStudy {
+  const [createCaseStudy] = usePromiseMutation<CaseStudyManageCreateMutation>(graphql`
+    mutation CaseStudyManageCreateMutation($input: CreateCaseStudyInput!) {
+      createCaseStudy(input: $input) {
+        caseStudy {
+          rowId
+          client: clientByClientRowId @required(action: THROW) {
             rowId
-            client: clientByClientRowId @required(action: THROW) {
-              rowId
-              ...ClientCaseStudies_client
-            }
-            ...CaseStudyManage_caseStudy
-          }
-        }
-      }
-    `,
-  );
-
-  const [updateCaseStudy] = usePromiseMutation<CaseStudyManageUpdateMutation>(
-    graphql`
-      mutation CaseStudyManageUpdateMutation($input: UpdateCaseStudyInput!) {
-        updateCaseStudy(input: $input) {
-          caseStudy {
-            client: clientByClientRowId @required(action: THROW) {
-              ...ClientCaseStudies_client
-            }
-            ...CaseStudyManage_caseStudy
-          }
-        }
-      }
-    `,
-  );
-
-  const [deleteCaseStudy] = usePromiseMutation<CaseStudyManageDeleteMutation>(
-    graphql`
-      mutation CaseStudyManageDeleteMutation($input: DeleteCaseStudyInput!) {
-        deleteCaseStudy(input: $input) {
-          clientByClientRowId {
             ...ClientCaseStudies_client
           }
+          ...CaseStudyManage_caseStudy
         }
       }
-    `,
-  );
+    }
+  `);
+
+  const [updateCaseStudy] = usePromiseMutation<CaseStudyManageUpdateMutation>(graphql`
+    mutation CaseStudyManageUpdateMutation($input: UpdateCaseStudyInput!) {
+      updateCaseStudy(input: $input) {
+        caseStudy {
+          client: clientByClientRowId @required(action: THROW) {
+            ...ClientCaseStudies_client
+          }
+          ...CaseStudyManage_caseStudy
+        }
+      }
+    }
+  `);
+
+  const [deleteCaseStudy] = usePromiseMutation<CaseStudyManageDeleteMutation>(graphql`
+    mutation CaseStudyManageDeleteMutation($input: DeleteCaseStudyInput!) {
+      deleteCaseStudy(input: $input) {
+        clientByClientRowId {
+          ...ClientCaseStudies_client
+        }
+      }
+    }
+  `);
 
   const {
     register,

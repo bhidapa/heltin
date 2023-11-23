@@ -9,8 +9,8 @@
  *   - https://github.com/tj/node-cookie-signature
  *
  */
+import { createHmac, randomUUID, timingSafeEqual } from 'crypto';
 import { IncomingMessage, ServerResponse } from 'http';
-import { randomUUID, createHmac, timingSafeEqual } from 'crypto';
 import { parse as parseCookie, serialize as serializeCookie } from 'cookie';
 import { Pool } from 'pg';
 import db from './db';
@@ -153,10 +153,7 @@ export function createSession(props: CreateSessionProps) {
   // checks and gets rid of all expired sessions on startup and every 2 minutes
   async function deleteExpiredSessions() {
     try {
-      await db(pgPool).exec(
-        `delete from private.session where expires_at <= $1`,
-        new Date(),
-      );
+      await db(pgPool).exec(`delete from private.session where expires_at <= $1`, new Date());
     } catch (err) {
       console.error('Error while pruning expired sessions', err);
     }
@@ -184,10 +181,7 @@ export function createSession(props: CreateSessionProps) {
           return false;
         }
 
-        await db(pgPool).exec(
-          `delete from private.session where id = $1`,
-          reqs.session.id,
-        );
+        await db(pgPool).exec(`delete from private.session where id = $1`, reqs.session.id);
 
         // we expect no other cookies coming from graphql
         res.removeHeader('Set-Cookie');
@@ -248,9 +242,7 @@ export function createSession(props: CreateSessionProps) {
         }
 
         // we expect no other cookies coming from graphql
-        res.setHeader('Set-Cookie', [
-          serializeCookie(cookieName, sign(sessionId, secret), cookie),
-        ]);
+        res.setHeader('Set-Cookie', [serializeCookie(cookieName, sign(sessionId, secret), cookie)]);
 
         // only after everything succeded, set the session for the request
         // @ts-expect-error: I can write
@@ -301,9 +293,7 @@ export function createSession(props: CreateSessionProps) {
     }
 
     // parse and extract the relevant signed cookie value
-    const signedMessage = (
-      reqs.headers.cookie ? parseCookie(reqs.headers.cookie) : {}
-    )[cookieName];
+    const signedMessage = (reqs.headers.cookie ? parseCookie(reqs.headers.cookie) : {})[cookieName];
     if (!signedMessage) {
       return reqs;
     }
@@ -331,10 +321,7 @@ export function createSession(props: CreateSessionProps) {
 
     // get rid of expired, and disabled users, sessions right away
     if (result.disabled || Date.now() > result.expires_at) {
-      await db(pgPool).exec(
-        `delete from private.session where id = $1`,
-        sessionId,
-      );
+      await db(pgPool).exec(`delete from private.session where id = $1`, sessionId);
       return reqs;
     }
 
@@ -344,10 +331,7 @@ export function createSession(props: CreateSessionProps) {
   };
 }
 
-function prepareSession(
-  res: IncomingMessage | IncomingMessageWithSession,
-  state: SessionState,
-) {
+function prepareSession(res: IncomingMessage | IncomingMessageWithSession, state: SessionState) {
   for (const [key, val] of Object.entries(state)) {
     // @ts-expect-error that's ok
     res[key] = val;
@@ -363,12 +347,7 @@ function prepareSession(
  */
 function sign(value: string, secret: string): string {
   return (
-    value +
-    '.' +
-    createHmac('sha256', secret)
-      .update(value)
-      .digest('base64')
-      .replace(/\=+$/, '') // strip equal signs
+    value + '.' + createHmac('sha256', secret).update(value).digest('base64').replace(/\=+$/, '') // strip equal signs
   );
 }
 
@@ -387,8 +366,7 @@ function validateSignature(signed: string, secret: string): string | null {
 
   // valid if resigned message is equal to the original signed message compared with
   // an algorithm sutable for HMAC digests (which is what we use for signing)
-  return resignedValBuf.length === signedBuf.length &&
-    timingSafeEqual(resignedValBuf, signedBuf)
+  return resignedValBuf.length === signedBuf.length && timingSafeEqual(resignedValBuf, signedBuf)
     ? tentativeVal
     : null;
 }

@@ -4,10 +4,8 @@
  *
  */
 import React, { useCallback, useState } from 'react';
-
 import FocusTrap from 'focus-trap-react';
 import { Plugin } from 'tippy.js';
-
 import { Tooltip, TooltipProps } from 'lib/Tooltip';
 
 const hideOnEsc: Plugin = {

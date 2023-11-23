@@ -6,15 +6,10 @@
 import React from 'react';
 import { FormattedMessage, FormattedTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { Link, useMatch } from '@tanstack/react-location';
-
 import { Tooltip } from 'lib/Tooltip';
-
 import { FormattedDateTime } from 'intl/FormattedDateTime';
-
 import { LocationGenerics } from 'core/location';
-
 import { EventsTable_events$key } from './__generated__/EventsTable_events.graphql';
 
 export interface EventsTableProps {

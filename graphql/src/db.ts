@@ -13,10 +13,7 @@ export default function db(pool: Client | Pool) {
       const res = await pool.query(query, args);
       return res?.rows?.[0] ?? null;
     },
-    async queryRows<T extends unknown = unknown>(
-      query: string,
-      ...args: unknown[]
-    ): Promise<T[]> {
+    async queryRows<T extends unknown = unknown>(query: string, ...args: unknown[]): Promise<T[]> {
       const res = await pool.query(query, args);
       return res?.rows ?? [];
     },

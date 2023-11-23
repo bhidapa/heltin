@@ -7,11 +7,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FormattedMessage } from 'react-intl';
 import { graphql, usePreloadedQuery } from 'react-relay';
-
 import { useMatch } from '@tanstack/react-location';
-
 import { BackButton, Breadcrumbs, LocationGenerics } from 'core/location';
-
 import { UserManage } from 'modules/User/UserManage';
 
 export interface UsersCreatePageProps {}

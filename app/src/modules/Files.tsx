@@ -7,22 +7,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { commitLocalUpdate, graphql, useFragment, useRelayEnvironment } from 'react-relay';
-
 import { Link } from '@tanstack/react-location';
-
-import { Tooltip } from 'lib/Tooltip';
 import { usePromiseMutation } from 'lib/relay';
-import { buildHeaders, checkResponse } from 'lib/request';
-import { REQUEST_ID_HEADER_KEY } from 'lib/request';
+import { buildHeaders, checkResponse, REQUEST_ID_HEADER_KEY } from 'lib/request';
 import { deleteToast, fileUploadToast } from 'lib/toasts';
+import { Tooltip } from 'lib/Tooltip';
 import { useConfirm } from 'lib/useConfirm';
 import { usePendingFileUploadsPrompt } from 'lib/usePrompt';
 import { genUUID } from 'lib/uuid';
-
 import { relativeTime } from 'intl/relativeTime';
-
-import { FilesUploadFileRowGetAfterUploadMutation } from './__generated__/FilesUploadFileRowGetAfterUploadMutation.graphql';
 import { Files_files$key } from './__generated__/Files_files.graphql';
+import { FilesUploadFileRowGetAfterUploadMutation } from './__generated__/FilesUploadFileRowGetAfterUploadMutation.graphql';
 
 export interface FilesProps {
   filesConnectionId: string;

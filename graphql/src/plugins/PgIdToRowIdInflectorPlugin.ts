@@ -26,8 +26,8 @@
  *  `languageIdiomatics` -> `languageIdiomatics` (will stay the same if `Id` is suffixed with a lowercase letter)
  *  `language_idiomatics` -> `language_idiomatics` (will stay the same if `id` is NOT suffixed with an underscore)
  */
-import { makeAddInflectorsPlugin } from 'graphile-utils';
 import { camelCase, PgAttribute, PgProc } from 'graphile-build-pg';
+import { makeAddInflectorsPlugin } from 'graphile-utils';
 
 function replaceIdWithRowId(str: string) {
   return str

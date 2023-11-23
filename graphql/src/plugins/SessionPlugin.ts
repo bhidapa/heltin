@@ -3,10 +3,10 @@
  * SessionPlugin
  *
  */
-import { makeExtendSchemaPlugin, gql } from 'graphile-utils';
-import { writeInternalError } from '../utils';
-import { Context } from '../index';
+import { gql, makeExtendSchemaPlugin } from 'graphile-utils';
 import db from '../db';
+import { Context } from '../index';
+import { writeInternalError } from '../utils';
 
 export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
   typeDefs: gql`
@@ -59,28 +59,18 @@ export const SessionPlugin = makeExtendSchemaPlugin((build) => ({
         }
 
         await db(pgClient).exec('set role viewer');
-        await db(pgClient).exec(
-          'select set_config($1, $2, true)',
-          'session.user_id',
-          user.id,
-        );
+        await db(pgClient).exec('select set_config($1, $2, true)', 'session.user_id', user.id);
 
         const sql = build.pgSql;
         const [data] = await selectGraphQLResultFromTable(
           sql.fragment`public.user`,
           (tableAlias, sqlBuilder) => {
-            sqlBuilder.where(
-              sql.fragment`${tableAlias}.id = ${sql.value(user.id)}`,
-            );
+            sqlBuilder.where(sql.fragment`${tableAlias}.id = ${sql.value(user.id)}`);
           },
         );
         return { query: build.$$isQuery, data };
       },
-      async logout(
-        _parent,
-        _args,
-        { req, pgClient }: Context,
-      ): Promise<boolean> {
+      async logout(_parent, _args, { req, pgClient }: Context): Promise<boolean> {
         await db(pgClient).exec('set role anonymous');
         await db(pgClient).exec('reset session.user_id');
         return await req.deleteSession();

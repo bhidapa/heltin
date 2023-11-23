@@ -4,10 +4,8 @@
  *
  */
 import React, { useEffect, useRef, useState } from 'react';
-
 import { useRouter } from '@tanstack/react-location';
-
-import { LocationGenerics, location } from 'core/location';
+import { location, LocationGenerics } from 'core/location';
 
 export interface RootRestoreScrollProps {
   children: (setEl: (el: HTMLDivElement | null) => void) => React.ReactElement;

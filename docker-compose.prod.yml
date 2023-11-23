@@ -1,8 +1,8 @@
 volumes:
   server-certs:
-    driver: "local"
+    driver: 'local'
   heltin-data:
-    driver: "local"
+    driver: 'local'
 
 services:
   database:

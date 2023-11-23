@@ -4,7 +4,6 @@
  *
  */
 import React, { Suspense } from 'react';
-
 import { ErrBoundary } from './ErrBoundary';
 import { PleaseWait } from './PleaseWait';
 

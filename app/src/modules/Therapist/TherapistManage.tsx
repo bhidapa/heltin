@@ -7,27 +7,22 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { FormattedMessage, FormattedRelativeTime } from 'react-intl';
 import { graphql, useFragment } from 'react-relay';
-
 import { useNavigate } from '@tanstack/react-location';
-
 import { usePromiseMutation } from 'lib/relay';
 import { createToast, deleteToast, saveToast } from 'lib/toasts';
 import { useConfirm } from 'lib/useConfirm';
 import { useUnsavedChangesPrompt } from 'lib/usePrompt';
-
 import { relativeTime } from 'intl/relativeTime';
-
 import { AutocompleteUser } from 'modules/Autocomplete/AutocompleteUser';
-
 import { GenderSelectOptions } from '../GenderSelectOptions';
-import { TherapistManageCreateMutation } from './__generated__/TherapistManageCreateMutation.graphql';
-import { TherapistManageDeleteMutation } from './__generated__/TherapistManageDeleteMutation.graphql';
-import { TherapistManageUpdateMutation } from './__generated__/TherapistManageUpdateMutation.graphql';
 import { TherapistManage_query$key } from './__generated__/TherapistManage_query.graphql';
 import {
   Gender,
   TherapistManage_therapist$key,
 } from './__generated__/TherapistManage_therapist.graphql';
+import { TherapistManageCreateMutation } from './__generated__/TherapistManageCreateMutation.graphql';
+import { TherapistManageDeleteMutation } from './__generated__/TherapistManageDeleteMutation.graphql';
+import { TherapistManageUpdateMutation } from './__generated__/TherapistManageUpdateMutation.graphql';
 
 export interface TherapistManageProps {
   query: TherapistManage_query$key;

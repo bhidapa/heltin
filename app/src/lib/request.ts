@@ -4,7 +4,6 @@
  *
  */
 import { getReturnTo, location } from 'core/location';
-
 import { genUUID } from './uuid';
 
 export const REQUEST_ID_HEADER_KEY = 'X-Request-ID';

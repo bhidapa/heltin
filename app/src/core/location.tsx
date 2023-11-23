@@ -8,24 +8,21 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { PreloadedQuery } from 'react-relay';
-
 import { Link, MakeGenerics, ReactLocation, useRouter } from '@tanstack/react-location';
-
-import { ClientsCaseStudiesCreatePageQuery } from 'core/pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesCreatePageQuery.graphql';
 import { ClientsCreatePageQuery } from 'core/pages/ClientsPage/__generated__/ClientsCreatePageQuery.graphql';
 import { ClientsDetailsPageQuery } from 'core/pages/ClientsPage/__generated__/ClientsDetailsPageQuery.graphql';
 import { ClientsPageQuery } from 'core/pages/ClientsPage/__generated__/ClientsPageQuery.graphql';
+import { ClientsCaseStudiesCreatePageQuery } from 'core/pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesCreatePageQuery.graphql';
 import { TherapistsCreatePageQuery } from 'core/pages/TherapistsPage/__generated__/TherapistsCreatePageQuery.graphql';
 import { TherapistsDetailsPageQuery } from 'core/pages/TherapistsPage/__generated__/TherapistsDetailsPageQuery.graphql';
 import { TherapistsPageQuery } from 'core/pages/TherapistsPage/__generated__/TherapistsPageQuery.graphql';
-
-import { ClientsCaseStudiesFormsFillPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsFillPageQuery.graphql';
-import { ClientsCaseStudiesFormsResponsePageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsResponsePageQuery.graphql';
 import { ClientsCaseStudiesConclusionCreatePageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesConclusionCreatePageQuery.graphql';
 import { ClientsCaseStudiesConclusionDetailsPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesConclusionDetailsPageQuery.graphql';
 import { ClientsCaseStudiesDetailsPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesDetailsPageQuery.graphql';
 import { ClientsCaseStudiesTreatmentsCreatePageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsCreatePageQuery.graphql';
 import { ClientsCaseStudiesTreatmentsDetailsPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/__generated__/ClientsCaseStudiesTreatmentsDetailsPageQuery.graphql';
+import { ClientsCaseStudiesFormsFillPageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsFillPageQuery.graphql';
+import { ClientsCaseStudiesFormsResponsePageQuery } from './pages/ClientsPage/ClientsCaseStudiesPage/ClientsCaseStudiesFormsPage/__generated__/ClientsCaseStudiesFormsResponsePageQuery.graphql';
 import { UsersCreatePageQuery } from './pages/UsersPage/__generated__/UsersCreatePageQuery.graphql';
 import { UsersDetailsPageQuery } from './pages/UsersPage/__generated__/UsersDetailsPageQuery.graphql';
 import { UsersPageQuery } from './pages/UsersPage/__generated__/UsersPageQuery.graphql';

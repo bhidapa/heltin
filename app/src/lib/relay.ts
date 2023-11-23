@@ -4,8 +4,7 @@
  *
  */
 import { useCallback } from 'react';
-import { UseMutationConfig, useMutation } from 'react-relay';
-
+import { useMutation, UseMutationConfig } from 'react-relay';
 import { GraphQLTaggedNode, MutationParameters } from 'relay-runtime';
 
 export { graphql } from 'react-relay';

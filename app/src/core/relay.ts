@@ -4,7 +4,6 @@
  *
  */
 import { Environment, Network, Observable, RecordSource, Store } from 'relay-runtime';
-
 import { buildHeaders, checkResponse } from 'lib/request';
 
 export const environment = new Environment({

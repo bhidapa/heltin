@@ -24,6 +24,7 @@ export function relay(): Plugin {
           map: out.map,
         };
       }
+      return void 0;
     },
   };
 }

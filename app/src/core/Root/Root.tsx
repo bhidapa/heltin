@@ -5,24 +5,19 @@
  */
 import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay';
-
+import { graphql, PreloadedQuery, usePreloadedQuery } from 'react-relay';
 import { Link, Outlet, Router } from '@tanstack/react-location';
-
 import { Boundary } from 'lib/Boundary';
 import { Dropdown } from 'lib/Dropdown';
 import { PleaseWait } from 'lib/PleaseWait';
 import { useDarkMode } from 'lib/useDarkMode';
-
 import { Locale, useLocale } from 'intl/locale';
-
 import { location } from 'core/location';
 import { getRoutes } from 'core/routes';
-
+import { RootQuery } from './__generated__/RootQuery.graphql';
 import { Logo } from './Logo';
 import { RootRestoreScroll } from './RootRestoreScroll';
 import { RootSearch } from './RootSearch';
-import { RootQuery } from './__generated__/RootQuery.graphql';
 
 // viewer fragment for authenticating
 graphql`

@@ -3,10 +3,8 @@
  * IntlProvider
  *
  */
-import React, { useEffect } from 'react';
-import { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { IntlProvider as ReactIntlProvider } from 'react-intl';
-
 import { Locale, LocaleContext, LocaleContextValue, retrieveLocale, storeLocale } from './locale';
 import { Messages } from './messages';
 
@@ -57,7 +55,7 @@ export const IntlProvider: React.FC<IntlProviderProps> = ({
           `intl: key "${key}" already has a "hr" message, replacing "${hr[key]}" with "${value.hr}"`,
         );
       }
-      hr[key] = value.hr || messages[key].en;
+      hr[key] = value.hr || messages[key]?.en || '';
     }
 
     return { en, hr };

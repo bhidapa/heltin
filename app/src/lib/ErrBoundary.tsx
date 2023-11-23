@@ -7,13 +7,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 export class ErrBoundary extends React.PureComponent<{ children: React.ReactElement }> {
-  state: { error: Error | null } = { error: null };
+  override state: { error: Error | null } = { error: null };
 
   static getDerivedStateFromError(error: Error) {
     return { error };
   }
 
-  public render() {
+  override render() {
     const { error } = this.state;
     if (error) {
       return (
