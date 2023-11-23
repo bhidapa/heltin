@@ -1,7 +1,8 @@
 <br>
-  <h3 align="center">
-    heltin
-  </h3>
+  <div align="center">
+    <img src="/assets/logo-full.svg" style="width: 256px" />
+  </div>
+  <br>
   <p align="center">
     Interdisciplinary registry for a holistic view on mental health.
   </p>
