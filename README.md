@@ -4,7 +4,7 @@
   </div>
   <br>
   <p align="center">
-    Interdisciplinary registry for a holistic view on mental health.
+    Interdisciplinary registry for a holistic view on mental health
   </p>
   <p align="center">
     <a href="https://www.docker.com/">Docker</a>
