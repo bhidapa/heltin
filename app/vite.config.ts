@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import browserslist from 'browserslist';
 import { defineConfig, loadEnv } from 'vite';
+import svgr from 'vite-plugin-svgr';
 import typescriptPaths from 'vite-tsconfig-paths';
 import { relay } from './vite-plugin-relay';
 
@@ -29,7 +30,7 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
-    plugins: [typescriptPaths(), react(), relay()],
+    plugins: [typescriptPaths(), react(), svgr(), relay()],
     build: {
       outDir: `${__dirname}/build`,
       rollupOptions: {

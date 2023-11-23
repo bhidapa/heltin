@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-svgr/client" />
 
 // see vite.config.ts
 declare const SUPPORTED_BROWSERS: string[];

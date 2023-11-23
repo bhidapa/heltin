@@ -14,8 +14,8 @@ import { useDarkMode } from 'lib/useDarkMode';
 import { Locale, useLocale } from 'intl/locale';
 import { location } from 'core/location';
 import { getRoutes } from 'core/routes';
+import Logo from '../../assets/logo.svg?react';
 import { RootQuery } from './__generated__/RootQuery.graphql';
-import { Logo } from './Logo';
 import { RootRestoreScroll } from './RootRestoreScroll';
 import { RootSearch } from './RootSearch';
 
@@ -91,7 +91,7 @@ export const Root: React.FC<RootProps> = (props) => {
               </div>
 
               <Link to="/" className="navbar-brand ml-10 ml-sm-20">
-                <Logo style={{ height: 32 }} />
+                <Logo style={{ height: 32, fill: 'var(--primary-color)' }} />
               </Link>
 
               <div className="navbar-content ml-auto">
