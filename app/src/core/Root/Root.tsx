@@ -65,7 +65,7 @@ export const Root: React.FC<RootProps> = (props) => {
       defaultPendingMs={1_000}
       defaultPendingElement={<PleaseWait />}
       location={location}
-      routes={getRoutes(viewer)}
+      routes={getRoutes(viewer || null)}
     >
       <div
         id="page-wrapper"
