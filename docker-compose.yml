@@ -1,8 +1,8 @@
 volumes:
   database-data:
-    driver: 'local'
+    driver: local
   pgbackrest-repo:
-    driver: 'local'
+    driver: local
 
 networks:
   local:
