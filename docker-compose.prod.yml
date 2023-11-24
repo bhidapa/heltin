@@ -19,10 +19,8 @@ services:
       - SERVER_TLS_PORT=443
       - CERT_DIR=/srv/certs
       - APP_DOMAINS=${APP_DOMAINS}
-      - FILE_DIR=/var/heltin-data
     volumes:
       - server-certs:/srv/certs
-      - heltin-data:/var/heltin-data # cannot use ${FILE_DIR} because it takes it from .env
     ports:
       - 80:80
       - 443:443

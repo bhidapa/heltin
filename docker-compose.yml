@@ -79,6 +79,9 @@ services:
       - GOTENBERG_HOST=gotenberg
       - GOTENBERG_PORT=${GOTENBERG_PORT}
       - GRAPHQL_ENDPOINT=http://graphql:${GRAPHQL_PORT}/graphql
+      - FILE_DIR=/var/heltin-data
+    volumes:
+      - ${FILE_DIR}:/var/heltin-data
     healthcheck:
       test: curl -f http://localhost:$$SERVER_PORT/index.html?healthcheck || exit 1
       interval: 7s

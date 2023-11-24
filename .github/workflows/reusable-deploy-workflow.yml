@@ -21,6 +21,8 @@ on:
         required: true
       PGBACKREST_CONF_PATH:
         required: true
+      FILE_DIR:
+        required: true
 
 jobs:
   deploy:
@@ -65,4 +67,5 @@ jobs:
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           PGBACKREST_CONF_PATH: ${{ secrets.PGBACKREST_CONF_PATH }}
+          FILE_DIR: ${{ secrets.FILE_DIR }}
         run: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --wait --wait-timeout 180
