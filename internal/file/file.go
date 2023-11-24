@@ -63,6 +63,7 @@ func Write(ctx context.Context, id uu.ID, file fs.FileReader) (fsfile fs.File, e
 	if err != nil {
 		return "", err
 	}
+	defer w.Close()
 
 	_, err = file.WriteTo(w)
 	if err != nil {
