@@ -61,7 +61,7 @@ export function SignUpForm() {
         const values = {
           name: data.get('name').toString(),
           email: data.get('email').toString(),
-          note: data.get('note').toString(),
+          notes: data.get('notes').toString(),
         };
 
         setState('pending');
@@ -108,8 +108,8 @@ export function SignUpForm() {
       </div>
       <div>
         <textarea
-          id="SignUpForm_note"
-          name="note"
+          id="SignUpForm_notes"
+          name="notes"
           required
           placeholder="Write down your use-case and expectations..."
           className="min-h-[120px] bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
