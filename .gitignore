@@ -8,7 +8,10 @@
 **/.yarn/*
 !**/.yarn/releases
 !**/.yarn/plugins
+**/.next
+tsconfig.tsbuildinfo
 .gitsecret/keys/random_seed
 secrets/*
 !secrets/*.secret
 **/database_data_dump*
+website/out/

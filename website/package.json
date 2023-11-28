@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "website",
+  "scripts": {
+    "start": "next",
+    "build": "next build",
+    "check:type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@theguild/components": "6.1.0-alpha-20231123155316-a66de54",
+    "clsx": "^2.0.0",
+    "next": "^14.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@theguild/tailwind-config": "^0.3.0",
+    "@types/node": "^20.9.4",
+    "@types/react": "^18.2.38",
+    "typescript": "^5.3.2"
+  }
+}
