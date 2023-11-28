@@ -10,11 +10,13 @@ COPY yarn.lock .
 COPY package.json .
 COPY graphql/package.json ./graphql/package.json
 COPY app/package.json ./app/package.json
+COPY website/package.json ./website/package.json
 RUN yarn install --immutable
 
 # build
 COPY graphql ./graphql
 COPY app ./app
+COPY website ./website
 COPY tsconfig.json .
 RUN yarn workspace graphql build
 
