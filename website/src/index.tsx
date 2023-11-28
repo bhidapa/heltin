@@ -119,7 +119,7 @@ export function Index() {
           </div>
         </div>
 
-        <div className="flex p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
+        <div className="flex justify-center p-6 mx-auto sm:w-full md:w-11/12 lg:w-4/6">
           <div className="flex flex-col justify-center items-center bg-white dark:bg-black rounded-lg p-12 border dark:border-gray-800 border-gray-400">
             <h3 className="text-2xl text-center text-blue-500">
               <b>Sign Up for Early Access!</b>
