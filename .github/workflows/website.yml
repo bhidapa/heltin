@@ -30,6 +30,9 @@ jobs:
         run: yarn install
       - name: Deploy
         uses: the-guild-org/shared-config/website-cf@main
+        env:
+          NEXT_BASE_PATH: ${{ github.ref == 'refs/heads/main' && '/heltin' || '' }}
+          SITE_URL: ${{ github.ref == 'refs/heads/main' && 'https://the-guild.dev/heltin' || '' }}
         with:
           cloudflareApiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           cloudflareAccountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
