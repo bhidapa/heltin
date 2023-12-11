@@ -8,7 +8,7 @@ export function relay(): Plugin {
     transform(src, filePath) {
       if (
         !filePath.includes('node_modules') &&
-        /.tsx?$/.test(filePath) &&
+        /\.tsx?$/.test(filePath) &&
         src.includes('graphql`')
       ) {
         const out = transformSync(src, {
