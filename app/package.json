@@ -20,7 +20,6 @@
     "downshift": "^8.2.3",
     "focus-trap-react": "^10.2.3",
     "print-js": "^1.6.0",
-    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
@@ -37,7 +36,6 @@
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@types/babel__core": "^7.20.5",
-    "@types/prop-types": "^15.7.11",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "@types/react-relay": "^16.0.4",
