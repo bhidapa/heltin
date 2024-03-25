@@ -59,9 +59,9 @@ export function SignUpForm() {
 
         const data = new FormData(e.currentTarget);
         const values = {
-          name: data.get('name').toString(),
-          email: data.get('email').toString(),
-          notes: data.get('notes').toString(),
+          name: data.get('name')?.toString() || '',
+          email: data.get('email')?.toString() || '',
+          notes: data.get('notes')?.toString() || '',
         };
 
         setState('pending');
