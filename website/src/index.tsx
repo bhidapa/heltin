@@ -42,34 +42,34 @@ import { Anchor, Image } from '@theguild/components';
 import clsx from 'clsx';
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/router';
-import logoFullSvg from 'public/logo-full.svg';
-import assistantsDetailsDarkImage from 'public/screenshots/assistants_details_dark.png';
-import assistantsDetailsLightImage from 'public/screenshots/assistants_details_light.png';
-import caseStudiesDetailsAssignedTherapistsDarkImage from 'public/screenshots/case_studies_details_assigned_therapists_dark.png';
-import caseStudiesDetailsAssignedTherapistsLightImage from 'public/screenshots/case_studies_details_assigned_therapists_light.png';
-import caseStudiesDetailsDarkImage from 'public/screenshots/case_studies_details_dark.png';
-import caseStudiesDetailsLightImage from 'public/screenshots/case_studies_details_light.png';
+import logoFullSvg from '../public/logo-full.svg';
+import assistantsDetailsDarkImage from '../public/screenshots/assistants_details_dark.png';
+import assistantsDetailsLightImage from '../public/screenshots/assistants_details_light.png';
+import caseStudiesDetailsAssignedTherapistsDarkImage from '../public/screenshots/case_studies_details_assigned_therapists_dark.png';
+import caseStudiesDetailsAssignedTherapistsLightImage from '../public/screenshots/case_studies_details_assigned_therapists_light.png';
+import caseStudiesDetailsDarkImage from '../public/screenshots/case_studies_details_dark.png';
+import caseStudiesDetailsLightImage from '../public/screenshots/case_studies_details_light.png';
 // screenshots
-import clientsDarkImage from 'public/screenshots/clients_dark.png';
-import clientsDetailsAssignedTherapistsDarkImage from 'public/screenshots/clients_details_assigned_therapists_dark.png';
-import clientsDetailsAssignedTherapistsLightImage from 'public/screenshots/clients_details_assigned_therapists_light.png';
-import clientsDetailsDarkImage from 'public/screenshots/clients_details_dark.png';
-import clientsDetailsLightImage from 'public/screenshots/clients_details_light.png';
-import clientsLightImage from 'public/screenshots/clients_light.png';
-import conclusionDetailsDarkImage from 'public/screenshots/conclusion_details_dark.png';
-import conclusionDetailsLightImage from 'public/screenshots/conclusion_details_light.png';
-import desktopClientsDarkImage from 'public/screenshots/desktop_clients_dark.png';
-import desktopClientsLightImage from 'public/screenshots/desktop_clients_light.png';
-import formsResponseDarkImage from 'public/screenshots/forms_response_dark.png';
-import formsResponseLightImage from 'public/screenshots/forms_response_light.png';
-import mobileClientsDarkImage from 'public/screenshots/mobile_clients_dark.png';
-import mobileClientsLightImage from 'public/screenshots/mobile_clients_light.png';
-import tabletClientsDarkImage from 'public/screenshots/tablet_clients_dark.png';
-import tabletClientsLightImage from 'public/screenshots/tablet_clients_light.png';
-import therapistsDetailsDarkImage from 'public/screenshots/therapists_details_dark.png';
-import therapistsDetailsLightImage from 'public/screenshots/therapists_details_light.png';
-import treatmentsDetailsDarkImage from 'public/screenshots/treatments_details_dark.png';
-import treatmentsDetailsLightImage from 'public/screenshots/treatments_details_light.png';
+import clientsDarkImage from '../public/screenshots/clients_dark.png';
+import clientsDetailsAssignedTherapistsDarkImage from '../public/screenshots/clients_details_assigned_therapists_dark.png';
+import clientsDetailsAssignedTherapistsLightImage from '../public/screenshots/clients_details_assigned_therapists_light.png';
+import clientsDetailsDarkImage from '../public/screenshots/clients_details_dark.png';
+import clientsDetailsLightImage from '../public/screenshots/clients_details_light.png';
+import clientsLightImage from '../public/screenshots/clients_light.png';
+import conclusionDetailsDarkImage from '../public/screenshots/conclusion_details_dark.png';
+import conclusionDetailsLightImage from '../public/screenshots/conclusion_details_light.png';
+import desktopClientsDarkImage from '../public/screenshots/desktop_clients_dark.png';
+import desktopClientsLightImage from '../public/screenshots/desktop_clients_light.png';
+import formsResponseDarkImage from '../public/screenshots/forms_response_dark.png';
+import formsResponseLightImage from '../public/screenshots/forms_response_light.png';
+import mobileClientsDarkImage from '../public/screenshots/mobile_clients_dark.png';
+import mobileClientsLightImage from '../public/screenshots/mobile_clients_light.png';
+import tabletClientsDarkImage from '../public/screenshots/tablet_clients_dark.png';
+import tabletClientsLightImage from '../public/screenshots/tablet_clients_light.png';
+import therapistsDetailsDarkImage from '../public/screenshots/therapists_details_dark.png';
+import therapistsDetailsLightImage from '../public/screenshots/therapists_details_light.png';
+import treatmentsDetailsDarkImage from '../public/screenshots/treatments_details_dark.png';
+import treatmentsDetailsLightImage from '../public/screenshots/treatments_details_light.png';
 import { SignUpForm } from './SignUpForm';
 
 const gradients: [string, string][] = [
@@ -1064,7 +1064,7 @@ function Accordion({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const detailsRef = useRef<HTMLDetailsElement>();
+  const detailsRef = useRef<HTMLDetailsElement | null>(null);
   useEffect(() => {
     const elId = router.asPath.split('#')?.[1];
     if (!elId) {
